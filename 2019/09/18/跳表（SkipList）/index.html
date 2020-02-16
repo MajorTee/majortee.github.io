@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>跳表（SkipList） · HeeC'Blog</title><meta name="description" content="二分查找和AVL树查找二分查找要求元素可以随机访问，所以决定了需要把元素存储在连续内存。这样查找确实很快，但是插入和删除元素的时候，为了保证元素的有序性，就需要大量的移动元素了。如果需要的是一个能够进行二分查找，又能快速添加和删除元素的数据结构，首先就是二叉查找树，二叉查找树在最坏情况下可能变成一个"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>跳表（SkipList）</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-09-18</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/底层实现/" title="底层实现" class="a-tag">底层实现</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/数据结构/" title="数据结构" class="a-tag">数据结构</a><span>&nbsp;</span></span></p><p class="post-abstract"><h2 id="二分查找和AVL树查找"><a href="#二分查找和AVL树查找" class="headerlink" title="二分查找和AVL树查找"></a>二分查找和AVL树查找</h2><p>二分查找要求元素可以随机访问，所以决定了需要把元素存储在连续内存。这样查找确实很快，但是插入和删除元素的时候，为了保证元素的有序性，就需要大量的移动元素了。<br>如果需要的是一个能够进行<font color=red>二分查找</font>，又能<font color=red>快速添加和删除元素</font>的数据结构，首先就是二叉查找树，二叉查找树在最坏情况下可能变成一个链表。<br>于是，就出现了平衡二叉树，根据平衡算法的不同有AVL树，B-Tree，B+Tree，红黑树等，但是AVL树实现起来比较复杂，平衡操作较难理解，这时候就可以用SkipList跳跃表结构。</p>
+<h2 id="什么是跳表"><a href="#什么是跳表" class="headerlink" title="什么是跳表"></a>什么是跳表</h2><p>传统意义的单链表是一个线性结构，向有序的链表中插入一个节点需要O(n)的时间，查找操作需要O(n)的时间。</p>
+<a id="more"></a>
+<p>跳跃表的简单示例：</p>
+<p><img src="https://github.com/MajorTee/markdp/raw/master/Markdown%20Photos/tiaobiaoshili.jpg" alt="img"></p>
+<p>如果我们使用上图所示的跳跃表，就可以减少查找所需时间为O(n/2)，因为我们可以先通过每个节点的最上面的指针先进行查找，这样子就能跳过一半的节点。</p>
+<p>比如我们想查找19，首先和6比较，大于6之后，在和9进行比较，然后在和12进行比较……最后比较到21的时候，发现21大于19，说明查找的点在17和21之间，从这个过程中，我们可以看出，查找的时候跳过了3、7、12等点，因此查找的复杂度为O(n/2)。</p>
+<p>查找的过程如下图：</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/chazhaoguocheng.jpg" alt="img"></p>
+<p>其实，上面基本上就是跳跃表的思想，每一个结点不单单只包含指向下一个结点的指针，可能包含很多个指向后续结点的指针，这样就可以跳过一些不必要的结点，从而加快查找、删除等操作。对于一个链表内每一个结点包含多少个指向后续元素的指针，后续节点个数是通过一个随机函数生成器得到，这样子就构成了一个跳跃表。</p>
+<p>随机生成的跳跃表可能如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/suijitiaobiao.jpg" alt="img"></p>
+<p>跳跃表其实也是一种通过“<font color=red>空间来换取时间</font>”的一个算法，通过在每个节点中增加了向前的指针，从而提升查找的效率。</p>
+<p>“Skip lists are data structures  that use probabilistic  balancing rather  than  strictly  enforced balancing. As a result, the algorithms  for insertion  and deletion in skip lists  are much simpler and significantly  faster  than  equivalent  algorithms  for balanced trees.  ”</p>
+<blockquote>
+<p>译文：跳跃表使用<font color=red>概率均衡技术</font>而不是使用强制性均衡技术，<font color=red>因此，对于插入和删除结点比传统上的平衡树算法更为简洁高效</font>。 </p>
+</blockquote>
+<p>跳表是一种随机化的数据结构，目前开源软件 Redis 和 LevelDB 都有用到它。</p>
+<h2 id="SkipList的操作"><a href="#SkipList的操作" class="headerlink" title="SkipList的操作"></a>SkipList的操作</h2><h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>查找就是给定一个key，查找这个key是否出现在跳跃表中，如果出现，则返回其值，如果不存在，则返回不存在。我们结合一个图就是讲解查找操作，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/chazhao1.jpg" alt="img"></p>
+<p>如果我们想查找19是否存在？如何查找呢？我们从头结点开始，首先和9进行判断，此时大于9，然后和21进行判断，小于21，此时这个值肯定在9结点和21结点之间，此时，我们和17进行判断，大于17，然后和21进行判断，小于21，此时肯定在17结点和21结点之间，此时和19进行判断，找到了。具体的示意图如图所示：</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/chazhao2" alt="img"></p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>插入包含如下几个操作：1、查找到需要插入的位置   2、申请新的结点    3、调整指针。<br>我们结合下图进行讲解，查找路径如下图的灰色的线所示  申请新的结点如17结点所示， 调整指向新结点17的指针以及17结点指向后续结点的指针。这里有一个小技巧，就是使用update数组保存大于17结点的位置，update数组的内容如红线所示，这些位置才是有可能更新指针的位置。</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/charu.png" alt="img"></p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>删除操作类似于插入操作，包含如下3步：</p>
+<ol>
+<li>查找到需要删除的结点 </li>
+<li>删除结点</li>
+<li>调整指针</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/delete.png" alt="img"></p>
+<p><strong>Key-Value数据结构</strong><br>目前常用的key-value数据结构有三种：Hash表、红黑树、SkipList，它们各自有着不同的优缺点（不考虑删除操作）：<br>Hash表：插入、查找最快，为O(1)；如使用链表实现则可实现无锁；数据有序化需要显式的排序操作。<br>红黑树：插入、查找为O(logn)，但常数项较小；无锁实现的复杂性很高，一般需要加锁；数据天然有序。<br>SkipList：插入、查找为O(logn)，但常数项比红黑树要大；底层结构为链表，可无锁实现；数据天然有序。</p>
+<p>如果要实现一个key-value结构，需求的功能有插入、查找、迭代、修改，那么首先Hash表就不是很适合了，因为迭代的时间复杂度比较高；而红黑树的插入很可能会涉及多个结点的旋转、变色操作，因此需要在外层加锁，这无形中降低了它可能的并发度。而SkipList底层是用链表实现的，可以实现为lock free，同时它还有着不错的性能（单线程下只比红黑树略慢），非常适合用来实现我们需求的那种key-value结构。<br>LevelDB、Reddis的底层存储结构就是用的SkipList。</p>
+<h2 id="基于锁的并发"><a href="#基于锁的并发" class="headerlink" title="基于锁的并发"></a>基于锁的并发</h2><h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ol>
+<li>编程模型简单，如果小心控制上锁顺序，一般来说不会有死锁的问题；</li>
+<li>可以通过调节锁的粒度来调节性能。<h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3></li>
+<li>所有基于锁的算法都有死锁的可能；</li>
+<li>上锁和解锁时进程要从用户态切换到内核态，并可能伴随有线程的调度、上下文切换等，开销比较重；</li>
+<li>对共享数据的读与写之间会有互斥。<h2 id="无锁编程（lock-free）"><a href="#无锁编程（lock-free）" class="headerlink" title="无锁编程（lock free）"></a>无锁编程（lock free）</h2>常见的lock free编程一般是基于CAS(Compare And Swap)操作：CAS(void <em>ptr, Any oldValue, Any newValue);<br>即查看内存地址ptr处的值，如果为oldValue则将其改为newValue，并返回true，否则返回false。X86平台上的CAS操作一般是通过CPU的CMPXCHG指令来完成的。CPU在执行此指令时会首先锁住CPU总线，禁止其它核心对内存的访问，然后再查看或修改</em>ptr的值。简单的说CAS利用了CPU的硬件锁来实现对共享资源的串行使用。<h3 id="优点：-1"><a href="#优点：-1" class="headerlink" title="优点："></a>优点：</h3></li>
+<li>开销较小：不需要进入内核，不需要切换线程；</li>
+<li>没有死锁：总线锁最长持续为一次read+write的时间；</li>
+<li>只有写操作需要使用CAS，读操作与串行代码完全相同，可实现读写不互斥。<h3 id="缺点：-1"><a href="#缺点：-1" class="headerlink" title="缺点："></a>缺点：</h3></li>
+<li>编程非常复杂，两行代码之间可能发生任何事，很多常识性的假设都不成立。</li>
+<li>CAS模型覆盖的情况非常少，无法用CAS实现原子的复数操作。</li>
+</ol>
+<p>而在性能层面上，CAS与mutex/readwrite lock各有千秋，简述如下：</p>
+<ol>
+<li>单线程下CAS的开销大约为10次加法操作，mutex的上锁+解锁大约为20次加法操作，而readwrite lock的开销则更大一些。</li>
+<li>CAS的性能为固定值，而mutex则可以通过改变临界区的大小来调节性能；</li>
+<li>如果临界区中真正的修改操作只占一小部分，那么用CAS可以获得更大的并发度。</li>
+<li>多核CPU中线程调度成本较高，此时更适合用CAS。<br>跳表和红黑树的性能相当，最主要的优势就是当调整(插入或删除)时，红黑树需要使用旋转来维护平衡性，这个操作需要动多个节点，在并发时候很难控制。而跳表插入或删除时只需定位后插入，插入时只需添加插入的那个节点及其多个层的复制，以及定位和插入的原子性维护。所以它更加可以利用CAS操作来进行无锁编程。</li>
+</ol>
+<h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><p>JDK为我们提供了很多Map接口的实现，使得我们可以方便地处理Key-Value的数据结构。</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/ConcurrentHashMap.jpg" alt="img"></p>
+<p>当我们希望快速存取&lt;Key, Value&gt;键值对时我们可以使用HashMap。<br>当我们希望在多线程并发存取&lt;Key, Value&gt;键值对时，我们会选择ConcurrentHashMap。<br>TreeMap则会帮助我们保证数据是按照Key的自然顺序或者compareTo方法指定的排序规则进行排序。<br><strong>OK，那么当我们需要多线程并发存取&lt;Key, Value&gt;数据并且希望保证数据有序时，我们需要怎么做呢？</strong><br>也许，我们可以选择ConcurrentTreeMap。不好意思，JDK没有提供这么好的数据结构给我们。<br>当然，我们可以自己添加lock来实现ConcurrentTreeMap，但是随着并发量的提升，lock带来的性能开销也随之增大。<br>Don’t cry……，JDK6里面引入的ConcurrentSkipListMap也许可以满足我们的需求。</p>
+<p><strong>什么是ConcurrentSkipListMap</strong><br>ConcurrentSkipListMap提供了一种线程安全的并发访问的排序映射表。内部是SkipList（跳表）结构实现，在理论上能够O(log(n))时间内完成查找、插入、删除操作。<br><strong>存储结构</strong><br>ConcurrentSkipListMap存储结构跳跃表（SkipList）：<br>1、最底层的<font color=red>数据节点</font>按照关键字升序排列。<br>2、包含多级索引，每个级别的<font color=red>索引节点</font>按照其<strong>关联数据节点</strong>的关键字升序排列。<br>3、高级别索引是其低级别索引的子集。<br>4、如果关键字key在级别level=i的索引中出现，则级别level&lt;=i的所有索引中都包含key。<br><font color=purple>注：类比一下数据库的索引、B+树。</font></p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/cunchujiegou.png" alt="img"></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ConcurrentSkipListMap</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token keyword">extends</span> <span class="token class-name">AbstractMap</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token keyword">implements</span> <span class="token class-name">ConcurrentNavigableMap</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span><span class="token punctuation">,</span>
+               Cloneable<span class="token punctuation">,</span>java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>Serializable <span class="token punctuation">{</span>
+   <span class="token comment" spellcheck="true">/**  Special value used to identify base-level header*/</span>
+   <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> Object BASE_HEADER <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//该值用于标记数据节点的头结点</span>
+
+    <span class="token comment" spellcheck="true">/** The topmost head index of the skiplist.*/</span>
+    <span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> HeadIndex<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> head<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//最高级别索引的索引头</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token comment" spellcheck="true">/** Nodes hold keys and values, and are singly linked in sorted order, possibly with some intervening marker nodes. 
+     The list is headed by a dummy node accessible as head.node. The value field is declared only as Object because it 
+     takes special non-V values for marker and header nodes. */</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Node</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//保存键值对的数据节点，并且是有序的单链表。</span>
+        <span class="token keyword">final</span> K key<span class="token punctuation">;</span>
+        <span class="token keyword">volatile</span> Object value<span class="token punctuation">;</span>
+        <span class="token keyword">volatile</span> Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> next<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//后继数据节点</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/** Index nodes represent the levels of the skip list. 
+        Note that even though both Nodes and Indexes have forward-pointing fields, they have different types and are handled 
+        in different ways, that can't nicely be captured by placing field in a shared abstract class.
+     */</span>
+    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Index</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//索引节点</span>
+        <span class="token keyword">final</span> Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> node<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//索引节点关联的数据节点</span>
+        <span class="token keyword">final</span> Index<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> down<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//下一级别索引节点（关联的数据节点相同）</span>
+        <span class="token keyword">volatile</span> Index<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> right<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//当前索引级别中，后继索引节点</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">/**  Nodes heading each level keep track of their level.*/</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">HeadIndex</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token keyword">extends</span> <span class="token class-name">Index</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//索引头</span>
+        <span class="token keyword">final</span> <span class="token keyword">int</span> level<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//索引级别</span>
+        <span class="token function">HeadIndex</span><span class="token punctuation">(</span>Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> node<span class="token punctuation">,</span> Index<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> down<span class="token punctuation">,</span> Index<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> right<span class="token punctuation">,</span> <span class="token keyword">int</span> level<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">super</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> down<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>level <span class="token operator">=</span> level<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>查找</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token comment" spellcheck="true">//Returns the value to which the specified key is mapped, or null if this map contains no mapping for the key.</span>
+    <span class="token keyword">public</span> V <span class="token function">get</span><span class="token punctuation">(</span>Object key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">doGet</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java">    <span class="token keyword">private</span> V <span class="token function">doGet</span><span class="token punctuation">(</span>Object okey<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Comparable<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> K<span class="token operator">></span> key <span class="token operator">=</span> <span class="token function">comparable</span><span class="token punctuation">(</span>okey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// Loop needed here and elsewhere in case value field goes null just as it is about to be returned, in which case we</span>
+        <span class="token comment" spellcheck="true">// lost a race with a deletion, so must retry.</span>
+        <span class="token comment" spellcheck="true">// 这里采用循环的方式来查找数据节点，是为了防止返回刚好被删除的数据节点，一旦出现这样的情况，需要重试。</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> n <span class="token operator">=</span> <span class="token function">findNode</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//根据key查找数据节点</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> null<span class="token punctuation">)</span>
+                <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+            Object v <span class="token operator">=</span> n<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>v <span class="token operator">!=</span> null<span class="token punctuation">)</span>
+                <span class="token keyword">return</span> <span class="token punctuation">(</span>V<span class="token punctuation">)</span>v<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>​    </p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**Returns node holding key or null if no such, clearing out any deleted nodes seen along the way.  
+       Repeatedly traverses at base-level looking for key starting at predecessor returned from findPredecessor, 
+       processing base-level deletions as encountered. Some callers rely on this side-effect of clearing deleted nodes.
+
+     * Restarts occur, at traversal step centered on node n, if:
+     *
+     *   (1) After reading n's next field, n is no longer assumed predecessor b's current successor, which means that
+     *       we don't have a consistent 3-node snapshot and so cannot unlink any subsequent deleted nodes encountered.
+     *
+     *   (2) n's value field is null, indicating n is deleted, in which case we help out an ongoing structural deletion
+     *       before retrying.  Even though there are cases where such  unlinking doesn't require restart, they aren't sorted out
+     *       here because doing so would not usually outweigh cost of  restarting.
+     *
+     *   (3) n is a marker or n's predecessor's value field is null, indicating (among other possibilities) that
+     *       findPredecessor returned a deleted node. We can't unlink the node because we don't know its predecessor, so rely
+     *       on another call to findPredecessor to notice and return some earlier predecessor, which it will do. This check is
+     *       only strictly needed at beginning of loop, (and the b.value check isn't strictly needed at all) but is done
+     *       each iteration to help avoid contention with other threads by callers that will fail to be able to change
+     *       links, and so will retry anyway.
+     *
+     * The traversal loops in doPut, doRemove, and findNear all include the same three kinds of checks. And specialized
+     * versions appear in findFirst, and findLast and their variants. They can't easily share code because each uses the
+     * reads of fields held in locals occurring in the orders they were performed.
+     *
+     * @param key the key
+     * @return node holding key, or null if no such
+     */</span>
+<span class="token keyword">private</span> Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token function">findNode</span><span class="token punctuation">(</span>Comparable<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> K<span class="token operator">></span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> b <span class="token operator">=</span> <span class="token function">findPredecessor</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//根据key查找前驱数据节点</span>
+        Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> n <span class="token operator">=</span> b<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> null<span class="token punctuation">)</span>
+                <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+            Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> f <span class="token operator">=</span> n<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//1、b的后继节点两次读取不一致，重试</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">!=</span> b<span class="token punctuation">.</span>next<span class="token punctuation">)</span>                <span class="token comment" spellcheck="true">// inconsistent read </span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            Object v <span class="token operator">=</span> n<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//2、数据节点的值为null，表示该数据节点标记为已删除，移除该数据节点并重试。</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>v <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>                <span class="token comment" spellcheck="true">// n is deleted</span>
+                n<span class="token punctuation">.</span><span class="token function">helpDelete</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">//3、b节点被标记为删除，重试</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>v <span class="token operator">==</span> n <span class="token operator">||</span> b<span class="token punctuation">.</span>value <span class="token operator">==</span> null<span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// b is deleted</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> c <span class="token operator">=</span> key<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>n<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//找到返回</span>
+                <span class="token keyword">return</span> n<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//给定key小于当前可以，不存在</span>
+                <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+            b <span class="token operator">=</span> n<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//否则继续查找</span>
+            n <span class="token operator">=</span> f<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">/**Returns a base-level node with key strictly less than given key, or the base-level header if there is no such node.  
+       Also unlinks indexes to deleted nodes found along the way.  Callers rely on this side-effect of clearing indices to deleted nodes.
+     * @param key the key 
+     * @return a predecessor of key     */</span>
+    <span class="token comment" spellcheck="true">//返回“小于且最接近给定key”的数据节点，如果不存在这样的数据节点就返回最低级别的索引头。</span>
+    <span class="token keyword">private</span> Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> <span class="token function">findPredecessor</span><span class="token punctuation">(</span>Comparable<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> K<span class="token operator">></span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">==</span> null<span class="token punctuation">)</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NullPointerException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// don't postpone errors</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Index<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> q <span class="token operator">=</span> head<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//从顶层索引开始查找</span>
+            Index<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> r <span class="token operator">=</span> q<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>r <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> n <span class="token operator">=</span> r<span class="token punctuation">.</span>node<span class="token punctuation">;</span>
+                    K k <span class="token operator">=</span> n<span class="token punctuation">.</span>key<span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>n<span class="token punctuation">.</span>value <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//数据节点的值为null,表示该数据节点标记为已删除，断开连接并重试</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>q<span class="token punctuation">.</span><span class="token function">unlink</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                            <span class="token keyword">break</span><span class="token punctuation">;</span>           <span class="token comment" spellcheck="true">// restart</span>
+                        r <span class="token operator">=</span> q<span class="token punctuation">.</span>right<span class="token punctuation">;</span>         <span class="token comment" spellcheck="true">// reread r</span>
+                        <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>key<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//给定key大于当前key，继续往右查找</span>
+                        q <span class="token operator">=</span> r<span class="token punctuation">;</span>
+                        r <span class="token operator">=</span> r<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+                        <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+                <span class="token comment" spellcheck="true">//执行到这里有两种情况：</span>
+                <span class="token comment" spellcheck="true">//1、当前级别的索引查找结束</span>
+                <span class="token comment" spellcheck="true">//2、给定key小于等于当前key</span>
+                Index<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> d <span class="token operator">=</span> q<span class="token punctuation">.</span>down<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//在下一级别索引中查找</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>d <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//如果还存在更低级别的索引，在更低级别的索引中继续查找</span>
+                    q <span class="token operator">=</span> d<span class="token punctuation">;</span>
+                    r <span class="token operator">=</span> d<span class="token punctuation">.</span>right<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span>
+                    <span class="token keyword">return</span> q<span class="token punctuation">.</span>node<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//如果当前已经是最低级别的索引，当前索引节点关联的数据节点即为所求</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>插入</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * Associates the specified value with the specified key in this map.
+ * If the map previously contained a mapping for the key, the old value is replaced.
+ *
+ * @param key key with which the specified value is to be associated
+ * @param value value to be associated with the specified key
+ * @return the previous value associated with the specified key, or
+ *         &lt;tt>null&lt;/tt> if there was no mapping for the key
+ * @throws ClassCastException if the specified key cannot be compared
+ *         with the keys currently in the map
+ * @throws NullPointerException if the specified key or value is null
+ */</span>
+<span class="token keyword">public</span> V <span class="token function">put</span><span class="token punctuation">(</span>K key<span class="token punctuation">,</span> V value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>value <span class="token operator">==</span> null<span class="token punctuation">)</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NullPointerException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token function">doPut</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">/**
+ * Main insertion method.  Adds element if not present, or replaces value if present and onlyIfAbsent is false.
+ * @param kkey the key
+ * @param value  the value that must be associated with key
+ * @param onlyIfAbsent if should not insert if already present
+ * @return the old value, or null if newly inserted
+ */</span>
+<span class="token keyword">private</span> V <span class="token function">doPut</span><span class="token punctuation">(</span>K kkey<span class="token punctuation">,</span> V value<span class="token punctuation">,</span> <span class="token keyword">boolean</span> onlyIfAbsent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Comparable<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> K<span class="token operator">></span> key <span class="token operator">=</span> <span class="token function">comparable</span><span class="token punctuation">(</span>kkey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> b <span class="token operator">=</span> <span class="token function">findPredecessor</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//查找前驱数据节点</span>
+        Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> n <span class="token operator">=</span> b<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> f <span class="token operator">=</span> n<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//1、b的后继两次读取不一致，重试</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">!=</span> b<span class="token punctuation">.</span>next<span class="token punctuation">)</span>               <span class="token comment" spellcheck="true">// inconsistent read</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                Object v <span class="token operator">=</span> n<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//2、数据节点的值为null,表示该数据节点标记为已删除，移除该数据节点并重试。</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>v <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>               <span class="token comment" spellcheck="true">// n is deleted</span>
+                    n<span class="token punctuation">.</span><span class="token function">helpDelete</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token comment" spellcheck="true">//3、b节点被标记为已删除，重试</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>v <span class="token operator">==</span> n <span class="token operator">||</span> b<span class="token punctuation">.</span>value <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// b is deleted</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token keyword">int</span> c <span class="token operator">=</span> key<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>n<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//给定key大于当前可以，继续寻找合适的插入点</span>
+                    b <span class="token operator">=</span> n<span class="token punctuation">;</span>
+                    n <span class="token operator">=</span> f<span class="token punctuation">;</span>
+                    <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//找到</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>onlyIfAbsent <span class="token operator">||</span> n<span class="token punctuation">.</span><span class="token function">casValue</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                        <span class="token keyword">return</span> <span class="token punctuation">(</span>V<span class="token punctuation">)</span>v<span class="token punctuation">;</span>
+                    <span class="token keyword">else</span>
+                        <span class="token keyword">break</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// restart if lost race to replace value</span>
+                <span class="token punctuation">}</span>
+                <span class="token comment" spellcheck="true">// else c &lt; 0; fall through</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">//没有找到，新建数据节点</span>
+            Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> z <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Node</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span><span class="token punctuation">(</span>kkey<span class="token punctuation">,</span> value<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>b<span class="token punctuation">.</span><span class="token function">casNext</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>         <span class="token comment" spellcheck="true">// restart if lost race to append to b</span>
+            <span class="token keyword">int</span> level <span class="token operator">=</span> <span class="token function">randomLevel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//随机的索引级别</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>level <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>
+                <span class="token function">insertIndex</span><span class="token punctuation">(</span>z<span class="token punctuation">,</span> level<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">/**
+ * Creates and adds index nodes for the given node.
+ * @param z the node
+ * @param level the level of the index
+ */</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">insertIndex</span><span class="token punctuation">(</span>Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> z<span class="token punctuation">,</span> <span class="token keyword">int</span> level<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    HeadIndex<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> h <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> max <span class="token operator">=</span> h<span class="token punctuation">.</span>level<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>level <span class="token operator">&lt;=</span> max<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//索引级别已经存在，在当前索引级别以及底层索引级别上都添加该节点的索引</span>
+        Index<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> idx <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> level<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//首先得到一个包含1~level个索引级别的down关系的链表，最后的inx为最高level索引 </span>
+            idx <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Index</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span><span class="token punctuation">(</span>z<span class="token punctuation">,</span> idx<span class="token punctuation">,</span> null<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">addIndex</span><span class="token punctuation">(</span>idx<span class="token punctuation">,</span> h<span class="token punctuation">,</span> level<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//Adds given index nodes from given level down to 1.新增索引</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// Add a new level 新增索引级别</span>
+        <span class="token comment" spellcheck="true">/* To reduce interference by other threads checking for empty levels in tryReduceLevel, new levels are added
+         * with initialized right pointers. Which in turn requires keeping levels in an array to access them while
+         * creating new head index nodes from the opposite direction. */</span>
+        level <span class="token operator">=</span> max <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        Index<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span> idxs <span class="token operator">=</span> <span class="token punctuation">(</span>Index<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token keyword">new</span> <span class="token class-name">Index</span><span class="token punctuation">[</span>level<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        Index<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> idx <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> level<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
+            idxs<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> idx <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Index</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span><span class="token punctuation">(</span>z<span class="token punctuation">,</span> idx<span class="token punctuation">,</span> null<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        HeadIndex<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> oldh<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> k<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            oldh <span class="token operator">=</span> head<span class="token punctuation">;</span>
+            <span class="token keyword">int</span> oldLevel <span class="token operator">=</span> oldh<span class="token punctuation">.</span>level<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//更新head</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>level <span class="token operator">&lt;=</span> oldLevel<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// lost race to add level</span>
+                k <span class="token operator">=</span> level<span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            HeadIndex<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> newh <span class="token operator">=</span> oldh<span class="token punctuation">;</span>
+            Node<span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span> oldbase <span class="token operator">=</span> oldh<span class="token punctuation">.</span>node<span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> oldLevel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> level<span class="token punctuation">;</span> <span class="token operator">++</span>j<span class="token punctuation">)</span>
+                newh <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HeadIndex</span><span class="token operator">&lt;</span>K<span class="token punctuation">,</span>V<span class="token operator">></span><span class="token punctuation">(</span>oldbase<span class="token punctuation">,</span> newh<span class="token punctuation">,</span> idxs<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">casHead</span><span class="token punctuation">(</span>oldh<span class="token punctuation">,</span> newh<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                k <span class="token operator">=</span> oldLevel<span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">addIndex</span><span class="token punctuation">(</span>idxs<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">,</span> oldh<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>参考：</p>
+<p>JDK 1.7源码</p>
+<p><a href="http://blog.csdn.net/ict2014/article/details/17394259" target="_blank" rel="noopener">http://blog.csdn.net/ict2014/article/details/17394259</a></p>
+<p><a href="http://blog.sina.com.cn/s/blog_72995dcc01017w1t.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_72995dcc01017w1t.html</a></p>
+<p><a href="https://yq.aliyun.com/articles/38381" target="_blank" rel="noopener">https://yq.aliyun.com/articles/38381</a></p>
+<p><a href="http://www.2cto.com/kf/201212/175026.html" target="_blank" rel="noopener">http://www.2cto.com/kf/201212/175026.html</a></p>
+<p><a href="http://ifeve.com/cas-skiplist/" target="_blank" rel="noopener">http://ifeve.com/cas-skiplist/</a></p>
+</p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/09/18/跳表（SkipList）/%20HeeC' target="_blank" rel="noopener"Blog%20跳表（SkipList）" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/09/18/Copy-On-Write%E5%AE%B9%E5%99%A8/" title="Copy-On-Write容器"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Copy-On-Write容器</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/09/17/volatile%E4%B8%8D%E5%85%B7%E6%9C%89%E5%8E%9F%E5%AD%90%E6%80%A7/" title="volatile不具有原子性">下一篇: volatile不具有原子性&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>

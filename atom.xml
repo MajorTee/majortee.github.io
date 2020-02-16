@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>HeeC&#39;Blog</title>
+  
+  <subtitle>笔记记录</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2020-02-15T13:04:51.819Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Hee</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Django</title>
+    <link href="http://yoursite.com/2020/02/10/Django%E5%92%8CMysql%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2020/02/10/Django%E5%92%8CMysql%E9%97%AE%E9%A2%98/</id>
+    <published>2020-02-10T07:23:09.000Z</published>
+    <updated>2020-02-15T13:04:51.819Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Django&quot;&gt;&lt;a href=&quot;#Django&quot; class=&quot;headerlink&quot; title=&quot;Django&quot;&gt;&lt;/a&gt;Django&lt;/h1&gt;&lt;pre&gt;&lt;code class=&quot;shell&quot;&gt;django-admin startproject graduaProj   
+cd graduaProj 
+#创建应用
+python manage.py startapp show_data&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;views.py: 接受请求，进行处理，与M和T进行交互，返回应答。定义处理函数，视图函数&lt;/p&gt;
+&lt;p&gt;tests.py: 测试代码&lt;/p&gt;
+&lt;p&gt;admin.py: 网站后台管理&lt;/p&gt;
+&lt;p&gt;建立应用和项目之间的联系，需要对应用进行注册。&lt;/p&gt;
+&lt;p&gt;修改settings.py中的INSTALLED_APPS配置项。&lt;/p&gt;
+&lt;p&gt;workon进入虚拟环境，输入which python，得到地址，可以在pycharm中添加，使用此虚拟环境&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;#生成迁移文件
+python manage.py makemigrations
+
+#执行迁移生成数据表
+python manage.py migrate&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="Web" scheme="http://yoursite.com/categories/Web/"/>
+    
+    
+      <category term="Django" scheme="http://yoursite.com/tags/Django/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python虚拟环境</title>
+    <link href="http://yoursite.com/2020/02/10/python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/"/>
+    <id>http://yoursite.com/2020/02/10/python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</id>
+    <published>2020-02-10T07:23:09.000Z</published>
+    <updated>2020-02-15T13:04:23.315Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;python虚拟环境&quot;&gt;&lt;a href=&quot;#python虚拟环境&quot; class=&quot;headerlink&quot; title=&quot;python虚拟环境&quot;&gt;&lt;/a&gt;python虚拟环境&lt;/h1&gt;&lt;h2 id=&quot;Linux&quot;&gt;&lt;a href=&quot;#Linux&quot; class=&quot;headerlink&quot; title=&quot;Linux&quot;&gt;&lt;/a&gt;Linux&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;shell&quot;&gt;pip3 install virtualenv virtualenvwrapper&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="环境配置" scheme="http://yoursite.com/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>虚拟机相关</title>
+    <link href="http://yoursite.com/2020/02/10/%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9B%B8%E5%85%B3/"/>
+    <id>http://yoursite.com/2020/02/10/%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9B%B8%E5%85%B3/</id>
+    <published>2020-02-10T07:23:09.000Z</published>
+    <updated>2020-02-15T13:17:25.918Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;虚拟机相关&quot;&gt;&lt;a href=&quot;#虚拟机相关&quot; class=&quot;headerlink&quot; title=&quot;虚拟机相关&quot;&gt;&lt;/a&gt;虚拟机相关&lt;/h1&gt;&lt;h2 id=&quot;本地主机访问虚拟机的web服务器&quot;&gt;&lt;a href=&quot;#本地主机访问虚拟机的web服务器&quot; class=&quot;headerlink&quot; title=&quot;本地主机访问虚拟机的web服务器&quot;&gt;&lt;/a&gt;本地主机访问虚拟机的web服务器&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先虚拟机处进行设置，网络模式为NAT&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;需要将服务器的地址改为公网地址0.0.0.0:8111。&lt;/p&gt;
+&lt;p&gt;直接在windows浏览器里url输入”192.168.X.X:8111”,其中192.168.X.X是你虚拟机的ip，这样就可以访问了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&quot;shell&quot;&gt;python manage.py runserver 0.0.0.0:8111
+#主机
+http://192.168.111.131:8111/&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="环境配置" scheme="http://yoursite.com/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+    
+      <category term="虚拟机" scheme="http://yoursite.com/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL数据库索引知识点总结</title>
+    <link href="http://yoursite.com/2019/11/30/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"/>
+    <id>http://yoursite.com/2019/11/30/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</id>
+    <published>2019-11-30T11:59:19.000Z</published>
+    <updated>2020-02-15T14:28:25.680Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;原文&lt;a href=&quot;https://segmentfault.com/a/1190000019080654&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;MySQL数据库索引知识点总结&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;索引的常见模型&quot;&gt;&lt;a href=&quot;#索引的常见模型&quot; class=&quot;headerlink&quot; title=&quot;索引的常见模型&quot;&gt;&lt;/a&gt;&lt;strong&gt;索引的常见模型&lt;/strong&gt;&lt;/h1&gt;&lt;p&gt;索引的出现是为了提高查询效率，就像书的目录一样&lt;/p&gt;
+&lt;p&gt;常见的实现索引的模型有：&lt;strong&gt;哈希表、有序数组和搜索树&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;哈希表：键 - 值(key - value)。&lt;/li&gt;
+&lt;li&gt;哈希思路：把值放在数组里，用一个哈希函数把key换算成一个确定的位置，然后把value放在数组的这个位置&lt;/li&gt;
+&lt;li&gt;哈希冲突的处理办法：链表&lt;/li&gt;
+&lt;li&gt;哈希表适用场景：只有等值查询的场景&lt;/li&gt;
+&lt;li&gt;有序数组：按顺序存储。查询用二分法就可以快速查询，时间复杂度是：O(log(N))&lt;/li&gt;
+&lt;li&gt;有序数组查询效率高，更新效率低&lt;/li&gt;
+&lt;li&gt;有序数组的适用场景：静态存储引擎。&lt;/li&gt;
+&lt;li&gt;二叉搜索树：每个节点的左儿子小于父节点，父节点又小于右儿子&lt;/li&gt;
+&lt;li&gt;二叉搜索树：查询时间复杂度O(log(N))，更新时间复杂度O(log(N))&lt;/li&gt;
+&lt;li&gt;数据库存储大多不适用二叉树，因为树高过高，会适用N叉树&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="理论" scheme="http://yoursite.com/categories/%E7%90%86%E8%AE%BA/"/>
+    
+    
+      <category term="数据库" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Go语言中的面向对象</title>
+    <link href="http://yoursite.com/2019/11/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    <id>http://yoursite.com/2019/11/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</id>
+    <published>2019-11-26T11:19:43.000Z</published>
+    <updated>2020-02-15T14:26:06.687Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;来源 &lt;a href=&quot;http://kangkona.github.io/categories/go/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://kangkona.github.io/categories/go/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rust的内存安全革命</title>
+    <link href="http://yoursite.com/2019/11/25/Rust%E7%9A%84%E5%86%85%E5%AD%98%E5%AE%89%E5%85%A8%E9%9D%A9%E5%91%BD/"/>
+    <id>http://yoursite.com/2019/11/25/Rust%E7%9A%84%E5%86%85%E5%AD%98%E5%AE%89%E5%85%A8%E9%9D%A9%E5%91%BD/</id>
+    <published>2019-11-25T03:53:45.000Z</published>
+    <updated>2019-11-25T03:58:56.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;中译版来源：&lt;a href=&quot;https://szpzs.oschina.io/2018/04/28/rust-memory-safety-revolution/#more&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://szpzs.oschina.io/2018/04/28/rust-memory-safety-revolution/#more&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Rust是一种年轻的编程语言，为程序代码带来了新的质量。 你可能听说过它是快速的、安全的或容易实现并发的。 本文集中介绍Rust最重要的核心特性：内存管理。 该核心特性是Rust的主要创新之一，它的许多独特的特点是基于这种核心特性的。&lt;/p&gt;
+&lt;p&gt;本文是写给不知道Rust或刚刚开始学习它的程序员的。对于熟悉C、C++或其他使用手动管理内存以及使用垃圾回收器语言的读者来说会更容易理解Rust的特点。 本文是一个旨在介绍Rust核心概念并鼓励进一步学习的高层次介绍。本文不是教程，最后也没有 Hello Wrold 的Rust例子。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="rust" scheme="http://yoursite.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>多git账号问题</title>
+    <link href="http://yoursite.com/2019/11/14/%E5%A4%9Agit%E8%B4%A6%E5%8F%B7%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2019/11/14/%E5%A4%9Agit%E8%B4%A6%E5%8F%B7%E9%97%AE%E9%A2%98/</id>
+    <published>2019-11-14T10:56:22.000Z</published>
+    <updated>2019-11-14T11:03:08.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;多git账号使用SSH问题&quot;&gt;&lt;a href=&quot;#多git账号使用SSH问题&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="杂项" scheme="http://yoursite.com/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+      <category term="技巧" scheme="http://yoursite.com/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>gitbook一些问题</title>
+    <link href="http://yoursite.com/2019/11/13/gitbook%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2019/11/13/gitbook%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</id>
+    <published>2019-11-13T02:35:55.000Z</published>
+    <updated>2020-02-15T14:28:01.876Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;转载&lt;a href=&quot;https://github.com/yuanwenq/blog/blob/master/Other/gitbook/gitbook_build_html_BUG.md&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="杂项转载" scheme="http://yoursite.com/categories/%E6%9D%82%E9%A1%B9%E8%BD%AC%E8%BD%BD/"/>
+    
+    
+      <category term="技巧" scheme="http://yoursite.com/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习基础知识</title>
+    <link href="http://yoursite.com/2019/11/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    <id>http://yoursite.com/2019/11/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</id>
+    <published>2019-11-12T06:09:42.000Z</published>
+    <updated>2020-02-15T14:27:05.461Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;决策树&quot;&gt;&lt;a href=&quot;#决策树&quot; class=&quot;headerlink&quot; title=&quot;决策树&quot;&gt;&lt;/a&gt;决策树&lt;/h1&gt;&lt;h2 id=&quot;信息&quot;&gt;&lt;a href=&quot;#信息&quot; class=&quot;headerlink&quot; title=&quot;信息&quot;&gt;&lt;/a&gt;信息&lt;/h2&gt;&lt;p&gt;$$&lt;br&gt;I = -log_2p_k&lt;br&gt;$$&lt;/p&gt;
+&lt;h2 id=&quot;信息熵&quot;&gt;&lt;a href=&quot;#信息熵&quot; class=&quot;headerlink&quot; title=&quot;信息熵&quot;&gt;&lt;/a&gt;信息熵&lt;/h2&gt;&lt;p&gt;度量样本集合纯度最常用的一种指标，假设当前样本中，集合 &lt;em&gt;D&lt;/em&gt; 中第 &lt;em&gt;k&lt;/em&gt; 累样本所占的比例为 &lt;code&gt;p_k(k = 1,2,...,|y|)&lt;/code&gt;&lt;br&gt;$$&lt;br&gt;Ent(D) = - \sum^{|y|}_{k=1}p_k\log_2(p_k)&lt;br&gt;$$&lt;br&gt;Ent(D) 的值越小，则D的纯度越高。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="机器学习" scheme="http://yoursite.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>github 提交自己修改的代码</title>
+    <link href="http://yoursite.com/2019/11/05/github%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4%E8%87%AA%E5%B7%B1%E4%BF%AE%E6%94%B9%E7%9A%84%E4%BB%A3%E7%A0%81/"/>
+    <id>http://yoursite.com/2019/11/05/github%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4%E8%87%AA%E5%B7%B1%E4%BF%AE%E6%94%B9%E7%9A%84%E4%BB%A3%E7%A0%81/</id>
+    <published>2019-11-05T07:16:30.000Z</published>
+    <updated>2019-11-05T07:26:04.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;步骤&quot;&gt;&lt;a href=&quot;#步骤&quot; class=&quot;headerlink&quot; title=&quot;步骤:&quot;&gt;&lt;/a&gt;步骤:&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;fork 一份代码到自己的仓库&lt;/p&gt;
+&lt;p&gt;进入 github 要修改项目的主页，点击 fork 按钮，fork
+        
+      
+    
+    </summary>
+    
+    
+      <category term="杂项" scheme="http://yoursite.com/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+      <category term="技巧" scheme="http://yoursite.com/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Golang-5</title>
+    <link href="http://yoursite.com/2019/10/28/Golang-5/"/>
+    <id>http://yoursite.com/2019/10/28/Golang-5/</id>
+    <published>2019-10-28T08:56:15.000Z</published>
+    <updated>2019-10-29T13:35:56.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;构建⾼可扩展性的软件架构&quot;&gt;&lt;a href=&quot;#构建⾼可扩展性的软件架构&quot; class=&quot;headerlink&quot; title=&quot;构建⾼可扩展性的软件架构&quot;&gt;&lt;/a&gt;构建⾼可扩展性的软件架构&lt;/h1&gt;&lt;h2 id=&quot;架构模式&quot;&gt;&lt;a href=&quot;#架构模式&quot; class=&quot;headerlink&quot; title=&quot;架构模式&quot;&gt;&lt;/a&gt;架构模式&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;An architectural pattern is a general, reusable solution to a commonly occurring problem in software architecture within a given context.&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Golang-4</title>
+    <link href="http://yoursite.com/2019/10/28/Golang-4/"/>
+    <id>http://yoursite.com/2019/10/28/Golang-4/</id>
+    <published>2019-10-28T03:01:04.000Z</published>
+    <updated>2019-10-29T08:00:39.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;其它&quot;&gt;&lt;a href=&quot;#其它&quot; class=&quot;headerlink&quot; title=&quot;其它&quot;&gt;&lt;/a&gt;其它&lt;/h1&gt;&lt;h2 id=&quot;单元测试&quot;&gt;&lt;a href=&quot;#单元测试&quot; class=&quot;headerlink&quot; title=&quot;单元测试&quot;&gt;&lt;/a&gt;单元测试&lt;/h2&gt;&lt;h3 id=&quot;内置单元测试框架&quot;&gt;&lt;a href=&quot;#内置单元测试框架&quot; class=&quot;headerlink&quot; title=&quot;内置单元测试框架&quot;&gt;&lt;/a&gt;内置单元测试框架&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Fail, Error: 该测试失败，该测试继续，其他测试继续执⾏&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;FailNow, Fatal: 该测试失败，该测试中⽌，其他测试继续执⾏&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;代码覆盖率&lt;/p&gt;
+&lt;p&gt;  go test -v - cover&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;断⾔&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;https://github.com/stretchr/testify&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Golang-3</title>
+    <link href="http://yoursite.com/2019/10/27/Golang-3/"/>
+    <id>http://yoursite.com/2019/10/27/Golang-3/</id>
+    <published>2019-10-27T02:34:59.000Z</published>
+    <updated>2019-10-29T08:03:35.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;协程机制&quot;&gt;&lt;a href=&quot;#协程机制&quot; class=&quot;headerlink&quot; title=&quot;协程机制&quot;&gt;&lt;/a&gt;协程机制&lt;/h1&gt;&lt;h2 id=&quot;Thead-vs-Groutine&quot;&gt;&lt;a href=&quot;#Thead-vs-Groutine&quot; class=&quot;headerlink&quot; title=&quot;Thead vs. Groutine&quot;&gt;&lt;/a&gt;Thead vs. Groutine&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;创建时默认的 stack 的⼤⼩&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;JDK5 以后 Java Thread stack 默认为1M&lt;/li&gt;
+&lt;li&gt;Groutine 的 Stack 初始化⼤⼩为2K&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;和 KSE（Kernel Space Entity）的对应关系&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Java Thread 是 1:1&lt;/li&gt;
+&lt;li&gt;Groutine 是 M:N&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Golang-2</title>
+    <link href="http://yoursite.com/2019/10/22/Golang-2/"/>
+    <id>http://yoursite.com/2019/10/22/Golang-2/</id>
+    <published>2019-10-22T12:57:36.000Z</published>
+    <updated>2019-10-29T08:05:08.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;面向对象&quot;&gt;&lt;a href=&quot;#面向对象&quot; class=&quot;headerlink&quot; title=&quot;面向对象&quot;&gt;&lt;/a&gt;面向对象&lt;/h1&gt;&lt;h2 id=&quot;封装数据和行为&quot;&gt;&lt;a href=&quot;#封装数据和行为&quot; class=&quot;headerlink&quot; title=&quot;封装数据和行为&quot;&gt;&lt;/a&gt;封装数据和行为&lt;/h2&gt;&lt;h3 id=&quot;结构体定义&quot;&gt;&lt;a href=&quot;#结构体定义&quot; class=&quot;headerlink&quot; title=&quot;结构体定义&quot;&gt;&lt;/a&gt;结构体定义&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;go&quot;&gt;type Employee struct {
+    Id   string
+    Name string
+    Age  int
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;实例创建及初始化&quot;&gt;&lt;a href=&quot;#实例创建及初始化&quot; class=&quot;headerlink&quot; title=&quot;实例创建及初始化&quot;&gt;&lt;/a&gt;实例创建及初始化&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;go&quot;&gt;e := Employee{&amp;quot;0&amp;quot;, &amp;quot;Bob&amp;quot;, 20}
+//e := &amp;amp;Employee{&amp;quot;0&amp;quot;, &amp;quot;Bob&amp;quot;, 20} 也可以
+  // t.Log(e.String())
+e1 := Employee{Name: &amp;quot;Mike&amp;quot;, Age: 30}
+e2 := new(Employee) // 注意这里返回的引用/指针，相当于 e := &amp;amp;Employee{}
+e2.Id = &amp;quot;2&amp;quot; //与其它编程语言的差异：通过实例的指针访问成员不需要使用-&amp;gt;
+e2.Age = 22
+e2.Name = &amp;quot;Rose&amp;quot;
+t.Log(e)
+t.Log(e1)
+t.Log(e1.ID)
+t.Log(e2)
+t.Logf(&amp;quot;e is %T&amp;quot;, e)
+t.Logf(&amp;quot;e2 is %T&amp;quot;, e2)&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Golang-1</title>
+    <link href="http://yoursite.com/2019/10/21/Golang-1/"/>
+    <id>http://yoursite.com/2019/10/21/Golang-1/</id>
+    <published>2019-10-21T04:59:03.000Z</published>
+    <updated>2019-10-25T02:47:11.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;基础&quot;&gt;&lt;a href=&quot;#基础&quot; class=&quot;headerlink&quot; title=&quot;基础&quot;&gt;&lt;/a&gt;基础&lt;/h1&gt;&lt;h2 id=&quot;vscode配置&quot;&gt;&lt;a href=&quot;#vscode配置&quot; class=&quot;headerlink&quot; title=&quot;vscode配置&quot;&gt;&lt;/a&gt;vscode配置&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;json&quot;&gt;&amp;quot;go.gopath&amp;quot;: &amp;quot;/usr/local/go/bin/go&amp;quot;,
+&amp;quot;go.testFlags&amp;quot;: [
+    &amp;quot;-v&amp;quot;,
+    &amp;quot;-count=1&amp;quot;
+],
+&amp;quot;go.autocompleteUnimportedPackages&amp;quot;: true,
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;基本程序结构&quot;&gt;&lt;a href=&quot;#基本程序结构&quot; class=&quot;headerlink&quot; title=&quot;基本程序结构&quot;&gt;&lt;/a&gt;基本程序结构&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;go&quot;&gt;package main //包，表明代码所在的模块(包)
+
+//引入代码依赖
+import (
+    &amp;quot;fmt&amp;quot;
+    &amp;quot;os&amp;quot;
+)
+
+//功能实现
+func main(){
+    fmt.Println(&amp;quot;Hello World!&amp;quot;)
+    os.exit(-1)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;源文件内第一行代码package pkgName中的pkgName也可以和源文件所在文件夹名称不同&lt;/strong&gt;。但是，如果此包需要在其他包中使用，编译器会报错，建议package 后的名称和文件所在文件夹的名称相同。一般只有main函数所在的源文件下才会出现所在包和“package 包名”声明的包名不同的情况。&lt;/p&gt;
+&lt;h2 id=&quot;应用程序入口&quot;&gt;&lt;a href=&quot;#应用程序入口&quot; class=&quot;headerlink&quot; title=&quot;应用程序入口&quot;&gt;&lt;/a&gt;应用程序入口&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;必须是 main 包：&lt;code&gt;package main&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;必须是 main 方法： &lt;code&gt;func main()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;文件名不一定是 &lt;code&gt;main.go&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C学习（四）</title>
+    <link href="http://yoursite.com/2019/10/06/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/"/>
+    <id>http://yoursite.com/2019/10/06/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/</id>
+    <published>2019-10-06T12:26:11.000Z</published>
+    <updated>2019-10-06T13:27:38.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;多维数组、指针本质&quot;&gt;&lt;a href=&quot;#多维数组、指针本质&quot; class=&quot;headerlink&quot; title=&quot;多维数组、指针本质&quot;&gt;&lt;/a&gt;多维数组、指针本质&lt;/h1&gt;&lt;h2 id=&quot;数组指针类型&quot;&gt;&lt;a href=&quot;#数组指针类型&quot; class=&quot;headerlink&quot; title=&quot;数组指针类型&quot;&gt;&lt;/a&gt;数组指针类型&lt;/h2&gt;&lt;h3 id=&quot;1）-通过数组类型定义数组指针&quot;&gt;&lt;a href=&quot;#1）-通过数组类型定义数组指针&quot; class=&quot;headerlink&quot; title=&quot;1） 通过数组类型定义数组指针:&quot;&gt;&lt;/a&gt;1） 通过数组类型定义数组指针:&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;typedef int(ArrayType)[5]; int *a
+ArrayType* pointer;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;数组指针： 用数组类型加*定义一个数组指针&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="C语言" scheme="http://yoursite.com/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C学习（五）</title>
+    <link href="http://yoursite.com/2019/10/04/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/"/>
+    <id>http://yoursite.com/2019/10/04/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/</id>
+    <published>2019-10-04T14:26:20.000Z</published>
+    <updated>2019-11-09T09:25:49.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;结构体&quot;&gt;&lt;a href=&quot;#结构体&quot; class=&quot;headerlink&quot; title=&quot;结构体&quot;&gt;&lt;/a&gt;结构体&lt;/h1&gt;&lt;h2 id=&quot;名字重定义&quot;&gt;&lt;a href=&quot;#名字重定义&quot; class=&quot;headerlink&quot; title=&quot;名字重定义&quot;&gt;&lt;/a&gt;名字重定义&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;typedef struct Teacher
+{
+    char name[64];
+    int age;
+}Teacher;
+Teacher t1;//分配内存&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;类型定义变量的方法&quot;&gt;&lt;a href=&quot;#类型定义变量的方法&quot; class=&quot;headerlink&quot; title=&quot;类型定义变量的方法&quot;&gt;&lt;/a&gt;类型定义变量的方法&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;struct Teacher
+{
+    char name[64];
+    int age;
+}Teacher;
+
+struct _Student
+{
+    char name[32];
+    char tile[32];
+    int age;
+    char addr[128];
+}s1, s2; //定义类型的同时， 定义变量；
+
+struct
+{
+    char name[32];
+    char tile[32];
+    int age;
+    char addr[128];
+}s3,s4; //匿名类型 直接定义结构体变量&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="C语言" scheme="http://yoursite.com/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C学习（三）</title>
+    <link href="http://yoursite.com/2019/10/04/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/"/>
+    <id>http://yoursite.com/2019/10/04/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/</id>
+    <published>2019-10-04T13:09:03.000Z</published>
+    <updated>2019-10-06T13:27:24.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;二级指针&quot;&gt;&lt;a href=&quot;#二级指针&quot; class=&quot;headerlink&quot; title=&quot;二级指针&quot;&gt;&lt;/a&gt;二级指针&lt;/h1&gt;&lt;h2 id=&quot;对空间的释放&quot;&gt;&lt;a href=&quot;#对空间的释放&quot; class=&quot;headerlink&quot; title=&quot;对空间的释放&quot;&gt;&lt;/a&gt;对空间的释放&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;void main()
+{
+    char* p = NULL;
+    get_mem(&amp;amp;p)
+}
+
+void get_mem(char** p)
+{
+    *p = (char*)malloc(100);
+}
+void free_mem(char** p)
+{
+    if(p != NULL)
+    {
+        free(*p); //注意不是**p
+        *p = NULL;
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="C语言" scheme="http://yoursite.com/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac下配置APUE编程环境</title>
+    <link href="http://yoursite.com/2019/10/04/Mac%E4%B8%8B%E9%85%8D%E7%BD%AEAPUE%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/"/>
+    <id>http://yoursite.com/2019/10/04/Mac%E4%B8%8B%E9%85%8D%E7%BD%AEAPUE%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/</id>
+    <published>2019-10-04T02:40:36.000Z</published>
+    <updated>2019-10-04T02:49:10.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;Mac下配置APUE编程环境&quot;&gt;&lt;a href=&quot;#Mac下配置APUE编程环境&quot; class=&quot;headerlink&quot; title=&quot;Mac下配置APUE编程环境&quot;&gt;&lt;/a&gt;Mac下配置APUE编程环境&lt;/h1&gt;&lt;p&gt;下载&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="杂项" scheme="http://yoursite.com/categories/%E6%9D%82%E9%A1%B9/"/>
+    
+    
+      <category term="配置" scheme="http://yoursite.com/tags/%E9%85%8D%E7%BD%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C学习（二）</title>
+    <link href="http://yoursite.com/2019/10/03/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>http://yoursite.com/2019/10/03/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%8C%EF%BC%89/</id>
+    <published>2019-10-03T07:48:03.000Z</published>
+    <updated>2019-11-09T09:26:20.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;指针&quot;&gt;&lt;a href=&quot;#指针&quot; class=&quot;headerlink&quot; title=&quot;指针&quot;&gt;&lt;/a&gt;指针&lt;/h1&gt;&lt;h2 id=&quot;指针释放问题（野指针）&quot;&gt;&lt;a href=&quot;#指针释放问题（野指针）&quot; class=&quot;headerlink&quot; title=&quot;指针释放问题（野指针）&quot;&gt;&lt;/a&gt;指针释放问题（野指针）&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;char* p = NULL;
+
+//注意要先给空间才能cpy值
+p = (char*)malloc(100);
+
+strcpy(p, &amp;quot;111111&amp;quot;);
+if(p != NULL)
+{
+    free(p);
+}
+// 不小心进行两次free
+if(p != NULL)
+{
+    free(p);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;虽然第一次 p 指向的地址 &lt;code&gt;0xaa11&lt;/code&gt; 区域的东西 free 了，但是 p 本身还是指向 &lt;code&gt;0xaa11&lt;/code&gt; ，此时一段垃圾区域（野指针），再free就出现问题了&lt;/p&gt;
+&lt;p&gt;因此需要&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;if(p != NULL)
+{
+    free(p);
+    p = NULL;
+}&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+      <category term="编程语言" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+      <category term="C语言" scheme="http://yoursite.com/tags/C%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+</feed>

@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>线程相关 · HeeC'Blog</title><meta name="description" content="synchronized 关键字对某个对象加锁而不是代码块
+
+public synchronized void m() { //等同于在方法的代码执行时要synchronized(this)
+    count--;
+    System.out.println(Thread.currentThre"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>线程相关</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-09-20</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/线程/" title="线程" class="a-tag">线程</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/java/" title="java" class="a-tag">java</a><span>&nbsp;</span></span></p><p class="post-abstract"><ul>
+<li><strong><em>synchronized</em> 关键字对某个对象加锁而不是代码块</strong></li>
+</ul>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">m</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//等同于在方法的代码执行时要synchronized(this)</span>
+    count<span class="token operator">--</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" count = "</span> <span class="token operator">+</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果是<strong>静态方法</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">m</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//这里等同于synchronized(yxxy.c_004.T.class)</span>
+    count<span class="token operator">--</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" count = "</span> <span class="token operator">+</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>同步和非同步方法是否可以同时调用</strong>。</p>
+<a id="more"></a>
+
+<p><strong>对业务写方法加锁，对业务读方法不加锁，容易产生脏读问题（dirtyRead）。</strong></p>
+<p>一个同步方法可以调用另外一个同步方法，一个线程已经拥有某个对象的锁，再次申请的时候仍然会得到该对象的锁，也就是说synchronized获得的锁是可重入的（ 这里是继承中有可能发生的情形，子类调用父类的同步方法）。</p>
+<p>程序在执行过程中，如果出现异常，默认情况锁会被释放，所以，在并发处理的过程中，有异常要多加小心，不然可能会发生不一致的情况。比如，在一个web app处理过程中，多个servlet线程共同访问同一个资源，这时如果异常处理不合适，在第一个线程中处理完第一个任务抛出异常，其他线程就会进入同步代码区，有可能会访问到异常产生时的数据。因此要非常小心的处理同步业务逻辑中的异常。</p>
+<ul>
+<li><strong><em>volatile</em> 关键字，使一个变量在多个线程间可见</strong></li>
+</ul>
+<p>A B线程都用到一个变量，java默认是A线程中保留一份copy，这样如果B线程修改了该变量，则A线程未必知道，使用volatile关键字，会让所有线程都会读到变量的修改值。</p>
+<p>在下面的代码中，running是存在于堆内存的t对象中<br>当线程t1开始运行的时候，会把running值从内存中读到t1线程的工作区，在运行过程中直接使用这个copy，并不会每次都去读取堆内存，这样，当主线程修改running的值之后，t1线程感知不到，所以不会停止运行。使用volatile，将会强制所有线程都去堆内存中读取running的值。<br>可以阅读<a href="http://www.cnblogs.com/nexiyi/p/java_memory_model_and_thread.html" target="_blank" rel="noopener">这篇文章</a> 进行更深入的理解</p>
+<p>volatile并不能保证多个线程共同修改running变量时所带来的不一致问题，也就是说volatile不能替代synchronized。synchronized可以保证可见性和原子性，volatile只能保证可见性。</p>
+<p>解决同样的问题的更高效的方法，使用AtomXXX类。AtomXXX类本身方法都是原子性的，<strong>但不能保证多个方法连续调用是原子性的。</strong></p>
+<pre class="line-numbers language-java"><code class="language-java">AtomicInteger count <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AtomicInteger</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+count<span class="token punctuation">.</span><span class="token function">incrementAndGet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//count++</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>锁粒度</strong>：synchronized优化-&gt;同步代码块中的语句越少越好。</p>
+<p>锁定某对象o，如果o的属性发生改变，不影响锁的使用。但是<strong>如果o变成另外一个对象，则锁定的对象发生改变</strong>，应该避免将锁定对象的引用变成另外的对象</p>
+<p><strong>不要以字符串常量对象作为锁定对象（常量池的原因）</strong></p>
+<p><strong>wait会释放锁，而notify不会释放锁</strong></p>
+<blockquote>
+<p>例子：这两个方法都是在锁对象上执行，如锁的wait方法执行，当前有锁的线程就等待（同时释放锁），其它线程将其唤醒后，需要其他线程wait方法执行释放锁，然后它才重新得到锁，继续执行</p>
+<p>可以使用CountDownLatch方法简化，Latch的等待不需要锁定对象的</p>
+</blockquote>
+<p>使用<em>Latch（门闩）</em>替代wait notify来进行通知，好处是通信方式简单，同时也可以指定等待时间。使用await和countdown方法替代wait和notify，CountDownLatch不涉及锁定，当count的值为零时当前线程继续运行。当不涉及同步，只是涉及线程通信的时候，用synchronized + wait/notify就显得太重了，这时应该考虑countdownlatch/cyclicbarrier/semaphore</p>
+<ul>
+<li><strong>reentrantlock 用于替代 synchronized</strong></li>
+</ul>
+<p>reentrantlock 需要注意的是，必须要<strong>必须要必须要手动释放锁</strong></p>
+<p>使用 synchronized 锁定的话如果遇到异常，jvm会自动释放锁，但是<strong>lock必须手动释放锁</strong>，因此经常在finally中进行锁的释放</p>
+<p>使用reentrantlock可以进行“尝试锁定”-&gt; tryLock，这样无法锁定，或者在指定时间内无法锁定，线程可以决定是否继续等待</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">boolean</span> locked <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>    
+<span class="token keyword">try</span> <span class="token punctuation">{</span>
+    locked <span class="token operator">=</span> lock<span class="token punctuation">.</span><span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//等5秒</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"m2 ..."</span> <span class="token operator">+</span> locked<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>locked<span class="token punctuation">)</span> lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用 ReentrantLock 还可以调用 lockInterruptibly 方法，可以<strong>对线程interrupt方法做出响应</strong>，在一个线程等待锁的过程中，可以被打断</p>
+<p>ReentrantLock还可以指定为<strong>公平锁</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> ReentrantLock lock<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">ReentrantLock</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//参数为true表示为公平锁，有性能损失</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>ReentrantLock的Condition的使用</p>
+<p><strong>可以更加精确的指定哪些线程被唤醒</strong></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> Lock lock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReentrantLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">private</span> Condition producer <span class="token operator">=</span> lock<span class="token punctuation">.</span><span class="token function">newCondition</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">private</span> Condition consumer <span class="token operator">=</span> lock<span class="token punctuation">.</span><span class="token function">newCondition</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><strong>ThreadLocal线程局部变量</strong></p>
+<ul>
+<li>ThreadLocal是使用空间换时间，synchronized是使用时间换空间</li>
+<li>比如在hibernate中session就存在与ThreadLocal中，避免synchronized的使用</li>
+</ul>
+<p><em>单例内部类方式</em></p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token function">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"single"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Inner</span> <span class="token punctuation">{</span>
+        <span class="token keyword">private</span> <span class="token keyword">static</span> Singleton s <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Singleton <span class="token function">getSingle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Inner<span class="token punctuation">.</span>s<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><em>同步容器类</em></p>
+<p>1：Vector Hashtable ：<strong>早期使用synchronized实现 __<br>2：ArrayList HashSet ：</strong>未考虑多线程安全（未实现同步）__<br>3：HashSet vs Hashtable   StringBuilder vs StringBuffer<br>4：Collections.synchronized***<strong>工厂方法使用的也是synchronized</strong></p>
+<p>使用早期的同步容器以及Collections.synchronized***方法的不足之处，请<a href="http://blog.csdn.net/itm_hadf/article/details/7506529" target="_blank" rel="noopener">阅读</a>：</p>
+<p>使用新的<a href="http://xuganggogo.iteye.com/blog/321630" target="_blank" rel="noopener">并发容器</a></p>
+<ol>
+<li>对于map/set的选择使用</li>
+</ol>
+<ul>
+<li><p>不需要并发</p>
+<ul>
+<li>HashMap</li>
+<li>TreeMap（红黑树）</li>
+<li>LinkedHashMap（保存了记录的插入顺序）</li>
+</ul>
+</li>
+<li><p>需要并发        </p>
+<p>  并发量不高</p>
+</li>
+<li><p>Hashtable（并发量不高）</p>
+<ul>
+<li><p>Collections.sychronizedXXX（不高）</p>
+<p>更高并发</p>
+</li>
+<li><p>ConcurrentHashMap</p>
+</li>
+<li><p>ConcurrentSkipListMap （排序）</p>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>队列</li>
+</ol>
+<ul>
+<li>不需要锁<ul>
+<li>ArrayList</li>
+<li>LinkedList</li>
+</ul>
+</li>
+<li>需要锁，并发不高<ul>
+<li>Collections.synchronizedXXX</li>
+<li>CopyOnWriteList（写时复制，写慢，读快，不需要锁也可以保持同步）</li>
+</ul>
+</li>
+<li>需要锁，并发高<br>  Queue<ul>
+<li>CocurrentLinkedQueue （非阻塞式的并发队列，注意没有concurrentArrayQueue）</li>
+<li>BlockingQueue（阻塞式的）<ul>
+<li>LinkedBQ</li>
+<li>ArrayBQ</li>
+<li>TransferQueue（生产者来了一个直接给消费者）</li>
+<li>SynchronusQueue（容量为0，有消费者再给）</li>
+</ul>
+</li>
+<li>DelayQueue执行定时任务</li>
+</ul>
+</li>
+</ul>
+<p>Executor （认识ExecutorService,阅读API文档，认识submit方法，扩展了execute方法，具有一个返回值ExecutorService submit）</p>
+<p>Callable = Runnable（识Callable，对Runnable进行了扩展， 对Callable的调用，可以有返回值）<br>Executors<br>ThreadPool<br>Future（延时汇总）</p>
+<p>fixed（固定个数的）</p>
+<blockquote>
+<p>ExecutorService service = Executors.newFixedThreadPool(5); <em>//execute submit</em></p>
+</blockquote>
+<p> cached（弹性的）</p>
+<blockquote>
+<p>ExecutorService service = Executors.newCachedThreadPool();</p>
+</blockquote>
+<p> single （只有一个）</p>
+<blockquote>
+<p>ExecutorService service = Executors.newSingleThreadExecutor();</p>
+</blockquote>
+<p>scheduled (定时）</p>
+<blockquote>
+<p>ScheduledExecutorService service = Executors.newScheduledThreadPool(4);</p>
+</blockquote>
+<p>workstealing （任务窃取）</p>
+<blockquote>
+<p>ExecutorService service = Executors.newWorkStealingPool();</p>
+</blockquote>
+<p>forkjoin</p>
+<ul>
+<li><em>RecursiveAction</em> 没有返回值</li>
+<li><em>RecursiveTask</em> 有返回值</li>
+</ul>
+<p>ThreadpoolExecutor</p>
+<p>PStreamAPI</p>
+<blockquote>
+<p>nums.parallelStream().forEach(T14_ParallelStreamAPI::isPrime);</p>
+</blockquote>
+</p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/09/20/线程相关/%20HeeC' target="_blank" rel="noopener"Blog%20线程相关" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/10/02/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/" title="C学习（一）"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: C学习（一）</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/09/18/CAS%E6%97%A0%E9%94%81%E7%AE%97%E6%B3%95/" title="CAS无锁算法">下一篇: CAS无锁算法&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>

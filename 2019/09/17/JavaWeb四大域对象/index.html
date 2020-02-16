@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>JavaWeb四大域对象 · HeeC'Blog</title><meta name="description" content="JavaWeb有ServletContext、ServletRequest、HttpSession、PageContext四大域对象，下面主要从域对象的生命周期、作用、作用范围进行介绍。Servlet中只有前三个域对象，JSP中多了一个pageContext对象。
+
+一、ServletContext"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>JavaWeb四大域对象</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-09-17</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/javaweb/" title="javaweb" class="a-tag">javaweb</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/java/" title="java" class="a-tag">java</a><span>&nbsp;</span></span></p><p class="post-abstract"><blockquote>
+<p>JavaWeb有ServletContext、ServletRequest、HttpSession、PageContext四大域对象，下面主要从域对象的生命周期、作用、作用范围进行介绍。<br><em>Servlet中只有前三个域对象，JSP中多了一个pageContext对象。</em></p>
+</blockquote>
+<h1 id="一、ServletContext"><a href="#一、ServletContext" class="headerlink" title="一、ServletContext"></a>一、ServletContext</h1><h2 id="1-生命周期"><a href="#1-生命周期" class="headerlink" title="1.生命周期"></a>1.生命周期</h2><p>当web应用被加进容器时，创建<strong>代表整个web应用</strong>的ServletContext对象，当服务器关闭，或web应用被移除时，ServletContext对象跟着被销毁。</p>
+<h2 id="2-作用范围"><a href="#2-作用范围" class="headerlink" title="2.作用范围"></a>2.作用范围</h2><p>整个web应用。</p>
+<h2 id="3-作用"><a href="#3-作用" class="headerlink" title="3.作用"></a>3.作用</h2><p>由于一个web应用中的所有Servlet共享同一个ServletContext对象：因此Servlet对象之间可以通过ServletContext来是实现通讯。ServletContext对象通常也被称为context域对象。</p>
+<a id="more"></a>
+
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
+<li>多个Servlet通过ServletContext对象实现数据共享。<ul>
+<li>获取web应用的初始化参数(getInitParameter)。</li>
+</ul>
+</li>
+<li>用ServletContext实现请求转发（<code>this.getServletContext().getRequestDispatcher().forward()</code>）。<ul>
+<li>利用ServletContext对象读取资源文件。<br><em>servletContext.getRealPath(“/xx.properties”)，servletContext.getResourceAsStream()。</em><br>另外，顺便说一下，如果要在非servlet中获取资源文件，无法取得servletContext对象，这时候就得通过类加载器ClassLoader来getResourceAsStream()，此方法通过类加载器将资源文件直接加载到内存中，有更新延迟的问题，适合小文件的读取，对于大资源文件，将会占用较大的内存。</li>
+</ul>
+</li>
+<li>还有，通过classLoader也可以获取资源文件路径，具体通过<code>ClassLoader.getResource(&quot;/xx.properties&quot;).getPath()</code>，没有更新延迟问题。</li>
+</ul>
+<h1 id="二、ServletRequest"><a href="#二、ServletRequest" class="headerlink" title="二、ServletRequest"></a>二、ServletRequest</h1><h2 id="1-生命周期-1"><a href="#1-生命周期-1" class="headerlink" title="1.生命周期"></a>1.生命周期</h2><p>在service方法调用前由服务器创建，传入service()方法，整个请求结束，ServletRequest生命周期结束。</p>
+<h2 id="2-作用范围-1"><a href="#2-作用范围-1" class="headerlink" title="2.作用范围"></a>2.作用范围</h2><p>整个请求链。（请求转发也存在，请求转发属于一次请求。）</p>
+<h2 id="3-作用-1"><a href="#3-作用-1" class="headerlink" title="3.作用"></a>3.作用</h2><ul>
+<li>在整个请求链中共享数据，主要可通过getAttribute、setAttribute将数据带到jsp页面中进行显示。</li>
+<li>获得客户端信息，可通过getRequestURL()、getRequestURI()、getQueryString()、getPathInfo()、getRemoteAddr()、getRemoteHost()、getRemotePort()、getLocalAddr()、getLocalName()。<ul>
+<li>获得客户机请求头，getHeader(String s)、getHeaders(String s)、getHeaderNames()。</li>
+</ul>
+</li>
+<li>获得客户机请求参数（客户端提交的数据）：getParameter()等。</li>
+</ul>
+<h1 id="三、Session"><a href="#三、Session" class="headerlink" title="三、Session"></a>三、Session</h1><h2 id="1-生命周期-2"><a href="#1-生命周期-2" class="headerlink" title="1.生命周期"></a>1.生命周期</h2><p>  服务器在运行时可以为每一个用户的浏览器创建一个其独享的session对象，由于session为用户浏览器独享，所以用户在访问服务器的web资源时，可以把各自的数据放在各自的session中，当用户再去访问服务器中的其它web资源时，其它web资源再从用户各自的session中取出数据为用户服务。<br>  在第一次调用request.getSession()方法时，服务器会检查是否已经有对应的session，如果没有就在内存中创建一个并返回。<br>  当一段时间内，session没有被使用（默认是30分钟），服务器会销毁该session。如果服务器非正常关闭（强行关闭），还未到期的session也会被销毁。<br>  另外，调用session的invalidate()方法可以立即销毁session。</p>
+<h2 id="2-作用范围-2"><a href="#2-作用范围-2" class="headerlink" title="2.作用范围"></a>2.作用范围</h2><p>  一次回话。</p>
+<h1 id="四、PageContext"><a href="#四、PageContext" class="headerlink" title="四、PageContext"></a>四、PageContext</h1><p>  PageContext对象是JSP页面中才有的对象。</p>
+<h2 id="1-生命周期-3"><a href="#1-生命周期-3" class="headerlink" title="1.生命周期"></a>1.生命周期</h2><p>  当对JSP的请求开始时创建，当响应结束时销毁。</p>
+<h2 id="2-作用范围-3"><a href="#2-作用范围-3" class="headerlink" title="2.作用范围"></a>2.作用范围</h2><p>  整个JSP页面，是四大域中最小的一个。</p>
+<h2 id="3-作用-2"><a href="#3-作用-2" class="headerlink" title="3.作用"></a>3.作用</h2><p>  pageContext对象封装了8大隐式对象，通过它可以获得其它的8个对象。</p>
+<ul>
+<li><p>getException()返回Exception。</p>
+</li>
+<li><p>getPage()返回Page。</p>
+</li>
+<li><p>getRequest()返回request。</p>
+</li>
+<li><p>getResponse()返回response。</p>
+</li>
+<li><p>getServletConfig()返回config。</p>
+</li>
+<li><p>getServletContext()返回application。</p>
+</li>
+<li><p>getSession()返回session。</p>
+</li>
+<li><p>getOut()返回out。</p>
+<p>另外，通过pageContext还能获取其所有域中的数据。</p>
+</li>
+</ul>
+<h2 id="4-getAttribute-和findAttribute-的区别"><a href="#4-getAttribute-和findAttribute-的区别" class="headerlink" title="4.getAttribute()和findAttribute()的区别"></a>4.getAttribute()和findAttribute()的区别</h2><p>  getAttribute() 只能获取自己域中保存的属性，而 findAttribute() 则会按照 pageContext-&gt;request-&gt;session-&gt;servletContext 的顺序查找有无对应的属性。</p>
+<p>  <em>四大域中，HttpRequest和HttpResponse，session和cookie有很多联系，后面会补上response和cookie的总结。</em></p>
+</p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/09/17/JavaWeb四大域对象/%20HeeC' target="_blank" rel="noopener"Blog%20JavaWeb四大域对象" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/09/17/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" title="JVM内存模型"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: JVM内存模型</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/09/13/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B/" title="三次握手与四次挥手过程">下一篇: 三次握手与四次挥手过程&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>

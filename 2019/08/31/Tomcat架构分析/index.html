@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>Tomcat架构分析 · HeeC'Blog</title><meta name="description" content="本文链接：https://blog.csdn.net/u010870518/article/details/79006434
+
+一、Tomcat顶层架构Tomcat中最顶层的容器是Server，代表着整个服务器，一个Server可以包含至少一个Service，用于具体提供服务。
+
+Service主要"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Tomcat架构分析</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-08-31</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/WEB服务/" title="WEB服务" class="a-tag">WEB服务</a><span>&nbsp;</span></span></p><p class="post-abstract"><blockquote>
+<p>本文链接：<a href="https://blog.csdn.net/u010870518/article/details/79006434" target="_blank" rel="noopener">https://blog.csdn.net/u010870518/article/details/79006434</a></p>
+</blockquote>
+<h2 id="一、Tomcat顶层架构"><a href="#一、Tomcat顶层架构" class="headerlink" title="一、Tomcat顶层架构"></a>一、Tomcat顶层架构</h2><p>Tomcat中最顶层的容器是Server，代表着整个服务器，一个Server可以包含至少一个Service，用于具体提供服务。</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/9vsog4hfon.jpeg" alt="image"></p>
+<p>Service主要包含两个部分：Connector和Container。从上图中可以看出 Tomcat 的心脏就是这两个组件，他们的作用如下：</p>
+<blockquote>
+<p>1、Connector用于处理连接相关的事情，并提供Socket与Request和Response相关的转化;</p>
+<p>2、Container用于封装和管理Servlet，以及具体处理Request请求；</p>
+</blockquote>
+<a id="more"></a>
+
+<p>一个Tomcat中只有一个Server，一个Server可以包含多个Service，一个Service只有一个Container，但是可以有多个Connectors，这是因为一个服务可以有多个连接，如同时提供Http和Https链接，也可以提供向相同协议不同端口的连接。</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/2uixgvjg8x.jpeg" alt="image"></p>
+<p>多个 Connector 和一个 Container 就形成了一个 Service，有了 Service 就可以对外提供服务了，但是 Service 还要一个生存的环境，必须要有人能够给她生命、掌握其生死大权，那就非 Server 莫属了！所以整个 Tomcat 的生命周期由 Server 控制。</p>
+<p>另外，上述的包含关系或者说是父子关系，都可以在tomcat的conf目录下的server.xml配置文件中看出，下图是删除了注释内容之后的一个完整的server.xml配置文件（Tomcat版本为8.0）</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/rd4cx7ek0i.jpeg" alt="image"></p>
+<p>详细的配置文件文件内容可以到Tomcat官网查看：<a href="http://tomcat.apache.org/tomcat-8.0-doc/index.html" target="_blank" rel="noopener">http://tomcat.apache.org/tomcat-8.0-doc/index.html</a></p>
+<p>上边的配置文件，还可以通过下边的一张结构图更清楚的理解：</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/9p29co4urs.png" alt="image"></p>
+<p>Server标签设置的端口号为8005，shutdown=”SHUTDOWN” ，表示在8005端口监听“SHUTDOWN”命令，如果接收到了就会关闭Tomcat。一个Server有一个Service，当然还可以进行配置，一个Service有多个，Service左边的内容都属于Container的，Service下边是Connector。</p>
+<h1 id="二、Tomcat顶层架构小结："><a href="#二、Tomcat顶层架构小结：" class="headerlink" title="二、Tomcat顶层架构小结："></a>二、Tomcat顶层架构小结：</h1><blockquote>
+<ol>
+<li>Tomcat中只有一个Server，一个Server可以有多个Service，一个Service可以有多个    Connector和一个Container；</li>
+<li>Server掌管着整个Tomcat的生死大权；</li>
+<li>Service 是对外提供服务的；</li>
+<li>Connector用于接受请求并将请求封装成Request和Response来具体处理；</li>
+<li>Container用于封装和管理Servlet，以及具体处理request请求；</li>
+</ol>
+</blockquote>
+<p>知道了整个Tomcat顶层的分层架构和各个组件之间的关系以及作用，对于绝大多数的开发人员来说Server和Service对我们来说确实很远，而我们开发中绝大部分进行配置的内容是属于Connector和Container的，所以接下来介绍一下Connector和Container。</p>
+<h1 id="三、Connector和Container的微妙关系"><a href="#三、Connector和Container的微妙关系" class="headerlink" title="三、Connector和Container的微妙关系"></a>三、Connector和Container的微妙关系</h1><p>由上述内容我们大致可以知道一个请求发送到Tomcat之后，首先经过Service然后会交给我们的Connector，Connector用于接收请求并将接收的请求封装为Request和Response来具体处理，Request和Response封装完之后再交由Container进行处理，Container处理完请求之后再返回给Connector，最后在由Connector通过Socket将处理的结果返回给客户端，这样整个请求的就处理完了！</p>
+<p>Connector最底层使用的是Socket来进行连接的，Request和Response是按照HTTP协议来封装的，所以Connector同时需要实现TCP/IP协议和HTTP协议！</p>
+<p>Tomcat既然处理请求，那么肯定需要先接收到这个请求，接收请求这个东西我们首先就需要看一下Connector！</p>
+<h1 id="四、Connector架构分析"><a href="#四、Connector架构分析" class="headerlink" title="四、Connector架构分析"></a>四、Connector架构分析</h1><p>Connector用于接受请求并将请求封装成Request和Response，然后交给Container进行处理，Container处理完之后在交给Connector返回给客户端。</p>
+<p>因此，我们可以把Connector分为四个方面进行理解：</p>
+<ol>
+<li>Connector如何接受请求的？</li>
+<li>2如何将请求封装成Request和Response的？</li>
+<li>封装完之后的Request和Response如何交给Container进行处理的？</li>
+<li>Container处理完之后如何交给Connector并返回给客户端的？</li>
+</ol>
+<p>首先看一下Connector的结构图（图B），如下所示：</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/8tqnd3zabp.png" alt="image"></p>
+<p>Connector就是使用ProtocolHandler来处理请求的，不同的ProtocolHandler代表不同的连接类型，比如：Http11Protocol使用的是普通Socket来连接的，Http11NioProtocol使用的是NioSocket来连接的。</p>
+<p>其中ProtocolHandler由包含了三个部件：Endpoint、Processor、Adapter。</p>
+<ol>
+<li>Endpoint用来处理底层Socket的网络连接，Processor用于将Endpoint接收到的Socket封装成Request，Adapter用于将Request交给Container进行具体的处理。</li>
+<li>Endpoint由于是处理底层的Socket网络连接，因此Endpoint是用来实现TCP/IP协议的，而Processor用来实现HTTP协议的，Adapter将请求适配到Servlet容器进行具体的处理。</li>
+<li>Endpoint的抽象实现AbstractEndpoint里面定义的Acceptor和AsyncTimeout两个内部类和一个Handler接口。Acceptor用于监听请求，AsyncTimeout用于检查异步Request的超时，Handler用于处理接收到的Socket，在内部调用Processor进行处理。</li>
+</ol>
+<p>至此，我们应该很轻松的回答（1）（2）（3）的问题了，但是（4）还是不知道，那么我们就来看一下Container是如何进行处理的以及处理完之后是如何将处理完的结果返回给Connector的？</p>
+<h2 id="五、Container架构分析"><a href="#五、Container架构分析" class="headerlink" title="五、Container架构分析"></a>五、Container架构分析</h2><p>Container用于封装和管理Servlet，以及具体处理Request请求，在Connector内部包含了4个子容器，结构图如下（图C）：</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/xlcojnd9rf.png" alt="image"></p>
+<p>4个子容器的作用分别是：</p>
+<ol>
+<li>Engine：引擎，用来管理多个站点，一个Service最多只能有一个Engine；</li>
+<li>Host：代表一个站点，也可以叫虚拟主机，通过配置Host就可以添加站点；</li>
+<li>Context：代表一个应用程序，对应着平时开发的一套程序，或者一个WEB-INF目录以及下面的web.xml文件；</li>
+<li>Wrapper：每一Wrapper封装着一个Servlet；</li>
+</ol>
+<p>下面找一个Tomcat的文件目录对照一下，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/8gi9a1blv8.png" alt="image"></p>
+<p>Context和Host的区别是Context表示一个应用，我们的Tomcat中默认的配置下webapps下的每一个文件夹目录都是一个Context，其中ROOT目录中存放着主应用，其他目录存放着子应用，而整个webapps就是一个Host站点。</p>
+<p>我们访问应用Context的时候，如果是ROOT下的则直接使用域名就可以访问，例如：<a href="http://www.ledouit.com,如果是Host（webapps）下的其他应用，则可以使用www.ledouit.com/docs进行访问，当然默认指定的根应用（ROOT）是可以进行设定的，只不过Host站点下默认的主营用是ROOT目录下的。" target="_blank" rel="noopener">www.ledouit.com,如果是Host（webapps）下的其他应用，则可以使用www.ledouit.com/docs进行访问，当然默认指定的根应用（ROOT）是可以进行设定的，只不过Host站点下默认的主营用是ROOT目录下的。</a></p>
+<p>看到这里我们知道Container是什么，但是还是不知道Container是如何进行处理的以及处理完之后是如何将处理完的结果返回给Connector的？别急！下边就开始探讨一下Container是如何进行处理的！</p>
+<p>六、Container如何处理请求的<br>Container处理请求是使用Pipeline-Valve管道来处理的！（Valve是阀门之意）</p>
+<p>Pipeline-Valve是责任链模式，责任链模式是指在一个请求处理的过程中有很多处理者依次对请求进行处理，每个处理者负责做自己相应的处理，处理完之后将处理后的请求返回，再让下一个处理着继续处理。<br>但是！Pipeline-Valve使用的责任链模式和普通的责任链模式有些不同！区别主要有以下两点：</p>
+<ol>
+<li>每个Pipeline都有特定的Valve，而且是在管道的最后一个执行，这个Valve叫做BaseValve，BaseValve是不可删除的；</li>
+<li>在上层容器的管道的BaseValve中会调用下层容器的管道。</li>
+</ol>
+<p>我们知道Container包含四个子容器，而这四个子容器对应的BaseValve分别在：StandardEngineValve、StandardHostValve、StandardContextValve、StandardWrapperValve。</p>
+<p>Pipeline的处理流程图如下（图D）：</p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/20180108212100441.png" alt="image"></p>
+<ol>
+<li>Connector在接收到请求后会首先调用最顶层容器的Pipeline来处理，这里的最顶层容器的Pipeline就是EnginePipeline（Engine的管道）；</li>
+<li>在Engine的管道中依次会执行EngineValve1、EngineValve2等等，最后会执行StandardEngineValve，在StandardEngineValve中会调用Host管道，然后再依次执行Host的HostValve1、HostValve2等，最后在执行StandardHostValve，然后再依次调用Context的管道和Wrapper的管道，最后执行到StandardWrapperValve。</li>
+<li>当执行到StandardWrapperValve的时候，会在StandardWrapperValve中创建FilterChain，并调用其doFilter方法来处理请求，这个FilterChain包含着我们配置的与请求相匹配的Filter和Servlet，其doFilter方法会依次调用所有的Filter的doFilter方法和Servlet的service方法，这样请求就得到了处理！</li>
+<li>当所有的Pipeline-Valve都执行完之后，并且处理完了具体的请求，这个时候就可以将返回的结果交给Connector了，Connector在通过Socket的方式将结果返回给客户端。</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>至此，我们已经对Tomcat的整体架构有了大致的了解，从图A、B、C、D可以看出来每一个组件的基本要素和作用。我们在脑海里应该有一个大概的轮廓了！</p>
+</p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/08/31/Tomcat架构分析/%20HeeC' target="_blank" rel="noopener"Blog%20Tomcat架构分析" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/08/31/Java%E5%BC%95%E7%94%A8%E6%9C%BA%E5%88%B6/" title="Java引用机制"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Java引用机制</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E8%BF%9B%E7%A8%8B-02/" title="操作系统 进程 02">下一篇: 操作系统 进程 02&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>

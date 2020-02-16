@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>一些技巧 · HeeC'Blog</title><meta name="description" content="一些技巧
+Jupyter Notebook 配置
+个人配置命令：jt -t onedork -f firacode -fs 12 -nfs 15 -cellw 88% -T -N
+地址：https://github.com/dunovank/jupyter-themes
+
+合并文件
+cat *.cs"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>一些技巧</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-01-17</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/经验/" title="经验" class="a-tag">经验</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/技巧/" title="技巧" class="a-tag">技巧</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="一些技巧"><a href="#一些技巧" class="headerlink" title="一些技巧"></a>一些技巧</h1><blockquote>
+<p>Jupyter Notebook 配置</p>
+<p>个人配置命令：<code>jt -t onedork -f firacode -fs 12 -nfs 15 -cellw 88% -T -N</code></p>
+<p>地址：<a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">https://github.com/dunovank/jupyter-themes</a></p>
+</blockquote>
+<h2 id="合并文件"><a href="#合并文件" class="headerlink" title="合并文件"></a>合并文件</h2><blockquote>
+<p>cat *.csv  &gt; full.csv<br>无序的</p>
+</blockquote>
+<h2 id="Python-KeyError异常"><a href="#Python-KeyError异常" class="headerlink" title="Python KeyError异常"></a>Python KeyError异常</h2><p>如果不知道 dict 中是否有 key 的值,那么最好用</p>
+<blockquote>
+<p>dict.get(key)</p>
+</blockquote>
+<p>用 dict[key] 读取会报KeyError异常</p>
+<p>dict.get方法主要是提供一个取不到对应key的value就返回默认值的功能,而dict[key]实际上是调用了 <code>__getitem__</code> 方法</p>
+<p>说明:</p>
+<blockquote>
+<p>D.get(key[, d])  -&gt;D[k] if k in D, else d.   d defaults to None.</p>
+</blockquote>
+<h2 id="编码转换"><a href="#编码转换" class="headerlink" title="编码转换"></a>编码转换</h2><blockquote>
+<p>iconv -f utf-8 -t gb18030 new.csv &gt; market.csv</p>
+</blockquote>
+<h2 id="Jupyter-Notebook-配置"><a href="#Jupyter-Notebook-配置" class="headerlink" title="Jupyter Notebook 配置"></a>Jupyter Notebook 配置</h2><blockquote>
+<p>个人配置命令：<code>jt -t onedork -f firacode -fs 12 -nfs 15 -cellw 88% -T -N</code><br>地址：<a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">https://github.com/dunovank/jupyter-themes</a></p>
+</blockquote>
+<h2 id="vim在-vimrc-中快速安装-vim-plug"><a href="#vim在-vimrc-中快速安装-vim-plug" class="headerlink" title="vim在 ~/.vimrc 中快速安装 vim-plug"></a>vim在 ~/.vimrc 中快速安装 vim-plug</h2><pre class="line-numbers language-shell"><code class="language-shell">let $BUNDLE = expand("$HOME/.dotfiles/data/vimdata/bundle")
+let $PLUG_DIR = expand("$BUNDLE/vim-plug")
+
+if empty(glob(expand("$PLUG_DIR/plug.vim")))
+  silent !curl -fLo $PLUG_DIR/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
+endif
+source $PLUG_DIR/plug.vim<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这段代码的意思是如果 vim-plug.vim 文件不存在, 就自动从 github 上下载最新版本到指定目录并加载。</p>
+<h2 id="Mac下使用tree工具"><a href="#Mac下使用tree工具" class="headerlink" title="Mac下使用tree工具"></a>Mac下使用tree工具</h2><pre class="line-numbers language-Shell"><code class="language-Shell">brew install tree
+tree -L 2 -N > dir.txt
+
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>-N 解决中文乱码<br>第三行是使用find命令模拟出tree命令的效果，保存zsh文件中使用别名来快速执行该命令</p>
+<h2 id="代理终端"><a href="#代理终端" class="headerlink" title="代理终端"></a>代理终端</h2><p>把代理服务器地址写入shell配置文件<code>.bashrc</code>或者<code>.zshrc</code></p>
+<p>直接在<code>.bashrc</code>或者<code>.zshrc</code>添加下面内容</p>
+<pre class="line-numbers language-shell"><code class="language-shell">export http_proxy="http://localhost:port" export https_proxy="http://localhost:port"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>以使用shadowsocks代理为例，ss的代理端口为<code>1080</code>,那么应该设置为</p>
+<pre class="line-numbers language-shell"><code class="language-shell">export http_proxy="socks5://127.0.0.1:1086" export https_proxy="socks5://127.0.0.1:1086"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>或者直接设置ALL_PROXY</p>
+<pre class="line-numbers language-shell"><code class="language-shell">export ALL_PROXY=socks5://127.0.0.1:1086 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><code>localhost</code>就是一个域名，域名默认指向 <code>127.0.0.1</code>，两者是一样的。</p>
+<p>然后<code>ESC</code>后<code>:wq</code>保存文件，接着在终端中执行<br><code>source ~/.bashrc</code></p>
+<p>或者退出当前终端再起一个终端。 这个办法的好处是把代理服务器永久保存了，下次就可以直接用了。</p>
+<p>或者通过设置alias简写来简化操作，每次要用的时候输入<code>setproxy</code>，不用了就<code>unsetproxy</code>。</p>
+<pre class="line-numbers language-shell"><code class="language-shell">alias setproxy="export ALL_PROXY=socks5://127.0.0.1:1086" 
+alias unsetproxy="unset ALL_PROXY" 
+alias ip="curl -i http://ip.cn"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>使用curl命令监测是否返回数据：</p>
+<p><code>curl https://www.google.com</code></p>
+<h2 id="win-Tree-工具"><a href="#win-Tree-工具" class="headerlink" title="win Tree 工具"></a>win Tree 工具</h2><pre class="line-numbers language-shell"><code class="language-shell">tree /F > dir.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="终端代理（Win）"><a href="#终端代理（Win）" class="headerlink" title="终端代理（Win）"></a>终端代理（Win）</h2><p>set https_proxy=<a href="http://127.0.0.1:1086" target="_blank" rel="noopener">http://127.0.0.1:1086</a></p>
+<p>set http_proxy=<a href="http://127.0.0.1:1086" target="_blank" rel="noopener">http://127.0.0.1:1086</a></p>
+</p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/01/17/一些技巧/%20HeeC' target="_blank" rel="noopener"Blog%20一些技巧" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/01/18/%E6%8E%A8%E4%B8%80%E4%BA%9B%E6%8A%80%E6%9C%AF%E6%BC%94%E8%AE%B2/" title="推一些技术演讲"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: 推一些技术演讲</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/01/17/Python%E7%90%86%E8%A7%A3%E4%BA%8C/" title="Python理解二">下一篇: Python理解二&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>

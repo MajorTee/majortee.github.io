@@ -1,0 +1,493 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>Golang-5 · HeeC'Blog</title><meta name="description" content="构建⾼可扩展性的软件架构架构模式
+An architectural pattern is a general, reusable solution to a commonly occurring problem in software architecture within a given cont"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Golang-5</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-10-28</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Golang/" title="Golang" class="a-tag">Golang</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="构建⾼可扩展性的软件架构"><a href="#构建⾼可扩展性的软件架构" class="headerlink" title="构建⾼可扩展性的软件架构"></a>构建⾼可扩展性的软件架构</h1><h2 id="架构模式"><a href="#架构模式" class="headerlink" title="架构模式"></a>架构模式</h2><blockquote>
+<p>An architectural pattern is a general, reusable solution to a commonly occurring problem in software architecture within a given context.</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="Pipe-Filter"><a href="#Pipe-Filter" class="headerlink" title="Pipe-Filter"></a>Pipe-Filter</h2><h3 id="Pipe-Filter-架构"><a href="#Pipe-Filter-架构" class="headerlink" title="Pipe-Filter 架构"></a>Pipe-Filter 架构</h3><p>![img](<a href="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown" target="_blank" rel="noopener">https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown</a> Photos/Pipe-Filter.jpg)</p>
+<h3 id="Pipe-Filter-模式"><a href="#Pipe-Filter-模式" class="headerlink" title="Pipe-Filter 模式"></a>Pipe-Filter 模式</h3><ul>
+<li>⾮常适合与数据处理及数据分析系统</li>
+<li>Filter封装数据处理的功能</li>
+<li>Pipe⽤于连接Filter传递数据或者在异步处理过程中缓冲数据流<ul>
+<li>进程内同步调⽤时，pipe演变为数据在⽅法调⽤间传递</li>
+</ul>
+</li>
+<li>松耦合：Filter只跟数据（格式）耦合</li>
+</ul>
+<h3 id="Filter和组合模式"><a href="#Filter和组合模式" class="headerlink" title="Filter和组合模式"></a>Filter和组合模式</h3><p>![img](<a href="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown" target="_blank" rel="noopener">https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown</a> Photos/Filter.png)</p>
+<p><strong>示例</strong></p>
+<p>“1,2,3” -&gt; SplitFilter ==&gt; [“1,2,3”] -&gt; ToIntFilter ==&gt; [1,2,3] -&gt; SumFilter ==&gt; 6</p>
+<h2 id="Micro-Kernel"><a href="#Micro-Kernel" class="headerlink" title="Micro-Kernel"></a>Micro-Kernel</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>易于扩展</li>
+<li>错误隔离</li>
+<li>保持架构⼀致性</li>
+</ul>
+<h3 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h3><ul>
+<li><p>内核包含公共流程或通⽤逻辑</p>
+</li>
+<li><p>将可变或可扩展部分规划为扩展点</p>
+</li>
+<li><p>抽象扩展点⾏为，定义接⼝</p>
+</li>
+<li><p>利⽤插件进⾏扩展</p>
+</li>
+</ul>
+<h2 id="JSON-解析"><a href="#JSON-解析" class="headerlink" title="JSON 解析"></a>JSON 解析</h2><h3 id="内置的JSON解析"><a href="#内置的JSON解析" class="headerlink" title="内置的JSON解析"></a>内置的JSON解析</h3><p>利⽤反射实现，通过 FeildTag 来标识对应的 json 值</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> BasicInfo <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    Name <span class="token builtin">string</span> <span class="token string">`json:"name"`</span>
+    Age <span class="token builtin">int</span> <span class="token string">`json:"age"`</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">type</span> JobInfo <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    Skills <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token string">`json:"skills"`</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">type</span> Employee <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    BasicInfo BasicInfo <span class="token string">`json:"basic_info"`</span>
+    JobInfo JobInfo <span class="token string">`json:"job_info"`</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="更快的JSON解析"><a href="#更快的JSON解析" class="headerlink" title="更快的JSON解析"></a>更快的JSON解析</h3><p>EasyJSON 采⽤代码⽣成⽽⾮反射</p>
+<p>安装</p>
+<blockquote>
+<p>go get -u github.com/mailru/easyjson/…</p>
+</blockquote>
+<p>使⽤</p>
+<blockquote>
+<p>easyjson -all &lt;结构定义&gt;.go</p>
+</blockquote>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">var</span> jsonStr <span class="token operator">=</span> <span class="token string">`{
+    "basic_info":{
+          "name":"Mike",
+        "age":30
+    },
+    "job_info":{
+        "skills":["Java","Go","C"]
+    }
+}    `</span>
+
+<span class="token keyword">func</span> <span class="token function">TestEmbeddedJson</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    e <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>Employee<span class="token punctuation">)</span>
+    err <span class="token operator">:=</span> json<span class="token punctuation">.</span><span class="token function">Unmarshal</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>jsonStr<span class="token punctuation">)</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token operator">*</span>e<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> v<span class="token punctuation">,</span> err <span class="token operator">:=</span> json<span class="token punctuation">.</span><span class="token function">Marshal</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">TestEasyJson</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    e <span class="token operator">:=</span> Employee<span class="token punctuation">{</span><span class="token punctuation">}</span>
+    e<span class="token punctuation">.</span><span class="token function">UnmarshalJSON</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>jsonStr<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> v<span class="token punctuation">,</span> err <span class="token operator">:=</span> e<span class="token punctuation">.</span><span class="token function">MarshalJSON</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">BenchmarkEmbeddedJson</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    b<span class="token punctuation">.</span><span class="token function">ResetTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    e <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>Employee<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>N<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+
+        err <span class="token operator">:=</span> json<span class="token punctuation">.</span><span class="token function">Unmarshal</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>jsonStr<span class="token punctuation">)</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            b<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">=</span> json<span class="token punctuation">.</span><span class="token function">Marshal</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            b<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">BenchmarkEasyJson</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    b<span class="token punctuation">.</span><span class="token function">ResetTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    e <span class="token operator">:=</span> Employee<span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>N<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        err <span class="token operator">:=</span> e<span class="token punctuation">.</span><span class="token function">UnmarshalJSON</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>jsonStr<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            b<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">=</span> e<span class="token punctuation">.</span><span class="token function">MarshalJSON</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            b<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="HTTP-Server"><a href="#HTTP-Server" class="headerlink" title="HTTP Server"></a>HTTP Server</h2><h3 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h3><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> Handler <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+     <span class="token function">ServeHTTP</span><span class="token punctuation">(</span>ResponseWriter<span class="token punctuation">,</span> <span class="token operator">*</span>Request<span class="token punctuation">)</span> 
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    http<span class="token punctuation">.</span><span class="token function">HandleFunc</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> t <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"Hello, world"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    http<span class="token punctuation">.</span><span class="token function">HandleFunc</span><span class="token punctuation">(</span><span class="token string">"/time"</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span>w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> r <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        t <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        timeStr <span class="token operator">:=</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"{\"time\": \"%s\"}"</span><span class="token punctuation">,</span> t<span class="token punctuation">)</span>
+        w<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>timeStr<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    http<span class="token punctuation">.</span><span class="token function">ListenAndServe</span><span class="token punctuation">(</span><span class="token string">":8080"</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="路由规则"><a href="#路由规则" class="headerlink" title="路由规则"></a>路由规则</h3><ul>
+<li>URL 分为两种，末尾是 /：表示⼀个⼦树，后⾯可以跟其他⼦路径；末尾不是 /，表示⼀个叶⼦，固定的路径<ul>
+<li>以 / 结尾的 URL 可以匹配它的任何⼦路径，⽐如 /images/ 会匹配 /images/ cute-cat.jpg</li>
+<li>/images 不会匹配 /images/ cute-cat.jpg</li>
+</ul>
+</li>
+<li>它采⽤最⻓长匹配原则，如果有多个匹配，⼀定采⽤匹配路径最⻓长的那个进⾏处理</li>
+<li>如果没有找到任何匹配项，会返回 404 错误</li>
+</ul>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>sh serverHandler<span class="token punctuation">)</span> <span class="token function">ServeHTTP</span><span class="token punctuation">(</span>rw ResponseWriter<span class="token punctuation">,</span> req <span class="token operator">*</span>Request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    handler <span class="token operator">:=</span> sh<span class="token punctuation">.</span>srv<span class="token punctuation">.</span>Handler
+    <span class="token keyword">if</span> handler <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        handler <span class="token operator">=</span> DefaultServeMux <span class="token comment" spellcheck="true">// 使⽤缺省的Router</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> req<span class="token punctuation">.</span>RequestURI <span class="token operator">==</span> <span class="token string">"*"</span> <span class="token operator">&amp;&amp;</span> req<span class="token punctuation">.</span>Method <span class="token operator">==</span> <span class="token string">"OPTIONS"</span> <span class="token punctuation">{</span>
+        handler <span class="token operator">=</span> globalOptionsHandler<span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    handler<span class="token punctuation">.</span><span class="token function">ServeHTTP</span><span class="token punctuation">(</span>rw<span class="token punctuation">,</span> req<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="更好的-Router"><a href="#更好的-Router" class="headerlink" title="更好的 Router"></a>更好的 Router</h3><blockquote>
+<p>第三方 <a href="https://github.com/julienschmidt/httprouter" target="_blank" rel="noopener">https://github.com/julienschmidt/httprouter</a></p>
+</blockquote>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">Hello</span><span class="token punctuation">(</span>w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> r <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">,</span> ps httprouter<span class="token punctuation">.</span>Params<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"hello, %s!\n"</span><span class="token punctuation">,</span> ps<span class="token punctuation">.</span><span class="token function">ByName</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> httprouter<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> Index<span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/hello/:name"</span><span class="token punctuation">,</span> Hello<span class="token punctuation">)</span>
+    log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span><span class="token function">ListenAndServe</span><span class="token punctuation">(</span><span class="token string">":8080"</span><span class="token punctuation">,</span> router<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="构建-Restful-服务"><a href="#构建-Restful-服务" class="headerlink" title="构建 Restful 服务"></a>构建 Restful 服务</h2><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> Employee <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    ID   <span class="token builtin">string</span> <span class="token string">`json: "id"`</span>
+    Name <span class="token builtin">string</span> <span class="token string">`json: "name"`</span>
+    Age  <span class="token builtin">int</span>    <span class="token string">`json: "age"`</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> empolyeeDB <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>Employee
+
+<span class="token keyword">func</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    empolyeeDB <span class="token operator">=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>Employee<span class="token punctuation">{</span><span class="token punctuation">}</span>
+    empolyeeDB<span class="token punctuation">[</span><span class="token string">"Mike"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>Employee<span class="token punctuation">{</span><span class="token string">"e-1"</span><span class="token punctuation">,</span> <span class="token string">"Mike"</span><span class="token punctuation">,</span> <span class="token number">35</span><span class="token punctuation">}</span>
+    empolyeeDB<span class="token punctuation">[</span><span class="token string">"Rose"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>Employee<span class="token punctuation">{</span><span class="token string">"e-2"</span><span class="token punctuation">,</span> <span class="token string">"Rose"</span><span class="token punctuation">,</span> <span class="token number">45</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">Index</span><span class="token punctuation">(</span>w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> r <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">,</span> <span class="token boolean">_</span> httprouter<span class="token punctuation">.</span>Params<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Fprint</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> <span class="token string">"Welcome!\n"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">GetEmpolyeeByName</span><span class="token punctuation">(</span>w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> r <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">,</span> ps httprouter<span class="token punctuation">.</span>Params<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    qName <span class="token operator">:=</span> ps<span class="token punctuation">.</span><span class="token function">ByName</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span>
+    <span class="token keyword">var</span> <span class="token punctuation">(</span>
+        ok       <span class="token builtin">bool</span>
+        info     <span class="token operator">*</span>Employee
+        infoJson <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span>
+        err      <span class="token builtin">error</span>
+    <span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> info<span class="token punctuation">,</span> ok <span class="token operator">=</span> empolyeeDB<span class="token punctuation">[</span>qName<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token operator">!</span>ok <span class="token punctuation">{</span>
+        w<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"{\"error\": \"Not Found\"}"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> infoJson<span class="token punctuation">,</span> err <span class="token operator">=</span> json<span class="token punctuation">.</span><span class="token function">Marshal</span><span class="token punctuation">(</span>info<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        w<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"{\"error\":,\"%s\"}"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    w<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span>infoJson<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    router <span class="token operator">:=</span> httprouter<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span> Index<span class="token punctuation">)</span>
+    router<span class="token punctuation">.</span><span class="token function">GET</span><span class="token punctuation">(</span><span class="token string">"/employees/:name"</span><span class="token punctuation">,</span> GetEmpolyeeByName<span class="token punctuation">)</span>
+
+    log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>http<span class="token punctuation">.</span><span class="token function">ListenAndServe</span><span class="token punctuation">(</span><span class="token string">":8080"</span><span class="token punctuation">,</span> router<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h2><h3 id="性能分析⼯具"><a href="#性能分析⼯具" class="headerlink" title="性能分析⼯具"></a>性能分析⼯具</h3><h3 id="准备⼯作"><a href="#准备⼯作" class="headerlink" title="准备⼯作"></a>准备⼯作</h3><ul>
+<li><p>安装 graphviz</p>
+<blockquote>
+<p> brew install graphviz </p>
+</blockquote>
+</li>
+<li><p>将 $GOPATH/bin 加⼊ $PATH</p>
+<ul>
+<li>Mac OS: 在 .bash_profile 中修改路径</li>
+</ul>
+</li>
+<li><p>安装 go-torch</p>
+<blockquote>
+<p>go get github.com/uber/go-torch</p>
+</blockquote>
+<ul>
+<li>下载并复制 <code>flamegraph.pl</code> （<a href="https://github.com/brendangregg/FlameGraph）⾄\$GOPATH/bin" target="_blank" rel="noopener">https://github.com/brendangregg/FlameGraph）⾄\$GOPATH/bin</a> 路径下 </li>
+<li>将 $GOPATH/bin 加⼊ ​$PATH</li>
+</ul>
+</li>
+</ul>
+<h3 id="通过⽂件⽅式输出-Proﬁle"><a href="#通过⽂件⽅式输出-Proﬁle" class="headerlink" title="通过⽂件⽅式输出 Proﬁle"></a>通过⽂件⽅式输出 Proﬁle</h3><ul>
+<li>灵活性⾼，适⽤于特定代码段的分析</li>
+<li>通过⼿动调⽤ runtime/pprof 的 API</li>
+<li>API 相关⽂档 <a href="https://studygolang.com/static/pkgdoc/pkg/runtime_pprof.htm" target="_blank" rel="noopener">https://studygolang.com/static/pkgdoc/pkg/runtime_pprof.htm</a></li>
+<li>go tool pprof [binary] [binary.prof]</li>
+</ul>
+<h3 id="通过-HTTP-⽅式输出-Proﬁle"><a href="#通过-HTTP-⽅式输出-Proﬁle" class="headerlink" title="通过 HTTP ⽅式输出 Proﬁle"></a>通过 HTTP ⽅式输出 Proﬁle</h3><ul>
+<li>简单，适合于持续性运⾏的应⽤</li>
+<li>在应⽤程序中导⼊ import _ “net/http/pprof”，并启动 http server 即可</li>
+<li>http://<host>:<port>/debug/pprof/</li>
+<li>go tool pprof http://<host>:<port>/debug/pprof/profile?seconds=10 （默认值为30秒）</li>
+<li>go-torch -seconds 10 http://<host>:<port>/debug/pprof/proﬁle</li>
+</ul>
+<h3 id="Go-⽀持的多种-Proﬁle"><a href="#Go-⽀持的多种-Proﬁle" class="headerlink" title="Go ⽀持的多种 Proﬁle"></a>Go ⽀持的多种 Proﬁle</h3><p>go help testflag</p>
+<blockquote>
+<p><a href="https://golang.org/src/runtime/pprof/pprof.go" target="_blank" rel="noopener">https://golang.org/src/runtime/pprof/pprof.go</a></p>
+</blockquote>
+<h2 id="性能调优示例"><a href="#性能调优示例" class="headerlink" title="性能调优示例"></a>性能调优示例</h2><h3 id="常⻅见分析指标"><a href="#常⻅见分析指标" class="headerlink" title="常⻅见分析指标"></a>常⻅见分析指标</h3><ul>
+<li>Wall Time</li>
+<li>CPU Time</li>
+<li>Block Time</li>
+<li>Memory allocation</li>
+<li>GC times/time spent</li>
+</ul>
+<h3 id="go-test-输出-proﬁle"><a href="#go-test-输出-proﬁle" class="headerlink" title="go test 输出 proﬁle"></a>go test 输出 proﬁle</h3><p>go test -bench=. -cpuprofile=cpu.prof </p>
+<p>go test -bench=. -blockprofile=block.prof </p>
+<p>go tool pprof cpu.prof</p>
+<p>go help testflag</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>go test -bench=. -cpuprofile=cpu.prof </p>
+<p>go tool pprof cpu.prof </p>
+<p>go-torch cpu.prof</p>
+<h2 id="别让性能被“锁”住"><a href="#别让性能被“锁”住" class="headerlink" title="别让性能被“锁”住"></a>别让性能被“锁”住</h2><h3 id="sync-Map"><a href="#sync-Map" class="headerlink" title="sync.Map"></a>sync.Map</h3><ul>
+<li><p>适合读多写少，且 Key 相对稳定的环境</p>
+</li>
+<li><p>采⽤了空间换时间的⽅案，并且采⽤指针的⽅式间接实现值的映射，所以存储空间会较 built-in map ⼤</p>
+</li>
+</ul>
+<h3 id="Concurrent-Map"><a href="#Concurrent-Map" class="headerlink" title="Concurrent Map"></a>Concurrent Map</h3><ul>
+<li>适⽤于读写都很频繁的情况</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><p>减少锁的影响范围</p>
+</li>
+<li><p>减少发⽣锁冲突的概率</p>
+<ul>
+<li><p>sync.Map </p>
+</li>
+<li><p>ConcurrentMap </p>
+</li>
+</ul>
+</li>
+<li><p>避免锁的使⽤</p>
+<ul>
+<li>LAMX Disruptor：<a href="https://martinfowler.com/articles/lmax.html" target="_blank" rel="noopener">https://martinfowler.com/articles/lmax.html</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="GC-友好的代码"><a href="#GC-友好的代码" class="headerlink" title="GC 友好的代码"></a>GC 友好的代码</h2><h3 id="避免内存分配和复制"><a href="#避免内存分配和复制" class="headerlink" title="避免内存分配和复制"></a>避免内存分配和复制</h3><ul>
+<li>复杂对象尽量传递引⽤<ul>
+<li>数组的传递</li>
+<li>结构体传递</li>
+</ul>
+</li>
+</ul>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">const</span> NumOfElems <span class="token operator">=</span> <span class="token number">1000</span>
+
+<span class="token keyword">type</span> Content <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    Detail <span class="token punctuation">[</span><span class="token number">10000</span><span class="token punctuation">]</span><span class="token builtin">int</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">withValue</span><span class="token punctuation">(</span>arr <span class="token punctuation">[</span>NumOfElems<span class="token punctuation">]</span>Content<span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//    fmt.Println(&amp;arr[2])</span>
+    <span class="token keyword">return</span> <span class="token number">0</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">withReference</span><span class="token punctuation">(</span>arr <span class="token operator">*</span><span class="token punctuation">[</span>NumOfElems<span class="token punctuation">]</span>Content<span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//b := *arr</span>
+    <span class="token comment" spellcheck="true">//    fmt.Println(&amp;arr[2])</span>
+    <span class="token keyword">return</span> <span class="token number">0</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">BenchmarkPassingArrayWithValue</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> arr <span class="token punctuation">[</span>NumOfElems<span class="token punctuation">]</span>Content
+
+    b<span class="token punctuation">.</span><span class="token function">ResetTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>N<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        <span class="token function">withValue</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    b<span class="token punctuation">.</span><span class="token function">StopTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">BenchmarkPassingArrayWithRef</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> arr <span class="token punctuation">[</span>NumOfElems<span class="token punctuation">]</span>Content
+
+    b<span class="token punctuation">.</span><span class="token function">ResetTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>N<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        <span class="token function">withReference</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>arr<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    b<span class="token punctuation">.</span><span class="token function">StopTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">/*
+44                  25730890 ns/op        80003089 B/op           1 allocs/op
+1000000000        0.317 ns/op           0 B/op                      0 allocs/op
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="打开-GC-⽇志"><a href="#打开-GC-⽇志" class="headerlink" title="打开 GC ⽇志"></a>打开 GC ⽇志</h3><p>只要在程序执⾏之前加上环境变量 </p>
+<blockquote>
+<p>GODEBUG=gctrace=1</p>
+</blockquote>
+<p>如：</p>
+<blockquote>
+<p>GODEBUG=gctrace=1 go test -bench=.  </p>
+<p>GODEBUG=gctrace=1 go run main.go</p>
+</blockquote>
+<p><strong>⽇志详细信息参考： <a href="https://godoc.org/runtime" target="_blank" rel="noopener">https://godoc.org/runtime</a></strong></p>
+<h3 id="go-tool-trace"><a href="#go-tool-trace" class="headerlink" title="go tool trace"></a>go tool trace</h3><p>普通程序输出 trace 信息</p>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    f<span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">Create</span><span class="token punctuation">(</span><span class="token string">"trace.out"</span><span class="token punctuation">)</span> 
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span> 
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> 
+    <span class="token punctuation">}</span> 
+
+    <span class="token keyword">defer</span> f<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    err <span class="token operator">=</span> trace<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span> 
+
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> 
+    <span class="token punctuation">}</span> 
+    <span class="token keyword">defer</span> trace<span class="token punctuation">.</span><span class="token function">Stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
+    <span class="token comment" spellcheck="true">// Your program here</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>测试程序输出 trace 信息</p>
+<blockquote>
+<p>go test -bench=文件 -trace=trace_val.out</p>
+</blockquote>
+<p>可视化 trace 信息</p>
+<blockquote>
+<p>go tool trace trace_val.out</p>
+</blockquote>
+<h3 id="避免内存分配和复制-1"><a href="#避免内存分配和复制-1" class="headerlink" title="避免内存分配和复制"></a>避免内存分配和复制</h3><ul>
+<li><p>初始化⾄合适的⼤⼩</p>
+<ul>
+<li>⾃动扩容是有代价的</li>
+</ul>
+</li>
+<li><p>复⽤内存</p>
+</li>
+</ul>
+<h2 id="⾼效的字符串连接"><a href="#⾼效的字符串连接" class="headerlink" title="⾼效的字符串连接"></a>⾼效的字符串连接</h2><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">const</span> numbers <span class="token operator">=</span> <span class="token number">100</span>
+
+<span class="token keyword">func</span> <span class="token function">BenchmarkSprintf</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    b<span class="token punctuation">.</span><span class="token function">ResetTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> idx <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> idx <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>N<span class="token punctuation">;</span> idx<span class="token operator">++</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> s <span class="token builtin">string</span>
+        <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numbers<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+            s <span class="token operator">=</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"%v%v"</span><span class="token punctuation">,</span> s<span class="token punctuation">,</span> i<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    b<span class="token punctuation">.</span><span class="token function">StopTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">BenchmarkStringBuilder</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    b<span class="token punctuation">.</span><span class="token function">ResetTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> idx <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> idx <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>N<span class="token punctuation">;</span> idx<span class="token operator">++</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> builder strings<span class="token punctuation">.</span>Builder
+        <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numbers<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+            builder<span class="token punctuation">.</span><span class="token function">WriteString</span><span class="token punctuation">(</span>strconv<span class="token punctuation">.</span><span class="token function">Itoa</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        <span class="token punctuation">}</span>
+        <span class="token boolean">_</span> <span class="token operator">=</span> builder<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    b<span class="token punctuation">.</span><span class="token function">StopTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">BenchmarkBytesBuf</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    b<span class="token punctuation">.</span><span class="token function">ResetTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> idx <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> idx <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>N<span class="token punctuation">;</span> idx<span class="token operator">++</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> buf bytes<span class="token punctuation">.</span>Buffer
+        <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numbers<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+            buf<span class="token punctuation">.</span><span class="token function">WriteString</span><span class="token punctuation">(</span>strconv<span class="token punctuation">.</span><span class="token function">Itoa</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token boolean">_</span> <span class="token operator">=</span> buf<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    b<span class="token punctuation">.</span><span class="token function">StopTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">BenchmarkStringAdd</span><span class="token punctuation">(</span>b <span class="token operator">*</span>testing<span class="token punctuation">.</span>B<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    b<span class="token punctuation">.</span><span class="token function">ResetTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> idx <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> idx <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>N<span class="token punctuation">;</span> idx<span class="token operator">++</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> s <span class="token builtin">string</span>
+        <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numbers<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+            s <span class="token operator">+=</span> strconv<span class="token punctuation">.</span><span class="token function">Itoa</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+    b<span class="token punctuation">.</span><span class="token function">StopTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><strong>StringBuilder &gt; BytesBuf &gt;  StringAdd &gt; Sprintf</strong> (1535 &gt; 2216 &gt; 9502 &gt; 22369)</p>
+</blockquote>
+<h2 id="⾼可⽤性架构设计"><a href="#⾼可⽤性架构设计" class="headerlink" title="⾼可⽤性架构设计"></a>⾼可⽤性架构设计</h2><h3 id="⾯向错误的设计"><a href="#⾯向错误的设计" class="headerlink" title="⾯向错误的设计"></a>⾯向错误的设计</h3><h4 id="隔离"><a href="#隔离" class="headerlink" title="隔离"></a>隔离</h4><ul>
+<li>隔离错误 — 设计</li>
+<li>隔离错误 — 部署</li>
+<li>重⽤ vs 隔离 (逻辑结构的重⽤ vs 部署结构的隔离)</li>
+<li>冗余</li>
+<li>单点失效</li>
+<li>限流</li>
+<li>慢响应<ul>
+<li>A quick rejection is better than a slow response.</li>
+</ul>
+</li>
+<li>不要⽆休⽌的等待<ul>
+<li>给阻塞操作都加上⼀个期限</li>
+</ul>
+</li>
+<li>错误传递</li>
+<li>断路器</li>
+</ul>
+<p>![img](<a href="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown" target="_blank" rel="noopener">https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown</a> Photos/duanluqi.png)</p>
+<h3 id="⾯向恢复的设计"><a href="#⾯向恢复的设计" class="headerlink" title="⾯向恢复的设计"></a>⾯向恢复的设计</h3><ul>
+<li><p>健康检查</p>
+<ul>
+<li>池化资源耗尽 </li>
+<li>死锁</li>
+</ul>
+</li>
+<li><p>Let it Crash!</p>
+<pre class="line-numbers language-go"><code class="language-go">  <span class="token keyword">defer</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> err <span class="token operator">:=</span> <span class="token function">recover</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span> 
+          log<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>“recovered <span class="token builtin">panic</span>”<span class="token punctuation">,</span>err<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span> 
+  <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>构建可恢复的系统</p>
+<ul>
+<li>拒绝单体系统</li>
+<li>⾯向错误和恢复的设计<ul>
+<li>在依赖服务不可⽤时，可以继续存活</li>
+<li>快速启动</li>
+<li>⽆状态</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>与客户端协商</p>
+</li>
+</ul>
+<h3 id="Chaos-Engineering"><a href="#Chaos-Engineering" class="headerlink" title="Chaos Engineering"></a>Chaos Engineering</h3><p>如果问题经常发⽣⼈们就会学习和思考解决它的⽅法</p>
+<h4 id="Chaos-Engineering-原则"><a href="#Chaos-Engineering-原则" class="headerlink" title="Chaos Engineering 原则"></a>Chaos Engineering 原则</h4><ul>
+<li>Build a Hypothesis around Steady State Behavior</li>
+<li>Vary Real-world Events</li>
+<li>Run Experiments in Production</li>
+<li>Automate Experiments to Run Continuously</li>
+<li>Minimize Blast Radius</li>
+</ul>
+<h4 id="相关开源项⽬"><a href="#相关开源项⽬" class="headerlink" title="相关开源项⽬"></a>相关开源项⽬</h4><blockquote>
+<p><a href="https://github.com/Netﬂix/chaosmonkey" target="_blank" rel="noopener">https://github.com/Netﬂix/chaosmonkey</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://github.com/easierway/service_decorators/blob/master/README.md" target="_blank" rel="noopener">https://github.com/easierway/service_decorators/blob/master/README.md</a></p>
+</blockquote>
+</p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/10/28/Golang-5/%20HeeC' target="_blank" rel="noopener"Blog%20Golang-5" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/11/05/github%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4%E8%87%AA%E5%B7%B1%E4%BF%AE%E6%94%B9%E7%9A%84%E4%BB%A3%E7%A0%81/" title="github 提交自己修改的代码"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: github 提交自己修改的代码</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/10/28/Golang-4/" title="Golang-4">下一篇: Golang-4&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>
