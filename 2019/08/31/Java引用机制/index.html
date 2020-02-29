@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>Java引用机制 · HeeC'Blog</title><meta name="description" content="生命周期
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>Java引用机制 · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="生命周期
 创建阶段(Created)
 应用阶段(In Use)
 不可见阶段(Invisible)
@@ -8,10 +8,9 @@
 对象空间重分配阶段(De-allocated)
 
 
-
-创建阶段(Created)在创建阶段系统通过下"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+创建阶段(Created)在创建阶段系统通过下面"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Java引用机制</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-08-31</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/08/31/Java%E5%BC%95%E7%94%A8%E6%9C%BA%E5%88%B6/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/底层机制/" title="底层机制" class="a-tag">底层机制</a><span>&nbsp;</span></span></p><p class="post-abstract"><h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><ol>
-<li>创建阶段(<code>Created</code>)</li>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><li>创建阶段(<code>Created</code>)</li>
 <li>应用阶段(<code>In Use</code>)</li>
 <li>不可见阶段(<code>Invisible</code>)</li>
 <li>不可达阶段(<code>Unreachable</code>)</li>
@@ -20,11 +19,7 @@
 <li>对象空间重分配阶段(<code>De-allocated</code>)</li>
 </ol>
 <a id="more"></a>
-
-<h4 id="创建阶段-Created"><a href="#创建阶段-Created" class="headerlink" title="创建阶段(Created)"></a>创建阶段(Created)</h4><p>在创建阶段系统通过下面的几个步骤来完成对象的创建过程</p>
-<blockquote>
-</blockquote>
-<p>为对象分配存储空间<br>开始构造对象<br>从超类到子类对static成员进行初始化<br>超类成员变量按顺序初始化，递归调用超类的构造方法<br>子类成员变量按顺序初始化，子类构造方法调用<br>一旦对象被创建，并被分派给某些变量赋值，这个对象的状态就切换到了应用阶段</p>
+<h4 id="创建阶段-Created"><a href="#创建阶段-Created" class="headerlink" title="创建阶段(Created)"></a>创建阶段(Created)</h4><p>在创建阶段系统通过下面的几个步骤来完成对象的创建过程<br>&gt;<br>为对象分配存储空间<br>开始构造对象<br>从超类到子类对static成员进行初始化<br>超类成员变量按顺序初始化，递归调用超类的构造方法<br>子类成员变量按顺序初始化，子类构造方法调用<br>一旦对象被创建，并被分派给某些变量赋值，这个对象的状态就切换到了应用阶段</p>
 <h4 id="应用阶段-In-Use"><a href="#应用阶段-In-Use" class="headerlink" title="应用阶段(In Use)"></a>应用阶段(<code>In Use</code>)</h4><p>对象至少被一个强引用持有着。</p>
 <h4 id="不可见阶段-Invisible"><a href="#不可见阶段-Invisible" class="headerlink" title="不可见阶段(Invisible)"></a>不可见阶段(<code>Invisible</code>)</h4><p>当一个对象处于不可见阶段时，说明程序本身不再持有该对象的任何强引用，虽然该这些引用仍然是存在着的。<br>简单说就是程序的执行已经超出了该对象的作用域了。</p>
 <h4 id="不可达阶段-Unreachable"><a href="#不可达阶段-Unreachable" class="headerlink" title="不可达阶段(Unreachable)"></a>不可达阶段(<code>Unreachable</code>)</h4><p>对象处于不可达阶段是指该对象不再被任何强引用所持有。<br>与“不可见阶段”相比，“不可见阶段”是指程序不再持有该对象的任何强引用，这种情况下，该对象仍可能被<code>JVM</code>等系统下的某些已装载的静态变量或线程或<code>JNI</code>等强引用持有着，这些特殊的强引用被称为”<code>GC root</code>”。存在着这些<code>GC root</code>会导致对象的内存泄露情况，无法被回收。</p>
@@ -39,7 +34,7 @@
 <h4 id="对象空间重新分配阶段"><a href="#对象空间重新分配阶段" class="headerlink" title="对象空间重新分配阶段"></a>对象空间重新分配阶段</h4><p>垃圾回收器对该对象的所占用的内存空间进行回收或者再分配了，则该对象彻底消失了，称之为“对象空间重新分配阶段”。</p>
 <h3 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h3><p>强引用是使用最普遍的引用。如果一个对象具有强引用，那垃圾收器绝不会回收它。当内存空间不足，Java虚拟机宁愿抛出<code>OutOfM moryError</code>错误，使程序异常终止，也不会靠随意回收具有强引用 对象来解决内存不足的问题。</p>
 <h3 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h3><p>软引用是用来描述一些还有用但并非必须的对象。对于软引用关联着的对象，在系统将要发生内存溢出异常之前，将会把这些对象列进回收范围进行第二次回收。如果这次回收还没有足够的内存，才会抛出内存溢出异常。</p>
-<pre class="line-numbers language-Java"><code class="language-Java">/**
+<pre class="line-numbers language-lang-Java"><code class="language-lang-Java">/**
  * 软引用何时被收集
  * 运行参数 -Xmx200m -XX:+PrintGC
  * Created by ccr at 2018/7/14.
@@ -82,164 +77,166 @@ public class SoftReferenceDemo {
 [GC (Allocation Failure)  103136K->103136K(199680K), 0.0009408 secs]
 [Full GC (Allocation Failure)  103136K->719K(128512K), 0.0082685 secs]
 分配后null
-分配后null<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+分配后null
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>从上面的示例中就能看出，软引用关联的对象不会被<code>GC</code>回收。<code>JVM</code>在分配空间时，若果<code>Heap</code>空间不足，就会进行相应的<code>GC</code>，但是这次<code>GC</code>并不会收集软引用关联的对象，但是在JVM发现就算进行了一次回收后还是不足（<code>Allocation Failure</code>），<code>JVM</code>会尝试第二次<code>GC</code>，回收软引用关联的对象。</p>
 <p>像这种如果内存充足，<code>GC</code>时就保留，内存不够，<code>GC</code>再来收集的功能很适合用在缓存的引用场景中。在使用缓存时有一个原则，如果缓存中有就从缓存获取，如果没有就从数据库中获取，缓存的存在是为了加快计算速度，如果因为缓存导致了内存不足进而整个程序崩溃，那就得不偿失了。</p>
 <h3 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h3><blockquote>
 <p>弱引用也是用来描述非必须对象的，他的强度比软引用更弱一些，被弱引用关联的对象，在垃圾回收时，如果这个对象只被弱引用关联（没有任何强引用关联他），那么这个对象就会被回收。</p>
 </blockquote>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">/**
  * 弱引用关联对象何时被回收
  * Created by ccr at 2018/7/14.
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WeakReferenceDemo</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">//100M的缓存数据</span>
-        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> cacheData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">byte</span><span class="token punctuation">[</span><span class="token number">100</span> <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//将缓存数据用软引用持有</span>
-        WeakReference<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> cacheRef <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WeakReference</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>cacheData<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第一次GC前"</span> <span class="token operator">+</span> cacheData<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第一次GC前"</span> <span class="token operator">+</span> cacheRef<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//进行一次GC后查看对象的回收情况</span>
-        System<span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//等待GC</span>
-        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第一次GC后"</span> <span class="token operator">+</span> cacheData<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第一次GC后"</span> <span class="token operator">+</span> cacheRef<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ */
+public class WeakReferenceDemo {
+    public static void main(String[] args) throws InterruptedException {
+        //100M的缓存数据
+        byte[] cacheData = new byte[100 * 1024 * 1024];
+        //将缓存数据用软引用持有
+        WeakReference<byte[]> cacheRef = new WeakReference<>(cacheData);
+        System.out.println("第一次GC前" + cacheData);
+        System.out.println("第一次GC前" + cacheRef.get());
+        //进行一次GC后查看对象的回收情况
+        System.gc();
+        //等待GC
+        Thread.sleep(500);
+        System.out.println("第一次GC后" + cacheData);
+        System.out.println("第一次GC后" + cacheRef.get());
 
-        <span class="token comment" spellcheck="true">//将缓存数据的强引用去除</span>
-        cacheData <span class="token operator">=</span> null<span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//等待GC</span>
-        Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第二次GC后"</span> <span class="token operator">+</span> cacheData<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"第二次GC后"</span> <span class="token operator">+</span> cacheRef<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">/*
+        //将缓存数据的强引用去除
+        cacheData = null;
+        System.gc();
+        //等待GC
+        Thread.sleep(500);
+        System.out.println("第二次GC后" + cacheData);
+        System.out.println("第二次GC后" + cacheRef.get());
+    }
+}
+/*
 第一次GC前[B@7d4991ad
 第一次GC前[B@7d4991ad
 第一次GC后[B@7d4991ad
 第一次GC后[B@7d4991ad
 第二次GC后null
 第二次GC后null
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+*/
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>从上面的代码中可以看出，弱引用关联的对象是否回收取决于这个对象有没有其他强引用指向它。这个确实很难理解，既然弱引用关联对象的存活周期和强引用差不多，那直接用强引用好了，干嘛费用弄出个弱引用呢？其实弱引用存在必然有他的应用场景。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">static</span> Map<span class="token operator">&lt;</span>Object<span class="token punctuation">,</span>Object<span class="token operator">></span> container <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">putToContainer</span><span class="token punctuation">(</span>Object key<span class="token punctuation">,</span>Object value<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    container<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">static Map<Object,Object> container = new HashMap<>();
+public static void putToContainer(Object key,Object value){
+    container.put(key,value);
+}
 
-<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">//某个类中有这样一段代码</span>
-    Object key <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    Object value <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">putToContainer</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+public static void main(String[] args) {
+    //某个类中有这样一段代码
+    Object key = new Object();
+    Object value = new Object();
+    putToContainer(key,value);
 
-    <span class="token comment" spellcheck="true">//..........</span>
-    <span class="token comment" spellcheck="true">/**
+    //..........
+    /**
      * 若干调用层次后程序员发现这个key指向的对象没有用了，
      * 为了节省内存打算把这个对象抛弃，然而下面这个方式真的能把对象回收掉吗？
      * 由于container对象中包含了这个对象的引用,所以这个对象不能按照程序员的意向进行回收.
      * 并且由于在程序中的任何部分没有再出现这个键，所以，这个键 / 值 对无法从映射中删除。
      * 很可能会造成内存泄漏。
-     */</span>
-    key <span class="token operator">=</span> null<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     */
+    key = null;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>下面一段话摘自《Java核心技术卷1》：</p>
 <blockquote>
 <p>设计 <code>WeakHashMap</code>类是为了解决一个有趣的问题。如果有一个值，对应的键已经不再 使用了， 将会出现什么情况呢？ 假定对某个键的最后一次引用已经消亡，不再有任何途径引 用这个值的对象了。但是，由于在程序中的任何部分没有再出现这个键，所以，这个键 / 值 对无法从映射中删除。为什么垃圾回收器不能够删除它呢？ 难道删除无用的对象不是垃圾回 收器的工作吗？</p>
-</blockquote>
-<blockquote>
 <p>遗憾的是，事情没有这样简单。垃圾回收器跟踪活动的对象。只要映射对象是活动的， 其中的所有桶也是活动的， 它们不能被回收。因此，需要由程序负责从长期存活的映射表中 删除那些无用的值。 或者使用 <code>WeakHashMap</code>完成这件事情。当对键的唯一引用来自散列条<br> 目时， 这一数据结构将与垃圾回收器协同工作一起删除键 / 值对。</p>
-</blockquote>
-<blockquote>
 <p>下面是这种机制的内部运行情况。<code>WeakHashMap</code> 使用弱引用（<code>weak references</code>) 保存键。 <code>WeakReference</code> 对象将引用保存到另外一个对象中，在这里，就是散列键。对于这种类型的 对象，垃圾回收器用一种特有的方式进行处理。通常，如果垃圾回收器发现某个特定的对象 已经没有他人引用了，就将其回收。然而， 如果某个对象只能由 <code>WeakReference</code> 引用， 垃圾 回收器仍然回收它，但要将引用这个对象的弱引用放人队列中。<code>WeakHashMap</code>将周期性地检 查队列， 以便找出新添加的弱引用。一个弱引用进人队列意味着这个键不再被他人使用， 并 且已经被收集起来。于是， <code>WeakHashMap</code>将删除对应的条目。</p>
 </blockquote>
 <p>除了<code>WeakHashMap</code>使用了弱引用，<code>ThreadLocal</code>类中也是用了弱引用。</p>
 <h3 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h3><p>一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来获取一个对象的实例。为一个对象设置虚引用关联的唯一目的就是能在这个对象被收集器回收时收到一个系统通知。虚引用和弱引用对关联对象的回收都不会产生影响，如果只有虚引用活着弱引用关联着对象，那么这个对象就会被回收。它们的不同之处在于弱引用的<code>get</code>方法，虚引用的<code>get</code>方法始终返回<code>null</code>,弱引用可以使用<code>ReferenceQueue</code>,虚引用必须配合<code>ReferenceQueue</code>使用。</p>
 <p><code>jdk</code>中直接内存的回收就用到虚引用，由于<code>jvm</code>自动内存管理的范围是堆内存，而直接内存是在堆内存之外（其实是内存映射文件，自行去理解虚拟内存空间的相关概念），所以直接内存的分配和回收都是有<code>Unsafe</code>类去操作，<code>java</code>在申请一块直接内存之后，会在堆内存分配一个对象保存这个堆外内存的引用，这个对象被垃圾收集器管理，一旦这个对象被回收，相应的用户线程会收到通知并对直接内存进行清理工作。</p>
 <p>例子：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PhantomReferenceTest</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> List<span class="token operator">&lt;</span>Object<span class="token operator">></span> TEST_DATA <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> ReferenceQueue<span class="token operator">&lt;</span>TestClass<span class="token operator">></span> QUEUE <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReferenceQueue</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class PhantomReferenceTest {
+    private static final List<Object> TEST_DATA = new LinkedList<>();
+    private static final ReferenceQueue<TestClass> QUEUE = new ReferenceQueue<>();
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        TestClass obj <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TestClass</span><span class="token punctuation">(</span><span class="token string">"Test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        PhantomReference<span class="token operator">&lt;</span>TestClass<span class="token operator">></span> phantomReference <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PhantomReference</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> QUEUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    public static void main(String[] args) {
+        TestClass obj = new TestClass("Test");
+        PhantomReference<TestClass> phantomReference = new PhantomReference<>(obj, QUEUE);
 
-        <span class="token comment" spellcheck="true">// 该线程不断读取这个虚引用，并不断往列表里插入数据，以促使系统早点进行GC</span>
-        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                TEST_DATA<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">byte</span><span class="token punctuation">[</span><span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">try</span> <span class="token punctuation">{</span>
-                    Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">interrupt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>phantomReference<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        // 该线程不断读取这个虚引用，并不断往列表里插入数据，以促使系统早点进行GC
+        new Thread(() -> {
+            while (true) {
+                TEST_DATA.add(new byte[1024 * 100]);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
+                System.out.println(phantomReference.get());
+            }
+        }).start();
 
-        <span class="token comment" spellcheck="true">// 这个线程不断读取引用队列，当弱引用指向的对象呗回收时，该引用就会被加入到引用队列中</span>
-        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                Reference<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">TestClass</span><span class="token operator">></span> poll <span class="token operator">=</span> QUEUE<span class="token punctuation">.</span><span class="token function">poll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>poll <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"--- 虚引用对象被jvm回收了 ---- "</span> <span class="token operator">+</span> poll<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"--- 回收对象 ---- "</span> <span class="token operator">+</span> poll<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        // 这个线程不断读取引用队列，当弱引用指向的对象呗回收时，该引用就会被加入到引用队列中
+        new Thread(() -> {
+            while (true) {
+                Reference<? extends TestClass> poll = QUEUE.poll();
+                if (poll != null) {
+                    System.out.println("--- 虚引用对象被jvm回收了 ---- " + poll);
+                    System.out.println("--- 回收对象 ---- " + poll.get());
+                }
+            }
+        }).start();
 
-        obj <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        obj = null;
 
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            System<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+        try {
+            Thread.currentThread().join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
 
-    <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">TestClass</span> <span class="token punctuation">{</span>
-        <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    static class TestClass {
+        private String name;
 
-        <span class="token keyword">public</span> <span class="token function">TestClass</span><span class="token punctuation">(</span>String name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        public TestClass(String name) {
+            this.name = name;
+        }
 
-        <span class="token annotation punctuation">@Override</span>
-        <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token string">"TestClass - "</span> <span class="token operator">+</span> name<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        @Override
+        public String toString() {
+            return "TestClass - " + name;
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>使用的虚拟机设置如下：</p>
-<pre class="line-numbers language-jav"><code class="language-jav">-verbose:gc -Xms4m -Xmx4m -Xmn2m<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-lang-jav"><code class="language-lang-jav">-verbose:gc -Xms4m -Xmx4m -Xmn2m
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>运行结果如下：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token punctuation">[</span><span class="token function">GC</span> <span class="token punctuation">(</span>Allocation Failure<span class="token punctuation">)</span>  1024K<span class="token operator">-</span><span class="token operator">></span><span class="token function">432K</span><span class="token punctuation">(</span>3584K<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0.0113386</span> secs<span class="token punctuation">]</span>
-<span class="token punctuation">[</span><span class="token function">GC</span> <span class="token punctuation">(</span>Allocation Failure<span class="token punctuation">)</span>  1455K<span class="token operator">-</span><span class="token operator">></span><span class="token function">520K</span><span class="token punctuation">(</span>3584K<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0.0133610</span> secs<span class="token punctuation">]</span>
-<span class="token punctuation">[</span><span class="token function">GC</span> <span class="token punctuation">(</span>Allocation Failure<span class="token punctuation">)</span>  1544K<span class="token operator">-</span><span class="token operator">></span><span class="token function">648K</span><span class="token punctuation">(</span>3584K<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0.0008654</span> secs<span class="token punctuation">]</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">[GC (Allocation Failure)  1024K->432K(3584K), 0.0113386 secs]
+[GC (Allocation Failure)  1455K->520K(3584K), 0.0133610 secs]
+[GC (Allocation Failure)  1544K->648K(3584K), 0.0008654 secs]
 null
 null
 null
-<span class="token punctuation">[</span><span class="token function">GC</span> <span class="token punctuation">(</span>Allocation Failure<span class="token punctuation">)</span>  1655K<span class="token operator">-</span><span class="token operator">></span><span class="token function">973K</span><span class="token punctuation">(</span>3584K<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0.0008111</span> secs<span class="token punctuation">]</span>
+[GC (Allocation Failure)  1655K->973K(3584K), 0.0008111 secs]
 null
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>省略几个null的输出
-<span class="token punctuation">[</span><span class="token function">GC</span> <span class="token punctuation">(</span>Allocation Failure<span class="token punctuation">)</span>  1980K<span class="token operator">-</span><span class="token operator">></span><span class="token function">1997K</span><span class="token punctuation">(</span>3584K<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0.0009289</span> secs<span class="token punctuation">]</span>
-<span class="token punctuation">[</span>Full <span class="token function">GC</span> <span class="token punctuation">(</span>Ergonomics<span class="token punctuation">)</span>  1997K<span class="token operator">-</span><span class="token operator">></span><span class="token function">1870K</span><span class="token punctuation">(</span>3584K<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0.0048483</span> secs<span class="token punctuation">]</span>
-<span class="token operator">--</span><span class="token operator">-</span> 弱引用对象被jvm回收了 <span class="token operator">--</span><span class="token operator">--</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>ref<span class="token punctuation">.</span>PhantomReference<span class="token annotation punctuation">@74cbe23d</span>
-<span class="token operator">--</span><span class="token operator">-</span> 回收对象 <span class="token operator">--</span><span class="token operator">--</span> null
+...省略几个null的输出
+[GC (Allocation Failure)  1980K->1997K(3584K), 0.0009289 secs]
+[Full GC (Ergonomics)  1997K->1870K(3584K), 0.0048483 secs]
+--- 弱引用对象被jvm回收了 ---- java.lang.ref.PhantomReference@74cbe23d
+--- 回收对象 ---- null
 null
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>省略几个null和几次Full GC的输出
-<span class="token punctuation">[</span>Full <span class="token function">GC</span> <span class="token punctuation">(</span>Ergonomics<span class="token punctuation">)</span>  2971K<span class="token operator">-</span><span class="token operator">></span><span class="token function">2971K</span><span class="token punctuation">(</span>3584K<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0.0024850</span> secs<span class="token punctuation">]</span>
-<span class="token punctuation">[</span>Full <span class="token function">GC</span> <span class="token punctuation">(</span>Allocation Failure<span class="token punctuation">)</span>  2971K<span class="token operator">-</span><span class="token operator">></span><span class="token function">2971K</span><span class="token punctuation">(</span>3584K<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0.0022460</span> secs<span class="token punctuation">]</span>
-Exception in thread <span class="token string">"Thread-0"</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>OutOfMemoryError<span class="token operator">:</span> Java heap space
-    at weakhashmap<span class="token punctuation">.</span>PhantomReferenceTest<span class="token punctuation">.</span>lambda$main$<span class="token function">0</span><span class="token punctuation">(</span>PhantomReferenceTest<span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">20</span><span class="token punctuation">)</span>
-    at weakhashmap<span class="token punctuation">.</span>PhantomReferenceTest$$Lambda$<span class="token number">1</span><span class="token operator">/</span><span class="token number">2065951873</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>Unknown Source<span class="token punctuation">)</span>
-    at java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>Thread<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span>java<span class="token operator">:</span><span class="token number">748</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+...省略几个null和几次Full GC的输出
+[Full GC (Ergonomics)  2971K->2971K(3584K), 0.0024850 secs]
+[Full GC (Allocation Failure)  2971K->2971K(3584K), 0.0022460 secs]
+Exception in thread "Thread-0" java.lang.OutOfMemoryError: Java heap space
+    at weakhashmap.PhantomReferenceTest.lambda$main$0(PhantomReferenceTest.java:20)
+    at weakhashmap.PhantomReferenceTest$$Lambda$1/2065951873.run(Unknown Source)
+    at java.lang.Thread.run(Thread.java:748)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>因为设置的虚拟机堆大小比较小，所以创建一个100k的对象时直接进入了老年代，等到发生Full GC时才会被扫描然后回收。</p>
 <p><strong>适用场景</strong></p>
 <p>事实上，虚引用有一个很重要的用途就是用来做堆外内存的释放，DirectByteBuffer就是通过虚引用来实现堆外内存的释放的。</p>
@@ -260,4 +257,4 @@ var disqus_url = 'http://yoursite.com/2019/08/31/Java引用机制/';
     dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script></body></html>
+})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

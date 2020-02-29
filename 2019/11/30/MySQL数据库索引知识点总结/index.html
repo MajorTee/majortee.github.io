@@ -1,12 +1,12 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>MySQL数据库索引知识点总结 · HeeC'Blog</title><meta name="description" content="原文MySQL数据库索引知识点总结
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>MySQL数据库索引知识点总结 · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="原文MySQL数据库索引知识点总结
 
 索引的常见模型索引的出现是为了提高查询效率，就像书的目录一样
 常见的实现索引的模型有：哈希表、有序数组和搜索树
 
 哈希表：键 - 值(key - value)。
-哈希思路：把值放在数组里，用一个哈希函数把key换算成一个确定的位置，然后把value放在数组的这个"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+哈希思路：把值放在数组里，用一个哈希函数把key换算成一个确定的位置，然后把value放在数组的这个"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>MySQL数据库索引知识点总结</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-11-30</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/11/30/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/理论/" title="理论" class="a-tag">理论</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/数据库/" title="数据库" class="a-tag">数据库</a><span>&nbsp;</span></span></p><p class="post-abstract"><blockquote>
-<p>原文<a href="https://segmentfault.com/a/1190000019080654" target="_blank" rel="noopener">MySQL数据库索引知识点总结</a></p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><p>原文<a href="https://segmentfault.com/a/1190000019080654" target="_blank" rel="noopener">MySQL数据库索引知识点总结</a></p>
 </blockquote>
 <h1 id="索引的常见模型"><a href="#索引的常见模型" class="headerlink" title="索引的常见模型"></a><strong>索引的常见模型</strong></h1><p>索引的出现是为了提高查询效率，就像书的目录一样</p>
 <p>常见的实现索引的模型有：<strong>哈希表、有序数组和搜索树</strong></p>
@@ -23,7 +23,6 @@
 <li>数据库存储大多不适用二叉树，因为树高过高，会适用N叉树</li>
 </ul>
 <a id="more"></a>
-
 <h2 id="扩展：为什么树高过高就不好呢？"><a href="#扩展：为什么树高过高就不好呢？" class="headerlink" title="扩展：为什么树高过高就不好呢？"></a>扩展：为什么树高过高就不好呢？</h2><p>树高表示N叉树的层数，首先，层数越高占用空间就越大，同时层数越高表示查找到目标数据所要跳层的次数越大，层与层（实际上是父节点与父节点）之间是通过指针连接的，而两个节点的内存地址是连续的概率很低，因此就会触发磁盘随机读效率较低 当索引有100万数据，树高20（2的20次方） 一次查询可能需要跳跃 20 个数据块</p>
 <h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><p>是一种以键-值（key-value）存储数据的结构，我们只要输入待查找的值即key，就可以找到其对应的值即Value。哈希的思路很简单，把值放在数组里，用一个哈希函数把key换算成一个确定的位置，然后把value放在数组的这个位置。（与HashMap类似）</p>
 <ul>
@@ -35,19 +34,22 @@
 <h3 id="有序数组"><a href="#有序数组" class="headerlink" title="有序数组"></a>有序数组</h3><p>等值查询和范围查询场景中的性能就都非常优秀</p>
 <h3 id="搜索树模型又可以细分为二叉树红黑树B-树"><a href="#搜索树模型又可以细分为二叉树红黑树B-树" class="headerlink" title="搜索树模型又可以细分为二叉树红黑树B+树"></a>搜索树模型又可以细分为二叉树红黑树B+树</h3><p>索引的实现由存储引擎来决定，InnoDB索引的实现使用B+树模型<br>二叉树和红黑树的搜索效率很高，但是应用在数据库中时因为数据量较大，二叉树和红黑树每次只分裂出两个分支，导致分裂层数很大，空间占用率高<br>而B+树选择增加分支树，把整颗树的高度维持在很小的范围内，同时在内存里缓存前面若干层的节点，可以极大地降低访问磁盘的次数，提高读的效率。<br>同时要注意的一点是：二叉树类数据结构效率高的前提是数据有序，这也是数据库常存在一个自增主键的原因</p>
 <h4 id="扩展：什么是B-树"><a href="#扩展：什么是B-树" class="headerlink" title="扩展：什么是B+树"></a>扩展：什么是B+树</h4><p><strong>B-树</strong> 即Balance-tree即B树</p>
-<p><img src="https://segmentfault.com/img/bVbsdR3?w=624&h=268" alt="B-树模型"></p>
+<p><img src="https://segmentfault.com/img/bVbsdR3?w=624&amp;h=268" alt="B-树模型"></p>
 <p><strong>B+树</strong> B+树索引并不能找到一个给定键值的具体行。B+树索引能找到的只是被查找数据行所在的页。然后数据库通过把页读入到内存，再在内存中进行查找，最后得到要在找的数据。因为页目录中的槽是按照主键顺序排列的，所以在每一个页目录中，通过二分查找，定位到数据行所在的页，然后将整个页读入内存</p>
-<p><img src="https://segmentfault.com/img/bVbsdRz?w=569&h=345" alt="B+树模型"></p>
+<p><img src="https://segmentfault.com/img/bVbsdRz?w=569&amp;h=345" alt="B+树模型"></p>
 <p><strong>扩展：我们可以人工调整页的大小吗？</strong><br>所有的innodb索引都是btree索引，索引记录保存在叶子上，默认的索引页大小是16K。当有新的记录插入时，innodb出于对将来的insert和update操作的考虑，会尝试留下1/16的空闲页大小。</p>
 <p>如果索引记录是完全按照索引记录的大小顺序插入的，那么索引也将填满整个页大小的15/16，如果插入顺序完全随机，那么索引页基本上填充为1/2至15/16自建。如果填充因子低于1/2,innodb会尝试重建b-tree。</p>
 <p>Mysql5.6以后，可以通过innodb_page_size参数设置当前实例下每个索引页的大小，一旦设定，无法再更改回来。推荐的配置一般是16K，8K或者4K。另外假如一个Mysql实例设置了不同于默认值的innodb_page_size A，那么将无法使用其他不同于A值的实例上的文件（比如做一个物理备份和恢复）</p>
 <p><strong>B*树</strong> 是B+树的变体，在B+树的非根和非叶子结点再增加指向兄弟的指针</p>
-<p><img src="https://segmentfault.com/img/bVbsdSM?w=569&h=345" alt="B*树模型"></p>
+<p><img src="https://segmentfault.com/img/bVbsdSM?w=569&amp;h=345" alt="B*树模型"></p>
 <p><strong>B树模型小结：</strong></p>
 <pre><code>B（B-）树：多路搜索树，每个结点存储M/2到M个关键字，非叶子结点存储指向关键字范围的子结点；所有关键字在整颗树中出现，且只出现一次，非叶子结点可以命中；
 B+树：在B-树基础上，为叶子结点增加链表指针，所有关键字都在叶子结点中出现，非叶子结点作为叶子结点的索引；B+树总是到叶子结点才命中；
-B*树：在B+树基础上，为非叶子结点也增加链表指针，将结点的最低利用率从1/2提高到2/3；</code></pre><p>说完底层实现我们来说一下表层</p>
-<h1 id="索引的种类"><a href="#索引的种类" class="headerlink" title="索引的种类"></a>索引的种类</h1><pre><code></code></pre><ul>
+B*树：在B+树基础上，为非叶子结点也增加链表指针，将结点的最低利用率从1/2提高到2/3；
+</code></pre><p>说完底层实现我们来说一下表层</p>
+<h1 id="索引的种类"><a href="#索引的种类" class="headerlink" title="索引的种类"></a>索引的种类</h1><pre><code>
+
+</code></pre><ul>
 <li><p>普通索引：仅加速查询</p>
 </li>
 <li><p>唯一索引：加速查询 + 列值唯一（可以有null）</p>
@@ -64,7 +66,8 @@ B*树：在B+树基础上，为非叶子结点也增加链表指针，将结点�
 <h2 id="联合索引比对每个列分别建索引更有优势"><a href="#联合索引比对每个列分别建索引更有优势" class="headerlink" title="联合索引比对每个列分别建索引更有优势"></a>联合索引比对每个列分别建索引更有优势</h2><p>因为索引建立得越多就越占磁盘空间，在更新数据的时候速度会更慢。另外建立多列索引时，顺序也是需要注意的，应该将严格的索引放在前面，这样筛选的力度会更大，效率更高。</p>
 <h2 id="前缀索引"><a href="#前缀索引" class="headerlink" title="前缀索引"></a>前缀索引</h2><p>有时候一个字段很长，我们只需要截取前几位或后几位（反转后取前几位）建立索引即可，节约了空间同时也能实现相同的效果</p>
 <h2 id="索引下推优化"><a href="#索引下推优化" class="headerlink" title="索引下推优化"></a>索引下推优化</h2><p>以市民表的联合索引（name, age）为例。如果现在有一个需求：检索出表中“名字第一个字是张，而且年龄是10岁的所有男孩”。那么，SQL语句是这么写的：</p>
-<pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> tuser <span class="token keyword">where</span> name <span class="token operator">like</span> <span class="token string">'张%'</span> <span class="token operator">and</span> age<span class="token operator">=</span><span class="token number">10</span> <span class="token operator">and</span> ismale<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-lang-sql"><code class="language-lang-sql">select * from tuser where name like '张%' and age=10 and ismale=1;
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>你已经知道了前缀索引规则，所以这个语句在搜索索引树的时候，只能用 “张”，找到第一个满足条件的记录ID3。当然，这还不错，总比全表扫描要好。</p>
 <p>然后呢？</p>
 <p>当然是判断其他条件是否满足。</p>
@@ -93,4 +96,4 @@ var disqus_url = 'http://yoursite.com/2019/11/30/MySQL数据库索引知识点�
     dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script></body></html>
+})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

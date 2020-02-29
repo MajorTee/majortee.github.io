@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-02-19T09:25:50.257Z</updated>
+  <updated>2020-02-29T07:35:10.958Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,15 +21,15 @@
     <link href="http://yoursite.com/2020/02/16/hexo-Typography-%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2/"/>
     <id>http://yoursite.com/2020/02/16/hexo-Typography-%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2/</id>
     <published>2020-02-16T12:17:08.000Z</published>
-    <updated>2020-02-19T09:25:50.257Z</updated>
+    <updated>2020-02-29T07:35:10.958Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Hexo第二次折腾笔记&quot;&gt;&lt;a href=&quot;#Hexo第二次折腾笔记&quot; class=&quot;headerlink&quot; title=&quot;Hexo第二次折腾笔记&quot;&gt;&lt;/a&gt;Hexo第二次折腾笔记&lt;/h1&gt;&lt;h2 id=&quot;Hexo-Typography-本地搜索&quot;&gt;&lt;a href=&quot;#Hexo-Typography-本地搜索&quot; class=&quot;headerlink&quot; title=&quot;Hexo-Typography-本地搜索&quot;&gt;&lt;/a&gt;Hexo-Typography-本地搜索&lt;/h2&gt;&lt;h3 id=&quot;Typography主题按照README-md安装&quot;&gt;&lt;a href=&quot;#Typography主题按照README-md安装&quot; class=&quot;headerlink&quot; title=&quot;Typography主题按照README.md安装&quot;&gt;&lt;/a&gt;Typography主题按照README.md安装&lt;/h3&gt;&lt;blockquote&gt;
+      &lt;h1 id=&quot;Hexo第二次折腾笔记&quot;&gt;&lt;a href=&quot;#Hexo第二次折腾笔记&quot; class=&quot;headerlink&quot; title=&quot;Hexo第二次折腾笔记&quot;&gt;&lt;/a&gt;Hexo第二次折腾笔记&lt;/h1&gt;&lt;h2 id=&quot;Hexo-Typography-本地搜索-mathjax&quot;&gt;&lt;a href=&quot;#Hexo-Typography-本地搜索-mathjax&quot; class=&quot;headerlink&quot; title=&quot;Hexo-Typography-本地搜索+mathjax&quot;&gt;&lt;/a&gt;Hexo-Typography-本地搜索+mathjax&lt;/h2&gt;&lt;h3 id=&quot;Typography主题按照README-md安装&quot;&gt;&lt;a href=&quot;#Typography主题按照README-md安装&quot; class=&quot;headerlink&quot; title=&quot;Typography主题按照README.md安装&quot;&gt;&lt;/a&gt;Typography主题按照README.md安装&lt;/h3&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/SumiMakito/hexo-theme-typography&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;主题官方&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;ajax 搜索配置修改自 &lt;a href=&quot;https://github.com/barretlee/hexo-search-plugin-snippets&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;github&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3 id=&quot;本地搜索&quot;&gt;&lt;a href=&quot;#本地搜索&quot; class=&quot;headerlink&quot; title=&quot;本地搜索&quot;&gt;&lt;/a&gt;本地搜索&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;yml&quot;&gt;npm install --save hexo-generator-search
+&lt;h3 id=&quot;本地搜索&quot;&gt;&lt;a href=&quot;#本地搜索&quot; class=&quot;headerlink&quot; title=&quot;本地搜索&quot;&gt;&lt;/a&gt;本地搜索&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;lang-yml&quot;&gt;npm install --save hexo-generator-search
 在站点主配置文件 _config.yml 当中写入如下配置，即可为全站的文档生成索引文件
 search:
   path: search.xml
@@ -40,7 +40,8 @@ plugin:
   ...
   - hexo-toc
   # 添加插件
-  - hexo-generator-search&lt;/code&gt;&lt;/pre&gt;
+  - hexo-generator-search
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;此配置特别针对Typography主题&lt;/strong&gt;&lt;/p&gt;
     
     </summary>
@@ -62,21 +63,23 @@ plugin:
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Django&quot;&gt;&lt;a href=&quot;#Django&quot; class=&quot;headerlink&quot; title=&quot;Django&quot;&gt;&lt;/a&gt;Django&lt;/h1&gt;&lt;pre&gt;&lt;code class=&quot;shell&quot;&gt;django-admin startproject graduaProj   
+      &lt;h1 id=&quot;Django&quot;&gt;&lt;a href=&quot;#Django&quot; class=&quot;headerlink&quot; title=&quot;Django&quot;&gt;&lt;/a&gt;Django&lt;/h1&gt;&lt;pre&gt;&lt;code class=&quot;lang-shell&quot;&gt;django-admin startproject graduaProj   
 cd graduaProj 
 #创建应用
-python manage.py startapp show_data&lt;/code&gt;&lt;/pre&gt;
+python manage.py startapp show_data
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;views.py: 接受请求，进行处理，与M和T进行交互，返回应答。定义处理函数，视图函数&lt;/p&gt;
 &lt;p&gt;tests.py: 测试代码&lt;/p&gt;
 &lt;p&gt;admin.py: 网站后台管理&lt;/p&gt;
 &lt;p&gt;建立应用和项目之间的联系，需要对应用进行注册。&lt;/p&gt;
 &lt;p&gt;修改settings.py中的INSTALLED_APPS配置项。&lt;/p&gt;
 &lt;p&gt;workon进入虚拟环境，输入which python，得到地址，可以在pycharm中添加，使用此虚拟环境&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;#生成迁移文件
+&lt;pre&gt;&lt;code class=&quot;lang-python&quot;&gt;#生成迁移文件
 python manage.py makemigrations
 
 #执行迁移生成数据表
-python manage.py migrate&lt;/code&gt;&lt;/pre&gt;
+python manage.py migrate
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -97,7 +100,8 @@ python manage.py migrate&lt;/code&gt;&lt;/pre&gt;
     
     <summary type="html">
     
-      &lt;h1 id=&quot;python虚拟环境&quot;&gt;&lt;a href=&quot;#python虚拟环境&quot; class=&quot;headerlink&quot; title=&quot;python虚拟环境&quot;&gt;&lt;/a&gt;python虚拟环境&lt;/h1&gt;&lt;h2 id=&quot;Linux&quot;&gt;&lt;a href=&quot;#Linux&quot; class=&quot;headerlink&quot; title=&quot;Linux&quot;&gt;&lt;/a&gt;Linux&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;shell&quot;&gt;pip3 install virtualenv virtualenvwrapper&lt;/code&gt;&lt;/pre&gt;
+      &lt;h1 id=&quot;python虚拟环境&quot;&gt;&lt;a href=&quot;#python虚拟环境&quot; class=&quot;headerlink&quot; title=&quot;python虚拟环境&quot;&gt;&lt;/a&gt;python虚拟环境&lt;/h1&gt;&lt;h2 id=&quot;Linux&quot;&gt;&lt;a href=&quot;#Linux&quot; class=&quot;headerlink&quot; title=&quot;Linux&quot;&gt;&lt;/a&gt;Linux&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;lang-shell&quot;&gt;pip3 install virtualenv virtualenvwrapper
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -125,9 +129,10 @@ python manage.py migrate&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;直接在windows浏览器里url输入”192.168.X.X:8111”,其中192.168.X.X是你虚拟机的ip，这样就可以访问了。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&quot;shell&quot;&gt;python manage.py runserver 0.0.0.0:8111
+&lt;pre&gt;&lt;code class=&quot;lang-shell&quot;&gt;python manage.py runserver 0.0.0.0:8111
 #主机
-http://192.168.111.131:8111/&lt;/code&gt;&lt;/pre&gt;
+http://192.168.111.131:8111/
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -284,12 +289,14 @@ http://192.168.111.131:8111/&lt;/code&gt;&lt;/pre&gt;
     <link href="http://yoursite.com/2019/11/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     <id>http://yoursite.com/2019/11/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</id>
     <published>2019-11-12T06:09:42.000Z</published>
-    <updated>2020-02-15T14:27:05.461Z</updated>
+    <updated>2020-02-29T06:36:29.237Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;决策树&quot;&gt;&lt;a href=&quot;#决策树&quot; class=&quot;headerlink&quot; title=&quot;决策树&quot;&gt;&lt;/a&gt;决策树&lt;/h1&gt;&lt;h2 id=&quot;信息&quot;&gt;&lt;a href=&quot;#信息&quot; class=&quot;headerlink&quot; title=&quot;信息&quot;&gt;&lt;/a&gt;信息&lt;/h2&gt;&lt;p&gt;$$&lt;br&gt;I = -log_2p_k&lt;br&gt;$$&lt;/p&gt;
-&lt;h2 id=&quot;信息熵&quot;&gt;&lt;a href=&quot;#信息熵&quot; class=&quot;headerlink&quot; title=&quot;信息熵&quot;&gt;&lt;/a&gt;信息熵&lt;/h2&gt;&lt;p&gt;度量样本集合纯度最常用的一种指标，假设当前样本中，集合 &lt;em&gt;D&lt;/em&gt; 中第 &lt;em&gt;k&lt;/em&gt; 累样本所占的比例为 &lt;code&gt;p_k(k = 1,2,...,|y|)&lt;/code&gt;&lt;br&gt;$$&lt;br&gt;Ent(D) = - \sum^{|y|}_{k=1}p_k\log_2(p_k)&lt;br&gt;$$&lt;br&gt;Ent(D) 的值越小，则D的纯度越高。&lt;/p&gt;
+      &lt;h1 id=&quot;决策树&quot;&gt;&lt;a href=&quot;#决策树&quot; class=&quot;headerlink&quot; title=&quot;决策树&quot;&gt;&lt;/a&gt;决策树&lt;/h1&gt;&lt;h2 id=&quot;信息&quot;&gt;&lt;a href=&quot;#信息&quot; class=&quot;headerlink&quot; title=&quot;信息&quot;&gt;&lt;/a&gt;信息&lt;/h2&gt;&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+I = -log_2p_k&lt;/script&gt;&lt;h2 id=&quot;信息熵&quot;&gt;&lt;a href=&quot;#信息熵&quot; class=&quot;headerlink&quot; title=&quot;信息熵&quot;&gt;&lt;/a&gt;信息熵&lt;/h2&gt;&lt;p&gt;度量样本集合纯度最常用的一种指标，假设当前样本中，集合 &lt;em&gt;D&lt;/em&gt; 中第 &lt;em&gt;k&lt;/em&gt; 累样本所占的比例为 &lt;code&gt;p_k(k = 1,2,...,|y|)&lt;/code&gt;&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;
+Ent(D) = - \sum^{|y|}_{k=1}p_k\log_2(p_k)&lt;/script&gt;&lt;p&gt;Ent(D) 的值越小，则D的纯度越高。&lt;/p&gt;
     
     </summary>
     
@@ -335,7 +342,7 @@ http://192.168.111.131:8111/&lt;/code&gt;&lt;/pre&gt;
     <link href="http://yoursite.com/2019/10/28/Golang-5/"/>
     <id>http://yoursite.com/2019/10/28/Golang-5/</id>
     <published>2019-10-28T08:56:15.000Z</published>
-    <updated>2019-10-29T13:35:56.000Z</updated>
+    <updated>2020-02-29T06:52:11.982Z</updated>
     
     <summary type="html">
     
@@ -363,8 +370,7 @@ http://192.168.111.131:8111/&lt;/code&gt;&lt;/pre&gt;
     <summary type="html">
     
       &lt;h1 id=&quot;其它&quot;&gt;&lt;a href=&quot;#其它&quot; class=&quot;headerlink&quot; title=&quot;其它&quot;&gt;&lt;/a&gt;其它&lt;/h1&gt;&lt;h2 id=&quot;单元测试&quot;&gt;&lt;a href=&quot;#单元测试&quot; class=&quot;headerlink&quot; title=&quot;单元测试&quot;&gt;&lt;/a&gt;单元测试&lt;/h2&gt;&lt;h3 id=&quot;内置单元测试框架&quot;&gt;&lt;a href=&quot;#内置单元测试框架&quot; class=&quot;headerlink&quot; title=&quot;内置单元测试框架&quot;&gt;&lt;/a&gt;内置单元测试框架&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Fail, Error: 该测试失败，该测试继续，其他测试继续执⾏&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;Fail, Error: 该测试失败，该测试继续，其他测试继续执⾏&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;FailNow, Fatal: 该测试失败，该测试中⽌，其他测试继续执⾏&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;代码覆盖率&lt;/p&gt;
@@ -373,7 +379,8 @@ http://192.168.111.131:8111/&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;&lt;p&gt;断⾔&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code&gt;https://github.com/stretchr/testify&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;https://github.com/stretchr/testify
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -401,8 +408,7 @@ http://192.168.111.131:8111/&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;Groutine 的 Stack 初始化⼤⼩为2K&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;和 KSE（Kernel Space Entity）的对应关系&lt;/p&gt;
-&lt;ul&gt;
+&lt;li&gt;和 KSE（Kernel Space Entity）的对应关系&lt;ul&gt;
 &lt;li&gt;Java Thread 是 1:1&lt;/li&gt;
 &lt;li&gt;Groutine 是 M:N&lt;/li&gt;
 &lt;/ul&gt;
@@ -428,12 +434,13 @@ http://192.168.111.131:8111/&lt;/code&gt;&lt;/pre&gt;
     
     <summary type="html">
     
-      &lt;h1 id=&quot;面向对象&quot;&gt;&lt;a href=&quot;#面向对象&quot; class=&quot;headerlink&quot; title=&quot;面向对象&quot;&gt;&lt;/a&gt;面向对象&lt;/h1&gt;&lt;h2 id=&quot;封装数据和行为&quot;&gt;&lt;a href=&quot;#封装数据和行为&quot; class=&quot;headerlink&quot; title=&quot;封装数据和行为&quot;&gt;&lt;/a&gt;封装数据和行为&lt;/h2&gt;&lt;h3 id=&quot;结构体定义&quot;&gt;&lt;a href=&quot;#结构体定义&quot; class=&quot;headerlink&quot; title=&quot;结构体定义&quot;&gt;&lt;/a&gt;结构体定义&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;go&quot;&gt;type Employee struct {
+      &lt;h1 id=&quot;面向对象&quot;&gt;&lt;a href=&quot;#面向对象&quot; class=&quot;headerlink&quot; title=&quot;面向对象&quot;&gt;&lt;/a&gt;面向对象&lt;/h1&gt;&lt;h2 id=&quot;封装数据和行为&quot;&gt;&lt;a href=&quot;#封装数据和行为&quot; class=&quot;headerlink&quot; title=&quot;封装数据和行为&quot;&gt;&lt;/a&gt;封装数据和行为&lt;/h2&gt;&lt;h3 id=&quot;结构体定义&quot;&gt;&lt;a href=&quot;#结构体定义&quot; class=&quot;headerlink&quot; title=&quot;结构体定义&quot;&gt;&lt;/a&gt;结构体定义&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;lang-go&quot;&gt;type Employee struct {
     Id   string
     Name string
     Age  int
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;实例创建及初始化&quot;&gt;&lt;a href=&quot;#实例创建及初始化&quot; class=&quot;headerlink&quot; title=&quot;实例创建及初始化&quot;&gt;&lt;/a&gt;实例创建及初始化&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;go&quot;&gt;e := Employee{&amp;quot;0&amp;quot;, &amp;quot;Bob&amp;quot;, 20}
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;实例创建及初始化&quot;&gt;&lt;a href=&quot;#实例创建及初始化&quot; class=&quot;headerlink&quot; title=&quot;实例创建及初始化&quot;&gt;&lt;/a&gt;实例创建及初始化&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;lang-go&quot;&gt;e := Employee{&amp;quot;0&amp;quot;, &amp;quot;Bob&amp;quot;, 20}
 //e := &amp;amp;Employee{&amp;quot;0&amp;quot;, &amp;quot;Bob&amp;quot;, 20} 也可以
   // t.Log(e.String())
 e1 := Employee{Name: &amp;quot;Mike&amp;quot;, Age: 30}
@@ -446,7 +453,8 @@ t.Log(e1)
 t.Log(e1.ID)
 t.Log(e2)
 t.Logf(&amp;quot;e is %T&amp;quot;, e)
-t.Logf(&amp;quot;e2 is %T&amp;quot;, e2)&lt;/code&gt;&lt;/pre&gt;
+t.Logf(&amp;quot;e2 is %T&amp;quot;, e2)
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -467,15 +475,14 @@ t.Logf(&amp;quot;e2 is %T&amp;quot;, e2)&lt;/code&gt;&lt;/pre&gt;
     
     <summary type="html">
     
-      &lt;h1 id=&quot;基础&quot;&gt;&lt;a href=&quot;#基础&quot; class=&quot;headerlink&quot; title=&quot;基础&quot;&gt;&lt;/a&gt;基础&lt;/h1&gt;&lt;h2 id=&quot;vscode配置&quot;&gt;&lt;a href=&quot;#vscode配置&quot; class=&quot;headerlink&quot; title=&quot;vscode配置&quot;&gt;&lt;/a&gt;vscode配置&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;json&quot;&gt;&amp;quot;go.gopath&amp;quot;: &amp;quot;/usr/local/go/bin/go&amp;quot;,
+      &lt;h1 id=&quot;基础&quot;&gt;&lt;a href=&quot;#基础&quot; class=&quot;headerlink&quot; title=&quot;基础&quot;&gt;&lt;/a&gt;基础&lt;/h1&gt;&lt;h2 id=&quot;vscode配置&quot;&gt;&lt;a href=&quot;#vscode配置&quot; class=&quot;headerlink&quot; title=&quot;vscode配置&quot;&gt;&lt;/a&gt;vscode配置&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;lang-json&quot;&gt;&amp;quot;go.gopath&amp;quot;: &amp;quot;/usr/local/go/bin/go&amp;quot;,
 &amp;quot;go.testFlags&amp;quot;: [
     &amp;quot;-v&amp;quot;,
     &amp;quot;-count=1&amp;quot;
 ],
 &amp;quot;go.autocompleteUnimportedPackages&amp;quot;: true,
-
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;基本程序结构&quot;&gt;&lt;a href=&quot;#基本程序结构&quot; class=&quot;headerlink&quot; title=&quot;基本程序结构&quot;&gt;&lt;/a&gt;基本程序结构&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;go&quot;&gt;package main //包，表明代码所在的模块(包)
+&lt;h2 id=&quot;基本程序结构&quot;&gt;&lt;a href=&quot;#基本程序结构&quot; class=&quot;headerlink&quot; title=&quot;基本程序结构&quot;&gt;&lt;/a&gt;基本程序结构&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;lang-go&quot;&gt;package main //包，表明代码所在的模块(包)
 
 //引入代码依赖
 import (
@@ -515,8 +522,9 @@ func main(){
     
     <summary type="html">
     
-      &lt;h1 id=&quot;多维数组、指针本质&quot;&gt;&lt;a href=&quot;#多维数组、指针本质&quot; class=&quot;headerlink&quot; title=&quot;多维数组、指针本质&quot;&gt;&lt;/a&gt;多维数组、指针本质&lt;/h1&gt;&lt;h2 id=&quot;数组指针类型&quot;&gt;&lt;a href=&quot;#数组指针类型&quot; class=&quot;headerlink&quot; title=&quot;数组指针类型&quot;&gt;&lt;/a&gt;数组指针类型&lt;/h2&gt;&lt;h3 id=&quot;1）-通过数组类型定义数组指针&quot;&gt;&lt;a href=&quot;#1）-通过数组类型定义数组指针&quot; class=&quot;headerlink&quot; title=&quot;1） 通过数组类型定义数组指针:&quot;&gt;&lt;/a&gt;1） 通过数组类型定义数组指针:&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;typedef int(ArrayType)[5]; int *a
-ArrayType* pointer;&lt;/code&gt;&lt;/pre&gt;
+      &lt;h1 id=&quot;多维数组、指针本质&quot;&gt;&lt;a href=&quot;#多维数组、指针本质&quot; class=&quot;headerlink&quot; title=&quot;多维数组、指针本质&quot;&gt;&lt;/a&gt;多维数组、指针本质&lt;/h1&gt;&lt;h2 id=&quot;数组指针类型&quot;&gt;&lt;a href=&quot;#数组指针类型&quot; class=&quot;headerlink&quot; title=&quot;数组指针类型&quot;&gt;&lt;/a&gt;数组指针类型&lt;/h2&gt;&lt;h3 id=&quot;1）-通过数组类型定义数组指针&quot;&gt;&lt;a href=&quot;#1）-通过数组类型定义数组指针&quot; class=&quot;headerlink&quot; title=&quot;1） 通过数组类型定义数组指针:&quot;&gt;&lt;/a&gt;1） 通过数组类型定义数组指针:&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;lang-c&quot;&gt;typedef int(ArrayType)[5]; int *a
+ArrayType* pointer;
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;数组指针： 用数组类型加*定义一个数组指针&lt;/p&gt;
     
     </summary>
@@ -538,13 +546,14 @@ ArrayType* pointer;&lt;/code&gt;&lt;/pre&gt;
     
     <summary type="html">
     
-      &lt;h1 id=&quot;结构体&quot;&gt;&lt;a href=&quot;#结构体&quot; class=&quot;headerlink&quot; title=&quot;结构体&quot;&gt;&lt;/a&gt;结构体&lt;/h1&gt;&lt;h2 id=&quot;名字重定义&quot;&gt;&lt;a href=&quot;#名字重定义&quot; class=&quot;headerlink&quot; title=&quot;名字重定义&quot;&gt;&lt;/a&gt;名字重定义&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;typedef struct Teacher
+      &lt;h1 id=&quot;结构体&quot;&gt;&lt;a href=&quot;#结构体&quot; class=&quot;headerlink&quot; title=&quot;结构体&quot;&gt;&lt;/a&gt;结构体&lt;/h1&gt;&lt;h2 id=&quot;名字重定义&quot;&gt;&lt;a href=&quot;#名字重定义&quot; class=&quot;headerlink&quot; title=&quot;名字重定义&quot;&gt;&lt;/a&gt;名字重定义&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;lang-c&quot;&gt;typedef struct Teacher
 {
     char name[64];
     int age;
 }Teacher;
-Teacher t1;//分配内存&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;类型定义变量的方法&quot;&gt;&lt;a href=&quot;#类型定义变量的方法&quot; class=&quot;headerlink&quot; title=&quot;类型定义变量的方法&quot;&gt;&lt;/a&gt;类型定义变量的方法&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;struct Teacher
+Teacher t1;//分配内存
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;类型定义变量的方法&quot;&gt;&lt;a href=&quot;#类型定义变量的方法&quot; class=&quot;headerlink&quot; title=&quot;类型定义变量的方法&quot;&gt;&lt;/a&gt;类型定义变量的方法&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;lang-c&quot;&gt;struct Teacher
 {
     char name[64];
     int age;
@@ -564,7 +573,8 @@ struct
     char tile[32];
     int age;
     char addr[128];
-}s3,s4; //匿名类型 直接定义结构体变量&lt;/code&gt;&lt;/pre&gt;
+}s3,s4; //匿名类型 直接定义结构体变量
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -585,7 +595,7 @@ struct
     
     <summary type="html">
     
-      &lt;h1 id=&quot;二级指针&quot;&gt;&lt;a href=&quot;#二级指针&quot; class=&quot;headerlink&quot; title=&quot;二级指针&quot;&gt;&lt;/a&gt;二级指针&lt;/h1&gt;&lt;h2 id=&quot;对空间的释放&quot;&gt;&lt;a href=&quot;#对空间的释放&quot; class=&quot;headerlink&quot; title=&quot;对空间的释放&quot;&gt;&lt;/a&gt;对空间的释放&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;void main()
+      &lt;h1 id=&quot;二级指针&quot;&gt;&lt;a href=&quot;#二级指针&quot; class=&quot;headerlink&quot; title=&quot;二级指针&quot;&gt;&lt;/a&gt;二级指针&lt;/h1&gt;&lt;h2 id=&quot;对空间的释放&quot;&gt;&lt;a href=&quot;#对空间的释放&quot; class=&quot;headerlink&quot; title=&quot;对空间的释放&quot;&gt;&lt;/a&gt;对空间的释放&lt;/h2&gt;&lt;pre&gt;&lt;code class=&quot;lang-c&quot;&gt;void main()
 {
     char* p = NULL;
     get_mem(&amp;amp;p)
@@ -602,7 +612,8 @@ void free_mem(char** p)
         free(*p); //注意不是**p
         *p = NULL;
     }
-}&lt;/code&gt;&lt;/pre&gt;
+}
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     

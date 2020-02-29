@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>Golang-3 · HeeC'Blog</title><meta name="description" content="协程机制Thead vs. Groutine
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>Golang-3 · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="协程机制Thead vs. Groutine
 创建时默认的 stack 的⼤⼩
 
 JDK5 以后 Java Thread stack 默认为1M
@@ -6,163 +6,159 @@ Groutine 的 Stack 初始化⼤⼩为2K
 
 
 和 KSE（Kernel Space Entity）的对应关系
-
-Java Thread 是 1:"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+Java Thread 是 1:1"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Golang-3</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-10-27</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/10/27/Golang-3/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Golang/" title="Golang" class="a-tag">Golang</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="协程机制"><a href="#协程机制" class="headerlink" title="协程机制"></a>协程机制</h1><h2 id="Thead-vs-Groutine"><a href="#Thead-vs-Groutine" class="headerlink" title="Thead vs. Groutine"></a>Thead vs. Groutine</h2><ol>
-<li><p>创建时默认的 stack 的⼤⼩</p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><li><p>创建时默认的 stack 的⼤⼩</p>
 <ul>
 <li>JDK5 以后 Java Thread stack 默认为1M</li>
 <li>Groutine 的 Stack 初始化⼤⼩为2K</li>
 </ul>
 </li>
-<li><p>和 KSE（Kernel Space Entity）的对应关系</p>
-<ul>
+<li>和 KSE（Kernel Space Entity）的对应关系<ul>
 <li>Java Thread 是 1:1</li>
 <li>Groutine 是 M:N</li>
 </ul>
 </li>
 </ol>
 <a id="more"></a>
+<p> <img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown Photos/11.png" alt="img"></p>
+<h3 id="Groutine-M-N-原因"><a href="#Groutine-M-N-原因" class="headerlink" title="Groutine M:N 原因"></a>Groutine M:N 原因</h3><p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown Photos/12.jpg" alt="img"></p>
+<pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestGroutine(t *testing.T) {
+    for i := 0; i < 10; i++ {
+        go func(i int) { // 加上 go 就是在协程里运行
+            fmt.Println(i)
+        }(i) // i 传入
 
-<p> ![img](<a href="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown" target="_blank" rel="noopener">https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown</a> Photos/11.png)</p>
-<h3 id="Groutine-M-N-原因"><a href="#Groutine-M-N-原因" class="headerlink" title="Groutine M:N 原因"></a>Groutine M:N 原因</h3><p>![img](<a href="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown" target="_blank" rel="noopener">https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown</a> Photos/12.jpg)</p>
-<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestGroutine</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span>i <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 加上 go 就是在协程里运行</span>
-            fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-        <span class="token punctuation">}</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// i 传入</span>
-
-        <span class="token comment" spellcheck="true">//i 被共享，所以不可以下面这么写，加上锁才行</span>
-        <span class="token comment" spellcheck="true">/*
+        //i 被共享，所以不可以下面这么写，加上锁才行
+        /*
         go func() {
             fmt.Println(i)
         }()
-        */</span>
-    <span class="token punctuation">}</span>
-    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Millisecond <span class="token operator">*</span> <span class="token number">50</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        */
+    }
+    time.Sleep(time.Millisecond * 50)
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="共享内存并发机制"><a href="#共享内存并发机制" class="headerlink" title="共享内存并发机制"></a>共享内存并发机制</h2><h3 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h3><p><code>sync</code> package 内的 <code>Mutex</code> <code>RWLock</code></p>
-<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestCounter</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    counter <span class="token operator">:=</span> <span class="token number">0</span>
-    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">5000</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            counter<span class="token operator">++</span>
-        <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Second<span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"counter = %d"</span><span class="token punctuation">,</span> counter<span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//安全的</span>
-<span class="token keyword">func</span> <span class="token function">TestCounterThreadSafe</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">var</span> mut sync<span class="token punctuation">.</span>Mutex
-    counter <span class="token operator">:=</span> <span class="token number">0</span>
-    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">5000</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">defer</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                mut<span class="token punctuation">.</span><span class="token function">Unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-            <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestCounter(t *testing.T) {
+    counter := 0
+    for i := 0; i < 5000; i++ {
+        go func() {
+            counter++
+        }()
+    }
+    time.Sleep(1 * time.Second)
+    t.Logf("counter = %d", counter)
+}
+//安全的
+func TestCounterThreadSafe(t *testing.T) {
+    var mut sync.Mutex
+    counter := 0
+    for i := 0; i < 5000; i++ {
+        go func() {
+            defer func() {
+                mut.Unlock()
+            }()
 
-            mut<span class="token punctuation">.</span><span class="token function">Lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-            counter<span class="token operator">++</span>
-        <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">//协程执行太快，没得到正确结果就退掉了，所以需要等待</span>
-    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Second<span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"counter = %d"</span><span class="token punctuation">,</span> counter<span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+            mut.Lock()
+            counter++
+        }()
+    }
+    //协程执行太快，没得到正确结果就退掉了，所以需要等待
+    time.Sleep(1 * time.Second)
+    t.Logf("counter = %d", counter)
+}
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="WaitGroup"><a href="#WaitGroup" class="headerlink" title="WaitGroup"></a>WaitGroup</h3><p>类似 java 的 CountDownLatch 和 join</p>
-<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestCounterWaitGroup</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">var</span> mut sync<span class="token punctuation">.</span>Mutex
-    <span class="token keyword">var</span> wg sync<span class="token punctuation">.</span>WaitGroup
-    counter <span class="token operator">:=</span> <span class="token number">0</span>
-    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">5000</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        wg<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">defer</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                mut<span class="token punctuation">.</span><span class="token function">Unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-            <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestCounterWaitGroup(t *testing.T) {
+    var mut sync.Mutex
+    var wg sync.WaitGroup
+    counter := 0
+    for i := 0; i < 5000; i++ {
+        wg.Add(1)
+        go func() {
+            defer func() {
+                mut.Unlock()
+            }()
 
-            mut<span class="token punctuation">.</span><span class="token function">Lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-            counter<span class="token operator">++</span>
-            wg<span class="token punctuation">.</span><span class="token function">Done</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    wg<span class="token punctuation">.</span><span class="token function">Wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"counter = %d"</span><span class="token punctuation">,</span> counter<span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            mut.Lock()
+            counter++
+            wg.Done()
+        }()
+    }
+    wg.Wait()
+    t.Logf("counter = %d", counter)
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="CSP-并发机制-Communicating-sequential-processes"><a href="#CSP-并发机制-Communicating-sequential-processes" class="headerlink" title="CSP 并发机制 (Communicating sequential processes)"></a>CSP 并发机制 (Communicating sequential processes)</h2><p>用于描述两个独立的并发实体通过共享的通讯 channel (管道)进行通信的并发模型。</p>
 <p>CSP中channel是第一类对象，它不关注发送消息的实体，而关注与发送消息时使用的channel。</p>
 <h3 id="CSP-vs-Actor"><a href="#CSP-vs-Actor" class="headerlink" title="CSP vs. Actor"></a>CSP vs. Actor</h3><ul>
 <li>和 Actor 的直接通讯不同，CSP 模式则是通过 Channel 进⾏通讯的，更松耦合⼀些</li>
 <li>消息存储：Go 中 channel 是有容量限制并且独⽴于处理 Groutine，⽽如 Erlang，Actor 模式中的 mailbox 容量是⽆限的，接收进程也总是被动地处理消息。</li>
 </ul>
-<h4 id="Actor-Medel"><a href="#Actor-Medel" class="headerlink" title="Actor Medel"></a>Actor Medel</h4><p>![img](<a href="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown" target="_blank" rel="noopener">https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown</a> Photos/actor_model.png)</p>
-<img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown Photos/erlang_actor.png" alt="img" style="zoom:50%;" />
-
-<img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown Photos/go_channel.png" alt="img" style="zoom:50%;" />
-
-
-
+<h4 id="Actor-Medel"><a href="#Actor-Medel" class="headerlink" title="Actor Medel"></a>Actor Medel</h4><p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown Photos/actor_model.png" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown Photos/erlang_actor.png" alt="img" style="zoom:50%;" /></p>
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown Photos/go_channel.png" alt="img" style="zoom:50%;" /></p>
 <h3 id="GO-的两种channel-机制"><a href="#GO-的两种channel-机制" class="headerlink" title="GO 的两种channel 机制"></a>GO 的两种channel 机制</h3><ul>
 <li><p>典型的 channel：两方必须同时在，接收方存在才可以发送消息，发完后也必须等待，直到接收后才算完成。</p>
 </li>
 <li><p>buffered channel：channnel 有容量，若容量满了，需要接受消息方拿掉一个消息，发送方才可以放进去，对接受消息也一样，空的时候就等待</p>
 </li>
 </ul>
-<h3 id="异步返回"><a href="#异步返回" class="headerlink" title="异步返回"></a>异步返回</h3><h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> FutureTask<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">service</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    FutureTask<span class="token operator">&lt;</span>String<span class="token operator">></span> task <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FutureTask</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token string">"Do something"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> task<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<h3 id="异步返回"><a href="#异步返回" class="headerlink" title="异步返回"></a>异步返回</h3><h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4><pre class="line-numbers language-lang-java"><code class="language-lang-java">private static FutureTask<String> service() {
+    FutureTask<String> task = new FutureTask<String>(()->"Do something");
+    new Thread(task).start();
+    return task;
+}
 
-FutureTask<span class="token operator">&lt;</span>String<span class="token operator">></span> ret <span class="token operator">=</span> <span class="token function">service</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>"Do something <span class="token keyword">else</span>”<span class="token punctuation">)</span><span class="token punctuation">;</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>ret<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h4><pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 简单的</span>
-<span class="token keyword">func</span> <span class="token function">service</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
-    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Millisecond <span class="token operator">*</span> <span class="token number">50</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> <span class="token string">"Done"</span>
-<span class="token punctuation">}</span>
+FutureTask<String> ret = service();
+System.out.println("Do something else”);
+System.out.println(ret.get());
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h4><pre class="line-numbers language-lang-go"><code class="language-lang-go">// 简单的
+func service() string {
+    time.Sleep(time.Millisecond * 50)
+    return "Done"
+}
 
-<span class="token keyword">func</span> <span class="token function">otherTask</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"working on something else"</span><span class="token punctuation">)</span>
-    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Millisecond <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">)</span>
-    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Task is done."</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+func otherTask() {
+    fmt.Println("working on something else")
+    time.Sleep(time.Millisecond * 100)
+    fmt.Println("Task is done.")
+}
 
-<span class="token keyword">func</span> <span class="token function">TestService</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">service</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token function">otherTask</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+func TestService(t *testing.T) {
+    fmt.Println(service())
+    otherTask()
+}
 
-<span class="token comment" spellcheck="true">// chan 通道，实现 futureTask</span>
-<span class="token keyword">func</span> <span class="token function">AsyncService</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">chan</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// 声明 channel</span>
-    <span class="token comment" spellcheck="true">// retCh := make(chan string)</span>
-    <span class="token comment" spellcheck="true">// 改为 buffered channel，否则怎协程运行完会一直阻塞</span>
-    retCh <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        ret <span class="token operator">:=</span> <span class="token function">service</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"returned result."</span><span class="token punctuation">)</span>
-        retCh <span class="token operator">&lt;-</span> ret
-        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"service exited."</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> retCh
-<span class="token punctuation">}</span>
+// chan 通道，实现 futureTask
+func AsyncService() chan string {
+    // 声明 channel
+    // retCh := make(chan string)
+    // 改为 buffered channel，否则怎协程运行完会一直阻塞
+    retCh := make(chan string, 1)
+    go func() {
+        ret := service()
+        fmt.Println("returned result.")
+        retCh <- ret
+        fmt.Println("service exited.")
+    }()
+    return retCh
+}
 
-<span class="token comment" spellcheck="true">/*
-retCh &lt;- ret 往 channel 放数据
-&lt;-retCh 取数据
-*/</span>
-<span class="token keyword">func</span> <span class="token function">TestAsyncService</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    retCh <span class="token operator">:=</span> <span class="token function">AsyncService</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token function">otherTask</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token operator">&lt;-</span>retCh<span class="token punctuation">)</span>
-    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Second <span class="token operator">*</span> <span class="token number">1</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+/*
+retCh <- ret 往 channel 放数据
+<-retCh 取数据
+*/
+func TestAsyncService(t *testing.T) {
+    retCh := AsyncService()
+    otherTask()
+    fmt.Println(<-retCh)
+    time.Sleep(time.Second * 1)
+}
 
-<span class="token comment" spellcheck="true">/*
+/*
 原本的
 working on something else
 returned result.
@@ -176,129 +172,134 @@ returned result.
 service exited.
 Task is done.
 Done
-*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="多路选择和超时控制"><a href="#多路选择和超时控制" class="headerlink" title="多路选择和超时控制"></a>多路选择和超时控制</h2><h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 多渠道的选择</span>
-<span class="token comment" spellcheck="true">// retCh1 和 retCh2 都等待时，被挑选的顺序是随机的</span>
-<span class="token keyword">select</span> <span class="token punctuation">{</span>
-    <span class="token keyword">case</span> ret <span class="token operator">:=</span> <span class="token operator">&lt;-</span>retCh1<span class="token punctuation">:</span>
-        t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"result %s"</span><span class="token punctuation">,</span> ret<span class="token punctuation">)</span>
-    <span class="token keyword">case</span> ret <span class="token operator">:=</span><span class="token operator">&lt;-</span>retCh2<span class="token punctuation">:</span>
-        t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"result %s"</span><span class="token punctuation">,</span> ret<span class="token punctuation">)</span>
-    <span class="token keyword">default</span><span class="token punctuation">:</span>
-        t<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>“No one returned”<span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">// 超时控制</span>
-<span class="token keyword">select</span> <span class="token punctuation">{</span>
-    <span class="token keyword">case</span> ret <span class="token operator">:=</span> <span class="token operator">&lt;-</span>retCh<span class="token punctuation">:</span>
-        t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"result %s"</span><span class="token punctuation">,</span> ret<span class="token punctuation">)</span>
-    <span class="token keyword">case</span> <span class="token operator">&lt;-</span>time<span class="token punctuation">.</span><span class="token function">After</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Second <span class="token operator">*</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        t<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token string">"time out"</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+*/
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="多路选择和超时控制"><a href="#多路选择和超时控制" class="headerlink" title="多路选择和超时控制"></a>多路选择和超时控制</h2><h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><pre class="line-numbers language-lang-go"><code class="language-lang-go">// 多渠道的选择
+// retCh1 和 retCh2 都等待时，被挑选的顺序是随机的
+select {
+    case ret := <-retCh1:
+        t.Logf("result %s", ret)
+    case ret :=<-retCh2:
+        t.Logf("result %s", ret)
+    default:
+        t.Error(“No one returned”)
+}
+// 超时控制
+select {
+    case ret := <-retCh:
+        t.Logf("result %s", ret)
+    case <-time.After(time.Second * 1):
+        t.Error("time out")
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>例子：</p>
-<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">service</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
-    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Millisecond <span class="token operator">*</span> <span class="token number">500</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> <span class="token string">"Done"</span>
-<span class="token punctuation">}</span>
+<pre class="line-numbers language-lang-go"><code class="language-lang-go">func service() string {
+    time.Sleep(time.Millisecond * 500)
+    return "Done"
+}
 
-<span class="token keyword">func</span> <span class="token function">AsyncService</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">chan</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
-    retCh <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        ret <span class="token operator">:=</span> <span class="token function">service</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"returned result."</span><span class="token punctuation">)</span>
-        retCh <span class="token operator">&lt;-</span> ret
-        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"service exited."</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> retCh
-<span class="token punctuation">}</span>
+func AsyncService() chan string {
+    retCh := make(chan string, 1)
+    go func() {
+        ret := service()
+        fmt.Println("returned result.")
+        retCh <- ret
+        fmt.Println("service exited.")
+    }()
+    return retCh
+}
 
-<span class="token keyword">func</span> <span class="token function">TestAsyncService</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">select</span> <span class="token punctuation">{</span>
-    <span class="token keyword">case</span> ret <span class="token operator">:=</span> <span class="token operator">&lt;-</span><span class="token function">AsyncService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>ret<span class="token punctuation">)</span>
-    <span class="token keyword">case</span> <span class="token operator">&lt;-</span>time<span class="token punctuation">.</span><span class="token function">After</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Millisecond <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        t<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token string">"time out"</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    retCh <span class="token operator">:=</span> <span class="token function">AsyncService</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token operator">&lt;-</span>retCh<span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+func TestAsyncService(t *testing.T) {
+    select {
+    case ret := <-AsyncService():
+        t.Log(ret)
+    case <-time.After(time.Millisecond * 100):
+        t.Error("time out")
+    }
+    retCh := AsyncService()
+    fmt.Println(<-retCh)
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="channel-的关闭和⼴播"><a href="#channel-的关闭和⼴播" class="headerlink" title="channel 的关闭和⼴播"></a>channel 的关闭和⼴播</h2><h3 id="channel-的关闭"><a href="#channel-的关闭" class="headerlink" title="channel 的关闭"></a>channel 的关闭</h3><ul>
 <li>向关闭的 channel 发送数据，会导致 panic</li>
 <li>v, ok &lt;-ch; ok 为 bool 值，true 表示正常接受，false 表示通道关闭</li>
 <li>所有的 channel 接收者都会在 channel 关闭时，⽴刻从阻塞等待中返回且上述 ok 值为 false。这个⼴播机制常被利⽤，进⾏向多个订阅者同时发送信号。如：退出信号。</li>
 </ul>
-<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">dataProducer</span><span class="token punctuation">(</span>ch <span class="token keyword">chan</span> <span class="token builtin">int</span><span class="token punctuation">,</span> wg <span class="token operator">*</span>sync<span class="token punctuation">.</span>WaitGroup<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-            ch <span class="token operator">&lt;-</span> i
-        <span class="token punctuation">}</span>
-        <span class="token function">close</span><span class="token punctuation">(</span>ch<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//关闭 channel</span>
-        wg<span class="token punctuation">.</span><span class="token function">Done</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">func</span> <span class="token function">dataReceiver</span><span class="token punctuation">(</span>ch <span class="token keyword">chan</span> <span class="token builtin">int</span><span class="token punctuation">,</span> wg <span class="token operator">*</span>sync<span class="token punctuation">.</span>WaitGroup<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">for</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> data<span class="token punctuation">,</span> ok <span class="token operator">:=</span> <span class="token operator">&lt;-</span>ch<span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
-                fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token keyword">break</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        wg<span class="token punctuation">.</span><span class="token function">Done</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+<pre class="line-numbers language-lang-go"><code class="language-lang-go">func dataProducer(ch chan int, wg *sync.WaitGroup) {
+    go func() {
+        for i := 0; i < 10; i++ {
+            ch <- i
+        }
+        close(ch) //关闭 channel
+        wg.Done()
+    }()
+}
+func dataReceiver(ch chan int, wg *sync.WaitGroup) {
+    go func() {
+        for {
+            if data, ok := <-ch; ok {
+                fmt.Println(data)
+            } else {
+                break
+            }
+        }
+        wg.Done()
+    }()
+}
 
-<span class="token keyword">func</span> <span class="token function">TestCloseChannel</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">var</span> wg sync<span class="token punctuation">.</span>WaitGroup
-    ch <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">int</span><span class="token punctuation">)</span>
-    wg<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token function">dataProducer</span><span class="token punctuation">(</span>ch<span class="token punctuation">,</span> <span class="token operator">&amp;</span>wg<span class="token punctuation">)</span>
-    wg<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token function">dataReceiver</span><span class="token punctuation">(</span>ch<span class="token punctuation">,</span> <span class="token operator">&amp;</span>wg<span class="token punctuation">)</span>
-    wg<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token function">dataReceiver</span><span class="token punctuation">(</span>ch<span class="token punctuation">,</span> <span class="token operator">&amp;</span>wg<span class="token punctuation">)</span>
-    wg<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token function">dataReceiver</span><span class="token punctuation">(</span>ch<span class="token punctuation">,</span> <span class="token operator">&amp;</span>wg<span class="token punctuation">)</span>
-    wg<span class="token punctuation">.</span><span class="token function">Wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="任务的取消"><a href="#任务的取消" class="headerlink" title="任务的取消"></a>任务的取消</h3><pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 获取取消通知</span>
-<span class="token keyword">func</span> <span class="token function">isCancelled</span><span class="token punctuation">(</span>cancelChan <span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
-    <span class="token keyword">select</span> <span class="token punctuation">{</span>
-    <span class="token keyword">case</span> <span class="token operator">&lt;-</span>cancelChan<span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span>
-    <span class="token keyword">default</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token boolean">false</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+func TestCloseChannel(t *testing.T) {
+    var wg sync.WaitGroup
+    ch := make(chan int)
+    wg.Add(1)
+    dataProducer(ch, &wg)
+    wg.Add(1)
+    dataReceiver(ch, &wg)
+    wg.Add(1)
+    dataReceiver(ch, &wg)
+    wg.Add(1)
+    dataReceiver(ch, &wg)
+    wg.Wait()
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="任务的取消"><a href="#任务的取消" class="headerlink" title="任务的取消"></a>任务的取消</h3><pre class="line-numbers language-lang-go"><code class="language-lang-go">// 获取取消通知
+func isCancelled(cancelChan chan struct{}) bool {
+    select {
+    case <-cancelChan:
+        return true
+    default:
+        return false
+    }
+}
 
-<span class="token comment" spellcheck="true">//发送取消消息</span>
-<span class="token keyword">func</span> <span class="token function">cancel_1</span><span class="token punctuation">(</span>cancelChan <span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    cancelChan <span class="token operator">&lt;-</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//只是个随意的空结构</span>
-<span class="token punctuation">}</span>
+//发送取消消息
+func cancel_1(cancelChan chan struct{}) {
+    cancelChan <- struct{}{} //只是个随意的空结构
+}
 
-<span class="token comment" spellcheck="true">//通过关闭 Channel 取消 </span>
-<span class="token keyword">func</span> <span class="token function">cancel_2</span><span class="token punctuation">(</span>cancelChan <span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">close</span><span class="token punctuation">(</span>cancelChan<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 利用广播机制</span>
-<span class="token punctuation">}</span>
+//通过关闭 Channel 取消 
+func cancel_2(cancelChan chan struct{}) {
+    close(cancelChan) // 利用广播机制
+}
 
-<span class="token keyword">func</span> <span class="token function">TestCancel</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    cancelChan <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
-    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span>i <span class="token builtin">int</span><span class="token punctuation">,</span> cancelCh <span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">for</span> <span class="token punctuation">{</span>
-                <span class="token keyword">if</span> <span class="token function">isCancelled</span><span class="token punctuation">(</span>cancelChan<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    <span class="token keyword">break</span>
-                <span class="token punctuation">}</span>
-                time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Millisecond <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">)</span>
-            <span class="token punctuation">}</span>
-            fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token string">"Done"</span><span class="token punctuation">)</span>
-        <span class="token punctuation">}</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> cancelChan<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">// cancel_1(cancelChan)</span>
-    <span class="token function">cancel_2</span><span class="token punctuation">(</span>cancelChan<span class="token punctuation">)</span>
-    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Second <span class="token operator">*</span> <span class="token number">1</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Context-与任务取消"><a href="#Context-与任务取消" class="headerlink" title="Context 与任务取消"></a>Context 与任务取消</h4><p>![img](<a href="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown" target="_blank" rel="noopener">https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown</a> Photos/related_cancel.jpg)</p>
+func TestCancel(t *testing.T) {
+    cancelChan := make(chan struct{}, 0)
+    for i := 0; i < 5; i++ {
+        go func(i int, cancelCh chan struct{}) {
+            for {
+                if isCancelled(cancelChan) {
+                    break
+                }
+                time.Sleep(time.Millisecond * 5)
+            }
+            fmt.Println(i, "Done")
+        }(i, cancelChan)
+    }
+    // cancel_1(cancelChan)
+    cancel_2(cancelChan)
+    time.Sleep(time.Second * 1)
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Context-与任务取消"><a href="#Context-与任务取消" class="headerlink" title="Context 与任务取消"></a>Context 与任务取消</h4><p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown Photos/related_cancel.jpg" alt="img"></p>
 <h5 id="context"><a href="#context" class="headerlink" title="context"></a>context</h5><ul>
 <li>根 Context：通过 <code>context.Background ()</code> 创建</li>
 <li>⼦ Context：<code>context.WithCancel(parentContext)</code> 创建</li>
@@ -306,142 +307,148 @@ Done
 <li>当前 Context 被取消时，基于他的⼦ context 都会被取消</li>
 <li>接收取消通知 &lt;- ctx.Done()</li>
 </ul>
-<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 任务的取消 的另一种完成形式</span>
-<span class="token keyword">func</span> <span class="token function">isCancelled</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
-    <span class="token keyword">select</span> <span class="token punctuation">{</span>
-    <span class="token keyword">case</span> <span class="token operator">&lt;-</span>ctx<span class="token punctuation">.</span><span class="token function">Done</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span>
-    <span class="token keyword">default</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token boolean">false</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<pre class="line-numbers language-lang-go"><code class="language-lang-go">// 任务的取消 的另一种完成形式
+func isCancelled(ctx context.Context) bool {
+    select {
+    case <-ctx.Done():
+        return true
+    default:
+        return false
+    }
+}
 
-<span class="token keyword">func</span> <span class="token function">TestCancel</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    ctx<span class="token punctuation">,</span> cancel <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">WithCancel</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span>i <span class="token builtin">int</span><span class="token punctuation">,</span> ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">for</span> <span class="token punctuation">{</span>
-                <span class="token keyword">if</span> <span class="token function">isCancelled</span><span class="token punctuation">(</span>ctx<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    <span class="token keyword">break</span>
-                <span class="token punctuation">}</span>
-                time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Millisecond <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">)</span>
-            <span class="token punctuation">}</span>
-            fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token string">"Cancelled"</span><span class="token punctuation">)</span>
-        <span class="token punctuation">}</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> ctx<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    <span class="token function">cancel</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Second <span class="token operator">*</span> <span class="token number">1</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="常⻅见并发任务"><a href="#常⻅见并发任务" class="headerlink" title="常⻅见并发任务"></a>常⻅见并发任务</h2><h3 id="仅执⾏⼀次（类似懒汉式单例）"><a href="#仅执⾏⼀次（类似懒汉式单例）" class="headerlink" title="仅执⾏⼀次（类似懒汉式单例）"></a>仅执⾏⼀次（类似懒汉式单例）</h3><h4 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h4><pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">static</span> Singleton INSTANCE <span class="token operator">=</span> null<span class="token punctuation">;</span>
-    privata <span class="token function">SingleTon</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> Singleton <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>INSTANCE <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">synchronized</span><span class="token punctuation">(</span>Singleton<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span>INSTANCE <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    INSTANCE <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> INSTANCE<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="Go-1"><a href="#Go-1" class="headerlink" title="Go"></a>Go</h4><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">var</span> once sync<span class="token punctuation">.</span>Once
-<span class="token keyword">var</span> obj <span class="token operator">*</span>SingletonObj
+func TestCancel(t *testing.T) {
+    ctx, cancel := context.WithCancel(context.Background())
+    for i := 0; i < 5; i++ {
+        go func(i int, ctx context.Context) {
+            for {
+                if isCancelled(ctx) {
+                    break
+                }
+                time.Sleep(time.Millisecond * 5)
+            }
+            fmt.Println(i, "Cancelled")
+        }(i, ctx)
+    }
+    cancel()
+    time.Sleep(time.Second * 1)
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="常⻅见并发任务"><a href="#常⻅见并发任务" class="headerlink" title="常⻅见并发任务"></a>常⻅见并发任务</h2><h3 id="仅执⾏⼀次（类似懒汉式单例）"><a href="#仅执⾏⼀次（类似懒汉式单例）" class="headerlink" title="仅执⾏⼀次（类似懒汉式单例）"></a>仅执⾏⼀次（类似懒汉式单例）</h3><h4 id="Java-1"><a href="#Java-1" class="headerlink" title="Java"></a>Java</h4><pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Singleton {
+    private static Singleton INSTANCE = null;
+    privata SingleTon(){}
+    public static Singleton getInstance() {
+        if(INSTANCE == null) {
+            synchronized(Singleton.class) {
+                if(INSTANCE == null) {
+                    INSTANCE = new Singleton();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Go-1"><a href="#Go-1" class="headerlink" title="Go"></a>Go</h4><pre class="line-numbers language-lang-go"><code class="language-lang-go">var once sync.Once
+var obj *SingletonObj
 
-<span class="token keyword">func</span> <span class="token function">GetSingletonObj</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span>SingletonObj <span class="token punctuation">{</span>
-    once<span class="token punctuation">.</span><span class="token function">Do</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Create Singleton obj."</span><span class="token punctuation">)</span>
-        obj <span class="token operator">=</span> <span class="token operator">&amp;</span>SingletonObj<span class="token punctuation">{</span><span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> obj
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="详细版"><a href="#详细版" class="headerlink" title="详细版"></a>详细版</h4><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> Singleton <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+func GetSingletonObj() *SingletonObj {
+    once.Do(func() {
+        fmt.Println("Create Singleton obj.")
+        obj = &SingletonObj{}
+    })
+    return obj
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="详细版"><a href="#详细版" class="headerlink" title="详细版"></a>详细版</h4><pre class="line-numbers language-lang-go"><code class="language-lang-go">type Singleton struct{}
 
-<span class="token keyword">var</span> singleInstance <span class="token operator">*</span>Singleton
-<span class="token keyword">var</span> once sync<span class="token punctuation">.</span>Once
+var singleInstance *Singleton
+var once sync.Once
 
-<span class="token keyword">func</span> <span class="token function">GetSingletonObj</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span>Singleton <span class="token punctuation">{</span>
-    once<span class="token punctuation">.</span><span class="token function">Do</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Create Obj"</span><span class="token punctuation">)</span>
-        singleInstance <span class="token operator">=</span> <span class="token function">new</span><span class="token punctuation">(</span>Singleton<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token keyword">return</span> singleInstance
-<span class="token punctuation">}</span>
+func GetSingletonObj() *Singleton {
+    once.Do(func() {
+        fmt.Println("Create Obj")
+        singleInstance = new(Singleton)
+    })
+    return singleInstance
+}
 
-<span class="token keyword">func</span> <span class="token function">TestGetSingletonObj</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">var</span> wg sync<span class="token punctuation">.</span>WaitGroup
-    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        wg<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            obj <span class="token operator">:=</span> <span class="token function">GetSingletonObj</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-            fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"%x\n"</span><span class="token punctuation">,</span> unsafe<span class="token punctuation">.</span><span class="token function">Pointer</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">)</span>
-            wg<span class="token punctuation">.</span><span class="token function">Done</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        wg<span class="token punctuation">.</span><span class="token function">Wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="任何任务完成"><a href="#任何任务完成" class="headerlink" title="任何任务完成"></a>任何任务完成</h3><pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 协程没有关闭，有问题，所以使用buffered解决</span>
-<span class="token keyword">func</span> <span class="token function">FirstResponse</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
-    numOfRunner <span class="token operator">:=</span> <span class="token number">10</span>
-    ch <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">string</span><span class="token punctuation">,</span> numOfRunner<span class="token punctuation">)</span>
-    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numOfRunner<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span>i <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            ret <span class="token operator">:=</span> <span class="token function">runTask</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-            ch <span class="token operator">&lt;-</span> ret
-        <span class="token punctuation">}</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token operator">&lt;-</span>ch
-<span class="token punctuation">}</span>
+func TestGetSingletonObj(t *testing.T) {
+    var wg sync.WaitGroup
+    for i := 0; i < 10; i++ {
+        wg.Add(1)
+        go func() {
+            obj := GetSingletonObj()
+            fmt.Printf("%x\n", unsafe.Pointer(obj))
+            wg.Done()
+        }()
+        wg.Wait()
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="任何任务完成"><a href="#任何任务完成" class="headerlink" title="任何任务完成"></a>任何任务完成</h3><pre class="line-numbers language-lang-go"><code class="language-lang-go">// 协程没有关闭，有问题，所以使用buffered解决
+func FirstResponse() string {
+    numOfRunner := 10
+    ch := make(chan string, numOfRunner)
+    for i := 0; i < numOfRunner; i++ {
+        go func(i int) {
+            ret := runTask(i)
+            ch <- ret
+        }(i)
+    }
+    return <-ch
+}
 
-<span class="token keyword">func</span> <span class="token function">TestFirstResponse</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"Before:"</span><span class="token punctuation">,</span> runtime<span class="token punctuation">.</span><span class="token function">NumGoroutine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">FirstResponse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Second <span class="token operator">*</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"After:"</span><span class="token punctuation">,</span> runtime<span class="token punctuation">.</span><span class="token function">NumGoroutine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+func TestFirstResponse(t *testing.T) {
+    t.Log("Before:", runtime.NumGoroutine())
+    t.Log(FirstResponse())
+    time.Sleep(time.Second * 1)
+    t.Log("After:", runtime.NumGoroutine())
 
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="必需所有任务完成"><a href="#必需所有任务完成" class="headerlink" title="必需所有任务完成"></a>必需所有任务完成</h3><pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">//csp 实现 ，用WaitGroup也可以</span>
-<span class="token keyword">func</span> <span class="token function">AllResponse</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
-    numOfRunner <span class="token operator">:=</span> <span class="token number">10</span>
-    ch <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">string</span><span class="token punctuation">,</span> numOfRunner<span class="token punctuation">)</span>
-    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numOfRunner<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span>i <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            ret <span class="token operator">:=</span> <span class="token function">runTask</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-            ch <span class="token operator">&lt;-</span> ret
-        <span class="token punctuation">}</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    finalRet <span class="token operator">:=</span> <span class="token string">""</span>
-    <span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> numOfRunner<span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
-        finalRet <span class="token operator">+=</span> <span class="token operator">&lt;-</span>ch <span class="token operator">+</span> <span class="token string">"\n"</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> finalRet
-<span class="token punctuation">}</span>
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="必需所有任务完成"><a href="#必需所有任务完成" class="headerlink" title="必需所有任务完成"></a>必需所有任务完成</h3><pre class="line-numbers language-lang-go"><code class="language-lang-go">//csp 实现 ，用WaitGroup也可以
+func AllResponse() string {
+    numOfRunner := 10
+    ch := make(chan string, numOfRunner)
+    for i := 0; i < numOfRunner; i++ {
+        go func(i int) {
+            ret := runTask(i)
+            ch <- ret
+        }(i)
+    }
+    finalRet := ""
+    for j := 0; j < numOfRunner; j++ {
+        finalRet += <-ch + "\n"
+    }
+    return finalRet
+}
 
-<span class="token keyword">func</span> <span class="token function">TestAllResponse</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"Before:"</span><span class="token punctuation">,</span> runtime<span class="token punctuation">.</span><span class="token function">NumGoroutine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">AllResponse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Second <span class="token operator">*</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"After:"</span><span class="token punctuation">,</span> runtime<span class="token punctuation">.</span><span class="token function">NumGoroutine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+func TestAllResponse(t *testing.T) {
+    t.Log("Before:", runtime.NumGoroutine())
+    t.Log(AllResponse())
+    time.Sleep(time.Second * 1)
+    t.Log("After:", runtime.NumGoroutine())
 
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="对象池"><a href="#对象池" class="headerlink" title="对象池"></a>对象池</h2><h3 id="使⽤buﬀered-channel实现对象池"><a href="#使⽤buﬀered-channel实现对象池" class="headerlink" title="使⽤buﬀered channel实现对象池"></a>使⽤buﬀered channel实现对象池</h3><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> ReusableObj <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="对象池"><a href="#对象池" class="headerlink" title="对象池"></a>对象池</h2><h3 id="使⽤buﬀered-channel实现对象池"><a href="#使⽤buﬀered-channel实现对象池" class="headerlink" title="使⽤buﬀered channel实现对象池"></a>使⽤buﬀered channel实现对象池</h3><pre class="line-numbers language-lang-go"><code class="language-lang-go">type ReusableObj struct{}
 
-<span class="token keyword">type</span> ObjPool <span class="token keyword">struct</span> <span class="token punctuation">{</span>
-    bufChan <span class="token keyword">chan</span> <span class="token operator">*</span>ReusableObj <span class="token comment" spellcheck="true">//用于缓冲可重用对象</span>
-<span class="token punctuation">}</span>
+type ObjPool struct {
+    bufChan chan *ReusableObj //用于缓冲可重用对象
+}
 
-<span class="token comment" spellcheck="true">//先预制一些可初始化对象放到里面</span>
-<span class="token keyword">func</span> <span class="token function">NewObjPool</span><span class="token punctuation">(</span>numOfObj <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">*</span>ObjPool <span class="token punctuation">{</span>
-    objPool <span class="token operator">:=</span> ObjPool<span class="token punctuation">{</span><span class="token punctuation">}</span>
-    objPool<span class="token punctuation">.</span>bufChan <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token operator">*</span>ReusableObj<span class="token punctuation">,</span> numOfObj<span class="token punctuation">)</span>
-    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numOfObj<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        objPool<span class="token punctuation">.</span>bufChan <span class="token operator">&lt;-</span> <span class="token operator">&amp;</span>ReusableObj<span class="token punctuation">{</span><span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> <span class="token operator">&amp;</span>objPool
-<span class="token punctuation">}</span>
+//先预制一些可初始化对象放到里面
+func NewObjPool(numOfObj int) *ObjPool {
+    objPool := ObjPool{}
+    objPool.bufChan = make(chan *ReusableObj, numOfObj)
+    for i := 0; i < numOfObj; i++ {
+        objPool.bufChan <- &ReusableObj{}
+    }
+    return &objPool
+}
 
-<span class="token comment" spellcheck="true">/*
+/*
 一个变种函数(其实是方法)，
 (p *ObjPool) 这就是给这个结构体绑定函数，
 然后在结构体中就可以直接调用Add这个方法，
@@ -449,59 +456,61 @@ GO就是以这种形式来实现面像对象的思想。
 如果外部结构和嵌入结构存在同名方法，则优先调用外部结构的方法
 类型别名不会拥有底层类型所附带的方法
 方法可以调用结构中的非公开字段
-*/</span>
-<span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>ObjPool<span class="token punctuation">)</span> <span class="token function">GetObj</span><span class="token punctuation">(</span>timeout time<span class="token punctuation">.</span>Duration<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>ReusableObj<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">select</span> <span class="token punctuation">{</span>
-    <span class="token keyword">case</span> ret <span class="token operator">:=</span> <span class="token operator">&lt;-</span>p<span class="token punctuation">.</span>bufChan<span class="token punctuation">:</span>
-        <span class="token keyword">return</span> ret<span class="token punctuation">,</span> <span class="token boolean">nil</span>
-    <span class="token keyword">case</span> <span class="token operator">&lt;-</span>time<span class="token punctuation">.</span><span class="token function">After</span><span class="token punctuation">(</span>timeout<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true">//超时控制</span>
-        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> errors<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token string">"time out"</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+*/
+func (p *ObjPool) GetObj(timeout time.Duration) (*ReusableObj, error) {
+    select {
+    case ret := <-p.bufChan:
+        return ret, nil
+    case <-time.After(timeout): //超时控制
+        return nil, errors.New("time out")
+    }
+}
 
-<span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>ObjPool<span class="token punctuation">)</span> <span class="token function">ReleaseObj</span><span class="token punctuation">(</span>obj <span class="token operator">*</span>ReusableObj<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
-    <span class="token keyword">select</span> <span class="token punctuation">{</span>
-    <span class="token keyword">case</span> p<span class="token punctuation">.</span>bufChan <span class="token operator">&lt;-</span> obj<span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token boolean">nil</span>
-    <span class="token keyword">default</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> errors<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token string">"overflow"</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestObjPool</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    pool <span class="token operator">:=</span> <span class="token function">NewObjPool</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+func (p *ObjPool) ReleaseObj(obj *ReusableObj) error {
+    select {
+    case p.bufChan <- obj:
+        return nil
+    default:
+        return errors.New("overflow")
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestObjPool(t *testing.T) {
+    pool := NewObjPool(10)
 
-    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">11</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> v<span class="token punctuation">,</span> err <span class="token operator">:=</span> pool<span class="token punctuation">.</span><span class="token function">GetObj</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Second <span class="token operator">*</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-            t<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"%T\n"</span><span class="token punctuation">,</span> v<span class="token punctuation">)</span>
-            <span class="token keyword">if</span> err <span class="token operator">:=</span> pool<span class="token punctuation">.</span><span class="token function">ReleaseObj</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-                t<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Done"</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    for i := 0; i < 11; i++ {
+        if v, err := pool.GetObj(time.Second * 1); err != nil {
+            t.Error(err)
+        } else {
+            fmt.Printf("%T\n", v)
+            if err := pool.ReleaseObj(v); err != nil {
+                t.Error(err)
+            }
+        }
+    }
+    fmt.Println("Done")
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="sync-Pool-对象缓存"><a href="#sync-Pool-对象缓存" class="headerlink" title="sync.Pool 对象缓存"></a>sync.Pool 对象缓存</h2><h3 id="sync-Pool-对象获取"><a href="#sync-Pool-对象获取" class="headerlink" title="sync.Pool 对象获取"></a>sync.Pool 对象获取</h3><ul>
 <li>尝试从私有对象获取</li>
 <li>私有对象不存在，尝试从当前 Processor 的共享池获取</li>
 <li>如果当前 Processor 共享池也是空的，那么就尝试去其他 Processor 的共享池获取</li>
 <li>如果所有⼦池都是空的，最后就⽤⽤户指定的 New 函数产⽣⼀个新的对象返回</li>
 </ul>
-<img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown Photos/sync.Pool.jpg" alt="img" style="zoom:50%;" />
-
+<p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown Photos/sync.Pool.jpg" alt="img" style="zoom:50%;" /></p>
 <h3 id="sync-Pool-对象的放回"><a href="#sync-Pool-对象的放回" class="headerlink" title="sync.Pool 对象的放回"></a>sync.Pool 对象的放回</h3><ul>
 <li>如果私有对象不存在则保存为私有对象</li>
 <li>如果私有对象存在，放⼊当前 Processor ⼦池的共享池中私有对象</li>
 </ul>
-<h3 id="使⽤-sync-Pool"><a href="#使⽤-sync-Pool" class="headerlink" title="使⽤ sync.Pool"></a>使⽤ sync.Pool</h3><pre class="line-numbers language-go"><code class="language-go">pool <span class="token operator">:=</span> <span class="token operator">&amp;</span>sync<span class="token punctuation">.</span>Pool<span class="token punctuation">{</span>
-    New<span class="token punctuation">:</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token number">0</span> 
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-<span class="token punctuation">}</span>
-arry <span class="token operator">:=</span> pool<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">)</span>
+<h3 id="使⽤-sync-Pool"><a href="#使⽤-sync-Pool" class="headerlink" title="使⽤ sync.Pool"></a>使⽤ sync.Pool</h3><pre class="line-numbers language-lang-go"><code class="language-lang-go">pool := &sync.Pool{
+    New: func() interface{} {
+        return 0 
+    },
+}
+arry := pool.Get().(int)
     …
-pool<span class="token punctuation">.</span><span class="token function">Put</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+pool.Put(10)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="sync-Pool-对象的⽣命周期"><a href="#sync-Pool-对象的⽣命周期" class="headerlink" title="sync.Pool 对象的⽣命周期"></a>sync.Pool 对象的⽣命周期</h3><ul>
 <li>GC 会清除 sync.pool 缓存的对象</li>
 <li>对象的缓存有效期为下⼀次GC 之前</li>
@@ -521,4 +530,4 @@ var disqus_url = 'http://yoursite.com/2019/10/27/Golang-3/';
     dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script></body></html>
+})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

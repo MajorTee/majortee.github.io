@@ -1,167 +1,179 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>Python理解点 · HeeC'Blog</title><meta name="description" content="Python理解点 #1
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>Python理解点 · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="Python理解点 #1
 if name == “__main__“super() 和 init() 方法关键字yield
 
 
-
-if name == “__main__”当Python解析器读取一个源文件时,它会执行所有的代码。在执行代码前,会定义一些特殊的变量.例如，如果解析器运行的模块(源文件"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+if name == “__main__”当Python解析器读取一个源文件时,它会执行所有的代码。在执行代码前,会定义一些特殊的变量.例如，如果解析器运行的模块(源文件)"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Python理解点</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2018-09-15</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2018/09/15/Python%E7%90%86%E8%A7%A3%E7%82%B9/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Python/" title="Python" class="a-tag">Python</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="Python理解点-1"><a href="#Python理解点-1" class="headerlink" title="Python理解点 #1"></a>Python理解点 #1</h1><blockquote>
-<p>if <strong>name</strong> == “<strong>__main__</strong>“<br>super() 和 <strong>init</strong>() 方法<br>关键字yield</p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><p>if <strong>name</strong> == “<strong>__main__</strong>“<br>super() 和 <strong>init</strong>() 方法<br>关键字yield</p>
 </blockquote>
 <a id="more"></a>
-
-<h2 id="if-name-“-main-”"><a href="#if-name-“-main-”" class="headerlink" title="if name == “__main__”"></a>if <strong>name</strong> == “__main__”</h2><p>当Python解析器读取一个源文件时,它会执行所有的代码。在执行代码前,会定义一些特殊的变量.例如，如果解析器运行的模块(源文件)作为主程序，它将会把 <em>\</em>name__ 变量设置成 “ <em>\</em>main__ “ 。如果只是引入其他的模块，__name__ 变量将会设置成模块的名字。</p>
-<p>设置完特殊变量，它就会执行 import 语句并且加载这些模块，当遇到 def 代码段的时候,它就会创一个函数对象并创建一个名叫 myfunction 变量指向函数对象。接下来会读取 if 语句并检查 __name__ 是不是等于 “__main__” 。如果是的话就会执行这个代码段。</p>
+<h2 id="if-name-“-main-”"><a href="#if-name-“-main-”" class="headerlink" title="if name == “__main__”"></a>if <strong>name</strong> == “__main__”</h2><p>当Python解析器读取一个源文件时,它会执行所有的代码。在执行代码前,会定义一些特殊的变量.例如，如果解析器运行的模块(源文件)作为主程序，它将会把 <em>_name__ 变量设置成 “ </em>_main<strong> “ 。如果只是引入其他的模块，__name</strong> 变量将会设置成模块的名字。</p>
+<p>设置完特殊变量，它就会执行 import 语句并且加载这些模块，当遇到 def 代码段的时候,它就会创一个函数对象并创建一个名叫 myfunction 变量指向函数对象。接下来会读取 if 语句并检查 __name<strong> 是不是等于 “__main</strong>“ 。如果是的话就会执行这个代码段。</p>
 <p>这么做的原因是有时需要将模块既可以直接的执行，还可以被当做模块导入到其他模块中去。通过检查是不是主函数，可以让代码只在它作为主程序运行时执行，而当其他位置调用模块中的函数的时候不必执行。</p>
 <h2 id="super-和-init-方法"><a href="#super-和-init-方法" class="headerlink" title="super() 和 __init__() 方法"></a>super() 和 __init__() 方法</h2><p>super() 的好处就是可以避免直接使用父类的名字（初级应用），但是它主要用于<strong>多重继承</strong>。</p>
-<p>它获取调用堆栈帧，并找到类（隐式存储为本地自由变量，__ class__，使调用函数成为类的闭包）和该函数的第一个参数，它应该是通知它的实例或类 使用哪种方法解决顺序（MRO）。</p>
+<p>它获取调用堆栈帧，并找到类（隐式存储为本地自由变量，<strong> class</strong>，使调用函数成为类的闭包）和该函数的第一个参数，它应该是通知它的实例或类 使用哪种方法解决顺序（MRO）。</p>
 <p>super()要点是不要避免编写父类，关键是要确保方法解析顺序（MRO）中的下一个方法被调用。 这在多重继承中变得很重要。</p>
-<p>MRO: 类都有一个名为 __ mro __ 的属性，它的值是一个元组，按照方法解析顺序列出各个超类，从当前类一直往上， 直到object类。</p>
-<p>使用 __ mro __ 方法可以打印顺序。</p>
+<p>MRO: 类都有一个名为 <strong> mro </strong> 的属性，它的值是一个元组，按照方法解析顺序列出各个超类，从当前类一直往上， 直到object类。</p>
+<p>使用 <strong> mro </strong> 方法可以打印顺序。</p>
 <p>示例：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Base</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Base init'ed"</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Base(object):
+    def __init__(self):
+        print("Base init'ed")
 
-<span class="token keyword">class</span> <span class="token class-name">ChildA</span><span class="token punctuation">(</span>Base<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"ChildA init'ed"</span><span class="token punctuation">)</span>
-        Base<span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+class ChildA(Base):
+    def __init__(self):
+        print("ChildA init'ed")
+        Base.__init__(self)
 
-<span class="token keyword">class</span> <span class="token class-name">ChildB</span><span class="token punctuation">(</span>Base<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"ChildB init'ed"</span><span class="token punctuation">)</span>
-        super<span class="token punctuation">(</span>ChildB<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># super后的__init__()无self</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+class ChildB(Base):
+    def __init__(self):
+        print("ChildB init'ed")
+        super(ChildB, self).__init__()
+        # super后的__init__()无self
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在这些类之后创建依赖类：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">UserDependency</span><span class="token punctuation">(</span>Base<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"UserDependency init'ed"</span><span class="token punctuation">)</span>
-        super<span class="token punctuation">(</span>UserDependency<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class UserDependency(Base):
+    def __init__(self):
+        print("UserDependency init'ed")
+        super(UserDependency, self).__init__()
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>ChildB 使用了 super, ChildA 没有使用：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">UserA</span><span class="token punctuation">(</span>ChildA<span class="token punctuation">,</span> UserDependency<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"UserA init'ed"</span><span class="token punctuation">)</span>
-        super<span class="token punctuation">(</span>UserA<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class UserA(ChildA, UserDependency):
+    def __init__(self):
+        print("UserA init'ed")
+        super(UserA, self).__init__()
 
-<span class="token keyword">class</span> <span class="token class-name">UserB</span><span class="token punctuation">(</span>ChildB<span class="token punctuation">,</span> UserDependency<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"UserB init'ed"</span><span class="token punctuation">)</span>
-        super<span class="token punctuation">(</span>UserB<span class="token punctuation">,</span> self<span class="token punctuation">)</span><span class="token punctuation">.</span>__init__<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+class UserB(ChildB, UserDependency):
+    def __init__(self):
+        print("UserB init'ed")
+        super(UserB, self).__init__()
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>UserA does not call the UserDependency method:</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> UserA<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">>>> UserA()
 UserA init'ed
 ChildA init'ed
 Base init'ed
-<span class="token operator">&lt;</span>__main__<span class="token punctuation">.</span>UserA object at <span class="token number">0x0000000003403BA8</span><span class="token operator">></span>
+<__main__.UserA object at 0x0000000003403BA8>
 
-<span class="token operator">>></span><span class="token operator">></span> UserA<span class="token punctuation">.</span>__mro__
-<span class="token punctuation">(</span><span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'__main__.UserA'</span><span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'__main__.ChildA'</span><span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'__main__.UserDependency'</span><span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'__main__.Base'</span><span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'object'</span><span class="token operator">></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+>>> UserA.__mro__
+(<class '__main__.UserA'>, <class '__main__.ChildA'>, <class '__main__.UserDependency'>, <class '__main__.Base'>, <class 'object'>)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p>可以看到没有遵循方法调试顺序调用&lt;class ‘<strong>main</strong>.ChildA’&gt;之后的下一个&lt;class ‘<strong>main</strong>.UserDependency’&gt;</p>
+<p>可以看到没有遵循方法调试顺序调用<class '__main__.ChildA'>之后的下一个<class '__main__.UserDependency'></p>
 </blockquote>
 <p>But UserB, because ChildB uses super, does!:</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> UserB<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">>>> UserB()
 UserB init'ed
 ChildB init'ed
-<span class="token operator">**</span>UserDependency init'ed<span class="token operator">**</span>
+**UserDependency init'ed**
 Base init'ed
-<span class="token operator">&lt;</span>__main__<span class="token punctuation">.</span>UserB object at <span class="token number">0x0000000003403438</span><span class="token operator">></span>
+<__main__.UserB object at 0x0000000003403438>
 
-<span class="token operator">>></span><span class="token operator">></span> UserB<span class="token punctuation">.</span>__mro__
-<span class="token punctuation">(</span><span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'__main__.UserB'</span><span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'__main__.ChildB'</span><span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'__main__.UserDependency'</span><span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'__main__.Base'</span><span class="token operator">></span><span class="token punctuation">,</span> <span class="token operator">&lt;</span><span class="token keyword">class</span> <span class="token string">'object'</span><span class="token operator">></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+>>> UserB.__mro__
+(<class '__main__.UserB'>, <class '__main__.ChildB'>, <class '__main__.UserDependency'>, <class '__main__.Base'>, <class 'object'>)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="关键字yield"><a href="#关键字yield" class="headerlink" title="关键字yield"></a>关键字yield</h1><p>为了理解yield有什么用，首先得理解generators，而理解generators前还要理解iterables </p>
 <h3 id="Iterables-（可迭代对象）"><a href="#Iterables-（可迭代对象）" class="headerlink" title="Iterables （可迭代对象）"></a>Iterables （可迭代对象）</h3><p>当创建了一个列表，可以一个一个的读取它的每一项，这叫做iteration：</p>
-<pre class="line-numbers language-python"><code class="language-python">mylist <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">for</span> i <span class="token keyword">in</span> mylist<span class="token punctuation">:</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> 
-<span class="token number">1</span>
-<span class="token number">2</span>
-<span class="token number">3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">mylist = [1, 2, 3]
+>>> for i in mylist:
+... print(i) 
+1
+2
+3
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Mylist是可迭代的，当用列表推导式的时候，就创建了一个列表，而这个列表也是可迭代的：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> mylist <span class="token operator">=</span> <span class="token punctuation">[</span>x<span class="token operator">*</span>x <span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">for</span> i <span class="token keyword">in</span> mylist<span class="token punctuation">:</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-<span class="token number">0</span>
-<span class="token number">1</span>
-<span class="token number">4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">>>> mylist = [x*x for x in range(3)]
+>>> for i in mylist:
+... print(i)
+0
+1
+4
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>所有可以用在 for…in… 语句中的都是可迭代的，比如lists、strings、files …</p>
 <p>因为这些可迭代的对象可以随意的读取，所以非常方便易用。但是必须把它们的值放到内存里，当它们有很多值时就会消耗太多的内存 。</p>
 <h3 id="Generators"><a href="#Generators" class="headerlink" title="Generators"></a>Generators</h3><p>生成器也是迭代器的一种，但是只能迭代它们一次。原因很简单，因为它们不是全部存在内存里，它们只在要<br>调用的时候在内存里生成：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> mygenerator <span class="token operator">=</span> <span class="token punctuation">(</span>x<span class="token operator">*</span>x <span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">for</span> i <span class="token keyword">in</span> mygenerator<span class="token punctuation">:</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-<span class="token number">0</span>
-<span class="token number">1</span>
-<span class="token number">4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">>>> mygenerator = (x*x for x in range(3))
+>>> for i in mygenerator:
+... print(i)
+0
+1
+4
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>生成器和迭代器的区别就是用 () 代替 [] ，还有不能用 for i in mygenerator 第二次调用生成器:<br>首先计算0，然后会在内存里丢掉0去计算1，直到计算完4。</p>
 <h3 id="Yield"><a href="#Yield" class="headerlink" title="Yield"></a>Yield</h3><p>Yield 的用法和关键字 return 差不多，下面的函数将会返回一个生成器：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">def</span> <span class="token function">createGenerator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> mylist <span class="token operator">=</span> range<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> mylist<span class="token punctuation">:</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">yield</span> i<span class="token operator">*</span>i
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token operator">>></span><span class="token operator">></span> mygenerator <span class="token operator">=</span> createGenerator<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 创建生成器</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span>mygenerator<span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># mygenerator is an object!</span>
-<span class="token operator">&lt;</span>generator object createGenerator at <span class="token number">0xb7555c34</span><span class="token operator">></span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">for</span> i <span class="token keyword">in</span> mygenerator<span class="token punctuation">:</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-<span class="token number">0</span>
-<span class="token number">1</span>
-<span class="token number">4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">>>> def createGenerator():
+... mylist = range(3)
+... for i in mylist:
+... yield i*i
+...
+>>> mygenerator = createGenerator() # 创建生成器
+>>> print(mygenerator) # mygenerator is an object!
+<generator object createGenerator at 0xb7555c34>
+>>> for i in mygenerator:
+... print(i)
+0
+1
+4
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在这里这个例子好像没什么用，不过当你的函数要返回一个非常大的集合并且你希望只读一次的话，那么它就非常的方便了。要理解 Yield 你必须先理解当你调用函数的时候，函数里的代码并没有运行。函数仅仅返回生成器对象，这就是它最微妙的地方:-)</p>
 <p>然后呢，每当 for 语句迭代生成器的时候你的代码才会运转。</p>
 <p>现在，到了最难的部分：</p>
 <p>当 for 语句第一次调用函数里返回的生成器对象，函数里的代码就开始运作，直到碰到 yield ，然后会返回本次循环的第一个返回值。所以下一次调用也将运行一次循环然后返回下一个值，直到没有值可以返回。一旦函数运行并没有碰到 yeild 语句就认为生成器已经为空了。原因有可能是循环结束或者没有满足 if/else 之类的 。</p>
 <p>示例代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> node<span class="token punctuation">.</span>_get_child_candidates<span class="token punctuation">(</span>self<span class="token punctuation">,</span> distance<span class="token punctuation">,</span> min_dist<span class="token punctuation">,</span> max_dist<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> self<span class="token punctuation">.</span>_leftchild <span class="token operator">and</span> distance <span class="token operator">-</span> max_dist <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>_median<span class="token punctuation">:</span>
-           <span class="token keyword">yield</span> self<span class="token punctuation">.</span>_leftchild
-    <span class="token keyword">if</span> self<span class="token punctuation">.</span>_rightchild <span class="token operator">and</span> distance <span class="token operator">+</span> max_dist <span class="token operator">>=</span> self<span class="token punctuation">.</span>_median<span class="token punctuation">:</span>
-        <span class="token keyword">yield</span> self<span class="token punctuation">.</span>_rightchild<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">def node._get_child_candidates(self, distance, min_dist, max_dist):
+    if self._leftchild and distance - max_dist < self._median:
+           yield self._leftchild
+    if self._rightchild and distance + max_dist >= self._median:
+        yield self._rightchild
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>调用代码：</p>
-<pre class="line-numbers language-python"><code class="language-python">result<span class="token punctuation">,</span> candidates <span class="token operator">=</span> list<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>self<span class="token punctuation">]</span>
-<span class="token keyword">while</span> candidates<span class="token punctuation">:</span>
-    node <span class="token operator">=</span> candidates<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    distance <span class="token operator">=</span> node<span class="token punctuation">.</span>_get_dist<span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
-    <span class="token keyword">if</span> distance <span class="token operator">&lt;=</span> max_dist <span class="token operator">and</span> distance <span class="token operator">>=</span> min_dist<span class="token punctuation">:</span>
-        result<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>node<span class="token punctuation">.</span>_values<span class="token punctuation">)</span>
-    candidates<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>node<span class="token punctuation">.</span>_get_child_candidates<span class="token punctuation">(</span>distance<span class="token punctuation">,</span> min_dist<span class="token punctuation">,</span> max_dist<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token keyword">return</span> result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">result, candidates = list(), [self]
+while candidates:
+    node = candidates.pop()
+    distance = node._get_dist(obj)
+    if distance <= max_dist and distance >= min_dist:
+        result.extend(node._values)
+    candidates.extend(node._get_child_candidates(distance, min_dist, max_dist))
+return result
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>代码讲解：</strong></p>
 <p>生成器：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 这里你创建node方法的对象将会返回一个生成器</span>
-<span class="token keyword">def</span> node<span class="token punctuation">.</span>_get_child_candidates<span class="token punctuation">(</span>self<span class="token punctuation">,</span> distance<span class="token punctuation">,</span> min_dist<span class="token punctuation">,</span> max_dist<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token comment" spellcheck="true"># 这里的代码你每次使用生成器对象的时候将会调用</span>
-    <span class="token keyword">if</span> self<span class="token punctuation">.</span>_leftchild <span class="token operator">and</span> distance <span class="token operator">-</span> max_dist <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>_median<span class="token punctuation">:</span>
-        <span class="token keyword">yield</span> self<span class="token punctuation">.</span>_leftchild
-    <span class="token keyword">if</span> self<span class="token punctuation">.</span>_rightchild <span class="token operator">and</span> distance <span class="token operator">+</span> max_dist <span class="token operator">>=</span> self<span class="token punctuation">.</span>_median<span class="token punctuation">:</span>
-        <span class="token keyword">yield</span> self<span class="token punctuation">.</span>_rightchild
-    <span class="token comment" spellcheck="true"># 如果代码运行到这里,生成器就被认为变成了空的</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python"># 这里你创建node方法的对象将会返回一个生成器
+def node._get_child_candidates(self, distance, min_dist, max_dist):
+    # 这里的代码你每次使用生成器对象的时候将会调用
+    if self._leftchild and distance - max_dist < self._median:
+        yield self._leftchild
+    if self._rightchild and distance + max_dist >= self._median:
+        yield self._rightchild
+    # 如果代码运行到这里,生成器就被认为变成了空的
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>调用：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 创建空列表和一个当前对象索引的列表</span>
-result<span class="token punctuation">,</span> candidates <span class="token operator">=</span> list<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>self<span class="token punctuation">]</span>
-<span class="token comment" spellcheck="true"># 在candidates上进行循环(在开始只保含一个元素)</span>
-<span class="token keyword">while</span> candidates<span class="token punctuation">:</span>
-    <span class="token comment" spellcheck="true"># 获得最后一个condidate然后从列表里删除</span>
-    node <span class="token operator">=</span> candidates<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true"># 获取obj和candidate的distance</span>
-    distance <span class="token operator">=</span> node<span class="token punctuation">.</span>_get_dist<span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true"># 如果distance何时将会填入result</span>
-    <span class="token keyword">if</span> distance <span class="token operator">&lt;=</span> max_dist <span class="token operator">and</span> distance <span class="token operator">>=</span> min_dist<span class="token punctuation">:</span>
-        result<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>node<span class="token punctuation">.</span>_values<span class="token punctuation">)</span>
-    candidates<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>node<span class="token punctuation">.</span>_get_child_candidates<span class="token punctuation">(</span>distance<span class="token punctuation">,</span> min_dist<span class="token punctuation">,</span> max_dist<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token keyword">return</span> result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python"># 创建空列表和一个当前对象索引的列表
+result, candidates = list(), [self]
+# 在candidates上进行循环(在开始只保含一个元素)
+while candidates:
+    # 获得最后一个condidate然后从列表里删除
+    node = candidates.pop()
+    # 获取obj和candidate的distance
+    distance = node._get_dist(obj)
+    # 如果distance何时将会填入result
+    if distance <= max_dist and distance >= min_dist:
+        result.extend(node._values)
+    candidates.extend(node._get_child_candidates(distance, min_dist, max_dist))
+return result
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这段代码有几个有意思的地方：</p>
 <ul>
 <li>一般的时候我们会在循环迭代一个列表的同时在列表中添加元素:-) 尽管在有限循环里结束多少有一些危险,但也不失为一个简单的方法去遍历嵌套的数据。在这candidates.extend(node._get_child_candidates(distance, min_dist, max_dist)) 将遍历生成器的每一个值，但是 while 循环中的condidates将不再保存已经遍历过的生成器对象， 也就是说添加进condidates的生成器对象只会遍历一遍。</li>
 <li>extend() 是一个列表对象的方法，它可以把一个迭代对象添加进列表 </li>
 </ul>
 <p>常见用法：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span>
-<span class="token operator">>></span><span class="token operator">></span> b <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span>
-<span class="token operator">>></span><span class="token operator">></span> a<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>b<span class="token punctuation">)</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
-<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">>>> a = [1, 2]
+>>> b = [3, 4]
+>>> a.extend(b)
+>>> print(a)
+[1, 2, 3, 4]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>但是在你给的代码里得到的是生成器，这样做的好处：</p>
 <ol>
 <li>你不需要读这个值两次</li>
@@ -170,73 +182,75 @@ result<span class="token punctuation">,</span> candidates <span class="token ope
 <p>这种方法之所以能很好的运行是因为Python不关心方法的参数是不是一个列表，它只希望接受一个迭代器，所以不管是strings、lists、tuples或者generators都可以！这种方法叫做duck typing，这也是Python看起来特别cool的原因之一。</p>
 <p>好了，看到这里可以打住了，下面让我们看看生成器的高级用法：</p>
 <p><strong>控制迭代器的穷尽：</strong> </p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">class</span> <span class="token class-name">Bank</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token comment" spellcheck="true"># 让我们建个银行,生产许多ATM</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> crisis <span class="token operator">=</span> <span class="token boolean">False</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">def</span> <span class="token function">create_atm</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">while</span> <span class="token operator">not</span> self<span class="token punctuation">.</span>crisis<span class="token punctuation">:</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">yield</span> <span class="token string">"$100"</span>
-<span class="token operator">>></span><span class="token operator">></span> hsbc <span class="token operator">=</span> Bank<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 当一切就绪了你想要多少ATM就给你多少</span>
-<span class="token operator">>></span><span class="token operator">></span> corner_street_atm <span class="token operator">=</span> hsbc<span class="token punctuation">.</span>create_atm<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span>corner_street_atm<span class="token punctuation">.</span>next<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-$<span class="token number">100</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span>corner_street_atm<span class="token punctuation">.</span>next<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-$<span class="token number">100</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token punctuation">[</span>corner_street_atm<span class="token punctuation">.</span>next<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">for</span> cash <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-<span class="token punctuation">[</span><span class="token string">'$100'</span><span class="token punctuation">,</span> <span class="token string">'$100'</span><span class="token punctuation">,</span> <span class="token string">'$100'</span><span class="token punctuation">,</span> <span class="token string">'$100'</span><span class="token punctuation">,</span> <span class="token string">'$100'</span><span class="token punctuation">]</span>
-<span class="token operator">>></span><span class="token operator">></span> hsbc<span class="token punctuation">.</span>crisis <span class="token operator">=</span> <span class="token boolean">True</span> <span class="token comment" spellcheck="true"># cao,经济危机来了没有钱了!</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span>corner_street_atm<span class="token punctuation">.</span>next<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token operator">&lt;</span>type <span class="token string">'exceptions.StopIteration'</span><span class="token operator">></span>
-<span class="token operator">>></span><span class="token operator">></span> wall_street_atm <span class="token operator">=</span> hsbc<span class="token punctuation">.</span>create_atm<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 对于其他ATM,它还是True</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span>wall_street_atm<span class="token punctuation">.</span>next<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token operator">&lt;</span>type <span class="token string">'exceptions.StopIteration'</span><span class="token operator">></span>
-<span class="token operator">>></span><span class="token operator">></span> hsbc<span class="token punctuation">.</span>crisis <span class="token operator">=</span> <span class="token boolean">False</span> <span class="token comment" spellcheck="true"># 麻烦的是,尽管危机过去了,ATM还是空的</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span>corner_street_atm<span class="token punctuation">.</span>next<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token operator">&lt;</span>type <span class="token string">'exceptions.StopIteration'</span><span class="token operator">></span>
-<span class="token operator">>></span><span class="token operator">></span> brand_new_atm <span class="token operator">=</span> hsbc<span class="token punctuation">.</span>create_atm<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 只能重新新建一个bank了</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">for</span> cash <span class="token keyword">in</span> brand_new_atm<span class="token punctuation">:</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">print</span> cash
-$<span class="token number">100</span>
-$<span class="token number">100</span>
-$<span class="token number">100</span>
-$<span class="token number">100</span>
-$<span class="token number">100</span>
-$<span class="token number">100</span>
-$<span class="token number">100</span>
-$<span class="token number">100</span>
-$<span class="token number">100</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">>>> class Bank(): # 让我们建个银行,生产许多ATM
+... crisis = False
+... def create_atm(self):
+... while not self.crisis:
+... yield "$100"
+>>> hsbc = Bank() # 当一切就绪了你想要多少ATM就给你多少
+>>> corner_street_atm = hsbc.create_atm()
+>>> print(corner_street_atm.next())
+$100
+>>> print(corner_street_atm.next())
+$100
+>>> print([corner_street_atm.next() for cash in range(5)])
+['$100', '$100', '$100', '$100', '$100']
+>>> hsbc.crisis = True # cao,经济危机来了没有钱了!
+>>> print(corner_street_atm.next())
+<type 'exceptions.StopIteration'>
+>>> wall_street_atm = hsbc.create_atm() # 对于其他ATM,它还是True
+>>> print(wall_street_atm.next())
+<type 'exceptions.StopIteration'>
+>>> hsbc.crisis = False # 麻烦的是,尽管危机过去了,ATM还是空的
+>>> print(corner_street_atm.next())
+<type 'exceptions.StopIteration'>
+>>> brand_new_atm = hsbc.create_atm() # 只能重新新建一个bank了
+>>> for cash in brand_new_atm:
+... print cash
+$100
+$100
+$100
+$100
+$100
+$100
+$100
+$100
+$100
+...
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>它对于一些不断变化的值很有用，像控制你资源的访问。</p>
 <h3 id="Itertools，你的好基友"><a href="#Itertools，你的好基友" class="headerlink" title="Itertools，你的好基友"></a>Itertools，你的好基友</h3><p>itertools模块包含了一些特殊的函数可以操作可迭代对象。有没有想过复制一个生成器？链接两个生成器？把嵌套列表里的值组织成一个列表？Map/Zip还不用创建另一个列表？</p>
 <p>来吧 <code>import itertools</code><br>来一个例子？让我们看看4匹马比赛有多少个排名结果：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> horses <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span>
-<span class="token operator">>></span><span class="token operator">></span> races <span class="token operator">=</span> itertools<span class="token punctuation">.</span>permutations<span class="token punctuation">(</span>horses<span class="token punctuation">)</span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span>races<span class="token punctuation">)</span>
-<span class="token operator">&lt;</span>itertools<span class="token punctuation">.</span>permutations object at <span class="token number">0xb754f1dc</span><span class="token operator">></span>
-<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span>list<span class="token punctuation">(</span>itertools<span class="token punctuation">.</span>permutations<span class="token punctuation">(</span>horses<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">>>> horses = [1, 2, 3, 4]
+>>> races = itertools.permutations(horses)
+>>> print(races)
+<itertools.permutations object at 0xb754f1dc>
+>>> print(list(itertools.permutations(horses)))
+[(1, 2, 3, 4),
+(1, 2, 4, 3),
+(1, 3, 2, 4),
+(1, 3, 4, 2),
+(1, 4, 2, 3),
+(1, 4, 3, 2),
+(2, 1, 3, 4),
+(2, 1, 4, 3),
+(2, 3, 1, 4),
+(2, 3, 4, 1),
+(2, 4, 1, 3),
+(2, 4, 3, 1),
+(3, 1, 2, 4),
+(3, 1, 4, 2),
+(3, 2, 1, 4),
+(3, 2, 4, 1),
+(3, 4, 1, 2),
+(3, 4, 2, 1),
+(4, 1, 2, 3),
+(4, 1, 3, 2),
+(4, 2, 1, 3),
+(4, 2, 3, 1),
+(4, 3, 1, 2),
+(4, 3, 2, 1)]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2018/09/15/Python理解点/%20HeeC' target="_blank" rel="noopener"Blog%20Python理解点" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/01/17/Python%E7%90%86%E8%A7%A3%E4%BA%8C/" title="Python理解二"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Python理解二</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2018/08/02/Hexo-%E6%8A%98%E8%85%BE%E6%80%BB%E7%BB%93/" title="Hexo 折腾总结">下一篇: Hexo 折腾总结&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
 var disqus_identifier = '2018/09/15/Python理解点/';
 var disqus_title = 'Python理解点';
@@ -247,4 +261,4 @@ var disqus_url = 'http://yoursite.com/2018/09/15/Python理解点/';
     dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script></body></html>
+})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

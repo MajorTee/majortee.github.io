@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>C学习（三） · HeeC'Blog</title><meta name="description" content="二级指针对空间的释放void main()
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>C学习（三） · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="二级指针对空间的释放void main()
 {
     char* p = NULL;
-    get_mem(&amp;amp;p)
+    get_mem(&amp;p)
 }
 
 void get_mem(char** p)
@@ -10,167 +10,175 @@ void get_mem(char** p)
 }
 void free_mem(char** p)
 {
- "><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>C学习（三）</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-10-04</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/10/04/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/C语言/" title="C语言" class="a-tag">C语言</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="二级指针"><a href="#二级指针" class="headerlink" title="二级指针"></a>二级指针</h1><h2 id="对空间的释放"><a href="#对空间的释放" class="headerlink" title="对空间的释放"></a>对空间的释放</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">char</span><span class="token operator">*</span> p <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-    <span class="token function">get_mem</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>p<span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+    i"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>C学习（三）</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-10-04</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/10/04/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/C语言/" title="C语言" class="a-tag">C语言</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="二级指针"><a href="#二级指针" class="headerlink" title="二级指针"></a>二级指针</h1><h2 id="对空间的释放"><a href="#对空间的释放" class="headerlink" title="对空间的释放"></a>对空间的释放</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c"><!-- hexo-inject:begin --><!-- hexo-inject:end -->void main()
+{
+    char* p = NULL;
+    get_mem(&p)
+}
 
-<span class="token keyword">void</span> <span class="token function">get_mem</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> p<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">void</span> <span class="token function">free_mem</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> p<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>p <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token function">free</span><span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//注意不是**p</span>
-        <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+void get_mem(char** p)
+{
+    *p = (char*)malloc(100);
+}
+void free_mem(char** p)
+{
+    if(p != NULL)
+    {
+        free(*p); //注意不是**p
+        *p = NULL;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <a id="more"></a>
+<h4 id="反例"><a href="#反例" class="headerlink" title="反例"></a>反例</h4><pre class="line-numbers language-lang-c"><code class="language-lang-c">void free_mem1(char* p) //传递一级指针
+{
+    if(p != NULL)
+    {
+        free(*p); //注意不是**p
+        *p = NULL;
+    }
+}
 
-<h4 id="反例"><a href="#反例" class="headerlink" title="反例"></a>反例</h4><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">free_mem1</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span> p<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//传递一级指针</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>p <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token function">free</span><span class="token punctuation">(</span><span class="token operator">*</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//注意不是**p</span>
-        <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">void</span> <span class="token function">free_mem2</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span> vovo<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//传递一级指针</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>vovo <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token function">free</span><span class="token punctuation">(</span>vovo<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//注意不是**p</span>
-        vovo <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+void free_mem2(char* vovo) //传递一级指针
+{
+    if(vovo != NULL)
+    {
+        free(vovo); //注意不是**p
+        vovo = NULL;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在此函数内对p = NULL，只是把一个名字一样的形参置为NULL，对实参无影响，如 <code>free_mem2</code>，造成野指针问题</p>
-<h2 id="二级指针内存模型"><a href="#二级指针内存模型" class="headerlink" title="二级指针内存模型"></a>二级指针内存模型</h2><h3 id="第一种，指针数组"><a href="#第一种，指针数组" class="headerlink" title="第一种，指针数组"></a>第一种，指针数组</h3><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">// 第一种，指针数组</span>
-<span class="token keyword">char</span><span class="token operator">*</span> arr<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"aa"</span><span class="token punctuation">,</span> <span class="token string">"vv"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> arrSize <span class="token operator">=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token operator">/</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span><span class="token operator">*</span> str <span class="token operator">=</span> <span class="token operator">*</span><span class="token punctuation">(</span>arr<span class="token operator">+</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span><span class="token operator">*</span> str2 <span class="token operator">=</span> arr<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<h2 id="二级指针内存模型"><a href="#二级指针内存模型" class="headerlink" title="二级指针内存模型"></a>二级指针内存模型</h2><h3 id="第一种，指针数组"><a href="#第一种，指针数组" class="headerlink" title="第一种，指针数组"></a>第一种，指针数组</h3><pre class="line-numbers language-lang-c"><code class="language-lang-c">// 第一种，指针数组
+char* arr[] = {"aa", "vv"};
+int arrSize = sizeof(arr)/sizeof(arr[0]);
+char* str = *(arr+0);
+char* str2 = arr[1];
 
-<span class="token comment" spellcheck="true">//注意跟一级的区别</span>
-<span class="token keyword">char</span> buff<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+//注意跟一级的区别
+char buff[100] = {'a', 'b', 'c'};
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>注意：此种方式 <code>arr</code> 在栈上分配了一个存 <code>n</code> 个指针地址的数组，<code>n</code> 个地址指向常量区</strong></p>
-<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//第二种</span>
-<span class="token keyword">char</span> arr<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">30</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"12312"</span><span class="token punctuation">,</span> <span class="token string">"sadfgasg"</span><span class="token punctuation">,</span> <span class="token string">"sagd"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// sort </span>
-<span class="token keyword">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">;</span>
-<span class="token keyword">char</span><span class="token operator">*</span> tmpBuf <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-<span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>j <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">strcmp</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token punctuation">{</span>
-            <span class="token function">strcpy</span><span class="token punctuation">(</span>tmpBuf<span class="token punctuation">,</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token function">strcpy</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token function">strcpy</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> tmpBuf<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//求数组元素个数也不同,需要自己手动遍历</span>
-<span class="token keyword">int</span> arrSize <span class="token operator">=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token operator">/</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// =10,只求出来10行</span>
-<span class="token keyword">sizeof</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">300</span><span class="token punctuation">;</span>
-<span class="token keyword">sizeof</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><pre class="line-numbers language-lang-c"><code class="language-lang-c">//第二种
+char arr[10][30] = {"12312", "sadfgasg", "sagd"};
+// sort 
+int i, j;
+char* tmpBuf = NULL;
+for(i = 0;i < len; i++)
+{
+    for(j = 0;j < len; j++)
+    {
+        if(strcmp(arr[i], arr[j]))
+        {
+            strcpy(tmpBuf, arr[i]);
+            strcpy(arr[i], arr[j]);
+            strcpy(arr[j], tmpBuf);
+        }
+    }
+}
+//求数组元素个数也不同,需要自己手动遍历
+int arrSize = sizeof(arr)/sizeof(arr[0]); // =10,只求出来10行
+sizeof(arr) = 300;
+sizeof(arr[0] = 30;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>多维数组跟一维数组作为参数传递退化问题不同</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">char</span> arr<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">30</span><span class="token punctuation">]</span>
-<span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//不行，并且作指针加减运算步长也不一样，交换数组时，是交换的内存块</span>
+<pre class="line-numbers language-lang-c"><code class="language-lang-c">char arr[10][30]
+get(char[][]);
+get(char**);//不行，并且作指针加减运算步长也不一样，交换数组时，是交换的内存块
 
-<span class="token keyword">char</span><span class="token operator">*</span> arr<span class="token punctuation">[</span><span class="token punctuation">]</span>
-<span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//可以，交换数组时，是交换的指针指向</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+char* arr[]
+get(char**);//可以，交换数组时，是交换的指针指向
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>注意：此种方式内存全分配到栈区，一个<code>arr</code>内存内分别依次放了所有的数据，此种步长与其他不同</strong></p>
-<h3 id="第三种"><a href="#第三种" class="headerlink" title="第三种"></a>第三种</h3><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> p <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-p <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">*</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//num个元素</span>
+<h3 id="第三种"><a href="#第三种" class="headerlink" title="第三种"></a>第三种</h3><pre class="line-numbers language-lang-c"><code class="language-lang-c">char** p = NULL;
+p = (char**)malloc(sizeof(char*) * num);//num个元素
 
-<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>num<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    p<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">sprinf</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"%d%d%d"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span>i<span class="token punctuation">,</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//释放</span>
-<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>num<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">!=</span><span class="token constant">NULL</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token function">free</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        p<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">=</span><span class="token constant">NULL</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">if</span><span class="token punctuation">(</span>p<span class="token operator">!=</span><span class="token constant">NULL</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token function">free</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    p<span class="token operator">=</span><span class="token constant">NULL</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+for(;i<num;i++)
+{
+    p[i] = (char*)malloc(sizeof(char) * 100);
+    sprinf(p[i], "%d%d%d", i,i,i);
+}
+//释放
+for(;i<num;i++)
+{
+    if(p[i]!=NULL)
+    {
+        free(p[i]);
+        p[i]=NULL;
+    }
+}
+if(p!=NULL)
+{
+    free(p);
+    p=NULL;
+}
 
-<span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//传递方法</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+get(char***);//传递方法
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>注意：此种方式<code>p</code>在栈区存一个二级指针地址，指向堆区的一个存了<code>num</code>个地址的内存块，<code>num</code>个地址又分别指向堆上的内存块</strong></p>
-<h2 id="三级指针"><a href="#三级指针" class="headerlink" title="三级指针"></a>三级指针</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> p <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-    <span class="token function">getMem</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">free</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<h2 id="三级指针"><a href="#三级指针" class="headerlink" title="三级指针"></a>三级指针</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c">int main()
+{
+    char** p = NULL;
+    getMem(&p);
+    free(&p);
+}
 
-<span class="token keyword">void</span> <span class="token function">getMem</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span> p<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>p <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> tmp <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-    tmp <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token operator">*</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>num<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        tmp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">sprinf</span><span class="token punctuation">(</span>tmp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"%d%d%d"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span>i<span class="token punctuation">,</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token operator">*</span>p3 <span class="token operator">=</span> tmp<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+void getMem(char*** p)
+{
+    if(p == NULL)
+    {
+        return;
+    }
+    char** tmp = NULL;
+    tmp = (char**)malloc(sizeof(char*) * num);
+    for(;i<num;i++)
+    {
+        tmp[i] = (char*)malloc(sizeof(char) * 100);
+        sprinf(tmp[i], "%d%d%d", i,i,i);
+    }
+    *p3 = tmp;
+}
 
-<span class="token keyword">void</span> <span class="token function">free</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span> p<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>p <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>tmp <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+void free(char*** p)
+{
+    if(p == NULL)
+    {
+        return;
+    }
+    char **tmp = NULL;
 
-    tmp <span class="token operator">=</span> <span class="token operator">*</span>p3<span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>num<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token punctuation">{</span>
-        <span class="token function">free</span><span class="token punctuation">(</span>tmp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token function">free</span><span class="token punctuation">(</span>tmp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">*</span>p3 <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    tmp = *p3;
+    for(i = 0;i<num;i++)
+    {
+        free(tmp[i]);
+    }
+    free(tmp);
+    *p3 = NULL;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="三级指针初始化易错点"><a href="#三级指针初始化易错点" class="headerlink" title="三级指针初始化易错点"></a>三级指针初始化易错点</h2><p>当使用一个<strong>二级指针</strong>拷贝三级指针中二级指针地址，使用拷贝的二级指针malloc一块空间，跟三级指针中二级指针地址关联性出现问题</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span> str <span class="token operator">=</span> <span class="token constant">NULL</span>；
-<span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> tmpStr <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-<span class="token operator">*</span>str <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//是对的</span>
-tmpStr <span class="token operator">=</span> <span class="token operator">*</span>str<span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"*str: %p, tmpStr:%p"</span><span class="token punctuation">,</span> <span class="token operator">*</span>str<span class="token punctuation">,</span> tmpStr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//-> *str: 011E60F8, tmpStr:011E60F8</span>
+<pre class="line-numbers language-lang-c"><code class="language-lang-c">char*** str = NULL；
+char** tmpStr = NULL;
+*str = (char**)malloc(100);//是对的
+tmpStr = *str;
+printf("*str: %p, tmpStr:%p", *str, tmpStr);
+//-> *str: 011E60F8, tmpStr:011E60F8
 
 
-<span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token operator">*</span> str <span class="token operator">=</span> <span class="token constant">NULL</span>；
-<span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> tmpStr <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-tmpStr <span class="token operator">=</span> <span class="token operator">*</span>str<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//由于*str初始化他们都指向了0</span>
-tmpStr <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//此时tmpStr指向了0xaa11,str还是0</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"*str: %p, tmpStr:%p"</span><span class="token punctuation">,</span> <span class="token operator">*</span>str<span class="token punctuation">,</span> tmpStr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">//-> *str: CCCCCCCC, tmpStr:00E860F8</span>
-<span class="token comment" spellcheck="true">// 可以在*str = tmpStr;来解决</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+char*** str = NULL；
+char** tmpStr = NULL;
+tmpStr = *str; //由于*str初始化他们都指向了0
+tmpStr = (char**)malloc(100);//此时tmpStr指向了0xaa11,str还是0
+printf("*str: %p, tmpStr:%p", *str, tmpStr);
+//-> *str: CCCCCCCC, tmpStr:00E860F8
+// 可以在*str = tmpStr;来解决
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>对它的<strong>一级指针</strong>也是一样</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">char</span><span class="token operator">*</span> realTmpStr <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-<span class="token operator">*</span>tmpStr <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-realTmpStr <span class="token operator">=</span> <span class="token operator">*</span>tmpStr<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-c"><code class="language-lang-c">char* realTmpStr = NULL;
+*tmpStr = (char*)malloc(100);
+realTmpStr = *tmpStr;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>问题原因开始未初始化的指针都指向0，初始化后指向一个新地址，而原指针依旧指向0。</p>
 <p>如<strong><code>A-&gt;B-&gt;0-&gt;0，tmp = B，tmp-&gt;0xaa-&gt;0</code></strong>，此时原指针依旧 <strong><code>A-&gt;B-&gt;0-&gt;0</code></strong>，<strong><code>-&gt;</code></strong>寻址路线在创建时就固定了，只改变中间的地址值，<strong><code>-&gt;</code></strong>寻址路线未改变，因此出现问题</p>
 <p><strong>先使用二级指针操作，最后将三级指针指向二级指针最好的方法</strong></p>
@@ -191,4 +199,4 @@ var disqus_url = 'http://yoursite.com/2019/10/04/C学习（三）/';
     dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script></body></html>
+})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

@@ -1,11 +1,9 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>Java基础篇-篇四（锁机制） · HeeC'Blog</title><meta name="description" content="基础篇（四）锁机制
-
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>Java基础篇-篇四（锁机制） · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="基础篇（四）锁机制
 线程安全问题按照定义，线程安全是一个多线程环境下正确性的概念，也就是保证多线程环境下共享的、 可修改的状态的正确性，这里的状态反映在程序中其实可以看作是数据。换个角度来看，如果状态不是共享的，或者不是可修改的，也就不存在线程安全问题，进而可以推理出保证线程安全的两个办法：
 
-封"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+封装"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Java基础篇-篇四（锁机制）</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-09-10</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/09/10/Java%E5%9F%BA%E7%A1%80%E7%AF%87-%E7%AF%87%E5%9B%9B%EF%BC%88%E9%94%81%E6%9C%BA%E5%88%B6%EF%BC%89/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/面试/" title="面试" class="a-tag">面试</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="基础篇（四）"><a href="#基础篇（四）" class="headerlink" title="基础篇（四）"></a>基础篇（四）</h1><h1 id="锁机制"><a href="#锁机制" class="headerlink" title="锁机制"></a>锁机制</h1><a id="more"></a>
-
-<h1 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h1><p>按照定义，线程安全是一个多线程环境下正确性的概念，也就是保证多线程环境下共享的、 可修改的状态的正确性，这里的状态反映在程序中其实可以看作是数据。<br>换个角度来看，如果状态不是共享的，或者不是可修改的，也就不存在线程安全问题，进而可以推理出保证线程安全的两个办法：</p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><h1 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h1><p>按照定义，线程安全是一个多线程环境下正确性的概念，也就是保证多线程环境下共享的、 可修改的状态的正确性，这里的状态反映在程序中其实可以看作是数据。<br>换个角度来看，如果状态不是共享的，或者不是可修改的，也就不存在线程安全问题，进而可以推理出保证线程安全的两个办法：</p>
 <ul>
 <li>封装：通过封装，我们可以将对象内部状态隐藏、保护起来 </li>
 <li>不可变：final和immutable，就是这个道理， Java语言目前还没有真正意义上的原生不可变，但是未来也许会引入。</li>
@@ -24,13 +22,14 @@
 <p>锁降级确实是会发生的，当JVM进入安全点（SafePoint）的时候，会检查是否有闲置的Monitor，然后试图进行降级。 </p>
 <p>synchronized是JVM内部的Intrinsic Lock，所以偏斜锁、轻量级锁、重量级锁的代码实现，并不在核心类库部分，而是在JVM的代码中 。</p>
 <p>首先， synchronized的行为是JVM runtime的一部分，所以我们需要先找到Runtime相关的功能实现。通过在代码中查询类似“monitor_enter”或“Monitor Enter”，很直观的就可以定位到：<br><a href="http://hg.openjdk.java.net/jdk/jdk/file/6659a8f57d78/src/hotspot/share/runtime/sharedRuntime.cpp" target="_blank" rel="noopener">sharedRuntime.cpp</a>/hpp，它是解释器和编译器运行时的基类。<br><a href="https://java.se.oracle.com/source/xref/jdk-jdk/open/src/hotspot/share/runtime/synchronizer.cpp" target="_blank" rel="noopener">synchronizer</a>.cpp/hpp， JVM同步相关的各种基础逻辑。<br>在sharedRuntime.cpp中，下面代码体现了synchronized的主要逻辑。 </p>
-<pre class="line-numbers language-java"><code class="language-java">Handle <span class="token function">h_obj</span><span class="token punctuation">(</span>THREAD<span class="token punctuation">,</span> obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span>UseBiasedLocking<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// Retry fas entry if bias is revoked to avoid unnecessary infation</span>
-    ObjectSynchronizer<span class="token operator">:</span><span class="token operator">:</span><span class="token function">fast_enter</span><span class="token punctuation">(</span>h_obj<span class="token punctuation">,</span> lock<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> CHECK<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-    ObjectSynchronizer<span class="token operator">:</span><span class="token operator">:</span><span class="token function">slow_enter</span><span class="token punctuation">(</span>h_obj<span class="token punctuation">,</span> lock<span class="token punctuation">,</span> CHECK<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">Handle h_obj(THREAD, obj);
+if (UseBiasedLocking) {
+    // Retry fas entry if bias is revoked to avoid unnecessary infation
+    ObjectSynchronizer::fast_enter(h_obj, lock, true, CHECK);
+} else {
+    ObjectSynchronizer::slow_enter(h_obj, lock, CHECK);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其实现可以简单进行分解：</p>
 <ul>
 <li>UseBiasedLocking是一个检查，因为，在JVM启动时，我们可以指定是否开启偏斜锁。</li>
@@ -43,22 +42,23 @@
 <li>fast_enter是我们熟悉的完整锁获取路径， slow_enter则是绕过偏斜锁，直接进入轻量级锁获取逻辑。</li>
 </ul>
 <p>那么fast_enter是如何实现的呢？同样是通过在代码库搜索，我们可以定位到<a href="https://java.se.oracle.com/source/xref/jdk-jdk/open/src/hotspot/share/runtime/synchronizer.cpp" target="_blank" rel="noopener">synchronizer.</a>cpp。 类似fast_enter这种实现，解释器或者动态编译器，都是拷贝这段基础逻辑，所以如果我们修改这部分逻辑，要保证一致性。这部分代码是非常敏感的，微小的问题都可能导致死锁或者正确性问题。 </p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">void</span> ObjectSynchronizer<span class="token operator">:</span><span class="token operator">:</span><span class="token function">fast_enter</span><span class="token punctuation">(</span>Handle obj<span class="token punctuation">,</span> BasicLock<span class="token operator">*</span> lock<span class="token punctuation">,</span>
-bool attempt_rebias<span class="token punctuation">,</span> TRAPS<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>UseBiasedLocking<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>SafepointSynchronize<span class="token operator">:</span><span class="token operator">:</span><span class="token function">is_at_safepoint</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            BiasedLocking<span class="token operator">:</span><span class="token operator">:</span>Condition cond <span class="token operator">=</span> BiasedLocking<span class="token operator">:</span><span class="token operator">:</span><span class="token function">revoke_and_rebias</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> attempt_rebias<span class="token punctuation">,</span> THREAD<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>cond <span class="token operator">==</span> BiasedLocking<span class="token operator">:</span><span class="token operator">:</span>BIAS_REVOKED_AND_REBIASED<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-        <span class="token keyword">assert</span><span class="token punctuation">(</span><span class="token operator">!</span>attempt_rebias<span class="token punctuation">,</span> <span class="token string">"can not rebias toward VM thread"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        BiasedLocking<span class="token operator">:</span><span class="token operator">:</span><span class="token function">revoke_at_safepoint</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-        <span class="token keyword">assert</span><span class="token punctuation">(</span><span class="token operator">!</span>obj<span class="token operator">-</span><span class="token operator">></span><span class="token function">mark</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">has_bias_pattern</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"biases should be revoked by now"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token function">slow_enter</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> lock<span class="token punctuation">,</span> THREAD<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">void ObjectSynchronizer::fast_enter(Handle obj, BasicLock* lock,
+bool attempt_rebias, TRAPS) {
+    if (UseBiasedLocking) {
+        if (!SafepointSynchronize::is_at_safepoint()) {
+            BiasedLocking::Condition cond = BiasedLocking::revoke_and_rebias(obj, attempt_rebias, THREAD);
+            if (cond == BiasedLocking::BIAS_REVOKED_AND_REBIASED) {
+            return;
+        }
+    } else {
+        assert(!attempt_rebias, "can not rebias toward VM thread");
+        BiasedLocking::revoke_at_safepoint(obj);
+    }
+        assert(!obj->mark()->has_bias_pattern(), "biases should be revoked by now");
+    }
+    slow_enter(obj, lock, THREAD);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我来分析下这段逻辑实现：</p>
 <ul>
 <li><p><a href="http://hg.openjdk.java.net/jdk/jdk/file/6659a8f57d78/src/hotspot/share/runtime/biasedLocking.cpp" target="_blank" rel="noopener">biasedLocking</a>定义了偏斜锁相关操作， revoke_and_rebias是获取偏斜锁的入口方法， revoke_at_safepoint则定义了当检测到安全点时的处理逻辑。</p>
@@ -69,6 +69,7 @@ bool attempt_rebias<span class="token punctuation">,</span> TRAPS<span class="to
 <p>另外，如果你仔细查看<a href="https://java.se.oracle.com/source/xref/jdk-jdk/open/src/hotspot/share/runtime/synchronizer.cpp" target="_blank" rel="noopener">synchronizer</a>.cpp里，会发现不仅仅是synchronized的逻辑，包括从本地代码，也就是JNI，触发的Monitor动作，全都可以在里面找到<br>（jni_enter/jni_exit）。<br>关于biasedLocking的更多细节我就不展开了，明白它是通过CAS设置Mark Word就完全够用了，对象头中Mark Word的结构，可以参考下图： </p>
 </li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -81,7 +82,8 @@ bool attempt_rebias<span class="token punctuation">,</span> TRAPS<span class="to
 <th>lock(2)</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>被偏斜的对象</td>
 <td>Thread pointor(54)</td>
 <td>Epoch(2)</td>
@@ -90,30 +92,33 @@ bool attempt_rebias<span class="token punctuation">,</span> TRAPS<span class="to
 <td>Baised lock(1)</td>
 <td>lock(2)</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>  顺着锁升降级的过程分析下去，偏斜锁到轻量级锁的过程是如何实现的呢？<br>  我们来看看slow_enter到底做了什么 </p>
-<pre class="line-numbers language-java"><code class="language-java">  <span class="token keyword">void</span> ObjectSynchronizer<span class="token operator">:</span><span class="token operator">:</span><span class="token function">slow_enter</span><span class="token punctuation">(</span>Handle obj<span class="token punctuation">,</span> BasicLock<span class="token operator">*</span> lock<span class="token punctuation">,</span> TRAPS<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      markOop mark <span class="token operator">=</span> obj<span class="token operator">-</span><span class="token operator">></span><span class="token function">mark</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>mark<span class="token operator">-</span><span class="token operator">></span><span class="token function">is_neutral</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token comment" spellcheck="true">// 将目前的Mark Word复制到Displaced Header上</span>
-          lock<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_displaced_header</span><span class="token punctuation">(</span>mark<span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token comment" spellcheck="true">// 利用CAS设置对象的Mark Word</span>
-          <span class="token keyword">if</span> <span class="token punctuation">(</span>mark <span class="token operator">==</span> <span class="token function">obj</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">cas_set_mark</span><span class="token punctuation">(</span><span class="token punctuation">(</span>markOop<span class="token punctuation">)</span> lock<span class="token punctuation">,</span> mark<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-              <span class="token function">TEVENT</span><span class="token punctuation">(</span>slow_enter<span class="token operator">:</span> release sacklock<span class="token punctuation">)</span><span class="token punctuation">;</span>
-              <span class="token keyword">return</span><span class="token punctuation">;</span>
-          <span class="token punctuation">}</span>
-      <span class="token comment" spellcheck="true">// 检查存在竞争</span>
-      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>mark<span class="token operator">-</span><span class="token operator">></span><span class="token function">has_locker</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
-      THREAD<span class="token operator">-</span><span class="token operator">></span><span class="token function">is_lock_owned</span><span class="token punctuation">(</span><span class="token punctuation">(</span>address<span class="token punctuation">)</span>mark<span class="token operator">-</span><span class="token operator">></span><span class="token function">locker</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token comment" spellcheck="true">// 清除</span>
-          lock<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_displaced_header</span><span class="token punctuation">(</span>NULL<span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token keyword">return</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-      <span class="token comment" spellcheck="true">// 重置Displaced Header</span>
-      lock<span class="token operator">-</span><span class="token operator">></span><span class="token function">set_displaced_header</span><span class="token punctuation">(</span>markOopDesc<span class="token operator">:</span><span class="token operator">:</span><span class="token function">unused_mark</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      ObjectSynchronizer<span class="token operator">:</span><span class="token operator">:</span><span class="token function">infate</span><span class="token punctuation">(</span>THREAD<span class="token punctuation">,</span><span class="token function">obj</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-      infate_cause_monitor_enter<span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">enter</span><span class="token punctuation">(</span>THREAD<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">  void ObjectSynchronizer::slow_enter(Handle obj, BasicLock* lock, TRAPS) {
+      markOop mark = obj->mark();
+      if (mark->is_neutral()) {
+          // 将目前的Mark Word复制到Displaced Header上
+          lock->set_displaced_header(mark);
+          // 利用CAS设置对象的Mark Word
+          if (mark == obj()->cas_set_mark((markOop) lock, mark)) {
+              TEVENT(slow_enter: release sacklock);
+              return;
+          }
+      // 检查存在竞争
+      } else if (mark->has_locker() &&
+      THREAD->is_lock_owned((address)mark->locker())) {
+          // 清除
+          lock->set_displaced_header(NULL);
+          return;
+      }
+      // 重置Displaced Header
+      lock->set_displaced_header(markOopDesc::unused_mark());
+      ObjectSynchronizer::infate(THREAD,obj(),
+      infate_cause_monitor_enter)->enter(THREAD);
+  }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>请结合我在代码中添加的注释，来理解如何从试图获取轻量级锁，逐步进入锁膨胀的过程。你可以发现这个处理逻辑，和我在这一讲最初介绍的过程是十分吻合的。</p>
 <ul>
 <li>设置Displaced Header，然后利用cas_set_mark设置对象Mark Word，如果成功就成功获取轻量级锁。</li>
@@ -130,57 +135,59 @@ bool attempt_rebias<span class="token punctuation">,</span> TRAPS<span class="to
 <p>为什么我们需要读写锁（ReadWriteLock）等其他锁呢？<br>这是因为，虽然ReentrantLock和synchronized简单实用，但是行为上有一定局限性，通俗点说就是“太霸道”，要么不占，要么独占。实际应用场景中，有的时候不需要大量竞争的写操作，而是以并发读取为主，如何进一步优化并发操作的粒度呢？</p>
 <p>Java并发包提供的读写锁等扩展了锁的能力，它所基于的原理是多个读操作是不需要互斥的，因为读操作并不会更改数据，所以不存在互相干扰。而写操作则会导致并发一致性的问题，所以写线程之间、读写线程之间，需要精心设计的互斥逻辑。</p>
 <p>下面是一个基于读写锁实现的数据结构，当数据量较大，并发读多、并发写少的时候，能够比纯同步版本凸显出优势</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RWSample</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> String<span class="token operator">></span> m <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TreeMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> ReentrantReadWriteLock rwl <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReentrantReadWriteLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> Lock r <span class="token operator">=</span> rwl<span class="token punctuation">.</span><span class="token function">readLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> Lock w <span class="token operator">=</span> rwl<span class="token punctuation">.</span><span class="token function">writeLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">public</span> String <span class="token function">get</span><span class="token punctuation">(</span>String key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        r<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"读锁锁定！ "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> m<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
-            r<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">public</span> String <span class="token function">put</span><span class="token punctuation">(</span>String key<span class="token punctuation">,</span> String entry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        w<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"写锁锁定！ "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-               <span class="token keyword">return</span> m<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> entry<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
-            w<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">// …</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class RWSample {
+    private final Map<String, String> m = new TreeMap<>();
+    private final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
+    private final Lock r = rwl.readLock();
+    private final Lock w = rwl.writeLock();
+    public String get(String key) {
+        r.lock();
+        System.out.println("读锁锁定！ ");
+        try {
+            return m.get(key);
+        } finally {
+            r.unlock();
+        }
+    }
+    public String put(String key, String entry) {
+        w.lock();
+        System.out.println("写锁锁定！ ");
+        try {
+               return m.put(key, entry);
+        } finally {
+            w.unlock();
+        }
+    }
+    // …
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在运行过程中，如果读锁试图锁定时，写锁是被某个线程持有，读锁将无法获得，而只好等待对方操作结束，这样就可以自动保证不会读取到有争议的数据。<br>读写锁看起来比synchronized的粒度似乎细一些，但在实际应用中，其表现也并不尽如人意，主要还是因为相对比较大的开销。<br>所以， JDK在后期引入了StampedLock，在提供类似读写锁的同时，还支持优化读模式。优化读基于假设，大多数情况下读操作并不会和写操作冲突，其逻辑是先试着修改，然后通过validate方法确认是否进入了写模式，如果没有进入，就成功避免了开销；如果进入，则尝试获取读锁。请参考我下面的样例代码。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StampedSample</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> StampedLock sl <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StampedLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">void</span> <span class="token function">mutate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">long</span> stamp <span class="token operator">=</span> sl<span class="token punctuation">.</span><span class="token function">writeLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            <span class="token function">write</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
-            sl<span class="token punctuation">.</span><span class="token function">unlockWrite</span><span class="token punctuation">(</span>stamp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    Data <span class="token function">access</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">long</span> stamp <span class="token operator">=</span> sl<span class="token punctuation">.</span><span class="token function">tryOptimisticRead</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Data data <span class="token operator">=</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>sl<span class="token punctuation">.</span><span class="token function">validate</span><span class="token punctuation">(</span>stamp<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            stamp <span class="token operator">=</span> sl<span class="token punctuation">.</span><span class="token function">readLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">try</span> <span class="token punctuation">{</span>
-                data <span class="token operator">=</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
-                sl<span class="token punctuation">.</span><span class="token function">unlockRead</span><span class="token punctuation">(</span>stamp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> data<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">// …</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class StampedSample {
+    private final StampedLock sl = new StampedLock();
+    void mutate() {
+        long stamp = sl.writeLock();
+        try {
+            write();
+        } finally {
+            sl.unlockWrite(stamp);
+        }
+    }
+    Data access() {
+        long stamp = sl.tryOptimisticRead();
+        Data data = read();
+        if (!sl.validate(stamp)) {
+            stamp = sl.readLock();
+            try {
+                data = read();
+            } finally {
+                sl.unlockRead(stamp);
+            }
+        }
+        return data;
+    }
+    // …
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>注意，这里的writeLock和unLockWrite一定要保证成对调用。<br>你可能很好奇这些显式锁的实现机制， Java并发包内的各种同步工具，不仅仅是各种Lock，其他的如<a href="https://docs.oracle.com/javase/10/docs/api/java/util/concurrent/Semaphore.html" target="_blank" rel="noopener">Semaphore</a>、 <a href="https://docs.oracle.com/javase/10/docs/api/java/util/concurrent/CountDownLatch.html" target="_blank" rel="noopener">CountDownLatch</a>，甚至是早期的<a href="https://docs.oracle.com/javase/10/docs/api/java/util/concurrent/FutureTask.html" target="_blank" rel="noopener">FutureTask</a> 等，都是基于一种AQS框架。 </p>
 <h1 id="synchronized-和-ReetrantLock-区别"><a href="#synchronized-和-ReetrantLock-区别" class="headerlink" title="synchronized 和 ReetrantLock 区别"></a>synchronized 和 ReetrantLock 区别</h1><p>synchronized是Java内建的同步机制，所以也有人称其为Intrinsic Locking，它提供了互斥的语义和可见性，当一个线程已经获取当前锁时，其他试图获取的线程只能等待或者阻塞在那里。</p>
 <p>在Java 5以前， synchronized是仅有的同步手段，在代码中， synchronized可以用来修饰方法，也可以使用在特定的代码块儿上，本质上synchronized方法等同于把方法全部语句用synchronized块包起来。</p>
@@ -198,56 +205,60 @@ bool attempt_rebias<span class="token punctuation">,</span> TRAPS<span class="to
 </ul>
 <p>首先，需要理解什么是线程安全（参考最上面）。</p>
 <p>看看下面的代码段，分析一下原子性需求体现在哪里。这个例子通过取两次数值然后进行对比，来模拟两次对共享状态的操作。<br>你可以编译并执行，可以看到，仅仅是两个线程的低度并发，就非常容易碰到former和latter不相等的情况。这是因为，在两次取值的过程中，其他线程可能已经修改了sharedState。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ThreadSafeSample</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> sharedState<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class ThreadSafeSample {
+    public int sharedState;
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">nonSafeAction</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>sharedState <span class="token operator">&lt;</span> <span class="token number">100000</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> former <span class="token operator">=</span> sharedState<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token keyword">int</span> latter <span class="token operator">=</span> sharedState<span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>former <span class="token operator">!=</span> latter <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Observed data race, former is "</span> <span class="token operator">+</span> former <span class="token operator">+</span> <span class="token string">", "</span> <span class="token operator">+</span> <span class="token string">"latter is "</span> <span class="token operator">+</span> latter<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    public void nonSafeAction() {
+        while (sharedState < 100000) {
+            int former = sharedState++;
+            int latter = sharedState;
+            if (former != latter - 1) {
+                System.out.printf("Observed data race, former is " + former + ", " + "latter is " + latter);
+            }
+        }
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException <span class="token punctuation">{</span>
-        ThreadSafeSample sample <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadSafeSample</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Thread threadA <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                sample<span class="token punctuation">.</span><span class="token function">nonSafeAction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span><span class="token punctuation">;</span>
-        Thread threadB <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token annotation punctuation">@Override</span>
-            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                sample<span class="token punctuation">.</span><span class="token function">nonSafeAction</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span><span class="token punctuation">;</span>
-        threadA<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        threadB<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        threadA<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        threadB<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public static void main(String[] args) throws InterruptedException {
+        ThreadSafeSample sample = new ThreadSafeSample();
+        Thread threadA = new Thread() {
+            public void run() {
+                sample.nonSafeAction();
+            }
+        };
+        Thread threadB = new Thread() {
+            @Override
+            public void run() {
+                sample.nonSafeAction();
+            }
+        };
+        threadA.start();
+        threadB.start();
+        threadA.join();
+        threadB.join();
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>下面是电脑上的运行结果：</p>
-<pre class="line-numbers language-shell"><code class="language-shell">C:\>c:\jdk-9\bin\java ThreadSafeSample
-Observed data race, former is 13097, latter is 13099<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">C:\>c:\jdk-9\bin\java ThreadSafeSample
+Observed data race, former is 13097, latter is 13099
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>将两次赋值过程用synchronized保护起来，使用this作为互斥单元，就可以避免别的线程并发的去修改sharedState。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> former <span class="token operator">=</span> sharedState <span class="token operator">++</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> latter <span class="token operator">=</span> sharedState<span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// …</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">synchronized (this) {
+    int former = sharedState ++;
+    int latter = sharedState;
+    // …
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>如果用javap反编译，可以看到类似片段，利用monitorenter/monitorexit对实现了同步的语义：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token number">11</span><span class="token operator">:</span> astore_1
-<span class="token number">12</span><span class="token operator">:</span> monitorenter
-<span class="token number">13</span><span class="token operator">:</span> aload_0
-<span class="token number">14</span><span class="token operator">:</span> dup
-<span class="token number">15</span><span class="token operator">:</span> getfield #<span class="token number">2</span> <span class="token comment" spellcheck="true">// Field sharedState:I</span>
-<span class="token number">18</span><span class="token operator">:</span> dup_x1
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">11: astore_1
+12: monitorenter
+13: aload_0
+14: dup
+15: getfield #2 // Field sharedState:I
+18: dup_x1
 …
-<span class="token number">56</span><span class="token operator">:</span> monitorexit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+56: monitorexit
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>代码中使用synchronized非常便利，如果用来修饰静态方法，其等同于利用下面代码将方法体囊括进来：</p>
 <blockquote>
 <p>synchronized (ClassName.class) {}</p>
@@ -259,12 +270,13 @@ Observed data race, former is 13097, latter is 13099<span aria-hidden="true" cla
 <p>这里所谓的公平性是指在竞争场景中，当公平性为真时，会倾向于将锁赋予等待时间最久的线程。公平性是减少线程“饥饿”（个别线程长期等待锁，但始终无法获取）情况发生的一个办法。</p>
 <p>如果使用synchronized，我们根本无法进行公平性的选择，其永远是不公平的，这也是主流操作系统线程调度的选择。通用场景中，公平性未必有想象中的那么重要， Java默认的调度策略很少会导致 “饥饿”发生。与此同时，若要保证公平性则会引入额外开销，自然会导致一定的吞吐量下降。所以，我建议只有当你的程序确实有公平性需要的时候，才有必要指定它。</p>
 <p>我们再从日常编码的角度学习下再入锁。为保证锁释放，每一个lock()动作，我建议都立即对应一个try-catch-fnally，典型的代码结构如下，这是个良好的习惯。</p>
-<pre class="line-numbers language-java"><code class="language-java">ReentrantLock fairLock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReentrantLock</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 这里是演示创建公平锁，一般情况不需要。</span>
-<span class="token keyword">try</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// do something</span>
-<span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
-    fairLock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">ReentrantLock fairLock = new ReentrantLock(true);// 这里是演示创建公平锁，一般情况不需要。
+try {
+    // do something
+} finally {
+    fairLock.unlock();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>ReentrantLock相比synchronized，因为可以像普通对象一样使用，所以可以利用其提供的各种便利方法，进行精细的同步操作，甚至是实现synchronized难以表达的用例，如：</p>
 <ul>
 <li>带超时的获取锁尝试。</li>
@@ -274,42 +286,45 @@ Observed data race, former is 13097, latter is 13099<span aria-hidden="true" cla
 </ul>
 <p>这里特别想强调条件变量（java.util.concurrent.Condition），如果说ReentrantLock是synchronized的替代选择， Condition则是将wait、 notify、 notifyAll等操作转化为相应的对象，将复杂而晦涩的同步操作转变为直观可控的对象行为。</p>
 <p>条件变量最为典型的应用场景就是标准类库中的ArrayBlockingQueue等。<br>我们参考下面的源码，首先，通过再入锁获取条件变量：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/** Condition for waiting takes */</span>
-<span class="token keyword">private</span> fnal Condition notEmpty<span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">/** Condition for waiting puts */</span>
-<span class="token keyword">private</span> fnal Condition notFull<span class="token punctuation">;</span>
-<span class="token keyword">public</span> <span class="token function">ArrayBlockingQueue</span><span class="token punctuation">(</span><span class="token keyword">int</span> capacity<span class="token punctuation">,</span> <span class="token keyword">boolean</span> fair<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>capacity <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>items <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span>capacity<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    lock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReentrantLock</span><span class="token punctuation">(</span>fair<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    notEmpty <span class="token operator">=</span> lock<span class="token punctuation">.</span><span class="token function">newCondition</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    notFull <span class="token operator">=</span> lock<span class="token punctuation">.</span><span class="token function">newCondition</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">/** Condition for waiting takes */
+private fnal Condition notEmpty;
+/** Condition for waiting puts */
+private fnal Condition notFull;
+public ArrayBlockingQueue(int capacity, boolean fair) {
+    if (capacity <= 0) {
+        throw new IllegalArgumentException();
+    }
+    this.items = new Object[capacity];
+    lock = new ReentrantLock(fair);
+    notEmpty = lock.newCondition();
+    notFull = lock.newCondition();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>两个条件变量是从同一再入锁创建出来，然后使用在特定操作中，如下面的take方法，判断和等待条件满足：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> E <span class="token function">take</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException <span class="token punctuation">{</span>
-    <span class="token keyword">final</span> ReentrantLock lock <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>lock<span class="token punctuation">;</span>
-    lock<span class="token punctuation">.</span><span class="token function">lockInterruptibly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">try</span> <span class="token punctuation">{</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>count <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-        notEmpty<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token function">dequeue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> fnally <span class="token punctuation">{</span>
-        lock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public E take() throws InterruptedException {
+    final ReentrantLock lock = this.lock;
+    lock.lockInterruptibly();
+    try {
+        while (count == 0)
+        notEmpty.await();
+        return dequeue();
+    } fnally {
+        lock.unlock();
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>当队列为空时，试图take的线程的正确行为应该是等待入队发生，而不是直接返回，这是BlockingQueue的语义，使用条件notEmpty就可以优雅地实现这一逻辑。<br>那么，怎么保证入队触发后续take操作呢？请看enqueue实现：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">enqueue</span><span class="token punctuation">(</span>E e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-<span class="token comment" spellcheck="true">// assert lock.isHeldByCurrentThread();</span>
-<span class="token comment" spellcheck="true">// assert lock.getHoldCount() == 1;</span>
-<span class="token comment" spellcheck="true">// assert items[putIndex] == null;</span>
-fnal Object<span class="token punctuation">[</span><span class="token punctuation">]</span> items <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>items<span class="token punctuation">;</span>
-items<span class="token punctuation">[</span>putIndex<span class="token punctuation">]</span> <span class="token operator">=</span> e<span class="token punctuation">;</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">++</span>putIndex <span class="token operator">==</span> items<span class="token punctuation">.</span>length<span class="token punctuation">)</span> putIndex <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    count<span class="token operator">++</span><span class="token punctuation">;</span>
-    notEmpty<span class="token punctuation">.</span><span class="token function">signal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 通知等待的线程，非空条件已经满足</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">private void enqueue(E e) {
+// assert lock.isHeldByCurrentThread();
+// assert lock.getHoldCount() == 1;
+// assert items[putIndex] == null;
+fnal Object[] items = this.items;
+items[putIndex] = e;
+if (++putIndex == items.length) putIndex = 0;
+    count++;
+    notEmpty.signal(); // 通知等待的线程，非空条件已经满足
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>通过signal/await的组合，完成了条件判断和通知等待线程，非常顺畅就完成了状态流转。注意， signal和await成对调用非常重要，不然假设只有await动作，线程会一直等待直到被打断（interrupt）。</p>
 <p>从性能角度， synchronized早期的实现比较低效，对比ReentrantLock，大多数场景性能都相差较大。但是在Java 6中对其进行了非常多的改进，可以参考性能对比，在高竞争情况下， ReentrantLock仍然有一定优势。我在下一讲进行详细分析，会更有助于理解性能差异产生的内在原因。在大多数情况下，无需纠结于性能，还是考虑代码书写结构的便利性、可维护性等。</p>
 <h1 id="CAS-乐观锁"><a href="#CAS-乐观锁" class="headerlink" title="CAS 乐观锁"></a>CAS 乐观锁</h1><h1 id="ABA-问题"><a href="#ABA-问题" class="headerlink" title="ABA 问题"></a>ABA 问题</h1><h1 id="乐观锁的业务场景以及实现方式"><a href="#乐观锁的业务场景以及实现方式" class="headerlink" title="乐观锁的业务场景以及实现方式"></a>乐观锁的业务场景以及实现方式</h1></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/09/10/Java基础篇-篇四（锁机制）/%20HeeC' target="_blank" rel="noopener"Blog%20Java基础篇-篇四（锁机制）" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/09/13/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B/" title="三次握手与四次挥手过程"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: 三次握手与四次挥手过程</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/09/10/Java%E5%9F%BA%E7%A1%80%E7%AF%87-%E7%AF%87%E4%B8%89%EF%BC%88%E7%BA%BF%E7%A8%8B%EF%BC%89/" title="Java基础篇-篇三（线程）">下一篇: Java基础篇-篇三（线程）&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
@@ -322,4 +337,4 @@ var disqus_url = 'http://yoursite.com/2019/09/10/Java基础篇-篇四（锁机�
     dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script></body></html>
+})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

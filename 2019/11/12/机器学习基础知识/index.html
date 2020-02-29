@@ -1,56 +1,81 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>机器学习基础知识 · HeeC'Blog</title><meta name="description" content="决策树信息$$I = -log_2p_k$$
-信息熵度量样本集合纯度最常用的一种指标，假设当前样本中，集合 D 中第 k 累样本所占的比例为 p_k(k = 1,2,...,|y|)$$Ent(D) = - \sum^{|y|}_{k=1}p_k\log_2(p_k)$$Ent(D) 的值越小，则D"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>机器学习基础知识</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-11-12</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/11/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/机器学习/" title="机器学习" class="a-tag">机器学习</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/基础/" title="基础" class="a-tag">基础</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h1><h2 id="信息"><a href="#信息" class="headerlink" title="信息"></a>信息</h2><p>$$<br>I = -log_2p_k<br>$$</p>
-<h2 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h2><p>度量样本集合纯度最常用的一种指标，假设当前样本中，集合 <em>D</em> 中第 <em>k</em> 累样本所占的比例为 <code>p_k(k = 1,2,...,|y|)</code><br>$$<br>Ent(D) = - \sum^{|y|}_{k=1}p_k\log_2(p_k)<br>$$<br>Ent(D) 的值越小，则D的纯度越高。</p>
-<a id="more"></a>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>机器学习基础知识 · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="决策树信息
+I = -log_2p_k信息熵度量样本集合纯度最常用的一种指标，假设当前样本中，集合 D 中第 k 累样本所占的比例为 p_k(k = 1,2,...,|y|)
 
+Ent(D) = - \sum^{|y|}_{k=1}p_k\log_2(p_k)Ent(D) 的值越小，则D的纯度越高。"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div><!--mathjax config similar to math.stackexchange--><script type="text/x-mathjax-config"><!-- hexo-inject:begin --><!-- hexo-inject:end -->MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\(","\)"] ],
+    displayMath: [ ['$$','$$'], ["\[","\]"] ],
+    processEscapes: true
+  }
+});</script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});</script><script async type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>机器学习基础知识</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-11-12</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/11/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/机器学习/" title="机器学习" class="a-tag">机器学习</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/基础/" title="基础" class="a-tag">基础</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h1><h2 id="信息"><a href="#信息" class="headerlink" title="信息"></a>信息</h2><script type="math/tex; mode=display">
+I = -log_2p_k</script><h2 id="信息熵"><a href="#信息熵" class="headerlink" title="信息熵"></a>信息熵</h2><p>度量样本集合纯度最常用的一种指标，假设当前样本中，集合 <em>D</em> 中第 <em>k</em> 累样本所占的比例为 <code>p_k(k = 1,2,...,|y|)</code></p>
+<script type="math/tex; mode=display">
+Ent(D) = - \sum^{|y|}_{k=1}p_k\log_2(p_k)</script><p>Ent(D) 的值越小，则D的纯度越高。</p>
+<a id="more"></a>
 <p>例如：苹果</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="center">id</th>
-<th align="center">红</th>
-<th align="center">圆</th>
-<th align="center">甜</th>
+<th style="text-align:center">id</th>
+<th style="text-align:center">红</th>
+<th style="text-align:center">圆</th>
+<th style="text-align:center">甜</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">是</td>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">是</td>
 </tr>
 <tr>
-<td align="center">2</td>
-<td align="center">1</td>
-<td align="center">1</td>
-<td align="center">是</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">是</td>
 </tr>
 <tr>
-<td align="center">3</td>
-<td align="center">1</td>
-<td align="center">0</td>
-<td align="center">否</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">否</td>
 </tr>
 <tr>
-<td align="center">4</td>
-<td align="center">0</td>
-<td align="center">1</td>
-<td align="center">否</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">否</td>
 </tr>
 <tr>
-<td align="center">5</td>
-<td align="center">0</td>
-<td align="center">1</td>
-<td align="center">否</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">否</td>
 </tr>
-</tbody></table>
-<p>是不是甜：<br>$$<br>Ent(D) = -(\frac{2}{5}\log_2(\frac{2}{5})+\frac{3}{5}\log_2(\frac{3}{5})<br>        \approx 0.970954<br>$$</p>
-<h2 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h2><p>信息增益越大，则意味着使用属性 a 来进行划分所获得 “纯度提升”越大<br>$$<br>Gain(D,a) = Ent(D) - \sum^V_{v=1}\frac{|D^v|}{|D|}Ent(D^v)<br>$$<br>求特征<code>红</code> 的信息增益，先求信息熵：</p>
-<p>红和甜，3个红的2个甜的，2个不红的全不甜：<br>$$<br>D_1 = -(\frac{2}{3}\log_2(\frac{2}{3}) + \frac{1}{3}\log_2(\frac{1}{3}))<br>$$</p>
-<p>$$<br>D_2 = -(\frac{2}{2}\log_2(\frac{2}{2})) = 0<br>$$</p>
-<p>信息增益：<br>$$<br>Gain = Ent(D) - (\frac{3}{5}D_1+\frac{2}{5}D_2) \approx Ent(D)-0.5509775 \approx 0.419973<br>$$<br>如果按照圆，则信息增益为<br>$$<br>Gain = Ent(D)-(-\frac{4}{5}(\frac{2}{4}\log_2(\frac{2}{4}) + \frac{2}{4}\log_2(\frac{2}{4}))+(-\frac{1}{5})(\frac{1}{1}\log_2(\frac{1}{1}))) \approx 0.17095<br>$$</p>
-</p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/11/12/机器学习基础知识/%20HeeC' target="_blank" rel="noopener"Blog%20机器学习基础知识" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/11/13/gitbook%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" title="gitbook一些问题"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: gitbook一些问题</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/11/05/github%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4%E8%87%AA%E5%B7%B1%E4%BF%AE%E6%94%B9%E7%9A%84%E4%BB%A3%E7%A0%81/" title="github 提交自己修改的代码">下一篇: github 提交自己修改的代码&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
+</tbody>
+</table>
+</div>
+<p>是不是甜：</p>
+<script type="math/tex; mode=display">
+Ent(D) = -(\frac{2}{5}\log_2(\frac{2}{5})+\frac{3}{5}\log_2(\frac{3}{5})
+        \approx 0.970954</script><h2 id="信息增益"><a href="#信息增益" class="headerlink" title="信息增益"></a>信息增益</h2><p>信息增益越大，则意味着使用属性 a 来进行划分所获得 “纯度提升”越大</p>
+<script type="math/tex; mode=display">
+Gain(D,a) = Ent(D) - \sum^V_{v=1}\frac{|D^v|}{|D|}Ent(D^v)</script><p>求特征<code>红</code> 的信息增益，先求信息熵：</p>
+<p>红和甜，3个红的2个甜的，2个不红的全不甜：</p>
+<script type="math/tex; mode=display">
+D_1 = -(\frac{2}{3}\log_2(\frac{2}{3}) + \frac{1}{3}\log_2(\frac{1}{3}))</script><script type="math/tex; mode=display">
+D_2 = -(\frac{2}{2}\log_2(\frac{2}{2})) = 0</script><p>信息增益：</p>
+<script type="math/tex; mode=display">
+Gain = Ent(D) - (\frac{3}{5}D_1+\frac{2}{5}D_2) \approx Ent(D)-0.5509775 \approx 0.419973</script><p>如果按照圆，则信息增益为</p>
+<script type="math/tex; mode=display">
+Gain = Ent(D)-(-\frac{4}{5}(\frac{2}{4}\log_2(\frac{2}{4}) + \frac{2}{4}\log_2(\frac{2}{4}))+(-\frac{1}{5})(\frac{1}{1}\log_2(\frac{1}{1}))) \approx 0.17095</script></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/11/12/机器学习基础知识/%20HeeC' target="_blank" rel="noopener"Blog%20机器学习基础知识" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/11/13/gitbook%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" title="gitbook一些问题"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: gitbook一些问题</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/11/05/github%E5%A6%82%E4%BD%95%E6%8F%90%E4%BA%A4%E8%87%AA%E5%B7%B1%E4%BF%AE%E6%94%B9%E7%9A%84%E4%BB%A3%E7%A0%81/" title="github 提交自己修改的代码">下一篇: github 提交自己修改的代码&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
 var disqus_identifier = '2019/11/12/机器学习基础知识/';
 var disqus_title = '机器学习基础知识';
 var disqus_url = 'http://yoursite.com/2019/11/12/机器学习基础知识/';
@@ -60,4 +85,4 @@ var disqus_url = 'http://yoursite.com/2019/11/12/机器学习基础知识/';
     dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script></body></html>
+})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
