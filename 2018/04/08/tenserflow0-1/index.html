@@ -15,45 +15,41 @@ Checkpoints 保存模型状态
 <li>反向传播层 向前向后的算法</li>
 </ol>
 <a id="more"></a> 
+
 <h5 id="神经网络的例子"><a href="#神经网络的例子" class="headerlink" title="神经网络的例子"></a>神经网络的例子</h5><h6 id="Neture-Style-Translation"><a href="#Neture-Style-Translation" class="headerlink" title="Neture Style Translation"></a>Neture Style Translation</h6><p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Jietu20180408-212354.jpg" alt="image"></p>
 <h6 id="生成手写字体-关于stack-GAN的论文）"><a href="#生成手写字体-关于stack-GAN的论文）" class="headerlink" title="生成手写字体 (关于stack GAN的论文）"></a>生成手写字体 (关于stack GAN的论文）</h6><p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Jietu20180408-213236.jpg" alt="image"></p>
 <h3 id="相关书籍："><a href="#相关书籍：" class="headerlink" title="相关书籍："></a>相关书籍：</h3><p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Jietu20180408-210812.jpg" alt="image"></p>
-<h2 id="tenserflow-运行方式"><a href="#tenserflow-运行方式" class="headerlink" title="tenserflow 运行方式"></a>tenserflow 运行方式</h2><h3 id="计算图："><a href="#计算图：" class="headerlink" title="计算图："></a>计算图：</h3><p>tenser — n维的矩阵</p>
-<h4 id="计算图的产生-—-使用tenseroard使计算可视化"><a href="#计算图的产生-—-使用tenseroard使计算可视化" class="headerlink" title="计算图的产生 — 使用tenseroard使计算可视化"></a>计算图的产生 — 使用tenseroard使计算可视化</h4><p>eg: </p>
+<h2 id="tenserflow-运行方式"><a href="#tenserflow-运行方式" class="headerlink" title="tenserflow 运行方式"></a>tenserflow 运行方式</h2><h3 id="计算图："><a href="#计算图：" class="headerlink" title="计算图："></a>计算图：</h3><p>tenser – n维的矩阵</p>
+<h4 id="计算图的产生-–-使用tenseroard使计算可视化"><a href="#计算图的产生-–-使用tenseroard使计算可视化" class="headerlink" title="计算图的产生 – 使用tenseroard使计算可视化"></a>计算图的产生 – 使用tenseroard使计算可视化</h4><p>eg: </p>
 <hr>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">    import terserflow as tf 
-    a = tf.add(2, 3)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">    <span class="token keyword">import</span> terserflow <span class="token keyword">as</span> tf 
+    a <span class="token operator">=</span> tf<span class="token punctuation">.</span>add<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>输出：操作符，变量，常量<br><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Jietu20180408-211848.jpg" alt="image"> </p>
-<h4 id="session-运行tenser并获得值"><a href="#session-运行tenser并获得值" class="headerlink" title="session 运行tenser并获得值"></a>session 运行tenser并获得值</h4><pre class="line-numbers language-lang-python"><code class="language-lang-python">sess = tf.Session()
-print sess.run(a)
-sess.close()
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="session-运行tenser并获得值"><a href="#session-运行tenser并获得值" class="headerlink" title="session 运行tenser并获得值"></a>session 运行tenser并获得值</h4><pre class="line-numbers language-python"><code class="language-python">sess <span class="token operator">=</span> tf<span class="token punctuation">.</span>Session<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> sess<span class="token punctuation">.</span>run<span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+sess<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><code>github 有sess.run() 函数代码，注释清晰</code></p>
-<h6 id="不用close的方式"><a href="#不用close的方式" class="headerlink" title="不用close的方式"></a><code>不用close的方式</code></h6><pre class="line-numbers language-lang-python"><code class="language-lang-python"># with clause takes care of sess.close()
-with tf.Session() as sess:
-    print sess.run(a)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h5 id="其他计算图"><a href="#其他计算图" class="headerlink" title="其他计算图"></a>其他计算图</h5><pre class="line-numbers language-lang-python"><code class="language-lang-python">x = 2
-y = 3
-op1 = tf.add(x, y)
-op2 = tf.multiply(x, y)
-op3 = tf.pow(op2, op1)
-with tf.Session() as sess:
-    op3 = sess.run(op3)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h6 id="不用close的方式"><a href="#不用close的方式" class="headerlink" title="不用close的方式"></a><code>不用close的方式</code></h6><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># with clause takes care of sess.close()</span>
+<span class="token keyword">with</span> tf<span class="token punctuation">.</span>Session<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">as</span> sess<span class="token punctuation">:</span>
+    <span class="token keyword">print</span> sess<span class="token punctuation">.</span>run<span class="token punctuation">(</span>a<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h5 id="其他计算图"><a href="#其他计算图" class="headerlink" title="其他计算图"></a>其他计算图</h5><pre class="line-numbers language-python"><code class="language-python">x <span class="token operator">=</span> <span class="token number">2</span>
+y <span class="token operator">=</span> <span class="token number">3</span>
+op1 <span class="token operator">=</span> tf<span class="token punctuation">.</span>add<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+op2 <span class="token operator">=</span> tf<span class="token punctuation">.</span>multiply<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+op3 <span class="token operator">=</span> tf<span class="token punctuation">.</span>pow<span class="token punctuation">(</span>op2<span class="token punctuation">,</span> op1<span class="token punctuation">)</span>
+<span class="token keyword">with</span> tf<span class="token punctuation">.</span>Session<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">as</span> sess<span class="token punctuation">:</span>
+    op3 <span class="token operator">=</span> sess<span class="token punctuation">.</span>run<span class="token punctuation">(</span>op3<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Jietu20180408-215739.jpg" alt="image"><br><code>Mul已经弃用</code></p>
 <p>首先在Pow结点，依次根据需要去找 Multiply 结点和 Add 结点<br><code>tenser不会预先计算Multiply和Add
 之所以这样是因为并非所有节点都需要计算，节省</code><br><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Jietu20180408-220540.jpg" alt="image"></p>
-<h6 id="更多结点图"><a href="#更多结点图" class="headerlink" title="更多结点图"></a>更多结点图</h6><pre class="line-numbers language-lang-python"><code class="language-lang-python">x = 2
-y = 3
-op1 = tf.add(x, y)
-op2 = tf.multiply(x, y)
-useless = tf.multiply(x, op1)
-op3 = tf.pow(op2, op1)
-with tf.Session() as sess:
-    op3 = sess.run(op3)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h6 id="更多结点图"><a href="#更多结点图" class="headerlink" title="更多结点图"></a>更多结点图</h6><pre class="line-numbers language-python"><code class="language-python">x <span class="token operator">=</span> <span class="token number">2</span>
+y <span class="token operator">=</span> <span class="token number">3</span>
+op1 <span class="token operator">=</span> tf<span class="token punctuation">.</span>add<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+op2 <span class="token operator">=</span> tf<span class="token punctuation">.</span>multiply<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+useless <span class="token operator">=</span> tf<span class="token punctuation">.</span>multiply<span class="token punctuation">(</span>x<span class="token punctuation">,</span> op1<span class="token punctuation">)</span>
+op3 <span class="token operator">=</span> tf<span class="token punctuation">.</span>pow<span class="token punctuation">(</span>op2<span class="token punctuation">,</span> op1<span class="token punctuation">)</span>
+<span class="token keyword">with</span> tf<span class="token punctuation">.</span>Session<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">as</span> sess<span class="token punctuation">:</span>
+    op3 <span class="token operator">=</span> sess<span class="token punctuation">.</span>run<span class="token punctuation">(</span>op3<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>反向依赖传播</code></p>
 <p>session把要计算的点送到fetches list</p>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Jietu20180408-221316.jpg" alt="image"></p>
@@ -62,8 +58,8 @@ with tf.Session() as sess:
 <h4 id="tf-Graph"><a href="#tf-Graph" class="headerlink" title="tf.Graph()"></a>tf.Graph()</h4><p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Jietu20180408-223117.jpg" alt="image"></p>
 <p><code>sess = tf.Session(graph=g) 中的参数即表明这个session在这个Graph中运算</code></p>
 <p><code>g = tf.get_default_graph()</code><br><code>可以得到默认图环境</code></p>
-<p><strong>不要混用默认图和自己定义的图</strong><br><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/混用图.jpg" alt="image"></p>
-<p><code>更好的办法</code><br><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/混用.jpg" alt="image"></p>
+<p><strong>不要混用默认图和自己定义的图</strong><br><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/%E6%B7%B7%E7%94%A8%E5%9B%BE.jpg" alt="image"></p>
+<p><code>更好的办法</code><br><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/%E6%B7%B7%E7%94%A8.jpg" alt="image"></p>
 <p>​<br>​<br>​<br>​<br>​<br>​<br>​<br>​         </p>
 </p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2018/04/08/tenserflow0-1/%20HeeC' target="_blank" rel="noopener"Blog%20tenserflow0.1" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2018/04/09/MarkDown%E8%AF%AD%E6%B3%95/" title="MarkDown语法"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: MarkDown语法</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2018/04/01/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%91%E5%B8%83/" title="命令行发布">下一篇: 命令行发布&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
 var disqus_identifier = '2018/04/08/tenserflow0-1/';

@@ -4,167 +4,159 @@
     int age;
 }Teacher;
 Teacher t1;//分配内存
-
 类型定义变量的方法struct Teacher
 {
     char name[64];
-    int age"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>C学习（五）</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-10-04</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/10/04/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/C语言/" title="C语言" class="a-tag">C语言</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h1><h2 id="名字重定义"><a href="#名字重定义" class="headerlink" title="名字重定义"></a>名字重定义</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c"><!-- hexo-inject:begin --><!-- hexo-inject:end -->typedef struct Teacher
-{
-    char name[64];
-    int age;
-}Teacher;
-Teacher t1;//分配内存
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="类型定义变量的方法"><a href="#类型定义变量的方法" class="headerlink" title="类型定义变量的方法"></a>类型定义变量的方法</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c">struct Teacher
-{
-    char name[64];
-    int age;
-}Teacher;
+    int age;"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>C学习（五）</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-10-04</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/10/04/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%BA%94%EF%BC%89/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/C语言/" title="C语言" class="a-tag">C语言</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h1><h2 id="名字重定义"><a href="#名字重定义" class="headerlink" title="名字重定义"></a>名字重定义</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">typedef</span> <span class="token keyword">struct</span> <!-- hexo-inject:begin --><!-- hexo-inject:end -->Teacher
+<span class="token punctuation">{</span>
+    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">64</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>Teacher<span class="token punctuation">;</span>
+Teacher t1<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//分配内存</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="类型定义变量的方法"><a href="#类型定义变量的方法" class="headerlink" title="类型定义变量的方法"></a>类型定义变量的方法</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">struct</span> Teacher
+<span class="token punctuation">{</span>
+    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">64</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>Teacher<span class="token punctuation">;</span>
 
-struct _Student
-{
-    char name[32];
-    char tile[32];
-    int age;
-    char addr[128];
-}s1, s2; //定义类型的同时， 定义变量；
+<span class="token keyword">struct</span> _Student
+<span class="token punctuation">{</span>
+    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span> tile<span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+    <span class="token keyword">char</span> addr<span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>s1<span class="token punctuation">,</span> s2<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//定义类型的同时， 定义变量；</span>
 
-struct
-{
-    char name[32];
-    char tile[32];
-    int age;
-    char addr[128];
-}s3,s4; //匿名类型 直接定义结构体变量
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">struct</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span> tile<span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+    <span class="token keyword">char</span> addr<span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>s3<span class="token punctuation">,</span>s4<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//匿名类型 直接定义结构体变量</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <a id="more"></a>
-<h1 id="初始化变量"><a href="#初始化变量" class="headerlink" title="初始化变量"></a>初始化变量</h1><pre class="line-numbers language-lang-c"><code class="language-lang-c">//1)
-Teacher t4 = {"name2", "tile2", 2, "addr2"};
 
-//2)
-struct Dog1
-{
-    char name[32];
-    char tile[32];
-    int age;
-    char addr[128];
-}d5 = {"dog", "gongzhu", 1, "ddd"};
 
-//3)
-struct
-{
-    char name[32];
-    char tile[32];
-    int age;
-    char addr[128];
-}d6 = {"dog", "gongzhu", 1, "ddd"};
-//结构体变量的引用
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="结构体变量的引用"><a href="#结构体变量的引用" class="headerlink" title="结构体变量的引用"></a>结构体变量的引用</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c">t1.age = 31;
-strcpy(t1.name, "lili");
-printf("%s", t1.name);
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="初始化变量"><a href="#初始化变量" class="headerlink" title="初始化变量"></a>初始化变量</h1><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">//1)</span>
+Teacher t4 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"name2"</span><span class="token punctuation">,</span> <span class="token string">"tile2"</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"addr2"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//2)</span>
+<span class="token keyword">struct</span> Dog1
+<span class="token punctuation">{</span>
+    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span> tile<span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+    <span class="token keyword">char</span> addr<span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>d5 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"dog"</span><span class="token punctuation">,</span> <span class="token string">"gongzhu"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"ddd"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//3)</span>
+<span class="token keyword">struct</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span> tile<span class="token punctuation">[</span><span class="token number">32</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+    <span class="token keyword">char</span> addr<span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>d6 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"dog"</span><span class="token punctuation">,</span> <span class="token string">"gongzhu"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"ddd"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//结构体变量的引用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="结构体变量的引用"><a href="#结构体变量的引用" class="headerlink" title="结构体变量的引用"></a>结构体变量的引用</h2><pre class="line-numbers language-c"><code class="language-c">t1<span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">31</span><span class="token punctuation">;</span>
+<span class="token function">strcpy</span><span class="token punctuation">(</span>t1<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token string">"lili"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span> t1<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><code>t1.</code> 是寻址操作， 计算 <code>age</code> 相对于 <code>t1</code> 的偏移量，cpu进行，没有操作内存</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">Teacher *p = NULL;
-p = &t2;
-printf("%s", p->name);
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h2 id="结构体的操作"><a href="#结构体的操作" class="headerlink" title="结构体的操作"></a>结构体的操作</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c">Teacher t1 = {"name2", "tile2", 2, "addr2"};
-Teacher t2;
-t2 = t1;
-printf("%s", t2->name); // -> name2
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="结构体作为函数参数"><a href="#结构体作为函数参数" class="headerlink" title="结构体作为函数参数"></a>结构体作为函数参数</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c">void copy(Teacher from, Teacher to)
-{
-    to = from;
-}
-copy(t1, t2);
-//此时只是把t1给了form， t2给了to，跟原本的t1，t2没关系
+<pre class="line-numbers language-c"><code class="language-c">Teacher <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+p <span class="token operator">=</span> <span class="token operator">&amp;</span>t2<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span> p<span class="token operator">-></span>name<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="结构体的操作"><a href="#结构体的操作" class="headerlink" title="结构体的操作"></a>结构体的操作</h2><pre class="line-numbers language-c"><code class="language-c">Teacher t1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"name2"</span><span class="token punctuation">,</span> <span class="token string">"tile2"</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"addr2"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+Teacher t2<span class="token punctuation">;</span>
+t2 <span class="token operator">=</span> t1<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s"</span><span class="token punctuation">,</span> t2<span class="token operator">-></span>name<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -> name2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="结构体作为函数参数"><a href="#结构体作为函数参数" class="headerlink" title="结构体作为函数参数"></a>结构体作为函数参数</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">copy</span><span class="token punctuation">(</span>Teacher from<span class="token punctuation">,</span> Teacher to<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    to <span class="token operator">=</span> from<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">copy</span><span class="token punctuation">(</span>t1<span class="token punctuation">,</span> t2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//此时只是把t1给了form， t2给了to，跟原本的t1，t2没关系</span>
 
-void copy(Teacher* from, Teacher* to)
-{
-    *to = *from;
-}
-copy(&t1, &t2);
-//这样才可以把结构体内 内容拷贝
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="结构体和指针"><a href="#结构体和指针" class="headerlink" title="结构体和指针"></a>结构体和指针</h2><h3 id="一级指针"><a href="#一级指针" class="headerlink" title="一级指针"></a>一级指针</h3><pre class="line-numbers language-lang-c"><code class="language-lang-c">struct Teacher
-{
-    char name[64];
-    char* otherName;//需要自己分配内存
-    int age;
-}Teacher;
+<span class="token keyword">void</span> <span class="token function">copy</span><span class="token punctuation">(</span>Teacher<span class="token operator">*</span> from<span class="token punctuation">,</span> Teacher<span class="token operator">*</span> to<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token operator">*</span>to <span class="token operator">=</span> <span class="token operator">*</span>from<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">copy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>t1<span class="token punctuation">,</span> <span class="token operator">&amp;</span>t2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//这样才可以把结构体内 内容拷贝</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="结构体和指针"><a href="#结构体和指针" class="headerlink" title="结构体和指针"></a>结构体和指针</h2><h3 id="一级指针"><a href="#一级指针" class="headerlink" title="一级指针"></a>一级指针</h3><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">struct</span> Teacher
+<span class="token punctuation">{</span>
+    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">64</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span><span class="token operator">*</span> otherName<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//需要自己分配内存</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>Teacher<span class="token punctuation">;</span>
 
-Teacher *pArr = NULL;
-pArr[1].name;
-pArr[1].otherName = (char*)malloc(60);
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="二级指针"><a href="#二级指针" class="headerlink" title="二级指针"></a>二级指针</h3><pre class="line-numbers language-lang-c"><code class="language-lang-c">struct Teacher
-{
-    char name[64];
-    char* otherName;//需要自己分配内存
-    char** someName;
-    int age;
-}Teacher;
+Teacher <span class="token operator">*</span>pArr <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+pArr<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+pArr<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>otherName <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="二级指针"><a href="#二级指针" class="headerlink" title="二级指针"></a>二级指针</h3><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">struct</span> Teacher
+<span class="token punctuation">{</span>
+    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">64</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span><span class="token operator">*</span> otherName<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//需要自己分配内存</span>
+    <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> someName<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>Teacher<span class="token punctuation">;</span>
 
-pArr[1].otherName = (char*)malloc(60); 
-char** p = NULL;
-p = (char**) malloc(3 * sizeof(char*));
-for(;i<3;)
-{
-    p[i] = (char) malloc(120);
-}
-pArr[1].someName = p;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="结构体的深浅拷贝"><a href="#结构体的深浅拷贝" class="headerlink" title="结构体的深浅拷贝"></a>结构体的深浅拷贝</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c">struct Teacher
-{
-    char name[64];
-    char* otherName;//需要自己分配内存
-    int age;
-}Teacher;
+pArr<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>otherName <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span> p <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+p <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">3</span> <span class="token operator">*</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span><span class="token number">3</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    p<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">120</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+pArr<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>someName <span class="token operator">=</span> p<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="结构体的深浅拷贝"><a href="#结构体的深浅拷贝" class="headerlink" title="结构体的深浅拷贝"></a>结构体的深浅拷贝</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">struct</span> Teacher
+<span class="token punctuation">{</span>
+    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">64</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span><span class="token operator">*</span> otherName<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//需要自己分配内存</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>Teacher<span class="token punctuation">;</span>
 
-void copy(Teacher* from, Teacher* to)
-{
-    *to = *from;//只是个浅拷贝
-    //memcpy(to, form, sizeof(Teacher)) // 一样
-}
+<span class="token keyword">void</span> <span class="token function">copy</span><span class="token punctuation">(</span>Teacher<span class="token operator">*</span> from<span class="token punctuation">,</span> Teacher<span class="token operator">*</span> to<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token operator">*</span>to <span class="token operator">=</span> <span class="token operator">*</span>from<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//只是个浅拷贝</span>
+    <span class="token comment" spellcheck="true">//memcpy(to, form, sizeof(Teacher)) // 一样</span>
+<span class="token punctuation">}</span>
 
-t1.otherName = (char*)malloc(100);
-copy(&t1, &t2);
-//*otherName拷贝出现问题
-// t1.otherName t2.otherName是同一个地址值，但是指向的内存空间并没有拷贝  《== 浅拷贝
+t1<span class="token punctuation">.</span>otherName <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">copy</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>t1<span class="token punctuation">,</span> <span class="token operator">&amp;</span>t2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//*otherName拷贝出现问题</span>
+<span class="token comment" spellcheck="true">// t1.otherName t2.otherName是同一个地址值，但是指向的内存空间并没有拷贝  《== 浅拷贝</span>
 
-//解决
-void copy(Teacher* from, Teacher* to)
-{
-    *to = *from;//只是个浅拷贝
-    //memcpy(to, form, sizeof(Teacher)) // 一样
+<span class="token comment" spellcheck="true">//解决</span>
+<span class="token keyword">void</span> <span class="token function">copy</span><span class="token punctuation">(</span>Teacher<span class="token operator">*</span> from<span class="token punctuation">,</span> Teacher<span class="token operator">*</span> to<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token operator">*</span>to <span class="token operator">=</span> <span class="token operator">*</span>from<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//只是个浅拷贝</span>
+    <span class="token comment" spellcheck="true">//memcpy(to, form, sizeof(Teacher)) // 一样</span>
 
-    to.otherName = (char*)malloc(100);
-    strcpy(to.otherName, from.otherName);
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="结构体的偏移量"><a href="#结构体的偏移量" class="headerlink" title="结构体的偏移量"></a>结构体的偏移量</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c">typedef struct Teacher
-{
-    char name[64];
-    int age;
-    char* otherName;//需要自己分配内存
-}Teacher;
+    to<span class="token punctuation">.</span>otherName <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">strcpy</span><span class="token punctuation">(</span>to<span class="token punctuation">.</span>otherName<span class="token punctuation">,</span> from<span class="token punctuation">.</span>otherName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="结构体的偏移量"><a href="#结构体的偏移量" class="headerlink" title="结构体的偏移量"></a>结构体的偏移量</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">typedef</span> <span class="token keyword">struct</span> Teacher
+<span class="token punctuation">{</span>
+    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">64</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+    <span class="token keyword">char</span><span class="token operator">*</span> otherName<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//需要自己分配内存</span>
+<span class="token punctuation">}</span>Teacher<span class="token punctuation">;</span>
 
-void main()
-{
-    Teacher t1;
-    Teacher *p1 = NULL;
-    p1 - 1;//编译和运行都没问题，只在cpu，没操作内存
+<span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    Teacher t1<span class="token punctuation">;</span>
+    Teacher <span class="token operator">*</span>p1 <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+    p1 <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//编译和运行都没问题，只在cpu，没操作内存</span>
 
-    {
-        //int offsize = (int)&(p1->age);
-        int offsize = (int)&(((Teacher*)0)->age);
-        int offsize = (int)&(p1->age) - (int)p;
-        printf("%d", offsize); // -> 64 , p1.name占了64
-    }
-}
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//int offsize = (int)&amp;(p1->age);</span>
+        <span class="token keyword">int</span> offsize <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token operator">&amp;</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Teacher<span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">-></span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> offsize <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token operator">&amp;</span><span class="token punctuation">(</span>p1<span class="token operator">-></span>age<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span>p<span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> offsize<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -> 64 , p1.name占了64</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>一旦结构体定义下来，则其中的成员内存布局就确定了</p>
 </p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/10/04/C学习（五）/%20HeeC' target="_blank" rel="noopener"Blog%20C学习（五）" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/10/06/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/" title="C学习（四）"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: C学习（四）</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/10/04/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%89%EF%BC%89/" title="C学习（三）">下一篇: C学习（三）&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';

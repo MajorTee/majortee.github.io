@@ -5,27 +5,29 @@
 ],
 &quot;go.autocompleteUnimportedPackages&quot;: true,
 
-基本程序结构package"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Golang-1</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-10-21</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/10/21/Golang-1/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Golang/" title="Golang" class="a-tag">Golang</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="vscode配置"><a href="#vscode配置" class="headerlink" title="vscode配置"></a>vscode配置</h2><pre class="line-numbers language-lang-json"><code class="language-lang-json"><!-- hexo-inject:begin --><!-- hexo-inject:end -->"go.gopath": "/usr/local/go/bin/go",
-"go.testFlags": [
-    "-v",
-    "-count=1"
-],
-"go.autocompleteUnimportedPackages": true,
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="基本程序结构"><a href="#基本程序结构" class="headerlink" title="基本程序结构"></a>基本程序结构</h2><pre class="line-numbers language-lang-go"><code class="language-lang-go">package main //包，表明代码所在的模块(包)
 
-//引入代码依赖
-import (
-    "fmt"
-    "os"
-)
+基本程序结构packag"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Golang-1</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-10-21</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/10/21/Golang-1/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Golang/" title="Golang" class="a-tag">Golang</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="vscode配置"><a href="#vscode配置" class="headerlink" title="vscode配置"></a>vscode配置</h2><pre class="line-numbers language-json"><code class="language-json"><span class="token property">"go.gopath"</span><span class="token operator">:</span> <span class="token string">"/usr/local/go/bin/go"</span><span class="token punctuation">,</span>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><span class="token property">"go.testFlags"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"-v"</span><span class="token punctuation">,</span>
+    <span class="token string">"-count=1"</span>
+<span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token property">"go.autocompleteUnimportedPackages"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
 
-//功能实现
-func main(){
-    fmt.Println("Hello World!")
-    os.exit(-1)
-}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="基本程序结构"><a href="#基本程序结构" class="headerlink" title="基本程序结构"></a>基本程序结构</h2><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> main <span class="token comment" spellcheck="true">//包，表明代码所在的模块(包)</span>
+
+<span class="token comment" spellcheck="true">//引入代码依赖</span>
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"fmt"</span>
+    <span class="token string">"os"</span>
+<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">//功能实现</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Hello World!"</span><span class="token punctuation">)</span>
+    os<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>源文件内第一行代码package pkgName中的pkgName也可以和源文件所在文件夹名称不同</strong>。但是，如果此包需要在其他包中使用，编译器会报错，建议package 后的名称和文件所在文件夹的名称相同。一般只有main函数所在的源文件下才会出现所在包和“package 包名”声明的包名不同的情况。</p>
 <h2 id="应用程序入口"><a href="#应用程序入口" class="headerlink" title="应用程序入口"></a>应用程序入口</h2><ol>
@@ -34,6 +36,9 @@ func main(){
 <li>文件名不一定是 <code>main.go</code></li>
 </ol>
 <a id="more"></a>
+
+
+
 <h2 id="退出返回值"><a href="#退出返回值" class="headerlink" title="退出返回值"></a>退出返回值</h2><p>与其他语言区别</p>
 <ul>
 <li>Go 中 main 函数不支持任何返回值</li>
@@ -47,138 +52,131 @@ func main(){
 <li><p>在程序中直接通过<code>os.Args</code>获取命令行参数</p>
 </li>
 </ul>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">fmt.Println(os.Args)
-if len(os.Args)>1 {
-    fmt.Println("Hello World!", os.Args[1])
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go">fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Args<span class="token punctuation">)</span>
+<span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Args<span class="token punctuation">)</span><span class="token operator">></span><span class="token number">1</span> <span class="token punctuation">{</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Hello World!"</span><span class="token punctuation">,</span> os<span class="token punctuation">.</span>Args<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="编写测试程序"><a href="#编写测试程序" class="headerlink" title="编写测试程序"></a>编写测试程序</h2><ol>
 <li>源码文件以<code>_test</code> 结尾：xxx_test.go</li>
 <li>测试方法名以 Test 开头：func TestXXX(t *testing T) {…}</li>
 </ol>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">package try_test
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">package</span> try_test
 
-import (
-    "testing"
-)
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"testing"</span>
+<span class="token punctuation">)</span>
 
-func TestFirstTry(t *testing.T){
-    t.Log("My first try")
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="变量赋值"><a href="#变量赋值" class="headerlink" title="变量赋值"></a>变量赋值</h2><pre class="line-numbers language-lang-go"><code class="language-lang-go">var a int = 1
-var b int = 1
-// 一起赋值
-var (
-    a int = 1
-    b     = 1
-)
-// 使用自动类型推断
-a := 1
-b := 1
+<span class="token keyword">func</span> <span class="token function">TestFirstTry</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"My first try"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="变量赋值"><a href="#变量赋值" class="headerlink" title="变量赋值"></a>变量赋值</h2><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">var</span> a <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token keyword">var</span> b <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token comment" spellcheck="true">// 一起赋值</span>
+<span class="token keyword">var</span> <span class="token punctuation">(</span>
+    a <span class="token builtin">int</span> <span class="token operator">=</span> <span class="token number">1</span>
+    b     <span class="token operator">=</span> <span class="token number">1</span>
+<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 使用自动类型推断</span>
+a <span class="token operator">:=</span> <span class="token number">1</span>
+b <span class="token operator">:=</span> <span class="token number">1</span>
 
-// var常用在这种方式
-var a int
-a = 1
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="变量交换"><a href="#变量交换" class="headerlink" title="变量交换"></a>变量交换</h2><pre class="line-numbers language-lang-go"><code class="language-lang-go">a := 1
-b := 2
+<span class="token comment" spellcheck="true">// var常用在这种方式</span>
+<span class="token keyword">var</span> a <span class="token builtin">int</span>
+a <span class="token operator">=</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="变量交换"><a href="#变量交换" class="headerlink" title="变量交换"></a>变量交换</h2><pre class="line-numbers language-go"><code class="language-go">a <span class="token operator">:=</span> <span class="token number">1</span>
+b <span class="token operator">:=</span> <span class="token number">2</span>
 
 
-tmp := a
-a = b
-b = tmp
+tmp <span class="token operator">:=</span> a
+a <span class="token operator">=</span> b
+b <span class="token operator">=</span> tmp
 
-// 正确方法
-a, b = b, a
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment" spellcheck="true">// 正确方法</span>
+a<span class="token punctuation">,</span> b <span class="token operator">=</span> b<span class="token punctuation">,</span> a<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="常量定义-iota"><a href="#常量定义-iota" class="headerlink" title="常量定义 (iota)"></a>常量定义 (iota)</h2><p><strong>iota 只可以用在常量定义</strong></p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">// 每次 const 出现时，都会让 iota 初始化为0.
-const a = iota // a=0 
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// 每次 const 出现时，都会让 iota 初始化为0.</span>
+<span class="token keyword">const</span> a <span class="token operator">=</span> <span class="token boolean">iota</span> <span class="token comment" spellcheck="true">// a=0 </span>
 
-const (
-    Monday = iota +1 //1
-    Tuesday        //2
-    Wednesday             //3
-    Thursday             //4
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+    Monday <span class="token operator">=</span> <span class="token boolean">iota</span> <span class="token operator">+</span><span class="token number">1</span> <span class="token comment" spellcheck="true">//1</span>
+    Tuesday        <span class="token comment" spellcheck="true">//2</span>
+    Wednesday             <span class="token comment" spellcheck="true">//3</span>
+    Thursday             <span class="token comment" spellcheck="true">//4</span>
     Friday
     Saturday
     Sunday
-)
+<span class="token punctuation">)</span>
 
-const (
-        Open = 1 << iota //001
-    Close                         //010    
-    Pending                     //100
-)
-// 可跳过的值
-const (
-    OutMute AudioOutput = iota // 0
-    OutMono                    // 1
-    _                                                     // 跳过
-    OutSurround                // 3
-)
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+        Open <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token boolean">iota</span> <span class="token comment" spellcheck="true">//001</span>
+    Close                         <span class="token comment" spellcheck="true">//010    </span>
+    Pending                     <span class="token comment" spellcheck="true">//100</span>
+<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 可跳过的值</span>
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+    OutMute AudioOutput <span class="token operator">=</span> <span class="token boolean">iota</span> <span class="token comment" spellcheck="true">// 0</span>
+    OutMono                    <span class="token comment" spellcheck="true">// 1</span>
+    <span class="token boolean">_</span>                                                     <span class="token comment" spellcheck="true">// 跳过</span>
+    OutSurround                <span class="token comment" spellcheck="true">// 3</span>
+<span class="token punctuation">)</span>
 
-// 定义数量级
-const (
-    _  = iota   // ignore first value by assigning to blank identifier
-    KB ByteSize = 1 << (10 * iota) // 1 << (10*1)
-    MB          // 1 << (10*2)
-    GB          // 1 << (10*3)
-    TB          // 1 << (10*4)
-    PB          // 1 << (10*5)
-    EB          // 1 << (10*6)
-    ZB          // 1 << (10*7)
-    YB          // 1 << (10*8)
-)
+<span class="token comment" spellcheck="true">// 定义数量级</span>
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+    <span class="token boolean">_</span>  <span class="token operator">=</span> <span class="token boolean">iota</span>   <span class="token comment" spellcheck="true">// ignore first value by assigning to blank identifier</span>
+    KB ByteSize <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token punctuation">(</span><span class="token number">10</span> <span class="token operator">*</span> <span class="token boolean">iota</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 1 &lt;&lt; (10*1)</span>
+    MB          <span class="token comment" spellcheck="true">// 1 &lt;&lt; (10*2)</span>
+    GB          <span class="token comment" spellcheck="true">// 1 &lt;&lt; (10*3)</span>
+    TB          <span class="token comment" spellcheck="true">// 1 &lt;&lt; (10*4)</span>
+    PB          <span class="token comment" spellcheck="true">// 1 &lt;&lt; (10*5)</span>
+    EB          <span class="token comment" spellcheck="true">// 1 &lt;&lt; (10*6)</span>
+    ZB          <span class="token comment" spellcheck="true">// 1 &lt;&lt; (10*7)</span>
+    YB          <span class="token comment" spellcheck="true">// 1 &lt;&lt; (10*8)</span>
+<span class="token punctuation">)</span>
 
-const (
-    i = iota //0
-    j = 3.14
-    k = iota //2
-    l        //3
-)
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+    i <span class="token operator">=</span> <span class="token boolean">iota</span> <span class="token comment" spellcheck="true">//0</span>
+    j <span class="token operator">=</span> <span class="token number">3.14</span>
+    k <span class="token operator">=</span> <span class="token boolean">iota</span> <span class="token comment" spellcheck="true">//2</span>
+    l        <span class="token comment" spellcheck="true">//3</span>
+<span class="token punctuation">)</span>
 
-const (
-    i = iota //0
-    j = 3.14
-    k               //3.14
-    l        //3.14
-)
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+    i <span class="token operator">=</span> <span class="token boolean">iota</span> <span class="token comment" spellcheck="true">//0</span>
+    j <span class="token operator">=</span> <span class="token number">3.14</span>
+    k               <span class="token comment" spellcheck="true">//3.14</span>
+    l        <span class="token comment" spellcheck="true">//3.14</span>
+<span class="token punctuation">)</span>
 
-const (
-    Apple, Banana = iota + 1, iota + 2 // 1, 2
-    Cherimoya, Durian                                     // 2, 3
-    Elderberry, Fig                                         // 3, 4
-)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><pre class="line-numbers language-lang-go"><code class="language-lang-go">bool
-string
-int int8 int16 int32 int64
-uint uint8 uint16 uint32 uint64 uintptr
-byte // uint8
-rune // int32 代表一个Unicode code point 
-float32 float64
-complex64 complex128 //复数类型
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+    Apple<span class="token punctuation">,</span> Banana <span class="token operator">=</span> <span class="token boolean">iota</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token boolean">iota</span> <span class="token operator">+</span> <span class="token number">2</span> <span class="token comment" spellcheck="true">// 1, 2</span>
+    Cherimoya<span class="token punctuation">,</span> Durian                                     <span class="token comment" spellcheck="true">// 2, 3</span>
+    Elderberry<span class="token punctuation">,</span> Fig                                         <span class="token comment" spellcheck="true">// 3, 4</span>
+<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><pre class="line-numbers language-go"><code class="language-go"><span class="token builtin">bool</span>
+<span class="token builtin">string</span>
+<span class="token builtin">int</span> <span class="token builtin">int8</span> <span class="token builtin">int16</span> <span class="token builtin">int32</span> <span class="token builtin">int64</span>
+<span class="token builtin">uint</span> <span class="token builtin">uint8</span> <span class="token builtin">uint16</span> <span class="token builtin">uint32</span> <span class="token builtin">uint64</span> <span class="token builtin">uintptr</span>
+<span class="token builtin">byte</span> <span class="token comment" spellcheck="true">// uint8</span>
+<span class="token builtin">rune</span> <span class="token comment" spellcheck="true">// int32 代表一个Unicode code point </span>
+<span class="token builtin">float32</span> <span class="token builtin">float64</span>
+<span class="token builtin">complex64</span> <span class="token builtin">complex128</span> <span class="token comment" spellcheck="true">//复数类型</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="类型转化"><a href="#类型转化" class="headerlink" title="类型转化"></a>类型转化</h2><ol>
 <li>Go 语言不允许任何类型隐式类型转换</li>
 <li>别名和原有类型也不能进行隐式类型转换</li>
 </ol>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">type MyInt int64
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> MyInt <span class="token builtin">int64</span>
 
-func TestImplucit(t *testing.T) {
-    var a int32 = 1
-    var b int64
-    var c MyInt
-    b = a // wrong
-    c = b // wrong
-    b = int64(a)
-    c = MyInt(b)
-        t.Log(a, b, c)
+<span class="token keyword">func</span> <span class="token function">TestImplucit</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> a <span class="token builtin">int32</span> <span class="token operator">=</span> <span class="token number">1</span>
+    <span class="token keyword">var</span> b <span class="token builtin">int64</span>
+    <span class="token keyword">var</span> c MyInt
+    b <span class="token operator">=</span> a <span class="token comment" spellcheck="true">// wrong</span>
+    c <span class="token operator">=</span> b <span class="token comment" spellcheck="true">// wrong</span>
+    b <span class="token operator">=</span> <span class="token function">int64</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+    c <span class="token operator">=</span> <span class="token function">MyInt</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span>
+        t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">)</span>
 
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="类型的预定义值"><a href="#类型的预定义值" class="headerlink" title="类型的预定义值"></a>类型的预定义值</h2><ol>
 <li>math.MaxInt64</li>
 <li>math.MaxFloat64</li>
@@ -188,105 +186,98 @@ func TestImplucit(t *testing.T) {
 <li>不支持指针运算来访问连续的地址空间</li>
 <li>String 是值类型，其默认的初始值为空字符串， 而不是nil</li>
 </ol>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestPoint(t *testing.T) {
-    a := 1
-    aPtr := &a
-    t.Log(a, aPtr)                      // 1 0xc00009a158
-    t.Logf("%T %T", a, aPtr) //int *int
-      aPtr = aPtr + 1 //wrong
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestSting(t *testing.T) {
-    var s string 
-    t.Log("*" + s + "*") //**
-    t.Log(len(s)) //0
-    if s == "" { //字符串判断
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestPoint</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    a <span class="token operator">:=</span> <span class="token number">1</span>
+    aPtr <span class="token operator">:=</span> <span class="token operator">&amp;</span>a
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> aPtr<span class="token punctuation">)</span>                      <span class="token comment" spellcheck="true">// 1 0xc00009a158</span>
+    t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"%T %T"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> aPtr<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//int *int</span>
+      aPtr <span class="token operator">=</span> aPtr <span class="token operator">+</span> <span class="token number">1</span> <span class="token comment" spellcheck="true">//wrong</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestSting</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> s <span class="token builtin">string</span> 
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"*"</span> <span class="token operator">+</span> s <span class="token operator">+</span> <span class="token string">"*"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//**</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//0</span>
+    <span class="token keyword">if</span> s <span class="token operator">==</span> <span class="token string">""</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//字符串判断</span>
 
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>没有前置自增 ++a —a</p>
-<p>只有后置如 a— a++</p>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>没有前置自增 ++a –a</p>
+<p>只有后置如 a– a++</p>
 <h3 id="用-比较数组"><a href="#用-比较数组" class="headerlink" title="用 == 比较数组"></a>用 == 比较数组</h3><ul>
 <li>相同维数且含有相同个数元素的数组才可以比较</li>
 <li>每个元素都相等的才相等</li>
 </ul>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestCompareArray(t *testing.T) {
-    a := [...]int{1, 2, 3, 4}
-    b := [...]int{1, 2, 4, 6}
-    c := [...]int{1, 2, 3, 4, 454}
-    d := [...]int{1, 2, 3, 4}
-      e := [...]int{1, 2, 4, 3}
-    t.Log(a == b) //false
-    //t.Log(a == c) //直接报错
-    t.Log(a == d) //true
-      t.Log(a == e) //false
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestCompareArray</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    a <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span>
+    b <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">}</span>
+    c <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">454</span><span class="token punctuation">}</span>
+    d <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span>
+      e <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>a <span class="token operator">==</span> b<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//false</span>
+    <span class="token comment" spellcheck="true">//t.Log(a == c) //直接报错</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>a <span class="token operator">==</span> d<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//true</span>
+      t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>a <span class="token operator">==</span> e<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//false</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="amp-按位清零"><a href="#amp-按位清零" class="headerlink" title="&amp;^ 按位清零"></a>&amp;^ 按位清零</h3><p>只要右边操作数上某位为一，就把左边相应位清零，否则保留</p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">1 &^ 0 -- 1
-1 &^ 1 -- 0
-0 &^ 1 -- 0
-0 &^ 0 -- 0
+<pre class="line-numbers language-go"><code class="language-go"><span class="token number">1</span> <span class="token operator">&amp;^</span> <span class="token number">0</span> <span class="token operator">--</span> <span class="token number">1</span>
+<span class="token number">1</span> <span class="token operator">&amp;^</span> <span class="token number">1</span> <span class="token operator">--</span> <span class="token number">0</span>
+<span class="token number">0</span> <span class="token operator">&amp;^</span> <span class="token number">1</span> <span class="token operator">--</span> <span class="token number">0</span>
+<span class="token number">0</span> <span class="token operator">&amp;^</span> <span class="token number">0</span> <span class="token operator">--</span> <span class="token number">0</span>
 
-const (
-    Readable = 1 << iota
+<span class="token keyword">const</span> <span class="token punctuation">(</span>
+    Readable <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token boolean">iota</span>
     Writeable
     Executavle
-)
+<span class="token punctuation">)</span>
 
-func TestBitClear(t *testing.T) {
-    a := 7 //0111
-    a = a &^ Readable //Readable 清零
-    t.Log(a&Readable == Readable, a&Writeable == Writeable, a&Executavle == Executavle)
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">func</span> <span class="token function">TestBitClear</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    a <span class="token operator">:=</span> <span class="token number">7</span> <span class="token comment" spellcheck="true">//0111</span>
+    a <span class="token operator">=</span> a <span class="token operator">&amp;^</span> Readable <span class="token comment" spellcheck="true">//Readable 清零</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>a<span class="token operator">&amp;</span>Readable <span class="token operator">==</span> Readable<span class="token punctuation">,</span> a<span class="token operator">&amp;</span>Writeable <span class="token operator">==</span> Writeable<span class="token punctuation">,</span> a<span class="token operator">&amp;</span>Executavle <span class="token operator">==</span> Executavle<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="循环和条件"><a href="#循环和条件" class="headerlink" title="循环和条件"></a>循环和条件</h2><h3 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h3><p>Go 语言仅支持循环关键字 for</p>
 <p>for <del>(</del>j := 7; j &lt; 9; j++<del>)</del> 不需要括号</p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">//表示while循环
-// while(n<5)
-n := 0
-for n < 5 {
-  n++
-  fmt.Println(n)
-}
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">//表示while循环</span>
+<span class="token comment" spellcheck="true">// while(n&lt;5)</span>
+n <span class="token operator">:=</span> <span class="token number">0</span>
+<span class="token keyword">for</span> n <span class="token operator">&lt;</span> <span class="token number">5</span> <span class="token punctuation">{</span>
+  n<span class="token operator">++</span>
+  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-//无限循环
-//while(true)
-n:=0
-for {
+<span class="token comment" spellcheck="true">//无限循环</span>
+<span class="token comment" spellcheck="true">//while(true)</span>
+n<span class="token operator">:=</span><span class="token number">0</span>
+<span class="token keyword">for</span> <span class="token punctuation">{</span>
 
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>对应 for each</p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">// idx 索引值，e 为实际值
-// 不用索引值时用_代替
-for idx, e := range arr{
-        t.Log(idx, e)
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// idx 索引值，e 为实际值</span>
+<span class="token comment" spellcheck="true">// 不用索引值时用_代替</span>
+<span class="token keyword">for</span> idx<span class="token punctuation">,</span> e <span class="token operator">:=</span> <span class="token keyword">range</span> arr<span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>idx<span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="if条件"><a href="#if条件" class="headerlink" title="if条件"></a>if条件</h3><p>if 条件也是不需要括号</p>
 <h4 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h4><ol>
 <li><p>condition 表达式结果必须为布尔值</p>
 </li>
 <li><p>支持变量赋值：</p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go"> if var dec; condition {
+<pre class="line-numbers language-go"><code class="language-go"> <span class="token keyword">if</span> <span class="token keyword">var</span> dec<span class="token punctuation">;</span> condition <span class="token punctuation">{</span>
 
- }
+ <span class="token punctuation">}</span>
 
- if a := 1 == 1; a {
+ <span class="token keyword">if</span> a <span class="token operator">:=</span> <span class="token number">1</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">;</span> a <span class="token punctuation">{</span>
 
- }
+ <span class="token punctuation">}</span>
 
- /*
+ <span class="token comment" spellcheck="true">/*
  v, err err表示方法返回错误信息，然后根据err==nil处理
- */
- if v, err := someFunc(); err == nil {
-   t.Log("")
- }else{
+ */</span>
+ <span class="token keyword">if</span> v<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">someFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+   t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span>
+ <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
 
- }
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
 <h3 id="switch条件"><a href="#switch条件" class="headerlink" title="switch条件"></a>switch条件</h3><ol>
@@ -295,162 +286,151 @@ for idx, e := range arr{
 <li>与 C 语言等规则相反，Go 语言不需要用 break 来明确推出一个 case</li>
 <li>可以不设定 switch 之后的条件表达式，在此种情况下，整个 switch 结构与多个 if… else… 的逻辑作用等同</li>
 </ol>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">for i := 0; i < 5; i++ {
-        switch i { //有变量
-        case 0, 2:
-            t.Log("Even")
-        case 1, 3:
-            t.Log("Odd")
-        default:
-            t.Log("not 0-3")
-        }
-    }
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        <span class="token keyword">switch</span> i <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//有变量</span>
+        <span class="token keyword">case</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">:</span>
+            t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"Even"</span><span class="token punctuation">)</span>
+        <span class="token keyword">case</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">:</span>
+            t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"Odd"</span><span class="token punctuation">)</span>
+        <span class="token keyword">default</span><span class="token punctuation">:</span>
+            t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"not 0-3"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
 
-for i := 0; i < 5; i++ {
-        switch { //没有变量
-        case i%2 == 0:
-            t.Log("Even")
-        case (i & 0x1) == 1:
-            t.Log("Odd")
-        default:
-            t.Log("not 0-3")
-        }
-    }
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="数组和切片"><a href="#数组和切片" class="headerlink" title="数组和切片"></a>数组和切片</h2><h3 id="数组的声明"><a href="#数组的声明" class="headerlink" title="数组的声明"></a>数组的声明</h3><pre class="line-numbers language-lang-go"><code class="language-lang-go">var a [3]int //声明并初始化为默认零值
-a[0] = 1
-b := [3]int{1, 2, 3} //声明同时初始化
-arr := [...]int{1, 2, 3, 4, 5} //用三个点来数后面的长度
-c := [2][2]int{{1, 2}, {3, 4}} //多维数组初始化
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h4><pre class="line-numbers language-lang-go"><code class="language-lang-go">    arr := [...]int{1, 2, 3, 4, 5}
-    for i := 0; i < len(arr); i++ {
-        t.Log(arr[i])
-    }
-    for _, e := range arr {
-        t.Log(e)
-    }
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">5</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        <span class="token keyword">switch</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//没有变量</span>
+        <span class="token keyword">case</span> i<span class="token operator">%</span><span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"Even"</span><span class="token punctuation">)</span>
+        <span class="token keyword">case</span> <span class="token punctuation">(</span>i <span class="token operator">&amp;</span> <span class="token number">0x1</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"Odd"</span><span class="token punctuation">)</span>
+        <span class="token keyword">default</span><span class="token punctuation">:</span>
+            t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"not 0-3"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="数组和切片"><a href="#数组和切片" class="headerlink" title="数组和切片"></a>数组和切片</h2><h3 id="数组的声明"><a href="#数组的声明" class="headerlink" title="数组的声明"></a>数组的声明</h3><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">var</span> a <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token builtin">int</span> <span class="token comment" spellcheck="true">//声明并初始化为默认零值</span>
+a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+b <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//声明同时初始化</span>
+arr <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//用三个点来数后面的长度</span>
+c <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//多维数组初始化</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h4><pre class="line-numbers language-go"><code class="language-go">    arr <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token function">len</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> e <span class="token operator">:=</span> <span class="token keyword">range</span> arr <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="数组截取"><a href="#数组截取" class="headerlink" title="数组截取"></a>数组截取</h4><p>a[开始索引（包含），结束索引（不包含）]</p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">arr := [...]int{1, 2, 3, 4, 5}
-a[1:2] //2
-a[1:len(a)] //2, 3, 4, 5
-a[1:] //2345
-a[:3] //123
-a[:] //所有
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go">arr <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span>
+a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">//2</span>
+a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token function">len</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">//2, 3, 4, 5</span>
+a<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">//2345</span>
+a<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">//123</span>
+a<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">//所有</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>不支持负数</strong></p>
 <h3 id="切片内部结构"><a href="#切片内部结构" class="headerlink" title="切片内部结构"></a>切片内部结构</h3><p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Jietu20191023-113508.jpg" alt="image"></p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestSliceInit(t *testing.T) {
-    var s0 []int
-    t.Log(len(s0), cap(s0)) // 0 0
-    s0 = append(s0, 1)
-    t.Log(len(s0), cap(s0)) // 1 1
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h4><pre class="line-numbers language-lang-go"><code class="language-lang-go">var s0 []int
-s := []int{}
-s1 := []int{1, 2, 3, 4}
-s2 := make([]int, 3, 5) //len, cap
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestSliceInit</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> s0 <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>s0<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">cap</span><span class="token punctuation">(</span>s0<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 0 0</span>
+    s0 <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>s0<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>s0<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">cap</span><span class="token punctuation">(</span>s0<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 1 1</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h4><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">var</span> s0 <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span>
+s <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+s1 <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span>
+s2 <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//len, cap</span>
 
-t.Log(len(s1), cap(s1)) //4 4
-t.Log(len(s2), cap(s2)) //3 5
-t.Log(s2[0], s2[1], s2[2], s2[3])  //s2[3] 没有初始化，报错
+t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>s1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">cap</span><span class="token punctuation">(</span>s1<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//4 4</span>
+t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>s2<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">cap</span><span class="token punctuation">(</span>s2<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//3 5</span>
+t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>s2<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> s2<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> s2<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> s2<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">//s2[3] 没有初始化，报错</span>
 
-s2 = append(s2, 1)
-t.Log(s2[0], s2[1], s2[2], s2[3]) //0 0 0 1
-//由此体会len cap区别
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+s2 <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>s2<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>s2<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> s2<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> s2<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> s2<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//0 0 0 1</span>
+<span class="token comment" spellcheck="true">//由此体会len cap区别</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>[]type, len, cap</code></p>
 <p>其中len个元素会被初始化为默认零值，未初始化元素不可以访问</p>
 <h4 id="切片共享存储结构"><a href="#切片共享存储结构" class="headerlink" title="切片共享存储结构"></a>切片共享存储结构</h4><p>多个切片指向同一存储地址</p>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Jietu20191023-114802.jpg" alt="img"></p>
-<h5 id="切片的增长"><a href="#切片的增长" class="headerlink" title="切片的增长"></a>切片的增长</h5><pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestSliceGrowing(t *testing.T) {
-    s := []int{}
-    for i := 0; i < 10; i++ {
-        s = append(s, i)
-        t.Log(len(s), cap(s))
-    }
-}
+<h5 id="切片的增长"><a href="#切片的增长" class="headerlink" title="切片的增长"></a>切片的增长</h5><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestSliceGrowing</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    s <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        s <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> i<span class="token punctuation">)</span>
+        t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">cap</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>注意Q2 := year[3:6]，summer := year[5:8] 之后的cap变化</p>
 </blockquote>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestSliceShareMemory(t *testing.T) {
-    year := []string{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
-    Q2 := year[3:6]
-    t.Log(Q2, len(Q2), cap(Q2))                         // [Apr May Jun] 3 9
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestSliceShareMemory</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    year <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span><span class="token string">"Jan"</span><span class="token punctuation">,</span> <span class="token string">"Feb"</span><span class="token punctuation">,</span> <span class="token string">"Mar"</span><span class="token punctuation">,</span> <span class="token string">"Apr"</span><span class="token punctuation">,</span> <span class="token string">"May"</span><span class="token punctuation">,</span> <span class="token string">"Jun"</span><span class="token punctuation">,</span> <span class="token string">"Jul"</span><span class="token punctuation">,</span> <span class="token string">"Aug"</span><span class="token punctuation">,</span> <span class="token string">"Sep"</span><span class="token punctuation">,</span> <span class="token string">"Oct"</span><span class="token punctuation">,</span> <span class="token string">"Nov"</span><span class="token punctuation">,</span> <span class="token string">"Dec"</span><span class="token punctuation">}</span>
+    Q2 <span class="token operator">:=</span> year<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">:</span><span class="token number">6</span><span class="token punctuation">]</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>Q2<span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>Q2<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">cap</span><span class="token punctuation">(</span>Q2<span class="token punctuation">)</span><span class="token punctuation">)</span>                         <span class="token comment" spellcheck="true">// [Apr May Jun] 3 9</span>
 
-  summer := year[5:8]
-    t.Log(summer, len(summer), cap(summer)) //[Jun Jul Aug] 3 7
+  summer <span class="token operator">:=</span> year<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">:</span><span class="token number">8</span><span class="token punctuation">]</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>summer<span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>summer<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">cap</span><span class="token punctuation">(</span>summer<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//[Jun Jul Aug] 3 7</span>
 
-  summer[0] = "Unkonw"
-    t.Log(Q2)                                                             //[Apr May Unkonw]
+  summer<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"Unkonw"</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>Q2<span class="token punctuation">)</span>                                                             <span class="token comment" spellcheck="true">//[Apr May Unkonw]</span>
 
-  t.Log(year)                                                //[Jan Feb Mar Apr May Unkonw Jul Aug Sep Oct Nov Dec]
+  t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>year<span class="token punctuation">)</span>                                                <span class="token comment" spellcheck="true">//[Jan Feb Mar Apr May Unkonw Jul Aug Sep Oct Nov Dec]</span>
 
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="数组-vs-切片"><a href="#数组-vs-切片" class="headerlink" title="数组 vs. 切片"></a>数组 vs. 切片</h3><ol>
 <li>容量是否可以伸缩</li>
 <li>是否可以进行比较</li>
 </ol>
 <p>切片只有为空（ <strong>nil</strong> ）的时候才可以比较</p>
-<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><h3 id="声明-1"><a href="#声明-1" class="headerlink" title="声明"></a>声明</h3><pre class="line-numbers language-lang-go"><code class="language-lang-go">m := map[string]int{"one":1, "two":2, "three":3}
-m1 := map[string]int{}
-m1["one"] = 1
-m2 := make(map[string]int, 10/*初始化cap*/)
-// 没有初始len 因为无法默认初始化
-// s2 := make([]int, 3, 5) //len, cap
+<h2 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h2><h3 id="声明-1"><a href="#声明-1" class="headerlink" title="声明"></a>声明</h3><pre class="line-numbers language-go"><code class="language-go">m <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token string">"one"</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">}</span>
+m1 <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+m1<span class="token punctuation">[</span><span class="token string">"one"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+m2 <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token comment" spellcheck="true">/*初始化cap*/</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// 没有初始len 因为无法默认初始化</span>
+<span class="token comment" spellcheck="true">// s2 := make([]int, 3, 5) //len, cap</span>
 
 
-func TestInitMap(t *testing.T) {
-    m1 := map[int]int{1: 1, 2: 2, 3: 3}
-    t.Log(m1[2])
-    t.Logf("len m1 = %d", len(m1))
-    m2 := map[int]int{}
-    m2[4] = 16
-    t.Logf("len m2 = %d", len(m2))
-    m3 := make(map[int]int, 10)
-    t.Logf("len m3 = %d", len(m3))
-  //无法求cap(m3)
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="零值与不存在"><a href="#零值与不存在" class="headerlink" title="零值与不存在"></a>零值与不存在</h3><pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestAccessNotExistingKey(t *testing.T) {
-    m1 := map[int]int{}
-    t.Log(m1[1]) // 0
-    m1[2] = 0
-    t.Log(m1[2])  //0
-  //都是0.如何判断是不存在key还是本来就是0呢？
-    if v, ok := m1[3]; ok { //key, bool
-        t.Log("key exist", v)
-    } else {
-        t.Log("key 3 is not exist")
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">func</span> <span class="token function">TestInitMap</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    m1 <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>m1<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"len m1 = %d"</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>m1<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    m2 <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    m2<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">16</span>
+    t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"len m2 = %d"</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>m2<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    m3 <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+    t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"len m3 = %d"</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>m3<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token comment" spellcheck="true">//无法求cap(m3)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="零值与不存在"><a href="#零值与不存在" class="headerlink" title="零值与不存在"></a>零值与不存在</h3><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestAccessNotExistingKey</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    m1 <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>m1<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 0</span>
+    m1<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>m1<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">//0</span>
+  <span class="token comment" spellcheck="true">//都是0.如何判断是不存在key还是本来就是0呢？</span>
+    <span class="token keyword">if</span> v<span class="token punctuation">,</span> ok <span class="token operator">:=</span> m1<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//key, bool</span>
+        t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"key exist"</span><span class="token punctuation">,</span> v<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"key 3 is not exist"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>通过判断返回nil来判断元素是否存在</p>
-<h3 id="遍历-1"><a href="#遍历-1" class="headerlink" title="遍历"></a>遍历</h3><pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestTravelMap(t *testing.T) {
-    m1 := map[int]int{1: 1, 2: 2, 3: 3}
-    for key, value := range m1 {
-        t.Log(key, value)
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="遍历-1"><a href="#遍历-1" class="headerlink" title="遍历"></a>遍历</h3><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestTravelMap</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    m1 <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span>
+    <span class="token keyword">for</span> key<span class="token punctuation">,</span> value <span class="token operator">:=</span> <span class="token keyword">range</span> m1 <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="Map与工厂模式"><a href="#Map与工厂模式" class="headerlink" title="Map与工厂模式"></a>Map与工厂模式</h3><ul>
 <li>Map 的 value 可以是一个方法</li>
 <li>与 Go 的 Dock type 接口方式一起，可以方便的实现单一方法对象的工厂模式</li>
 </ul>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestMapWithFunValue(t *testing.T) {
-    m := map[int]func(op int) int{}
-    m[1] = func(op int) int { return op }
-    m[2] = func(op int) int { return op * op }
-    m[3] = func(op int) int { return op * op * op }
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestMapWithFunValue</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    m <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token keyword">func</span><span class="token punctuation">(</span>op <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    m<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>op <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> op <span class="token punctuation">}</span>
+    m<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>op <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> op <span class="token operator">*</span> op <span class="token punctuation">}</span>
+    m<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>op <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> op <span class="token operator">*</span> op <span class="token operator">*</span> op <span class="token punctuation">}</span>
 
-    t.Log(m[1](3), m[2](3), m[3](3)) // 3 9 27
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>m<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> m<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> m<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 3 9 27</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="实现Set"><a href="#实现Set" class="headerlink" title="实现Set"></a>实现Set</h2><p>Go 内置集合中没有set实现，可以map（map类型的key是不能重复），其本质就是一个List，只是List里的元素不能重复。</p>
 <ol>
 <li>元素的唯一性</li>
@@ -462,113 +442,108 @@ func TestInitMap(t *testing.T) {
 </ol>
 </li>
 </ol>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestMapForSet(t *testing.T) {
-    mySet := map[int]bool{}
-    mySet[1] = true
-    n := 1
-    if mySet[n] {
-        t.Logf("%d is existing", n)
-    } else {
-        t.Logf("%d is not existing", n)
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestMapForSet</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    mySet <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token builtin">bool</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    mySet<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span>
+    n <span class="token operator">:=</span> <span class="token number">1</span>
+    <span class="token keyword">if</span> mySet<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"%d is existing"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"%d is not existing"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span>
 
-    }
-    mySet[3] = true
-    t.Log(len(mySet))
-    delete(mySet, 1)
-    n = 1
-    if mySet[n] {
-        t.Logf("%d is existing", n)
-    } else {
-        t.Logf("%d is not existing", n)
+    <span class="token punctuation">}</span>
+    mySet<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>mySet<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token function">delete</span><span class="token punctuation">(</span>mySet<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    n <span class="token operator">=</span> <span class="token number">1</span>
+    <span class="token keyword">if</span> mySet<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"%d is existing"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"%d is not existing"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span>
 
-    }
-}
-1 is existing
-2
-1 is not existing
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token number">1</span> is existing
+<span class="token number">2</span>
+<span class="token number">1</span> is not existing<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><ol>
 <li>string 是数据类型，不是引用或指针类型</li>
 <li>string 是只读的 byte slice，len 函数可以它所包含的 byte 数</li>
 <li>string 的 byte 数组可以存放任何数据</li>
 </ol>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestString(t *testing.T) {
-    var s string // 初始化为默认零值
-    t.Log(len(s))
-    s = "hello"
-    t.Log(len(s))
-    // s[1] = '3' //string 是不可变的 byte slice
-    s = "\xE4\xB8\xA5" // 可以存储任何二进制数据
-    //
-    t.Log(s)
-}
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestString</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> s <span class="token builtin">string</span> <span class="token comment" spellcheck="true">// 初始化为默认零值</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    s <span class="token operator">=</span> <span class="token string">"hello"</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">// s[1] = '3' //string 是不可变的 byte slice</span>
+    s <span class="token operator">=</span> <span class="token string">"\xE4\xB8\xA5"</span> <span class="token comment" spellcheck="true">// 可以存储任何二进制数据</span>
+    <span class="token comment" spellcheck="true">//</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-0
-5
-严
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token number">0</span>
+<span class="token number">5</span>
+严<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="Unicode-UTF8"><a href="#Unicode-UTF8" class="headerlink" title="Unicode UTF8"></a>Unicode UTF8</h3><ol>
 <li>Unicode 是一种字符集（code point）</li>
 <li>UTF8 是 Unicode 的存储实现（转换为字节序列的规则）</li>
 </ol>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">s = "中"
-t.Log(len(s)) //是byte 数
-c := []rune(s)
-t.Log(len(s))
-t.Logf("中 unicode %x", c[0])
-t.Logf("中 UFT8 %x", s)
+<pre class="line-numbers language-go"><code class="language-go">s <span class="token operator">=</span> <span class="token string">"中"</span>
+t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//是byte 数</span>
+c <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">rune</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"中 unicode %x"</span><span class="token punctuation">,</span> c<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"中 UFT8 %x"</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span>
 
-// 中
-// 3
-// 中 unicode 4e2d
-// 中 UFT8 e4b8ad
-string/[]byte  [0xE4,0xB8,0xAD]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestStringToRune(t *testing.T) {
-    s := "中华人民共和国"
-    for _, c := range s {
-        t.Logf("%[1]c %[1]d", c)
-    }
-}
-中 20013
-华 21326
-人 20154
-民 27665
-共 20849
-和 21644
-国 22269
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment" spellcheck="true">// 中</span>
+<span class="token comment" spellcheck="true">// 3</span>
+<span class="token comment" spellcheck="true">// 中 unicode 4e2d</span>
+<span class="token comment" spellcheck="true">// 中 UFT8 e4b8ad</span>
+<span class="token builtin">string</span><span class="token operator">/</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span>  <span class="token punctuation">[</span><span class="token number">0xE4</span><span class="token punctuation">,</span><span class="token number">0xB8</span><span class="token punctuation">,</span><span class="token number">0xAD</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestStringToRune</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    s <span class="token operator">:=</span> <span class="token string">"中华人民共和国"</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> c <span class="token operator">:=</span> <span class="token keyword">range</span> s <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Logf</span><span class="token punctuation">(</span><span class="token string">"%[1]c %[1]d"</span><span class="token punctuation">,</span> c<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+中 <span class="token number">20013</span>
+华 <span class="token number">21326</span>
+人 <span class="token number">20154</span>
+民 <span class="token number">27665</span>
+共 <span class="token number">20849</span>
+和 <span class="token number">21644</span>
+国 <span class="token number">22269</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="常用字符串函数"><a href="#常用字符串函数" class="headerlink" title="常用字符串函数"></a>常用字符串函数</h3><ol>
 <li><a href="https://golang.org/pkg/strings" target="_blank" rel="noopener">strings 包</a></li>
 <li><a href="https://golang.org/pkg/strconv" target="_blank" rel="noopener">strconv 包</a></li>
 </ol>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">func TestStringFn(t *testing.T) {
-    s := "A,B,C"
-    parts := strings.Split(s, ",")
-    for _, part := range parts {
-        t.Log(part)
-    }
-    t.Log(strings.Join(parts, "-"))
-}
-/*
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">TestStringFn</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    s <span class="token operator">:=</span> <span class="token string">"A,B,C"</span>
+    parts <span class="token operator">:=</span> strings<span class="token punctuation">.</span><span class="token function">Split</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token string">","</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> part <span class="token operator">:=</span> <span class="token keyword">range</span> parts <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>part<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>strings<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span>parts<span class="token punctuation">,</span> <span class="token string">"-"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">/*
 A
 B
 C
 A-B-C
-*/
+*/</span>
 
-func TestStringConv(t *testing.T) {
-    s := strconv.Itoa(10)
-    t.Log("str" + s)
-    if i, err := strconv.Atoi("10"); err == nil {
-        t.Log(10 + i)
-    }
-}
-/*
+<span class="token keyword">func</span> <span class="token function">TestStringConv</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    s <span class="token operator">:=</span> strconv<span class="token punctuation">.</span><span class="token function">Itoa</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"str"</span> <span class="token operator">+</span> s<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> i<span class="token punctuation">,</span> err <span class="token operator">:=</span> strconv<span class="token punctuation">.</span><span class="token function">Atoi</span><span class="token punctuation">(</span><span class="token string">"10"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token number">10</span> <span class="token operator">+</span> i<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">/*
 str10
 20
-*/
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>注意 strconv.Atoi() 返回两个值，一个 bool 类型</strong></p>
 <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p><strong>函数是一等公民</strong></p>
 <ol>
@@ -577,64 +552,60 @@ str10
 <li>函数可以作为变量的值</li>
 <li>函数可以作为参数和返回值</li>
 </ol>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">func returnMultiValues() (int, int) {
-    return rand.Intn(10), rand.Intn(20)
-}
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">returnMultiValues</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> rand<span class="token punctuation">.</span><span class="token function">Intn</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rand<span class="token punctuation">.</span><span class="token function">Intn</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-func TestFn(t *testing.T) {
-    a, b := returnMultiValues()
-    t.Log(a, b)
-}
-// 1 7
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">func timeSpent(inner func(op int) int) func(op int) int {
-    return func(n int) int {
-        start := time.Now()
-        ret := inner(n)
-        fmt.Println("time spent:", time.Since(start).Seconds())
-        return ret
-    }
-}
+<span class="token keyword">func</span> <span class="token function">TestFn</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    a<span class="token punctuation">,</span> b <span class="token operator">:=</span> <span class="token function">returnMultiValues</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">// 1 7</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">timeSpent</span><span class="token punctuation">(</span>inner <span class="token keyword">func</span><span class="token punctuation">(</span>op <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token keyword">func</span><span class="token punctuation">(</span>op <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">func</span><span class="token punctuation">(</span>n <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+        start <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        ret <span class="token operator">:=</span> <span class="token function">inner</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"time spent:"</span><span class="token punctuation">,</span> time<span class="token punctuation">.</span><span class="token function">Since</span><span class="token punctuation">(</span>start<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Seconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> ret
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-func slowFun(op int) int {
-    time.Sleep(time.Second * 1)
-    return op
-}
+<span class="token keyword">func</span> <span class="token function">slowFun</span><span class="token punctuation">(</span>op <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Second <span class="token operator">*</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> op
+<span class="token punctuation">}</span>
 
-func TestFn(t *testing.T) {
-    tsSF := timeSpent(slowFun)
-    t.Log(tsSF(10))
-}
+<span class="token keyword">func</span> <span class="token function">TestFn</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    tsSF <span class="token operator">:=</span> <span class="token function">timeSpent</span><span class="token punctuation">(</span>slowFun<span class="token punctuation">)</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token function">tsSF</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-// time spent: 1.004492699
-// 10
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="函数：可变长参数及-defer"><a href="#函数：可变长参数及-defer" class="headerlink" title="函数：可变长参数及 defer"></a>函数：可变长参数及 defer</h3><h4 id="可变长"><a href="#可变长" class="headerlink" title="可变长"></a>可变长</h4><pre class="line-numbers language-lang-go"><code class="language-lang-go">func Sum(ops ...int) int {
-  s := 0
-  for _, op:= range ops {
-    s += op
-  }
-  return s
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment" spellcheck="true">// time spent: 1.004492699</span>
+<span class="token comment" spellcheck="true">// 10</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="函数：可变长参数及-defer"><a href="#函数：可变长参数及-defer" class="headerlink" title="函数：可变长参数及 defer"></a>函数：可变长参数及 defer</h3><h4 id="可变长"><a href="#可变长" class="headerlink" title="可变长"></a>可变长</h4><pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">Sum</span><span class="token punctuation">(</span>ops <span class="token operator">...</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+  s <span class="token operator">:=</span> <span class="token number">0</span>
+  <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> op<span class="token operator">:=</span> <span class="token keyword">range</span> ops <span class="token punctuation">{</span>
+    s <span class="token operator">+=</span> op
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> s
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h4><p>类似 finally 函数，函数返回之前执行</p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">func Clear() {
-  fmt.Println("Clear resources")
-}
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">Clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"Clear resources"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-func TestDefer(t *testing.T) {
-    // 匿名函数
-    defer func() {
-        t.Log("Clear resources")
-    }()
+<span class="token keyword">func</span> <span class="token function">TestDefer</span><span class="token punctuation">(</span>t <span class="token operator">*</span>testing<span class="token punctuation">.</span>T<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 匿名函数</span>
+    <span class="token keyword">defer</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"Clear resources"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-  // 非匿名函数
-  defer Clear()
-    t.Log("Started")
-    panic("Fatal error") //程序报错，defer 仍会执行
-  fmt.Println("End") // 报错，这行代码执行不到
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token comment" spellcheck="true">// 非匿名函数</span>
+  <span class="token keyword">defer</span> <span class="token function">Clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    t<span class="token punctuation">.</span><span class="token function">Log</span><span class="token punctuation">(</span><span class="token string">"Started"</span><span class="token punctuation">)</span>
+    <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"Fatal error"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//程序报错，defer 仍会执行</span>
+  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"End"</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 报错，这行代码执行不到</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/10/21/Golang-1/%20HeeC' target="_blank" rel="noopener"Blog%20Golang-1" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/10/22/Golang-2/" title="Golang-2"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Golang-2</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/10/06/C%E5%AD%A6%E4%B9%A0%EF%BC%88%E5%9B%9B%EF%BC%89/" title="C学习（四）">下一篇: C学习（四）&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
 var disqus_identifier = '2019/10/21/Golang-1/';
 var disqus_title = 'Golang-1';

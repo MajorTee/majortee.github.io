@@ -8,11 +8,9 @@ git"><meta name="keywords" content="text"><meta content="width=device-width, ini
 <h1 id="gitbook-build-生成的HTML无法跳转问题"><a href="#gitbook-build-生成的HTML无法跳转问题" class="headerlink" title="gitbook build 生成的HTML无法跳转问题"></a>gitbook build 生成的HTML无法跳转问题</h1><p>由于gitbook版本过高导致生成的html打开后无法跳转章节</p>
 <p>gitbook降低版本到 <strong>2.6.7</strong> 就可以了</p>
 <p>使用如下命令</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">gitbook build --gitbook=2.6.7
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">gitbook build --gitbook=2.6.7<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>如果遇到：</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">Error loading version latest: Error: Cannot find module 'internal/util/types'
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">Error loading version latest: Error: Cannot find module 'internal/util/types'<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <hr>
 <blockquote>
 <p><strong>将node版本降低:</strong></p>
@@ -78,9 +76,8 @@ git"><meta name="keywords" content="text"><meta content="width=device-width, ini
 </li>
 <li><p>管理员打开 gitbook serve .</p>
 </li>
-<li><pre class="line-numbers language-lang-bash"><code class="language-lang-bash">gitbook pdf .
-gitbook epub .
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<li><pre class="line-numbers language-bash"><code class="language-bash">gitbook pdf <span class="token keyword">.</span>
+gitbook epub <span class="token keyword">.</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 </ol>
 </p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/11/13/gitbook一些问题/%20HeeC' target="_blank" rel="noopener"Blog%20gitbook一些问题" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/11/14/%E5%A4%9Agit%E8%B4%A6%E5%8F%B7%E9%97%AE%E9%A2%98/" title="多git账号问题"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: 多git账号问题</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/11/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="机器学习基础知识">下一篇: 机器学习基础知识&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';

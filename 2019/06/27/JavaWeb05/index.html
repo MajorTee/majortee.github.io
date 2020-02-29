@@ -1,47 +1,44 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>JavaWeb05 · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="XML介绍
+
 1、表单提交方式
 使用submit提交
-
+&amp;lt;form&gt;
   .....
-  
-
-
+  &amp;lt;input type=&quot;submit&quot; /&gt;
+&amp;lt;/form&gt;
 
 使用button提交表单
 
 代码//实现提交方法
 function form1() {
   //获取form
-  var form1 = document.getElementById(&quot;form1&quot;);
-  //设置"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
+  var for"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>JavaWeb05</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-06-27</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/06/27/JavaWeb05/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/JavaWeb/" title="JavaWeb" class="a-tag">JavaWeb</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="XML介绍"><a href="#XML介绍" class="headerlink" title="XML介绍"></a>XML介绍</h1><a id="more"></a>
+
 <!-- hexo-inject:begin --><!-- hexo-inject:end --><h3 id="1、表单提交方式"><a href="#1、表单提交方式" class="headerlink" title="1、表单提交方式"></a>1、表单提交方式</h3><ul>
 <li><p>使用submit提交</p>
-<pre class="line-numbers language-lang-html"><code class="language-lang-html"><form>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span><span class="token punctuation">></span></span>
   .....
-  <input type="submit" />
-</form>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>使用button提交表单</p>
 <ul>
-<li>代码<pre class="line-numbers language-lang-js"><code class="language-lang-js">//实现提交方法
-function form1() {
-  //获取form
-  var form1 = document.getElementById("form1");
-  //设置action
-  form1.action = "hello.html";
-  //提交form表单
-  form1.submit();
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li>代码<pre class="line-numbers language-js"><code class="language-js"><span class="token comment" spellcheck="true">//实现提交方法</span>
+<span class="token keyword">function</span> <span class="token function">form1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">//获取form</span>
+  <span class="token keyword">var</span> form1 <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"form1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">//设置action</span>
+  form1<span class="token punctuation">.</span>action <span class="token operator">=</span> <span class="token string">"hello.html"</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">//提交form表单</span>
+  form1<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ul>
 </li>
 <li><p>使用超链接提交</p>
 <ul>
-<li>代码<pre class="line-numbers language-lang-html"><code class="language-lang-html"><a href="hello.html?username=123456">使用超链接提</a> //注意问号
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<li>代码<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hello.html?username<span class="token punctuation">=</span>123456<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>使用超链接提<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span> //注意问号<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 </ul>
 </li>
@@ -66,8 +63,7 @@ function form1() {
 * xml是w3c组织发布的技术
 
 * xml有两个版本 1.0  1.1
-    - 使用都是1.0版本，（1.1版本不能向下兼容）
-</code></pre><h3 id="3、xml的应用"><a href="#3、xml的应用" class="headerlink" title="3、xml的应用"></a>3、xml的应用</h3><ul>
+    - 使用都是1.0版本，（1.1版本不能向下兼容）</code></pre><h3 id="3、xml的应用"><a href="#3、xml的应用" class="headerlink" title="3、xml的应用"></a>3、xml的应用</h3><ul>
 <li><p>不同的系统之间传输数据</p>
 <ul>
 <li>qq之间数据的传输</li>
@@ -76,17 +72,19 @@ function form1() {
 </li>
 <li><p>用来表示生活中有关系的数据        </p>
 </li>
-<li>经常用在文件配置<ul>
+<li><p>经常用在文件配置</p>
+<ul>
 <li>比如现在连接数据库 肯定知道数据库的用户名和密码，数据名称 </li>
 <li>如果修改数据库的信息，不需要修改源代码，只要修改配置文件就可以了</li>
 </ul>
 </li>
 </ul>
 <h3 id="4、xml的语法"><a href="#4、xml的语法" class="headerlink" title="4、xml的语法"></a>4、xml的语法</h3><ol>
-<li>xml的文档声明（<em>*</em>）</li>
+<li>xml的文档声明（***）</li>
 </ol>
 <ul>
-<li>创建一个文件 后缀名是 .xml</li>
+<li><p>创建一个文件 后缀名是 .xml</p>
+</li>
 <li><p>如果写xml，第一步 必须要有 一个文档声明（写了文档声明之后，表示写xml文件的内容）<br>  <code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;gbk&quot;?&gt;</code></p>
 <ul>
 <li>文档声明必须写在 第一行第一列</li>
@@ -106,77 +104,76 @@ function form1() {
 </ul>
 </li>
 </ul>
-<ol>
-<li>定义元素（标签）（<em>*</em>）</li>
-<li>定义属性（<em>*</em>）</li>
-<li>注释（<em>*</em>）</li>
-<li>特殊字符（<em>*</em>）</li>
+<ol start="2">
+<li>定义元素（标签）（***）</li>
+<li>定义属性（***）</li>
+<li>注释（***）</li>
+<li>特殊字符（***）</li>
 <li>CDATA区（了解）</li>
 <li>PI指令（了解）</li>
 </ol>
-<h3 id="5、xml的元素（标签）定义（-）"><a href="#5、xml的元素（标签）定义（-）" class="headerlink" title="5、xml的元素（标签）定义（*）"></a>5、xml的元素（标签）定义（<strong>*</strong>）</h3><ul>
+<h3 id="5、xml的元素（标签）定义（-）"><a href="#5、xml的元素（标签）定义（-）" class="headerlink" title="5、xml的元素（标签）定义（*****）"></a>5、xml的元素（标签）定义（*****）</h3><ul>
 <li><p>标签定义</p>
 </li>
 <li><p>标签定义有开始必须要有结束：<person></person></p>
 </li>
-<li>标签没有内容，可以在标签内结束 ; <aa/></li>
-<li>标签可以嵌套，必须要合理嵌套<ul>
+<li><p>标签没有内容，可以在标签内结束 ; <aa></aa></p>
+</li>
+<li><p>标签可以嵌套，必须要合理嵌套</p>
+<ul>
 <li>合理嵌套 <aa><bb></bb></aa></li>
-<li>不合理嵌套 <aa><bb></aa>&lt;/bb&gt;: 这种方式是不正确的</li>
+<li>不合理嵌套 <aa><bb></bb></aa>: 这种方式是不正确的</li>
 </ul>
 </li>
 <li><p>一个xml中，只能有一个根标签，其他标签都是这个标签下面的标签</p>
 </li>
 <li><p>在xml中把空格和换行都当成内容来解析</p>
-<pre class="line-numbers language-lang-html"><code class="language-lang-html">//下面这两段代码含义是不一样的
-      * <aa>1111111</aa>
-      * <aa>
+<pre class="line-numbers language-html"><code class="language-html">//下面这两段代码含义是不一样的
+      * <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>aa</span><span class="token punctuation">></span></span>1111111<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>aa</span><span class="token punctuation">></span></span>
+      * <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>aa</span><span class="token punctuation">></span></span>
           11111111111
-        </aa>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>aa</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>xml标签可以是中文</p>
 </li>
 <li><p>xml中标签的名称规则</p>
 <ol>
-<li>xml代码区分大小写<br> \<p>\<P>:这两个标签是不一样的</li>
-<li>xml的标签不能以数字和下划线(_)开头<pre><code> \&lt;2a&gt;\&lt;_aa&gt;: 这样是不正确的
-</code></pre></li>
-<li>xml的标签不能以xml、XML、Xml等开头<pre><code> \&lt;xmla&gt; \&lt;XmlB&gt; \&lt;XMLC&gt;: 这些都是不正确的
-</code></pre></li>
-<li>xml的标签不能包含空格和冒号<pre><code> \&lt;a b&gt; \&lt;b:c&gt; : 这些是不正确的
-</code></pre></li>
+<li>xml代码区分大小写<br> &lt;p&gt;&lt;P&gt;:这两个标签是不一样的</li>
+<li>xml的标签不能以数字和下划线(_)开头<pre><code> \&lt;2a&gt;\&lt;_aa&gt;: 这样是不正确的</code></pre></li>
+<li>xml的标签不能以xml、XML、Xml等开头<pre><code> \&lt;xmla&gt; \&lt;XmlB&gt; \&lt;XMLC&gt;: 这些都是不正确的</code></pre></li>
+<li>xml的标签不能包含空格和冒号<pre><code> \&lt;a b&gt; \&lt;b:c&gt; : 这些是不正确的</code></pre></li>
 </ol>
 </li>
 </ul>
-<h3 id="6、xml中属性的定义（-）"><a href="#6、xml中属性的定义（-）" class="headerlink" title="6、xml中属性的定义（*）"></a>6、xml中属性的定义（<strong>*</strong>）</h3><ul>
-<li>html是标记型文档，可以有属性</li>
+<h3 id="6、xml中属性的定义（-）"><a href="#6、xml中属性的定义（-）" class="headerlink" title="6、xml中属性的定义（*****）"></a>6、xml中属性的定义（*****）</h3><ul>
+<li><p>html是标记型文档，可以有属性</p>
+</li>
 <li><p>xml也是标记型文档，可以有属性<br><code>&lt;person id1=&quot;aaa&quot; id2=&quot;bbb&quot;&gt;&lt;/person&gt;</code></p>
 </li>
 <li><p>属性定义的要求</p>
 <ol>
-<li>一个标签上可以有多个属性<br> <code>&lt;person id1=&quot;aaa&quot; id2=&quot;bbb&quot;&gt;&lt;/person&gt;</code><br>2.属性名称不能相同<br> <code>&lt;person id1=&quot;aaa&quot; id1=&quot;bbb&quot;&gt;&lt;/person&gt;：这个是不正确，不能有两个id1</code></li>
+<li>一个标签上可以有多个属性<br> <code>&lt;person id1=&quot;aaa&quot; id2=&quot;bbb&quot;&gt;&lt;/person&gt;</code></li>
+<li>属性名称不能相同<br>  <code>&lt;person id1=&quot;aaa&quot; id1=&quot;bbb&quot;&gt;&lt;/person&gt;：这个是不正确，不能有两个id1</code></li>
 <li>属性名称和属性值之间使用= ，属性值使用引号包起来 （可以是单引号，也可以是双引号 ）</li>
 <li>xml属性的名称规范和元素的名称规范一致</li>
 </ol>
 </li>
 </ul>
-<h3 id="7、xml中的注释（-）"><a href="#7、xml中的注释（-）" class="headerlink" title="7、xml中的注释（*）"></a>7、xml中的注释（<strong>*</strong>）</h3><ul>
+<h3 id="7、xml中的注释（-）"><a href="#7、xml中的注释（-）" class="headerlink" title="7、xml中的注释（*****）"></a>7、xml中的注释（*****）</h3><ul>
 <li><p>写法 </p>
-<p>\<!-- xml的注释 --></p>
+<p>&lt;!– xml的注释 –&gt;</p>
 <ul>
 <li>注意的地方</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>注释不能嵌套<pre><code>      `&lt;!--  &lt;!-- --&gt;  —&gt;`
-</code></pre>  <code>&lt;!-- &lt;!-- &lt;sex&gt;nv&lt;/sex&gt;--&gt; —&gt;</code><ul>
+<li>注释不能嵌套<pre><code>      `&lt;!--  &lt;!-- --&gt;  —&gt;`</code></pre>  <code>&lt;!-- &lt;!-- &lt;sex&gt;nv&lt;/sex&gt;--&gt; —&gt;</code><ul>
 <li>注释也不能放到第一行，第一行第一列必须放文档声明</li>
 </ul>
 </li>
 </ul>
-<h3 id="8、xml中的特殊字符（-）"><a href="#8、xml中的特殊字符（-）" class="headerlink" title="8、xml中的特殊字符（*）"></a>8、xml中的特殊字符（<strong>*</strong>）</h3><ul>
+<h3 id="8、xml中的特殊字符（-）"><a href="#8、xml中的特殊字符（-）" class="headerlink" title="8、xml中的特殊字符（*****）"></a>8、xml中的特殊字符（*****）</h3><ul>
 <li>如果想要在xml中现在 a&lt;b ,不能正常显示，因为把&lt;当做标签</li>
 <li>如果就想要显示，需要对特殊字符 &lt; 进行转义<br><code>&lt;    &amp;lt;</code><br><code>&gt;    &amp;gt;</code></li>
 </ul>
@@ -185,12 +182,12 @@ function form1() {
 <pre><code>  `&lt;![CDATA[ 内容  ]]&gt;`
 
   - 代码
-  `&lt;![CDATA[ &lt;b&gt;if(a&lt;b &amp;&amp; b&lt;c &amp;&amp; d&gt;f) {}&lt;/b&gt; ]]&gt;`
-</code></pre><p>  ** 把特殊字符，当做文本内容，而不是标签</p>
+  `&lt;![CDATA[ &lt;b&gt;if(a&lt;b &amp;&amp; b&lt;c &amp;&amp; d&gt;f) {}&lt;/b&gt; ]]&gt;`</code></pre><p>  ** 把特殊字符，当做文本内容，而不是标签</p>
 </li>
 </ul>
 <h3 id="10、PI指令（处理指令）（了解）"><a href="#10、PI指令（处理指令）（了解）" class="headerlink" title="10、PI指令（处理指令）（了解）"></a>10、PI指令（处理指令）（了解）</h3><ul>
-<li>可以在xml中设置样式</li>
+<li><p>可以在xml中设置样式</p>
+</li>
 <li><p>写法： <code>&lt;?xml-stylesheet type=&quot;text/css&quot; href=&quot;css的路径&quot;?&gt;</code></p>
 </li>
 <li><p>设置样式，只能对英文标签名称起作用，对于中文的标签名称不起作用的。</p>
@@ -201,8 +198,7 @@ function form1() {
   XML 文档必须有根元素(只有一个)
   XML 的属性值须加引号
   特殊字符必须转义 --- CDATA
-  XML 中的空格、回车换行会解析时被保留
-</code></pre></li>
+  XML 中的空格、回车换行会解析时被保留</code></pre></li>
 </ul>
 <h3 id="11、xml的约束"><a href="#11、xml的约束" class="headerlink" title="11、xml的约束"></a>11、xml的约束</h3><ul>
 <li><p>为什么需要约束？<br>比如现在定义一个person的xml文件，只想要这个文件里面保存人的信息，比如name age等，但是如果在xml文件中写了一个标签<code>&lt;猫&gt;</code>，发现可以正常显示，因为符合语法规范。但是猫肯定不是人的信息，xml的标签是自定义的，需要技术来规定xml中只能出现的元素，这个时候需要约束。</p>
@@ -220,40 +216,35 @@ function form1() {
       - 简单元素：没有子元素
           `&lt;!ELEMENT 元素名称 (#PCDATA)&gt;`
   （3）需要在xml文件中引入dtd文件
-      `&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd文件的路径&quot;&gt;`
-</code></pre><p>  ** 打开xml文件使用浏览器打开的，浏览器只负责校验xml的语法，不负责校验约束</p>
+      `&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd文件的路径&quot;&gt;`</code></pre><p>  ** 打开xml文件使用浏览器打开的，浏览器只负责校验xml的语法，不负责校验约束</p>
 <p>  ** 如果想要校验xml的约束，需要使用工具（myeclipse工具）</p>
 <p>  ** 打开myeclipse开发工具</p>
 <pre><code>  *** 创建一个项目 day05
   *** 在day05的src目录下面创建一个xml文件和一个dtd文件
-  *** 当xml中引入dtd文件之后，比如只能出现name age，多写了一个a，会提示出错
-</code></pre></li>
+  *** 当xml中引入dtd文件之后，比如只能出现name age，多写了一个a，会提示出错</code></pre></li>
 </ul>
 <h3 id="13、dtd的三种引入方式"><a href="#13、dtd的三种引入方式" class="headerlink" title="13、dtd的三种引入方式"></a>13、dtd的三种引入方式</h3><p>（1）引入外部的dtd文件<br>        <code>&lt;!DOCTYPE 根元素名称 SYSTEM &quot;dtd路径&quot;&gt;</code><br>（2）使用内部的dtd文件</p>
-<pre class="line-numbers language-lang-html"><code class="language-lang-html">    <!DOCTYPE 根元素名称 [
-        <!ELEMENT person (name,age)>
-        <!ELEMENT name (#PCDATA)>
-        <!ELEMENT age (#PCDATA)>
-    ]>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-html"><code class="language-html">    <span class="token doctype">&lt;!DOCTYPE 根元素名称 [
+        &lt;!ELEMENT person (name,age)></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">name</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">age</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
+    ]><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>（3）使用外部的dtd文件（网络上的dtd文件）</p>
-<pre class="line-numbers language-lang-html"><code class="language-lang-html">        <!DOCTYPE 根元素 PUBLIC "DTD名称" "DTD文档的URL">
+<pre class="line-numbers language-html"><code class="language-html">        <span class="token doctype">&lt;!DOCTYPE 根元素 PUBLIC "DTD名称" "DTD文档的URL"></span>
         - 后面学到框架 struts2 使用配置文件 使用 外部的dtd文件
-        - <!DOCTYPE struts PUBLIC   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"    
-           "http://struts.apache.org/dtds/struts-2.0.dtd">
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+        - <span class="token doctype">&lt;!DOCTYPE struts PUBLIC   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"    
+           "http://struts.apache.org/dtds/struts-2.0.dtd"></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="14、使用dtd定义元素"><a href="#14、使用dtd定义元素" class="headerlink" title="14、使用dtd定义元素"></a>14、使用dtd定义元素</h3><ul>
-<li>语法： <code>&lt;!ELEMENT 元素名 约束&gt;</code></li>
+<li><p>语法： <code>&lt;!ELEMENT 元素名 约束&gt;</code></p>
+</li>
 <li><p>简单元素：没有子元素的元素</p>
 <pre><code>  `&lt;!ELEMENT name (#PCDATA)&gt;`
   *** (#PCDATA): 约束name是字符串类型
   *** EMPTY : 元素为空（没有内容）
       - `&lt;sex&gt;&lt;/sex&gt;`
-  *** ANY:任意
-</code></pre><ul>
+  *** ANY:任意</code></pre><ul>
 <li><p>复杂元素：<br>  <code>&lt;!ELEMENT person (name,age,sex,school)&gt;</code></p>
-<pre><code>  - 子元素只能出现一次
-</code></pre><ul>
+<pre><code>  - 子元素只能出现一次</code></pre><ul>
 <li><p><code>&lt;!ELEMENT 元素名称 (子元素)&gt;</code></p>
 </li>
 <li><p>表示子元素出现的次数<br>  + : 表示一次或者多次<br>  ? ：表示零次或者一次<br>  * ：表示零次或者多次</p>
@@ -261,8 +252,7 @@ function form1() {
 </ul>
 </li>
 <li><p>子元素直接使用逗号进行隔开 </p>
-<pre><code>  ** 表示元素出现的顺序
-</code></pre><ul>
+<pre><code>  ** 表示元素出现的顺序</code></pre><ul>
 <li>子元素直接使用 <code>|</code>隔开<br>  ** 表示元素只能出现其中的任意一个</li>
 </ul>
 </li>
@@ -270,10 +260,9 @@ function form1() {
 </li>
 </ul>
 <h3 id="15、使用dtd定义属性"><a href="#15、使用dtd定义属性" class="headerlink" title="15、使用dtd定义属性"></a>15、使用dtd定义属性</h3><ul>
-<li><p>语法： \&lt;!ATTLIST 元素名称</p>
+<li><p>语法： &lt;!ATTLIST 元素名称</p>
 <pre><code>      属性名称 属性类型 属性的约束
-          \&gt;
-</code></pre></li>
+          \&gt;</code></pre></li>
 <li><p>属性类型</p>
 <pre><code>  - CDATA: 字符串
       -     \&lt;!ATTLIST birthday
@@ -284,8 +273,7 @@ function form1() {
       ** 红绿灯效果
       ** (aa|bb|cc)
       - &lt;!ATTLIST age
-          ID2 (AA|BB|CC)  #REQUIRED
-</code></pre></li>
+          ID2 (AA|BB|CC)  #REQUIRED</code></pre></li>
 </ul>
 <pre><code>        \&gt;
 
@@ -293,8 +281,7 @@ function form1() {
         - &lt;!ATTLIST name 
             ID3 ID   #REQUIRED
 
-            \&gt;
-</code></pre><ul>
+            \&gt;</code></pre><ul>
 <li><p>属性的约束</p>
 <ul>
 <li><p>#REQUIRED：属性必须存在</p>
@@ -305,32 +292,29 @@ function form1() {
 <pre><code>  - 属性的值必须是设置的这个固定值
   - &lt;!ATTLIST sex
       ID4 CDATA #FIXED &quot;ABC&quot;
-  &gt;
-</code></pre></li>
+  &gt;</code></pre></li>
 <li><p>直接值</p>
 <pre><code>  * 不写属性，使用直接值
   * 写了属性，使用设置那个值 (作为默认值)
   - \&lt;!ATTLIST school
       ID5 CDATA &quot;WWW&quot;
 
-      \&gt;
-</code></pre></li>
+      \&gt;</code></pre></li>
 </ul>
 </li>
 </ul>
 <h3 id="16、实体的定义"><a href="#16、实体的定义" class="headerlink" title="16、实体的定义"></a>16、实体的定义</h3><ul>
-<li><p>语法： <code>&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;</code><br><code>&lt;!ENTITY TEST &quot;HAHAHEHE&quot;&gt;</code><br>  <em>*</em> 使用实体  <code>&amp;实体名称</code>;  比如 <code>&amp;TEST</code>;</p>
+<li><p>语法： <code>&lt;!ENTITY 实体名称 &quot;实体的值&quot;&gt;</code><br><code>&lt;!ENTITY TEST &quot;HAHAHEHE&quot;&gt;</code><br>  *** 使用实体  <code>&amp;实体名称</code>;  比如 <code>&amp;TEST</code>;</p>
 <p>  ** 注意</p>
 <pre><code>  * 定义实体需要写在内部dtd里面，
-    如果写在外部的dtd里面，有某些浏览器下，内容得不到
-</code></pre></li>
+    如果写在外部的dtd里面，有某些浏览器下，内容得不到</code></pre></li>
 </ul>
 <h3 id="17、xml的解析的简介（写到java代码）（今天最重要的内容）"><a href="#17、xml的解析的简介（写到java代码）（今天最重要的内容）" class="headerlink" title="17、xml的解析的简介（写到java代码）（今天最重要的内容）"></a>17、xml的解析的简介（写到java代码）（<strong>今天最重要的内容</strong>）</h3><ul>
-<li>xml是标记型文档</li>
+<li><p>xml是标记型文档</p>
+</li>
 <li><p>js使用dom解析标记型文档？</p>
 <pre><code>  - 根据html的层级结构，在内存中分配一个树形结构，把html的标签，属性和文本都封装成对象
-  - document对象、element对象、属性对象、文本对象、Node节点对象
-</code></pre></li>
+  - document对象、element对象、属性对象、文本对象、Node节点对象</code></pre></li>
 <li><p>xml的解析方式（技术）：dom 和 sax</p>
 <pre><code>  ** 画图分析使用dom和sax解析xml过程
   *** dom解析和sax解析区别：
@@ -343,8 +327,7 @@ function form1() {
       * 采用事件驱动，边读边解析
           - 从上到下，一行一行的解析，解析到某一个对象，返回对象名称
       * 缺点：不能实现增删改操作
-      * 优点：如果文件过大，不会造成内存溢出，方便实现查询操作
-</code></pre></li>
+      * 优点：如果文件过大，不会造成内存溢出，方便实现查询操作</code></pre></li>
 <li><p>想要解析xml，首先需要解析器</p>
 <ul>
 <li>不同的公司和组织提供了 针对dom和sax方式的解析器，通过api方式提供</li>
@@ -362,8 +345,7 @@ function form1() {
       DocumentBuilder  : 解析器类
         - 这个类是一个抽象类，不能new，
 
-          此类的实例可以从 DocumentBuilderFactory.newDocumentBuilder() 方法获取
-</code></pre></li>
+          此类的实例可以从 DocumentBuilderFactory.newDocumentBuilder() 方法获取</code></pre></li>
 </ul>
 <pre><code>        - 一个方法，可以解析xml  parse(&quot;xml路径&quot;) 返回是 Document 整个文档
         - 返回的document是一个接口，父节点是Node，如果在document里面找不到想要的方法，到Node里面去找
@@ -404,11 +386,9 @@ function form1() {
 
 *** sax：
     SAXParser：解析器类
-    SAXParserFactory: 解析器工厂
-</code></pre><h3 id="19、使用jaxp实现查询操作"><a href="#19、使用jaxp实现查询操作" class="headerlink" title="19、使用jaxp实现查询操作"></a>19、使用jaxp实现查询操作</h3><p><strong>查询xml中所有的name元素的值</strong></p>
-<pre><code>* 步骤
-</code></pre><pre class="line-numbers language-lang-js"><code class="language-lang-js">    //查询所有name元素的值 java代码 ，用w3c的包
-    /*
+    SAXParserFactory: 解析器工厂</code></pre><h3 id="19、使用jaxp实现查询操作"><a href="#19、使用jaxp实现查询操作" class="headerlink" title="19、使用jaxp实现查询操作"></a>19、使用jaxp实现查询操作</h3><p><strong>查询xml中所有的name元素的值</strong></p>
+<pre><code>* 步骤</code></pre><pre class="line-numbers language-js"><code class="language-js">    <span class="token comment" spellcheck="true">//查询所有name元素的值 java代码 ，用w3c的包</span>
+    <span class="token comment" spellcheck="true">/*
      * 1、创建解析器工厂
          DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
      * 2、根据解析器工厂创建解析器
@@ -423,8 +403,7 @@ function form1() {
          Node name1 = nl.item(i) //得到每一个name元素
         - 得到元素里面值 使用 
          String s = name1.getTextContent() //得到元素值
-     * */
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     * */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>查询xml中第一个name元素的值</strong></p>
 <ul>
 <li>步骤<br>   /*<pre><code>   * 1、创建解析器工厂
@@ -436,92 +415,40 @@ function form1() {
       NodeList.item(下标)： 集合下标从0开始
    * 6、得到具体的值，使用 getTextContent方法
    * 
-   * */
-</code></pre></li>
+   * */</code></pre></li>
 </ul>
-<h3 id="20、使用jaxp添加节点"><a href="#20、使用jaxp添加节点" class="headerlink" title="20、使用jaxp添加节点"></a>20、使用jaxp添加节点</h3><p><strong>* 在第一个p1下面（末尾）添加 <sex>nv</sex>
-    </strong>步骤<br>    /*</p>
-<pre><code>     * 1、创建解析器工厂
-     * 2、根据解析器工厂创建解析器
-     * 3、解析xml，返回document
-     * 
-     * 4、得到第一个p1
-     *     - 得到所有p1，使用item方法下标得到
-     * 5、创建sex标签 createElement
-     * 6、创建文本 createTextNode
-     * 7、把文本添加到sex下面 appendChild
-     * 8、把sex添加到第一个p1下面　appendChild
-     * 
-     * 9、回写xml
-     * */
-</code></pre><p>code 创建对象等等跟上边一样</p>
-<pre class="line-numbers language-lang-js"><code class="language-lang-js">         Node p1 = nl.item(0);
-         Element gend = document.createElement("gender");
-         Text text = document.createTextNode("male"); //创建文本
-         gend.appendChild(text);//把文本添加到gend下边
-         p1.appendChild(gend);//gend节点添加到p1下边
+<h3 id="20、使用jaxp添加节点"><a href="#20、使用jaxp添加节点" class="headerlink" title="20、使用jaxp添加节点"></a>20、使用jaxp添加节点</h3><p><em>** 在第一个p1下面（末尾）添加 <sex>nv</sex><br>    **步骤<br>    /</em><br>         * 1、创建解析器工厂<br>         * 2、根据解析器工厂创建解析器<br>         * 3、解析xml，返回document<br>         *<br>         * 4、得到第一个p1<br>         *     - 得到所有p1，使用item方法下标得到<br>         * 5、创建sex标签 createElement<br>         * 6、创建文本 createTextNode<br>         * 7、把文本添加到sex下面 appendChild<br>         * 8、把sex添加到第一个p1下面　appendChild<br>         *<br>         * 9、回写xml<br>         * */</p>
+<p>code 创建对象等等跟上边一样</p>
+<pre class="line-numbers language-js"><code class="language-js">         Node p1 <span class="token operator">=</span> nl<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         Element gend <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">"gender"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         Text text <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createTextNode</span><span class="token punctuation">(</span><span class="token string">"male"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//创建文本</span>
+         gend<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//把文本添加到gend下边</span>
+         p1<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>gend<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//gend节点添加到p1下边</span>
 
-        //从内存写回文件
-         TransformerFactory transformerFactory = TransformerFactory.newInstance();
-         Transformer transformer = transformerFactory.newTransformer();
-         transformer.transform(new DOMSource(document), new StreamResult("src/person.xml"));
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="21、使用jaxp修改节点"><a href="#21、使用jaxp修改节点" class="headerlink" title="21、使用jaxp修改节点"></a>21、使用jaxp修改节点</h3><p><strong>* 修改第一个p1下面的sex内容是nan
-    </strong> 步骤<br>    /*</p>
-<pre><code>     * 1、创建解析器工厂
-     * 2、根据解析器工厂创建解析器
-     * 3、解析xml，返回document 
-     * 
-     * 4、得到sex item方法
-     * 5、修改sex里面的值  
-        *** setTextContent方法
-     * p1.setTextContent(&quot;female&quot;);
-     * 6、回写xml
-     * */
-</code></pre><h3 id="22、使用jaxp删除节点"><a href="#22、使用jaxp删除节点" class="headerlink" title="22、使用jaxp删除节点"></a>22、使用jaxp删除节点</h3><p><strong>* 删除\<sex>nan\</sex>节点
-    </strong> 步骤<br>    /*</p>
-<pre><code>     * 1、创建解析器工厂
-     * 2、根据解析器工厂创建解析器
-     * 3、解析xml，返回document 
-     * 
-     * 4、获取sex元素
-     * 5、获取sex的父节点  使用getParentNode方法
-     Node a = p1.getParentNode();
-     * 6、删除使用父节点删除  removeChild方法
-     * a.removeChild(p1);
-     * 7、回写xml
-     * */
-</code></pre><h3 id="23、使用jaxp遍历节点"><a href="#23、使用jaxp遍历节点" class="headerlink" title="23、使用jaxp遍历节点"></a>23、使用jaxp遍历节点</h3><p><strong> 把xml中的所有元素名称打印出来
-    </strong> 步骤<br>    /*</p>
-<pre><code>     * 1、创建解析器工厂
-     * 2、根据解析器工厂创建解析器
-     * 3、解析xml，返回document
-     * 
-     * ====使用递归实现=====
-     * 4、得到根节点
-     * 5、得到根节点子节点
-     * 6、得到根节点子节点的子节点
-     * */
-** 遍历的方法
-//递归遍历的方法
-</code></pre><pre class="line-numbers language-lang-js"><code class="language-lang-js">    private static void list1(Node node) {
-        //判断是元素类型时候才打印
-        if(node.getNodeType() == Node.ELEMENT_NODE) {    //判断类型        
-            System.out.println(node.getNodeName());
-        }
+        <span class="token comment" spellcheck="true">//从内存写回文件</span>
+         TransformerFactory transformerFactory <span class="token operator">=</span> TransformerFactory<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         Transformer transformer <span class="token operator">=</span> transformerFactory<span class="token punctuation">.</span><span class="token function">newTransformer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         transformer<span class="token punctuation">.</span><span class="token function">transform</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">DOMSource</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">StreamResult</span><span class="token punctuation">(</span><span class="token string">"src/person.xml"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="21、使用jaxp修改节点"><a href="#21、使用jaxp修改节点" class="headerlink" title="21、使用jaxp修改节点"></a>21、使用jaxp修改节点</h3><p><strong>* 修改第一个p1下面的sex内容是nan<br>    <em>* 步骤<br>    /</em><br>         * 1、创建解析器工厂<br>         * 2、根据解析器工厂创建解析器<br>         * 3、解析xml，返回document<br>         *<br>         * 4、得到sex item方法<br>         * 5、修改sex里面的值<br>            *</strong> setTextContent方法<br>         * p1.setTextContent(“female”);<br>         * 6、回写xml<br>         * */</p>
+<h3 id="22、使用jaxp删除节点"><a href="#22、使用jaxp删除节点" class="headerlink" title="22、使用jaxp删除节点"></a>22、使用jaxp删除节点</h3><p><em>** 删除&lt;sex&gt;nan&lt;/sex&gt;节点<br>    ** 步骤<br>    /</em><br>         * 1、创建解析器工厂<br>         * 2、根据解析器工厂创建解析器<br>         * 3、解析xml，返回document<br>         *<br>         * 4、获取sex元素<br>         * 5、获取sex的父节点  使用getParentNode方法<br>         Node a = p1.getParentNode();<br>         * 6、删除使用父节点删除  removeChild方法<br>         * a.removeChild(p1);<br>         * 7、回写xml<br>         * */</p>
+<h3 id="23、使用jaxp遍历节点"><a href="#23、使用jaxp遍历节点" class="headerlink" title="23、使用jaxp遍历节点"></a>23、使用jaxp遍历节点</h3><p><em>* 把xml中的所有元素名称打印出来<br>    ** 步骤<br>    /</em><br>         * 1、创建解析器工厂<br>         * 2、根据解析器工厂创建解析器<br>         * 3、解析xml，返回document<br>         *<br>         * ====使用递归实现=====<br>         * 4、得到根节点<br>         * 5、得到根节点子节点<br>         * 6、得到根节点子节点的子节点<br>         * <em>/<br>    *</em> 遍历的方法<br>    //递归遍历的方法</p>
+<pre class="line-numbers language-js"><code class="language-js">    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">list1</span><span class="token punctuation">(</span>Node node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//判断是元素类型时候才打印</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span><span class="token function">getNodeType</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> Node<span class="token punctuation">.</span>ELEMENT_NODE<span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token comment" spellcheck="true">//判断类型        </span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span><span class="token function">getNodeName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        //得到一层子节点
-        NodeList list = node.getChildNodes();
-        //遍历list
-        for(int i=0;i<list.getLength();i++) {
-            //得到每一个节点 如果列表为空，就自动不执行下边的递归调用了
-            Node node1 = list.item(i);
-            //继续得到node1的子节点
-            //node1.getChildNodes()
-            list1(node1);
-        }
-    }
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token comment" spellcheck="true">//得到一层子节点</span>
+        NodeList list <span class="token operator">=</span> node<span class="token punctuation">.</span><span class="token function">getChildNodes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//遍历list</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span>int i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>list<span class="token punctuation">.</span><span class="token function">getLength</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//得到每一个节点 如果列表为空，就自动不执行下边的递归调用了</span>
+            Node node1 <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">item</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//继续得到node1的子节点</span>
+            <span class="token comment" spellcheck="true">//node1.getChildNodes()</span>
+            <span class="token function">list1</span><span class="token punctuation">(</span>node1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/06/27/JavaWeb05/%20HeeC' target="_blank" rel="noopener"Blog%20JavaWeb05" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/06/28/OSTEP01/" title="操作系统 虚拟化 01"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: 操作系统 虚拟化 01</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/06/21/Golang%200.1/" title="Golang 0.1">下一篇: Golang 0.1&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
 var disqus_identifier = '2019/06/27/JavaWeb05/';
 var disqus_title = 'JavaWeb05';

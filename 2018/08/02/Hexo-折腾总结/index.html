@@ -5,12 +5,12 @@ title date 等等 后边要先加空格再写内容categories: tenserflow笔记 
 
 在Next主题中使用思源宋体，使用把Hexo博客NexT主题文章字体改成思源宋体，通过Adobe Typekit加载文章中的办法实施完成，其中对Hexo主目录的配置文件进行"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Hexo 折腾总结</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2018-08-02</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2018/08/02/Hexo-%E6%8A%98%E8%85%BE%E6%80%BB%E7%BB%93/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/经验/" title="经验" class="a-tag">经验</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Hexo/" title="Hexo" class="a-tag">Hexo</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="MD-格式"><a href="#MD-格式" class="headerlink" title="MD 格式"></a>MD 格式</h1><ul>
-<!-- hexo-inject:begin --><!-- hexo-inject:end --><li>title date 等等 后边要先加空格再写内容<pre><code>categories: tenserflow笔记 这个样子
-</code></pre></li>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><li>title date 等等 后边要先加空格再写内容<pre><code>categories: tenserflow笔记 这个样子</code></pre></li>
 </ul>
 <a id="more"></a>
+
 <p>在Next主题中使用思源宋体，使用<a href="http://t.cn/EvapEo9" target="_blank" rel="noopener">把Hexo博客NexT主题文章字体改成思源宋体，通过Adobe Typekit加载</a>文章中的办法实施完成，其中对Hexo主目录的配置文件进行设置过程中，从Next配置文件复制过来的custom_file_path: 信息没有注意缩进进关系，浪费很多时间。</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">theme_config:
+<pre class="line-numbers language-shell"><code class="language-shell">theme_config:
   custom_file_path:
     # Default paths: layout/_custom/*
     head: source/_data/head.swig
@@ -22,53 +22,48 @@ title date 等等 后边要先加空格再写内容categories: tenserflow笔记 
     # Default path: source/css/_mixins/custom.styl
     #mixins: source/_data/mixins.styl
     # Default path: source/css/_custom/custom.styl
-    #styles: source/_data/styles.styl
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    #styles: source/_data/styles.styl<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>以下作为备份引用：</p>
 <blockquote>
 <p>我想把文章字体改成思源宋体，NexT主题配置的设置字体中有通过_config.yml设置文件中的选项实现文章字体修改的：</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">font:
+</blockquote>
+<pre class="line-numbers language-shell"><code class="language-shell">font:
   enable: true
   # 外链字体库地址，例如 //fonts.googleapis.com (默认值)
   host:
   # 文章字体
   posts:
     external: true
-    family:
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    family:<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
 <p>但这个前提是要把外链字体库地址写好。但是Google Fonts尚未托管思源宋体，直接在这里写就不合适了。网上大家都是通过Adobe Typekit来实现思源宋体加载的，在Hexo中使用Typekit来加载思源宋体有相关文章涉及，如<a href="https://kylindc.github.io/post/37189/" target="_blank" rel="noopener">Hexo 折腾手记其一：使用 Adobe Typekit 云字体 (Web Font)</a>，不过在NexT主题中如何加载，似乎没有针对性的文章（Google搜索“Hexo NexT Typekit”没有得到针对性的结果），我自己稍微探索一下搞定了。<br>获取Adobe Typekit代码<br>如何获取Adobe Typekit代码，上述文章已有提及，这里注意注册Adobe ID时选择国家/地区时必须选择中国（China）以外的选项，<a href="https://helpx.adobe.com/typekit/using/typekit-unavailable.html" target="_blank" rel="noopener">因为根据Adobe的限制，Typekit在中国不能使用</a>，所以国家选择中国的Adobe ID进入Adobe Typekit会显示Access Denied。<br>进入<a href="https://typekit.com/" target="_blank" rel="noopener">Adobe Typekit</a>，创建Kit，找到Source Han Serif Simplified Chinese字体加入Kit中。加入时会提示要把Kit转化为使用Dynamic Link，应该是因为东亚字体太大，需要动态加载，这也是好事，这样就只动态加载需要的字形，而不用下载整个动辄几十M的字体。注意要点Publish，然后切换到Embed Code，可以看到相应的嵌入代码：</p>
 </blockquote>
-<pre class="line-numbers language-lang-js"><code class="language-lang-js"><script src="https://use.typekit.net/<Your_kitId>.js"></script>
-<script>try{Typekit.load({ async: true });}catch(e){}</script>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>其中<Your_kitId>为自己生成的Kit的ID。</p>
+<pre class="line-numbers language-js"><code class="language-js"><span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://use.typekit.net/&lt;Your_kitId>.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span>script<span class="token operator">></span><span class="token keyword">try</span><span class="token punctuation">{</span>Typekit<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token keyword">async</span><span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token keyword">catch</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>其中<Your_kitId>为自己生成的Kit的ID。</Your_kitId></p>
 <blockquote>
-<p>利用Data Files功能，加入Adobe Typekit代码及做文章字体设置<br>接下来就是让NexT主题加载Typekit的代码，并设置文章正文字体了。网上关于NexT主题改字体的非官方文章通常有一段时日了，除了改_config.yml之外，很多都提到直接修改themes/next主题目录内的文件来实现，但这样在主题更新时要处理一些文件冲突就比较麻烦。<br>其实NexT已经提供了Data Files功能，6.0.2版起更实现了通过此功能把主题的自定义设置文件可以都放在主题目录以外。所以可以方便地使用这个功能，把我们需要的代码放置在Hexo主目录下的设置文件_config.yml以及source/_data目录下的自定义设置文件里，这样可以直接与其他Hexo源文件一起用git同步，在以后更新NexT主题的文件时也不用担心主题设置丢失。<br>具体到加思源宋体这个问题，我们要放的有两个，一个是把上述Typekit代码放到站点的<head>里，要利用对head的自定义设置来实现；一个是指定文章正文使用思源宋体，这个要通过指定自定义的css variables来实现。这里我首先使用上述Data Files功能提到的Hexo-Way，将指定相关自定义文件路径的主题配置写在Hexo的_config.yml文件中：</p>
+<p>利用Data Files功能，加入Adobe Typekit代码及做文章字体设置<br>接下来就是让NexT主题加载Typekit的代码，并设置文章正文字体了。网上关于NexT主题改字体的非官方文章通常有一段时日了，除了改_config.yml之外，很多都提到直接修改themes/next主题目录内的文件来实现，但这样在主题更新时要处理一些文件冲突就比较麻烦。<br>其实NexT已经提供了Data Files功能，6.0.2版起更实现了通过此功能把主题的自定义设置文件可以都放在主题目录以外。所以可以方便地使用这个功能，把我们需要的代码放置在Hexo主目录下的设置文件_config.yml以及source/_data目录下的自定义设置文件里，这样可以直接与其他Hexo源文件一起用git同步，在以后更新NexT主题的文件时也不用担心主题设置丢失。<br>具体到加思源宋体这个问题，我们要放的有两个，一个是把上述Typekit代码放到站点的<head>里，要利用对head的自定义设置来实现；一个是指定文章正文使用思源宋体，这个要通过指定自定义的css variables来实现。这里我首先使用上述Data Files功能提到的Hexo-Way，将指定相关自定义文件路径的主题配置写在Hexo的_config.yml文件中：</head></p>
 </blockquote>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">theme: next
+<pre class="line-numbers language-shell"><code class="language-shell">theme: next
 theme_config:
   custom_file_path:
     # Default paths: layout/_custom/*
     head: source/_data/head.swig
     #header: source/_data/header.swig
-    #sidebar: source/_data/sidebar.swig
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">    # Default path: source/css/_variables/custom.styl
+    #sidebar: source/_data/sidebar.swig<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">    # Default path: source/css/_variables/custom.styl
     variables: source/_data/variables.styl
     # Default path: source/css/_mixins/custom.styl
     #mixins: source/_data/mixins.styl
     # Default path: source/css/_custom/custom.styl
-    #styles: source/_data/styles.styl
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    #styles: source/_data/styles.styl <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>把themes/next/_config.yml中的custom_file_path内容复制到Hexo主目录的_config.yml文件中，并把上述head和variables两个文件设置的注释取消，使其起效。<br>然后创建source/_data目录，新建head.swig和variables.styl两个文件。<br>head.swig文件中写入上述获取到的Typekit代码：</p>
-<pre class="line-numbers language-lang-js"><code class="language-lang-js"><script src="https://use.typekit.net/<Your_kitId>.js"></script>
-<script>try{Typekit.load({ async: true });}catch(e){}</script>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>variables.styl文件中则写入$font-family-posts变量设置：<br>variables.styl文件写入：</p>
 </blockquote>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">$font-family-posts        = "Noto Serif CJK SC", "Source Han Serif SC", "Source Han Serif", source-han-serif-sc, "宋体", serif, $font-family-base
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-js"><code class="language-js"><span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://use.typekit.net/&lt;Your_kitId>.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span>script<span class="token operator">></span><span class="token keyword">try</span><span class="token punctuation">{</span>Typekit<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token keyword">async</span><span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token keyword">catch</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>variables.styl文件中则写入$font-family-posts变量设置：<br>variables.styl文件写入：</p>
+<pre class="line-numbers language-shell"><code class="language-shell">$font-family-posts        = "Noto Serif CJK SC", "Source Han Serif SC", "Source Han Serif", source-han-serif-sc, "宋体", serif, $font-family-base<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><strong>同时可以把font-family-posts修改为headings、global、logo</strong><br>这个字体的写法参考了<a href="https://sspai.com/post/38705" target="_blank" rel="noopener">思源宋体，如何评价，以及如何正确使用</a>。上述写法把_config.yml文件里面的文章正文字体设置忽略掉，只用全局的$font-family-base做fallback。<br>完成以上设置，hexo clean，hexo g，hexo d后，文章正文就用上了思源宋体。</p>
 </p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2018/08/02/Hexo-折腾总结/%20HeeC' target="_blank" rel="noopener"Blog%20Hexo 折腾总结" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2018/09/15/Python%E7%90%86%E8%A7%A3%E7%82%B9/" title="Python理解点"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: Python理解点</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2018/08/02/K2P%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA%E6%B3%A8%E6%84%8F%E7%82%B9/" title="K2P路由器刷机注意点">下一篇: K2P路由器刷机注意点&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
 var disqus_identifier = '2018/08/02/Hexo-折腾总结/';

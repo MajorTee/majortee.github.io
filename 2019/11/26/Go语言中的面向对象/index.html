@@ -1,85 +1,81 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>Go语言中的面向对象 · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="来源 http://kangkona.github.io/categories/go/
 
 
+
 最近在思考Go语言中面向对象实现，感觉最初的设计者真是掐准了软件工程的命脉，优雅与实用恰到好处的结合，使得这门语言于平凡处见深刻。
 下面来剖析一下其中的一些设计点。
-类与类型golang中没有class关键字"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
+类与类型golang中没有class关键"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Go语言中的面向对象</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-11-26</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/11/26/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/Golang/" title="Golang" class="a-tag">Golang</a><span>&nbsp;</span></span></p><p class="post-abstract"><blockquote>
 <!-- hexo-inject:begin --><!-- hexo-inject:end --><p>来源 <a href="http://kangkona.github.io/categories/go/" target="_blank" rel="noopener">http://kangkona.github.io/categories/go/</a></p>
 </blockquote>
 <a id="more"></a>
+
 <p>最近在思考Go语言中面向对象实现，感觉最初的设计者真是掐准了软件工程的命脉，优雅与实用恰到好处的结合，使得这门语言于平凡处见深刻。</p>
 <p>下面来剖析一下其中的一些设计点。</p>
 <h1 id="类与类型"><a href="#类与类型" class="headerlink" title="类与类型"></a>类与类型</h1><p>golang中没有class关键字，却引入了type，二者不是简单的替换那么简单，type表达的涵义远比class要广。 主流的面向对象语言(C++, Java)不太强调类与类型的区别，本着一切皆对象的原则，类被设计成了一个对象生成器。这些语言中的类型是以类为基础的，即通过类来定义类型，类是这类语言的根基。与之不同，golang中更强调类型，你在这门语言中根本看不到类的影子。实现上述传统语言的class只是type功能的一部分：</p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">  type Mutex struct {
-      state int32
-      sema  uint32
-  }
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go">  <span class="token keyword">type</span> Mutex <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+      state <span class="token builtin">int32</span>
+      sema  <span class="token builtin">uint32</span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>此外，type还可以扩展已经定义的类型：</p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">    type Num int32
-    func (num Num) IsBigger(otherNum Num) bool {
-        return num > otherNum
-    }
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go">    <span class="token keyword">type</span> Num <span class="token builtin">int32</span>
+    <span class="token keyword">func</span> <span class="token punctuation">(</span>num Num<span class="token punctuation">)</span> <span class="token function">IsBigger</span><span class="token punctuation">(</span>otherNum Num<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> num <span class="token operator">></span> otherNum
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这种灵活的定义方式可以很好地提高程序的可扩展性,通过重命名原有类型，也可以做到一定程序上的解耦。</p>
 <p>传统对象型语言由于设计之初追求面向对象的彻底性，使得后来加入函数式对象时不得不Hack一把：C++很鸡贼地重载 <code>()</code> 实现:</p>
-<pre class="line-numbers language-lang-cpp"><code class="language-lang-cpp">class Adder{
-   public:
-     int operator() (int a, int b) {
-        return a+b;
-     }
-};
-int add(int a, int b, Adder& adder) {
-    return adder(a,b);
-}
-add(1, 3, new Adder);
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Adder</span><span class="token punctuation">{</span>
+   <span class="token keyword">public</span><span class="token operator">:</span>
+     <span class="token keyword">int</span> <span class="token keyword">operator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> a<span class="token operator">+</span>b<span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">,</span> Adder<span class="token operator">&amp;</span> adder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">adder</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token keyword">new</span> Adder<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java则憋了很久才憋出 <code>FunctionalInterface</code> (只有一个抽象方法的接口)可以无缝地与历史包袱兼容:</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public interface Displayer {
-    void display();
-}
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Displayer</span> <span class="token punctuation">{</span>
+    <span class="token keyword">void</span> <span class="token function">display</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-//Test class to implement above interface
-public class FunctionInterfaceTestImpl {
-     public static void main(String[] args) {
-     //Old way using anonymous inner class
-     Displayer oldWay = new Displayer(){
-        public void display(){
-           System.out.println("Display from old way");
-        }};
-     OldWay.display();//outputs: Display from old way
+<span class="token comment" spellcheck="true">//Test class to implement above interface</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FunctionInterfaceTestImpl</span> <span class="token punctuation">{</span>
+     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true">//Old way using anonymous inner class</span>
+     Displayer oldWay <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Displayer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">display</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+           System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Display from old way"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+     OldWay<span class="token punctuation">.</span><span class="token function">display</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//outputs: Display from old way</span>
 
-     //Using lambda expression
-     Displayer newWay = () -> {System.out.println("Display from new Lambda Expression");}
-     newWay.display();//outputs : Display from new Lambda Expression
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     <span class="token comment" spellcheck="true">//Using lambda expression</span>
+     Displayer newWay <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Display from new Lambda Expression"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+     newWay<span class="token punctuation">.</span><span class="token function">display</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//outputs : Display from new Lambda Expression</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>而在golang中，借助type的威力，定义函数式类型和定义一般类型并无区别：</p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">type Traveser func(ele interface{})
-type Filter func(ele interface{}) bool
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> Traveser <span class="token keyword">func</span><span class="token punctuation">(</span>ele <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">type</span> Filter <span class="token keyword">func</span><span class="token punctuation">(</span>ele <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token builtin">bool</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h1 id="方法放在哪里"><a href="#方法放在哪里" class="headerlink" title="方法放在哪里"></a>方法放在哪里</h1><p>golang与传统对象式语言的另一个不同是方法并不在类的定义范围之内，而是通过把类作为接收器(receiver)与方法进行绑定：</p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">// Once is an object that will perform exactly one action.
-type Once struct {
+<pre class="line-numbers language-go"><code class="language-go"><span class="token comment" spellcheck="true">// Once is an object that will perform exactly one action.</span>
+<span class="token keyword">type</span> Once <span class="token keyword">struct</span> <span class="token punctuation">{</span>
     m    Mutex
-    done uint32
-}
+    done <span class="token builtin">uint32</span>
+<span class="token punctuation">}</span>
 
-func (o *Once) Do(f func()) {
-    if atomic.LoadUint32(&o.done) == 1 {
-        return
-    }
-    // Slow-path.
-    o.m.Lock()
-    defer o.m.Unlock()
-    if o.done == 0 {
-        defer atomic.StoreUint32(&o.done, 1)
-        f()
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>o <span class="token operator">*</span>Once<span class="token punctuation">)</span> <span class="token function">Do</span><span class="token punctuation">(</span>f <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> atomic<span class="token punctuation">.</span><span class="token function">LoadUint32</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>o<span class="token punctuation">.</span>done<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// Slow-path.</span>
+    o<span class="token punctuation">.</span>m<span class="token punctuation">.</span><span class="token function">Lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">defer</span> o<span class="token punctuation">.</span>m<span class="token punctuation">.</span><span class="token function">Unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> o<span class="token punctuation">.</span>done <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">defer</span> atomic<span class="token punctuation">.</span><span class="token function">StoreUint32</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>o<span class="token punctuation">.</span>done<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>看起来仅仅是放置位置的不同，其实是设计理念的不同。将方法放在类定义里面，意味着方法是类不可分割的一部分，类的最小单位就是数据成员和当前定义的所有操作，你要认识这个类，必须一次性认识这个类中定义的所有的东西。相反，先定义类的数据结构，然后像搭积木一样将目前需要的方法一个一个地进行绑定，你便可以根据需求对类进行扩展。传统的类定义是你必须一开始便想好这个类有哪些操作，一旦类定义好了，类就成了你定义的样子，再无其他可能。golang的这种开放式扩展定义方式，使得类更加具有生命力，你不必一开始就设计好一切(往往也很难做到)，类会随着你的实现思路逐渐成长为你想要的那个样子。</p>
 <h1 id="组合还是继承"><a href="#组合还是继承" class="headerlink" title="组合还是继承"></a>组合还是继承</h1><p>继承是面向对象鼓吹的三大特性之一，但经过多年的实践，业界普遍认识到继承带来的弊端：</p>
 <ul>
@@ -90,34 +86,32 @@ func (o *Once) Do(f func()) {
 <li>对具体类的重载，重写会破会里氏替换原则</li>
 </ul>
 <p>golang的设计者意识到了继承的这些问题，在语言设计之初便拿掉了继承。其实也不能说golang里面没有继承，只不过继承是用匿名组合实现的，没有传统的的继承关系链(父类和子类完全是不同类型)， 同时还能重用父类的方法与成员。</p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">type Base struct{
-}
+<pre class="line-numbers language-go"><code class="language-go"><span class="token keyword">type</span> Base <span class="token keyword">struct</span><span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
 
-func (b Base)Show(){
-   println("Bazinga!")
-}
+<span class="token keyword">func</span> <span class="token punctuation">(</span>b Base<span class="token punctuation">)</span><span class="token function">Show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+   <span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Bazinga!"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-type Child struct{
+<span class="token keyword">type</span> Child <span class="token keyword">struct</span><span class="token punctuation">{</span>
     Base
-}
+<span class="token punctuation">}</span>
 
-func main() {
-   child := Child{}
-   child.Show()
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   child <span class="token operator">:=</span> Child<span class="token punctuation">{</span><span class="token punctuation">}</span>
+   child<span class="token punctuation">.</span><span class="token function">Show</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这种用Has-A代替Is-A的模拟实现，既解决了一些软件工程问题，同时甩掉了很多困扰程序员的心智包袱。</p>
 <h1 id="非侵入式接口"><a href="#非侵入式接口" class="headerlink" title="非侵入式接口"></a>非侵入式接口</h1><p>学CS到现在，感觉计算机科学的精髓其实就两个字：<code>abstract</code> 和 <code>tradeoff</code>。 golang中的非侵入式接口便很好地体现了这两点。传统对象式语言里面有一堆与接口相关的东西：抽象类，抽象接口，虚函数，纯虚函数等等。概念虽多，说起来不过是在不同<code>abstrct</code>层面上进行<code>tradeoff</code>而已。 golang的接口很彻底，就是一系列操作定义的集合，根本不允许进行实现，而且也不能定义变量或者常量这些东东:</p>
-<pre class="line-numbers language-lang-go"><code class="language-lang-go">  type Interface interface {
-     // Len is the number of elements in the collection.
-     Len() int
-     // Less reports whether the element with
-     // index i should sort before the element with index j.
-     Less(i, j int) bool
-     // Swap swaps the elements with indexes i and j.
-     Swap(i, j int)
-    }
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-go"><code class="language-go">  <span class="token keyword">type</span> Interface <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true">// Len is the number of elements in the collection.</span>
+     <span class="token function">Len</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">int</span>
+     <span class="token comment" spellcheck="true">// Less reports whether the element with</span>
+     <span class="token comment" spellcheck="true">// index i should sort before the element with index j.</span>
+     <span class="token function">Less</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">bool</span>
+     <span class="token comment" spellcheck="true">// Swap swaps the elements with indexes i and j.</span>
+     <span class="token function">Swap</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j <span class="token builtin">int</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>记得有位大学老师把Java中的接口比作资格证书，你要去考资格证书，并达到资格证书中的所有要求，才算具有某些资质。golang的接口则不太一样，只要你能做到资格证书中规定的那些事情，不管你去不去考这个资格证，都认为你具有了资质。其实这种想法在一些动态语言中实现过，且有诗为证：</p>
 <blockquote>
 <p>如果一个人看起来像鸭子,走起来像鸭子,叫起来像鸭子,那么他就是个基佬。</p>

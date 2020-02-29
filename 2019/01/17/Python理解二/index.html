@@ -4,46 +4,45 @@ lambda(λ)  使用方法和特性函数柯西化Assertnonlocal 关键字Object +
 <!-- hexo-inject:begin --><!-- hexo-inject:end --><p>lambda(λ)  使用方法和特性<br>函数柯西化<br>Assert<br>nonlocal 关键字<br>Object + Function = Bound Method<br>高阶函数（Higher-Order Functions）<br>类的继承（Inheritance）<br>递归（Recursion）与 优化（memo）<br>可变函数（Mutable Functions）<br>__str__ 和 __repr__</p>
 </blockquote>
 <a id="more"></a>
+
 <h2 id="lambda-λ-使用方法和特性"><a href="#lambda-λ-使用方法和特性" class="headerlink" title="lambda(λ)  使用方法和特性"></a>lambda(λ)  使用方法和特性</h2><h2 id="递归（Recursion）与-优化（memo）"><a href="#递归（Recursion）与-优化（memo）" class="headerlink" title="递归（Recursion）与 优化（memo）"></a>递归（Recursion）与 优化（memo）</h2><p>def fib(n):<br>​    “””The nth Fibonacci number.</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">>>> fib(20)
-6765
-"""
-if n == 0 or n == 1:
-    return n
-else:
-    return fib(n-2) + fib(n-1)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> fib<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>
+<span class="token number">6765</span>
+<span class="token string">""</span>"
+<span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> n
+<span class="token keyword">else</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> fib<span class="token punctuation">(</span>n<span class="token number">-2</span><span class="token punctuation">)</span> <span class="token operator">+</span> fib<span class="token punctuation">(</span>n<span class="token number">-1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="Time"><a href="#Time" class="headerlink" title="Time"></a>Time</h1><p>def count(f):<br>​    “””Return a counted version of f with a call_count attribute.</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">>>> def fib(n):
-...     if n == 0 or n == 1:
-...         return n
-...     else:
-...         return fib(n-2) + fib(n-1)
->>> fib = count(fib)
->>> fib(20)
-6765
->>> fib.call_count
-21891
-"""
-def counted(n):
-    counted.call_count += 1
-    return f(n)
-counted.call_count = 0
-return counted
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="Memoization"><a href="#Memoization" class="headerlink" title="Memoization"></a>Memoization</h1><pre class="line-numbers language-lang-python"><code class="language-lang-python">def fib(n):
-    """The nth Fibonacci number.
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">def</span> <span class="token function">fib</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>         <span class="token keyword">return</span> n
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     <span class="token keyword">else</span><span class="token punctuation">:</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>         <span class="token keyword">return</span> fib<span class="token punctuation">(</span>n<span class="token number">-2</span><span class="token punctuation">)</span> <span class="token operator">+</span> fib<span class="token punctuation">(</span>n<span class="token number">-1</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> fib <span class="token operator">=</span> count<span class="token punctuation">(</span>fib<span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> fib<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>
+<span class="token number">6765</span>
+<span class="token operator">>></span><span class="token operator">></span> fib<span class="token punctuation">.</span>call_count
+<span class="token number">21891</span>
+<span class="token string">""</span>"
+<span class="token keyword">def</span> <span class="token function">counted</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    counted<span class="token punctuation">.</span>call_count <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">return</span> f<span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+counted<span class="token punctuation">.</span>call_count <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">return</span> counted<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Memoization"><a href="#Memoization" class="headerlink" title="Memoization"></a>Memoization</h1><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">fib</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""The nth Fibonacci number.
     >>> fib(20)
     6765
-    """
-    if n == 0 or n == 1:
-        return n
-    else:
-        return fib(n-2) + fib(n-1)
+    """</span>
+    <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> n
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> fib<span class="token punctuation">(</span>n<span class="token number">-2</span><span class="token punctuation">)</span> <span class="token operator">+</span> fib<span class="token punctuation">(</span>n<span class="token number">-1</span><span class="token punctuation">)</span>
 
-# Time
-def count(f):
-    """Return a counted version of f with a call_count attribute.
+<span class="token comment" spellcheck="true"># Time</span>
+<span class="token keyword">def</span> <span class="token function">count</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""Return a counted version of f with a call_count attribute.
     >>> def fib(n):
     ...     if n == 0 or n == 1:
     ...         return n
@@ -54,16 +53,16 @@ def count(f):
     6765
     >>> fib.call_count
     21891
-    """
-    def counted(n):
-        counted.call_count += 1
-        return f(n)
-    counted.call_count = 0
-    return counted
+    """</span>
+    <span class="token keyword">def</span> <span class="token function">counted</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        counted<span class="token punctuation">.</span>call_count <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> f<span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+    counted<span class="token punctuation">.</span>call_count <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">return</span> counted
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python"># Memoization
-def memo(f):
-    """Memoize f.
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Memoization</span>
+<span class="token keyword">def</span> <span class="token function">memo</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""Memoize f.
     >>> def fib(n):
     ...     if n == 0 or n == 1:
     ...         return n
@@ -84,51 +83,61 @@ def memo(f):
     9227465
     >>> counted_fib.call_count
     36
-    """
-    cache = {}
-    def memoized(n):
-        if n not in cache:
-            cache[n] = f(n)
-        return cache[n]
-    return memoized
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    """</span>
+    cache <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">def</span> <span class="token function">memoized</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> n <span class="token operator">not</span> <span class="token keyword">in</span> cache<span class="token punctuation">:</span>
+            cache<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">=</span> f<span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> cache<span class="token punctuation">[</span>n<span class="token punctuation">]</span>
+    <span class="token keyword">return</span> memoized<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>memo() 将每次计算到的 f(n) 存入dict，之后相同的 f(n) 直接读取不计算</p>
-<h2 id="str-和-repr"><a href="#str-和-repr" class="headerlink" title="__str__ 和 __repr__"></a>__str__ 和 __repr__</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">def str_repr_demos():
-    from fractions import Fraction
-    half = Fraction(1, 2)
+<h2 id="str-和-repr"><a href="#str-和-repr" class="headerlink" title="__str__ 和 __repr__"></a>__str__ 和 __repr__</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">str_repr_demos</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">from</span> fractions <span class="token keyword">import</span> Fraction
+    half <span class="token operator">=</span> Fraction<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
     half
-    print(half)
-    str(half)
-    repr(half)
+    <span class="token keyword">print</span><span class="token punctuation">(</span>half<span class="token punctuation">)</span>
+    str<span class="token punctuation">(</span>half<span class="token punctuation">)</span>
+    repr<span class="token punctuation">(</span>half<span class="token punctuation">)</span>
 
-    s = 'hello world'
-    str(s)
-    repr(s)
-    "'hello world'"
-    repr(repr(repr(s)))
-    eval(eval(eval(repr(repr(repr(s))))))
-    # Errors: eval('hello world')
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    s <span class="token operator">=</span> <span class="token string">'hello world'</span>
+    str<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+    repr<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+    <span class="token string">"'hello world'"</span>
+    repr<span class="token punctuation">(</span>repr<span class="token punctuation">(</span>repr<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    eval<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>eval<span class="token punctuation">(</span>repr<span class="token punctuation">(</span>repr<span class="token punctuation">(</span>repr<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># Errors: eval('hello world')</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p>Implementing generic string functions<br>```python<br>class Bear:<br>    “””A Bear.”””<br>    def <strong>init</strong>(self):<br>        self.<strong>repr</strong> = lambda: ‘oski’<br>        self.<strong>str</strong> = lambda: ‘oski the bear’</p>
+<p>Implementing generic string functions</p>
 </blockquote>
-<pre><code>def __repr__(self):
-    return &#39;Bear()&#39;
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Bear</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""A Bear."""</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>__repr__ <span class="token operator">=</span> <span class="token keyword">lambda</span><span class="token punctuation">:</span> <span class="token string">'oski'</span>
+        self<span class="token punctuation">.</span>__str__ <span class="token operator">=</span> <span class="token keyword">lambda</span><span class="token punctuation">:</span> <span class="token string">'oski the bear'</span>
 
-def __str__(self):
-    return &#39;a bear&#39;
-</code></pre><p>def print<em>bear():<br>    oski = Bear()<br>    print(oski) &gt;&gt;&gt; a bear<br>    print(str(oski)) &gt;&gt;&gt; a bear<br>    print(repr(oski)) &gt;&gt;&gt; Bear()<br>    print(oski.<strong>repr</strong>()) &gt;&gt;&gt; oski<br>    print(oski.<em>_str</em></em>()) &gt;&gt;&gt; oski the bear</p>
-<pre><code>```python
-def repr(x):
-    return type(x).__repr__(x)
+    <span class="token keyword">def</span> <span class="token function">__repr__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'Bear()'</span>
 
-def str(x):
-    t = type(x)
-    if hasattr(t, &#39;__str__&#39;):
-        return t.__str__(x)
-    else:
-        return repr(x)
-</code></pre><p>跟上边的结果一样</p>
+    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'a bear'</span>
+
+<span class="token keyword">def</span> <span class="token function">print_bear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    oski <span class="token operator">=</span> Bear<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>oski<span class="token punctuation">)</span> <span class="token operator">>></span><span class="token operator">></span> a bear
+    <span class="token keyword">print</span><span class="token punctuation">(</span>str<span class="token punctuation">(</span>oski<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">>></span><span class="token operator">></span> a bear
+    <span class="token keyword">print</span><span class="token punctuation">(</span>repr<span class="token punctuation">(</span>oski<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">>></span><span class="token operator">></span> Bear<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>oski<span class="token punctuation">.</span>__repr__<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">>></span><span class="token operator">></span> oski
+    <span class="token keyword">print</span><span class="token punctuation">(</span>oski<span class="token punctuation">.</span>__str__<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">>></span><span class="token operator">></span> oski the bear<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">repr</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> type<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">.</span>__repr__<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">str</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    t <span class="token operator">=</span> type<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> hasattr<span class="token punctuation">(</span>t<span class="token punctuation">,</span> <span class="token string">'__str__'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> t<span class="token punctuation">.</span>__str__<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> repr<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>跟上边的结果一样</p>
 </p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/01/17/Python理解二/%20HeeC' target="_blank" rel="noopener"Blog%20Python理解二" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/01/17/%E4%B8%80%E4%BA%9B%E6%8A%80%E5%B7%A7/" title="一些技巧"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: 一些技巧</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2018/09/15/Python%E7%90%86%E8%A7%A3%E7%82%B9/" title="Python理解点">下一篇: Python理解点&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
 var disqus_identifier = '2019/01/17/Python理解二/';
 var disqus_title = 'Python理解二';

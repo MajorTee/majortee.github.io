@@ -11,86 +11,82 @@
 </ul>
 </blockquote>
 <a id="more"></a>
+
+
 <h2 id="Matplotlib-适合数据可视化"><a href="#Matplotlib-适合数据可视化" class="headerlink" title="Matplotlib (适合数据可视化)"></a>Matplotlib (适合数据可视化)</h2><ul>
 <li><a href="#pyplot 模块">pyplot</a>  模块 </li>
 <li><a href="#cm (colormap) 模块">cm</a> 模块</li>
-<li><a href="#gridspec 模块">gridspec</a> 模块<h2 id="Seaborn-（适合热图）"><a href="#Seaborn-（适合热图）" class="headerlink" title="Seaborn （适合热图）"></a>Seaborn （适合热图）</h2></li>
-<li><a href="#heatmap 模块">heatmap</a> 模块<h2 id="Pandas-（适合数据处理）"><a href="#Pandas-（适合数据处理）" class="headerlink" title="Pandas （适合数据处理）"></a>Pandas （适合数据处理）</h2></li>
+<li>[gridspec](#gridspec 模块) 模块<h2 id="Seaborn-（适合热图）"><a href="#Seaborn-（适合热图）" class="headerlink" title="Seaborn （适合热图）"></a>Seaborn （适合热图）</h2></li>
+<li>[heatmap](#heatmap 模块) 模块<h2 id="Pandas-（适合数据处理）"><a href="#Pandas-（适合数据处理）" class="headerlink" title="Pandas （适合数据处理）"></a>Pandas （适合数据处理）</h2></li>
 <li><a href="#DataFrame">DataFrame</a> 类<h2 id="Numpy-（适合低阶数学运算）"><a href="#Numpy-（适合低阶数学运算）" class="headerlink" title="Numpy （适合低阶数学运算）"></a>Numpy （适合低阶数学运算）</h2></li>
-<li><a href="#linspace 函数">linspace</a> 函数</li>
-<li><a href="#random 函数">random</a> 函数</li>
-<li><a href="#array 函数">array</a> 函数</li>
-<li><a href="#arange 函数">arange</a> 函数<h2 id="scikit-learn-（适合评估指标）"><a href="#scikit-learn-（适合评估指标）" class="headerlink" title="scikit-learn （适合评估指标）"></a>scikit-learn （适合评估指标）</h2></li>
-<li><a href="#metrics 模块">metrics</a> 模块</li>
+<li>[linspace](#linspace 函数) 函数</li>
+<li>[random](#random 函数) 函数</li>
+<li>[array](#array 函数) 函数</li>
+<li>[arange](#arange 函数) 函数<h2 id="scikit-learn-（适合评估指标）"><a href="#scikit-learn-（适合评估指标）" class="headerlink" title="scikit-learn （适合评估指标）"></a>scikit-learn （适合评估指标）</h2></li>
+<li>[metrics](#metrics 模块) 模块</li>
 </ul>
 <h2 id="Matplotlib"><a href="#Matplotlib" class="headerlink" title="Matplotlib"></a>Matplotlib</h2><h3 id="pyplot-模块"><a href="#pyplot-模块" class="headerlink" title="pyplot 模块"></a>pyplot 模块</h3><h5 id="matplotlib-pyplot"><a href="#matplotlib-pyplot" class="headerlink" title="matplotlib.pyplot"></a>matplotlib.pyplot</h5><p>可以提供类似 MATLAB 的绘图框架，通常引入方式是：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">import matplotlib.pyplot as plt
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>简单图形绘制：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">import numpy as np
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
 
-data = np.arange(10)
+data <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
 
 data
-array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 
-plt.plot(data)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>data<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="http://upload-images.jianshu.io/upload_images/7178691-7032e333a6ecdd37.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图9-1 简单的线图"><br>虽然seaborn这样的库和pandas的内置绘图函数能够处理许多普通的绘图任务，但如果需要自定义一些高级功能的话就必须学习matplotlib API。</p>
 <h5 id="Figure和Subplot"><a href="#Figure和Subplot" class="headerlink" title="Figure和Subplot"></a>Figure和Subplot</h5><p>matplotlib的图像都位于Figure对象中。可以用plt.figure创建一个新的Figure。<br>如果用的是IPython，这时会弹出一个空窗口，但在Jupyter中，必须再输入更多命令才能看到。plt.figure有一些选项，特别是figsize，它用于确保当图片保存到磁盘时具有一定的大小和纵横比。</p>
 <p>不能通过空Figure绘图。必须用add_subplot创建一个或多个subplot才行：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">fig = plt.figure()
-ax1 = fig.add_subplot(2, 2, 1)
-ax2 = fig.add_subplot(2, 2, 2)
-ax3 = fig.add_subplot(2, 2, 3)
-plt.plot(np.random.randn(50).cumsum(), 'k--')
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">fig <span class="token operator">=</span> plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span><span class="token punctuation">)</span>
+ax1 <span class="token operator">=</span> fig<span class="token punctuation">.</span>add_subplot<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+ax2 <span class="token operator">=</span> fig<span class="token punctuation">.</span>add_subplot<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+ax3 <span class="token operator">=</span> fig<span class="token punctuation">.</span>add_subplot<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randn<span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">.</span>cumsum<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'k--'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="http://upload-images.jianshu.io/upload_images/7178691-7bcbd5e56fdbbd92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图9-3 绘制一次之后的图像"></p>
-<p>“k—“是一个线型选项，用于告诉matplotlib绘制黑色虚线图。<br><em>在matplotlib的文档中找到各种图表类型。</em></p>
-<h3 id="cm-colormap-模块"><a href="#cm-colormap-模块" class="headerlink" title="cm (colormap) 模块"></a>cm (colormap) 模块</h3><h5 id="matplotlib-cm"><a href="#matplotlib-cm" class="headerlink" title="matplotlib.cm"></a>matplotlib.cm</h5><pre class="line-numbers language-lang-python"><code class="language-lang-python">import matplotlib.pyplot as plt
+<p>“k–”是一个线型选项，用于告诉matplotlib绘制黑色虚线图。<br><em>在matplotlib的文档中找到各种图表类型。</em></p>
+<h3 id="cm-colormap-模块"><a href="#cm-colormap-模块" class="headerlink" title="cm (colormap) 模块"></a>cm (colormap) 模块</h3><h5 id="matplotlib-cm"><a href="#matplotlib-cm" class="headerlink" title="matplotlib.cm"></a>matplotlib.cm</h5><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
 
-x = list(range(1,1001))
-y = [i**2 for i in x]#使用列表解析
+x <span class="token operator">=</span> list<span class="token punctuation">(</span>range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1001</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+y <span class="token operator">=</span> <span class="token punctuation">[</span>i<span class="token operator">**</span><span class="token number">2</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> x<span class="token punctuation">]</span><span class="token comment" spellcheck="true">#使用列表解析</span>
 
-plt.scatter(x,y,c=y,cmap=plt.cm.gist_rainbow,s=20)#cm即colormap，c=y表示颜色随y变化
-plt.xlabel('number',fontsize=10)
-plt.ylabel('number square',fontsize=10)
-plt.title('figure 1',fontsize =20)
-plt.axis([0,1100,0,1100000])
-plt.show()
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+plt<span class="token punctuation">.</span>scatter<span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">,</span>c<span class="token operator">=</span>y<span class="token punctuation">,</span>cmap<span class="token operator">=</span>plt<span class="token punctuation">.</span>cm<span class="token punctuation">.</span>gist_rainbow<span class="token punctuation">,</span>s<span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">#cm即colormap，c=y表示颜色随y变化</span>
+plt<span class="token punctuation">.</span>xlabel<span class="token punctuation">(</span><span class="token string">'number'</span><span class="token punctuation">,</span>fontsize<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>ylabel<span class="token punctuation">(</span><span class="token string">'number square'</span><span class="token punctuation">,</span>fontsize<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token string">'figure 1'</span><span class="token punctuation">,</span>fontsize <span class="token operator">=</span><span class="token number">20</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>axis<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1100</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1100000</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Figure_1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/375" alt="image"></p>
 <h3 id="GridSpec-模块"><a href="#GridSpec-模块" class="headerlink" title="GridSpec 模块"></a>GridSpec 模块</h3><h5 id="matplotlib-gridspec"><a href="#matplotlib-gridspec" class="headerlink" title="matplotlib.gridspec"></a>matplotlib.gridspec</h5><p>用GridSpec命令来控制子图的位置和大小。<br>例如可以用其画非对称的子图：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token keyword">from</span> matplotlib<span class="token punctuation">.</span>gridspec <span class="token keyword">import</span> GridSpec
 
-fig = plt.figure(1)
-gs = GridSpec(3, 3)
-ax1 = plt.subplot(gs[0, :])
-ax2 = plt.subplot(gs[1, :2])
-ax3 = plt.subplot(gs[1:, 2])
-ax4 = plt.subplot(gs[2, 0])
-ax5 = plt.subplot(gs[2, 1])
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+fig <span class="token operator">=</span> plt<span class="token punctuation">.</span>figure<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+gs <span class="token operator">=</span> GridSpec<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+ax1 <span class="token operator">=</span> plt<span class="token punctuation">.</span>subplot<span class="token punctuation">(</span>gs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+ax2 <span class="token operator">=</span> plt<span class="token punctuation">.</span>subplot<span class="token punctuation">(</span>gs<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+ax3 <span class="token operator">=</span> plt<span class="token punctuation">.</span>subplot<span class="token punctuation">(</span>gs<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+ax4 <span class="token operator">=</span> plt<span class="token punctuation">.</span>subplot<span class="token punctuation">(</span>gs<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+ax5 <span class="token operator">=</span> plt<span class="token punctuation">.</span>subplot<span class="token punctuation">(</span>gs<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Figure_2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/375" alt="image"></p>
 <p><em>在matplotlib的文档中找到各种图表类型</em></p>
 <h2 id="Seaborn"><a href="#Seaborn" class="headerlink" title="Seaborn"></a>Seaborn</h2><h3 id="heatmap-模块"><a href="#heatmap-模块" class="headerlink" title="heatmap 模块"></a>heatmap 模块</h3><h5 id="seaborn-heatmap"><a href="#seaborn-heatmap" class="headerlink" title="seaborn.heatmap"></a>seaborn.heatmap</h5><p><em>用来将矩形数据绘制为颜色编码矩阵。</em><br>matplotlib实际上是一种比较低级的工具。要绘制一张图表，组装一些基本组件就行：数据展示（即图表类型：线型图、柱状图、盒形图、散布图、等值线图等）、图例、标题、刻度标签以及其他注解型信息。</p>
 <p>在pandas中，有多列数据，还有行和列标签。pandas自身就有内置的方法，用于简化从DataFrame和Series绘制图形。另一个库seaborn（<a href="https://seaborn.pydata.org/），简化了许多常见可视类型的创建。" target="_blank" rel="noopener">https://seaborn.pydata.org/），简化了许多常见可视类型的创建。</a></p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">import seaborn as sns
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> seaborn <span class="token keyword">as</span> sns
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> pandas <span class="token keyword">as</span> pd
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
 
-data = sns.load_dataset("flights")
-# pivot     :DataFrame单列数据转化为二维阵
-# 要求指定两个属性唯一确定一个参数值，否则会报错
-# (x,y) => point
-data = data.pivot("month", "year", "passengers")
-# annot     :显示数值
-# fmt       :整数
-ax = sns.heatmap(data, annot=True, fmt="d")
-plt.show()
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+data <span class="token operator">=</span> sns<span class="token punctuation">.</span>load_dataset<span class="token punctuation">(</span><span class="token string">"flights"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># pivot     :DataFrame单列数据转化为二维阵</span>
+<span class="token comment" spellcheck="true"># 要求指定两个属性唯一确定一个参数值，否则会报错</span>
+<span class="token comment" spellcheck="true"># (x,y) => point</span>
+data <span class="token operator">=</span> data<span class="token punctuation">.</span>pivot<span class="token punctuation">(</span><span class="token string">"month"</span><span class="token punctuation">,</span> <span class="token string">"year"</span><span class="token punctuation">,</span> <span class="token string">"passengers"</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true"># annot     :显示数值</span>
+<span class="token comment" spellcheck="true"># fmt       :整数</span>
+ax <span class="token operator">=</span> sns<span class="token punctuation">.</span>heatmap<span class="token punctuation">(</span>data<span class="token punctuation">,</span> annot<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> fmt<span class="token operator">=</span><span class="token string">"d"</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Figure_3.png" alt="Figure_3"></p>
 <h2 id="Pandas"><a href="#Pandas" class="headerlink" title="Pandas"></a>Pandas</h2><p>pandas经常和其它工具一同使用，如数值计算工具NumPy和SciPy，分析库statsmodels和scikit-learn，和数据可视化库matplotlib。pandas是基于NumPy数组构建的，特别是基于数组的函数和不使用for循环的数据处理。</p>
 <p>虽然pandas采用了大量的NumPy编码风格，但二者最大的不同是pandas是专门为处理表格和混杂数据设计的。而NumPy更适合处理统一的数值数组数据。</p>
@@ -100,25 +96,23 @@ plt.show()
 <p>虽然DataFrame是以二维结构保存数据的，但仍然可以轻松地将其表示为更高维度的数据（层次化索引的表格型结构，这是pandas中许多高级数据处理功能的关键要素）。</p>
 </blockquote>
 <h2 id="NumPy"><a href="#NumPy" class="headerlink" title="NumPy"></a>NumPy</h2><h3 id="linspace-函数"><a href="#linspace-函数" class="headerlink" title="linspace 函数"></a>linspace 函数</h3><h5 id="numpy-linspace"><a href="#numpy-linspace" class="headerlink" title="numpy.linspace"></a>numpy.linspace</h5><p>用于创建一个一维数组，并且是等差数列构成的一维数组。<br>Examples</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">np.linspace(2.0, 3.0, num=5)
-    array([ 2.  ,  2.25,  2.5 ,  2.75,  3.  ])
-np.linspace(2.0, 3.0, num=5, endpoint=False)
-    array([ 2. ,  2.2,  2.4,  2.6,  2.8])
-np.linspace(2.0, 3.0, num=5, retstep=True)
-    (array([ 2.  ,  2.25,  2.5 ,  2.75,  3.  ]), 0.25)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python">np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">2.0</span><span class="token punctuation">,</span> <span class="token number">3.0</span><span class="token punctuation">,</span> num<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">)</span>
+    array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token number">2</span><span class="token punctuation">.</span>  <span class="token punctuation">,</span>  <span class="token number">2.25</span><span class="token punctuation">,</span>  <span class="token number">2.5</span> <span class="token punctuation">,</span>  <span class="token number">2.75</span><span class="token punctuation">,</span>  <span class="token number">3</span><span class="token punctuation">.</span>  <span class="token punctuation">]</span><span class="token punctuation">)</span>
+np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">2.0</span><span class="token punctuation">,</span> <span class="token number">3.0</span><span class="token punctuation">,</span> num<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> endpoint<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+    array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token number">2</span><span class="token punctuation">.</span> <span class="token punctuation">,</span>  <span class="token number">2.2</span><span class="token punctuation">,</span>  <span class="token number">2.4</span><span class="token punctuation">,</span>  <span class="token number">2.6</span><span class="token punctuation">,</span>  <span class="token number">2.8</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">2.0</span><span class="token punctuation">,</span> <span class="token number">3.0</span><span class="token punctuation">,</span> num<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> retstep<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+    <span class="token punctuation">(</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token number">2</span><span class="token punctuation">.</span>  <span class="token punctuation">,</span>  <span class="token number">2.25</span><span class="token punctuation">,</span>  <span class="token number">2.5</span> <span class="token punctuation">,</span>  <span class="token number">2.75</span><span class="token punctuation">,</span>  <span class="token number">3</span><span class="token punctuation">.</span>  <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0.25</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>图形：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">import matplotlib.pyplot as plt
-import numpy as np
-N = 8
-y = np.zeros(N)
-x1 = np.linspace(0, 10, N, endpoint=True)
-x2 = np.linspace(0, 10, N, endpoint=False)
-plt.plot(x1, y, 'o')
-plt.plot(x2, y + 0.5, 'o')
-plt.ylim([-0.5, 1])
-plt.show()
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+N <span class="token operator">=</span> <span class="token number">8</span>
+y <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span>N<span class="token punctuation">)</span>
+x1 <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> N<span class="token punctuation">,</span> endpoint<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+x2 <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> N<span class="token punctuation">,</span> endpoint<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>x1<span class="token punctuation">,</span> y<span class="token punctuation">,</span> <span class="token string">'o'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>x2<span class="token punctuation">,</span> y <span class="token operator">+</span> <span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token string">'o'</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>ylim<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/Markdown%20Photos/Figure_4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/275" alt="Figure_4"></p>
 <h3 id="random-函数"><a href="#random-函数" class="headerlink" title="random 函数"></a>random 函数</h3><h5 id="numpy-random-random"><a href="#numpy-random-random" class="headerlink" title="numpy.random.random"></a>numpy.random.random</h5><h3 id="array-函数"><a href="#array-函数" class="headerlink" title="array 函数"></a>array 函数</h3><h5 id="numpy-array"><a href="#numpy-array" class="headerlink" title="numpy.array"></a>numpy.array</h5><h3 id="arange-函数"><a href="#arange-函数" class="headerlink" title="arange 函数"></a>arange 函数</h3><h5 id="numpy-arange"><a href="#numpy-arange" class="headerlink" title="numpy.arange"></a>numpy.arange</h5><h2 id="scikit-learn"><a href="#scikit-learn" class="headerlink" title="scikit-learn"></a>scikit-learn</h2><h3 id="metrics-模块"><a href="#metrics-模块" class="headerlink" title="metrics 模块"></a>metrics 模块</h3><p><a href="http://scikit-learn.org/stable/" target="_blank" rel="noopener">http://scikit-learn.org/stable/</a></p>
 <p><a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics" target="_blank" rel="noopener">http://scikit-learn.org/stable/modules/classes.html#module-sklearn.metrics</a></p>

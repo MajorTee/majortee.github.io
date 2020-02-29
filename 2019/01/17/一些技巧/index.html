@@ -29,7 +29,7 @@ cat *.cs"><meta name="keywords" content="text"><meta content="width=device-width
 <h2 id="Jupyter-Notebook-配置"><a href="#Jupyter-Notebook-配置" class="headerlink" title="Jupyter Notebook 配置"></a>Jupyter Notebook 配置</h2><blockquote>
 <p>个人配置命令：<code>jt -t onedork -f firacode -fs 12 -nfs 15 -cellw 88% -T -N</code><br>地址：<a href="https://github.com/dunovank/jupyter-themes" target="_blank" rel="noopener">https://github.com/dunovank/jupyter-themes</a></p>
 </blockquote>
-<h2 id="vim在-vimrc-中快速安装-vim-plug"><a href="#vim在-vimrc-中快速安装-vim-plug" class="headerlink" title="vim在 ~/.vimrc 中快速安装 vim-plug"></a>vim在 ~/.vimrc 中快速安装 vim-plug</h2><pre class="line-numbers language-lang-shell"><code class="language-lang-shell">let $BUNDLE = expand("$HOME/.dotfiles/data/vimdata/bundle")
+<h2 id="vim在-vimrc-中快速安装-vim-plug"><a href="#vim在-vimrc-中快速安装-vim-plug" class="headerlink" title="vim在 ~/.vimrc 中快速安装 vim-plug"></a>vim在 ~/.vimrc 中快速安装 vim-plug</h2><pre class="line-numbers language-shell"><code class="language-shell">let $BUNDLE = expand("$HOME/.dotfiles/data/vimdata/bundle")
 let $PLUG_DIR = expand("$BUNDLE/vim-plug")
 
 if empty(glob(expand("$PLUG_DIR/plug.vim")))
@@ -37,37 +37,30 @@ if empty(glob(expand("$PLUG_DIR/plug.vim")))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
 endif
-source $PLUG_DIR/plug.vim
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+source $PLUG_DIR/plug.vim<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这段代码的意思是如果 vim-plug.vim 文件不存在, 就自动从 github 上下载最新版本到指定目录并加载。</p>
-<h2 id="Mac下使用tree工具"><a href="#Mac下使用tree工具" class="headerlink" title="Mac下使用tree工具"></a>Mac下使用tree工具</h2><pre class="line-numbers language-lang-Shell"><code class="language-lang-Shell">brew install tree
+<h2 id="Mac下使用tree工具"><a href="#Mac下使用tree工具" class="headerlink" title="Mac下使用tree工具"></a>Mac下使用tree工具</h2><pre class="line-numbers language-Shell"><code class="language-Shell">brew install tree
 tree -L 2 -N > dir.txt
 
-alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>-N 解决中文乱码<br>第三行是使用find命令模拟出tree命令的效果，保存zsh文件中使用别名来快速执行该命令</p>
 <h2 id="代理终端"><a href="#代理终端" class="headerlink" title="代理终端"></a>代理终端</h2><p>把代理服务器地址写入shell配置文件<code>.bashrc</code>或者<code>.zshrc</code></p>
 <p>直接在<code>.bashrc</code>或者<code>.zshrc</code>添加下面内容</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">export http_proxy="http://localhost:port" export https_proxy="http://localhost:port"
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">export http_proxy="http://localhost:port" export https_proxy="http://localhost:port"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>以使用shadowsocks代理为例，ss的代理端口为<code>1080</code>,那么应该设置为</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">export http_proxy="socks5://127.0.0.1:1086" export https_proxy="socks5://127.0.0.1:1086"
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">export http_proxy="socks5://127.0.0.1:1086" export https_proxy="socks5://127.0.0.1:1086"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>或者直接设置ALL_PROXY</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">export ALL_PROXY=socks5://127.0.0.1:1086
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell"><code class="language-shell">export ALL_PROXY=socks5://127.0.0.1:1086 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><code>localhost</code>就是一个域名，域名默认指向 <code>127.0.0.1</code>，两者是一样的。</p>
 <p>然后<code>ESC</code>后<code>:wq</code>保存文件，接着在终端中执行<br><code>source ~/.bashrc</code></p>
 <p>或者退出当前终端再起一个终端。 这个办法的好处是把代理服务器永久保存了，下次就可以直接用了。</p>
 <p>或者通过设置alias简写来简化操作，每次要用的时候输入<code>setproxy</code>，不用了就<code>unsetproxy</code>。</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">alias setproxy="export ALL_PROXY=socks5://127.0.0.1:1086" 
+<pre class="line-numbers language-shell"><code class="language-shell">alias setproxy="export ALL_PROXY=socks5://127.0.0.1:1086" 
 alias unsetproxy="unset ALL_PROXY" 
-alias ip="curl -i http://ip.cn"
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+alias ip="curl -i http://ip.cn"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>使用curl命令监测是否返回数据：</p>
 <p><code>curl https://www.google.com</code></p>
-<h2 id="win-Tree-工具"><a href="#win-Tree-工具" class="headerlink" title="win Tree 工具"></a>win Tree 工具</h2><pre class="line-numbers language-lang-shell"><code class="language-lang-shell">tree /F > dir.txt
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="win-Tree-工具"><a href="#win-Tree-工具" class="headerlink" title="win Tree 工具"></a>win Tree 工具</h2><pre class="line-numbers language-shell"><code class="language-shell">tree /F > dir.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="终端代理（Win）"><a href="#终端代理（Win）" class="headerlink" title="终端代理（Win）"></a>终端代理（Win）</h2><p>set https_proxy=<a href="http://127.0.0.1:1086" target="_blank" rel="noopener">http://127.0.0.1:1086</a></p>
 <p>set http_proxy=<a href="http://127.0.0.1:1086" target="_blank" rel="noopener">http://127.0.0.1:1086</a></p>
 </p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2019/01/17/一些技巧/%20HeeC' target="_blank" rel="noopener"Blog%20一些技巧" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2019/01/18/%E6%8E%A8%E4%B8%80%E4%BA%9B%E6%8A%80%E6%9C%AF%E6%BC%94%E8%AE%B2/" title="推一些技术演讲"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: 推一些技术演讲</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2019/01/17/Python%E7%90%86%E8%A7%A3%E4%BA%8C/" title="Python理解二">下一篇: Python理解二&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';

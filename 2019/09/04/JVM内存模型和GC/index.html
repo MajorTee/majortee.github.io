@@ -1,14 +1,16 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>JVM内存模型和GC · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="来源：https://www.jianshu.com/p/76959115d486
 
 
+
 CPU和内存的交互了解jvm内存模型前，了解下cpu和计算机内存的交互情况。【因为Java虚拟机内存模型定义的访问操作与计算机十分相似】
 有篇很棒的文章，从cpu讲到内存模型:什么是java内存模型
 
-在计算机中"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
+在计算机"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>JVM内存模型和GC</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2019-09-04</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2019/09/04/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E5%92%8CGC/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/Java/" title="Java" class="a-tag">Java</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/底层/" title="底层" class="a-tag">底层</a><span>&nbsp;</span></span></p><p class="post-abstract"><blockquote>
 <!-- hexo-inject:begin --><!-- hexo-inject:end --><p>来源：<a href="https://www.jianshu.com/p/76959115d486" target="_blank" rel="noopener">https://www.jianshu.com/p/76959115d486</a></p>
 </blockquote>
 <a id="more"></a>
+
 <h2 id="CPU和内存的交互"><a href="#CPU和内存的交互" class="headerlink" title="CPU和内存的交互"></a>CPU和内存的交互</h2><p>了解jvm内存模型前，了解下cpu和计算机内存的交互情况。【因为Java虚拟机内存模型定义的访问操作与计算机十分相似】</p>
 <p>有篇很棒的文章，从cpu讲到内存模型:<a href="https://www.jianshu.com/p/bf158fbb2432" target="_blank" rel="noopener">什么是java内存模型</a></p>
 <hr>
@@ -16,8 +18,7 @@ CPU和内存的交互了解jvm内存模型前，了解下cpu和计算机内存�
 <p>但是随着cpu的发展，内存的读写速度也远远赶不上cpu。因此cpu厂商在每颗cpu上加上高速缓存，用于缓解这种情况。</p>
 <p>cpu上加入了高速缓存这样做解决了处理器和内存的矛盾(一快一慢)，但是引来的新的问题 - <strong>缓存一致性</strong></p>
 <p>在多核cpu中，每个处理器都有各自的高速缓存(L1,L2,L3)，而主内存确只有一个 。</p>
-<pre class="line-numbers language-lang-undefined"><code class="language-lang-undefined">CPU要读取一个数据时，首先从一级缓存中查找，如果没有找到再从二级缓存中查找，如果还是没有就从三级缓存或内存中查找，每个cpu有且只有一套自己的缓存。
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-undefined"><code class="language-undefined">CPU要读取一个数据时，首先从一级缓存中查找，如果没有找到再从二级缓存中查找，如果还是没有就从三级缓存或内存中查找，每个cpu有且只有一套自己的缓存。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <blockquote>
 <p>如何保证多个处理器运算涉及到同一个内存区域时，多线程场景下会存在缓存一致性问题，那么运行时保证数据一致性？</p>
 <p>为了解决这个问题，各个处理器需遵循一些协议保证一致性。【如MSI，MESI啥啥的协议。。】</p>
@@ -30,37 +31,33 @@ CPU和内存的交互了解jvm内存模型前，了解下cpu和计算机内存�
 <ul>
 <li>硬件层的内存屏障分为两种：<code>Load Barrier</code> 和 <code>Store Barrier</code>即读屏障和写屏障。【内存屏障是硬件层的】</li>
 </ul>
-<h5 id="为什么需要内存屏障"><a href="#为什么需要内存屏障" class="headerlink" title="为什么需要内存屏障"></a>为什么需要内存屏障</h5><pre class="line-numbers language-lang-cpp"><code class="language-lang-cpp">由于现代操作系统都是多处理器操作系统，每个处理器都会有自己的缓存，可能存再不同处理器缓存不一致的问题，而且由于操作系统可能存在重排序，导致读取到错误的数据，因此，操作系统提供了一些内存屏障以解决这种问题.
-简单来说:
-1.在不同CPU执行的不同线程对同一个变量的缓存值不同，为了解决这个问题。
-2.用volatile可以解决上面的问题，不同硬件对内存屏障的实现方式不一样。java屏蔽掉这些差异，通过jvm生成内存屏障的指令。
-对于读屏障:在指令前插入读屏障，可以让高速缓存中的数据失效，强制从主内存取。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="内存屏障的作用"><a href="#内存屏障的作用" class="headerlink" title="内存屏障的作用"></a>内存屏障的作用</h5><pre class="line-numbers language-lang-undefined"><code class="language-lang-undefined">cpu执行指令可能是无序的，它有两个比较重要的作用
+<h5 id="为什么需要内存屏障"><a href="#为什么需要内存屏障" class="headerlink" title="为什么需要内存屏障"></a>为什么需要内存屏障</h5><pre class="line-numbers language-cpp"><code class="language-cpp">由于现代操作系统都是多处理器操作系统，每个处理器都会有自己的缓存，可能存再不同处理器缓存不一致的问题，而且由于操作系统可能存在重排序，导致读取到错误的数据，因此，操作系统提供了一些内存屏障以解决这种问题<span class="token punctuation">.</span>
+简单来说<span class="token operator">:</span>
+<span class="token number">1</span><span class="token punctuation">.</span>在不同CPU执行的不同线程对同一个变量的缓存值不同，为了解决这个问题。
+<span class="token number">2</span><span class="token punctuation">.</span>用<span class="token keyword">volatile</span>可以解决上面的问题，不同硬件对内存屏障的实现方式不一样。java屏蔽掉这些差异，通过jvm生成内存屏障的指令。
+对于读屏障<span class="token operator">:</span>在指令前插入读屏障，可以让高速缓存中的数据失效，强制从主内存取。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="内存屏障的作用"><a href="#内存屏障的作用" class="headerlink" title="内存屏障的作用"></a>内存屏障的作用</h5><pre class="line-numbers language-undefined"><code class="language-undefined">cpu执行指令可能是无序的，它有两个比较重要的作用
 1.阻止屏障两侧指令重排序
-2.强制把写缓冲区/高速缓存中的脏数据等写回主内存，让缓存中相应的数据失效。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+2.强制把写缓冲区/高速缓存中的脏数据等写回主内存，让缓存中相应的数据失效。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h4 id="volatile型变量"><a href="#volatile型变量" class="headerlink" title="volatile型变量"></a>volatile型变量</h4><p>当我们声明某个变量为volatile修饰时，这个变量就有了线程可见性，volatile通过在读写操作前后添加内存屏障。</p>
 <p>用代码可以这么理解</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">//相当于读写时加锁，保证及时可见性，并发时不被随意修改。
-public class SynchronizedInteger {
-  private long value;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//相当于读写时加锁，保证及时可见性，并发时不被随意修改。</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SynchronizedInteger</span> <span class="token punctuation">{</span>
+  <span class="token keyword">private</span> <span class="token keyword">long</span> value<span class="token punctuation">;</span>
 
-  public synchronized int get() {
-    return value;
-  }
+  <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">int</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> value<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-  public synchronized void set(long value) {
-    this.value = value;
-  }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">set</span><span class="token punctuation">(</span><span class="token keyword">long</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> value<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>volatile型变量拥有如下特性</p>
-<pre class="line-numbers language-lang-cpp"><code class="language-lang-cpp">1.可见性，对于一个该变量的读，一定能看到读之前最后的写入。
-2.有序性：　　
-    当程序执行到volatile变量的读操作或者写操作时，在其前面的操作的更改肯定全部已经进行，且结果已经对后面的操作可见；在其后面的操作肯定还没有进行；
-    在进行指令优化时，不能将在对volatile变量访问的语句放在其后面执行，也不能把volatile变量后面的语句放到其前面执行。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token number">1</span><span class="token punctuation">.</span>可见性，对于一个该变量的读，一定能看到读之前最后的写入。
+<span class="token number">2</span><span class="token punctuation">.</span>有序性：　　
+    当程序执行到<span class="token keyword">volatile</span>变量的读操作或者写操作时，在其前面的操作的更改肯定全部已经进行，且结果已经对后面的操作可见；在其后面的操作肯定还没有进行；
+    在进行指令优化时，不能将在对<span class="token keyword">volatile</span>变量访问的语句放在其后面执行，也不能把<span class="token keyword">volatile</span>变量后面的语句放到其前面执行。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="Java内存区域"><a href="#Java内存区域" class="headerlink" title="Java内存区域"></a>Java内存区域</h2><blockquote>
 <p>前提:本文讲的基本都是以Sun HotSpot虚拟机为基础的，Oracle收购了Sun后目前得到了两个【Sun的HotSpot和JRockit(以后可能合并这两个),还有一个是IBM的IBMJVM】</p>
 </blockquote>
@@ -71,13 +68,11 @@ public class SynchronizedInteger {
 <p>简要言之，jmm是jvm的一种规范，定义了jvm的内存模型。它屏蔽了各种硬件和操作系统的访问差异，不像c那样直接访问硬件内存，相对安全很多，它的主要目的是解决由于多线程通过共享内存进行通信时，存在的本地内存数据不一致、编译器会对代码指令重排序、处理器会对代码乱序执行等带来的问题。可以保证并发编程场景中的原子性、可见性和有序性。</p>
 </blockquote>
 <p>从下面这张图可以看出来，Java数据区域分为五大数据区域。这些区域各有各的用途，创建及销毁时间。</p>
-<pre class="line-numbers language-lang-undefined"><code class="language-lang-undefined">其中方法区和堆是所有线程共享的，栈，本地方法栈和程序虚拟机则为线程私有的。
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-undefined"><code class="language-undefined">其中方法区和堆是所有线程共享的，栈，本地方法栈和程序虚拟机则为线程私有的。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>根据java虚拟机规范，java虚拟机管理的内存将分为下面五大区域。</p>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/jvm/jmm.png" alt="image"></p>
 <p>jmm</p>
-<h3 id="五大内存区域"><a href="#五大内存区域" class="headerlink" title="五大内存区域"></a>五大内存区域</h3><h4 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h4><pre class="line-numbers language-lang-undefined"><code class="language-lang-undefined">程序计数器是一块很小的内存空间，它是线程私有的，可以认作为当前线程的行号指示器。
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="五大内存区域"><a href="#五大内存区域" class="headerlink" title="五大内存区域"></a>五大内存区域</h3><h4 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h4><pre class="line-numbers language-undefined"><code class="language-undefined">程序计数器是一块很小的内存空间，它是线程私有的，可以认作为当前线程的行号指示器。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><strong>为什么需要程序计数器</strong></p>
 <blockquote>
 <p>我们知道对于一个处理器(如果是多核cpu那就是一核)，在一个确定的时刻都只会执行一条线程中的指令，一条线程中有多个指令，为了线程切换可以恢复到正确执行位置，每个线程都需有独立的一个程序计数器，不同线程之间的程序计数器互不影响，独立存储。</p>
@@ -86,10 +81,9 @@ public class SynchronizedInteger {
 <h4 id="Java栈（虚拟机栈）"><a href="#Java栈（虚拟机栈）" class="headerlink" title="Java栈（虚拟机栈）"></a>Java栈（虚拟机栈）</h4><p>同计数器也为线程私有，生命周期与相同，就是我们平时说的栈，<strong>栈描述的是Java方法执行的内存模型</strong>。</p>
 <p><strong>每个方法被执行的时候都会创建一个栈帧用于存储局部变量表，操作栈，动态链接，方法出口等信息。每一个方法被调用的过程就对应一个栈帧在虚拟机栈中从入栈到出栈的过程。【栈先进后出，下图栈1先进最后出来】</strong></p>
 <p>对于栈帧的解释参考 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.cnblogs.com%2FnoKing%2Fp%2F8167700.html" target="_blank" rel="noopener">Java虚拟机运行时栈帧结构</a></p>
-<pre class="line-numbers language-lang-css"><code class="language-lang-css">栈帧: 是用来存储数据和部分过程结果的数据结构。
-栈帧的位置:  内存 -> 运行时数据区 -> 某个线程对应的虚拟机栈 -> here[在这里]
-栈帧大小确定时间: 编译期确定，不受运行期数据影响。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-css"><code class="language-css">栈帧<span class="token punctuation">:</span> 是用来存储数据和部分过程结果的数据结构。
+栈帧的位置<span class="token punctuation">:</span>  内存 -> 运行时数据区 -> 某个线程对应的虚拟机栈 -> here[在这里]
+栈帧大小确定时间<span class="token punctuation">:</span> 编译期确定，不受运行期数据影响。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>通常有人将java内存区分为栈和堆，实际上java内存比这复杂，这么区分可能是因为我们最关注，与对象内存分配关系最密切的是这两个。</p>
 <p><strong>平时说的栈一般指局部变量表部分。</strong></p>
 <blockquote>
@@ -114,6 +108,8 @@ public class SynchronizedInteger {
 <p>即时编译器:可以把把Java的字节码，包括需要被解释的指令的程序）转换成可以直接发送给处理器的指令的程序)</p>
 <p>逃逸分析:通过逃逸分析来决定某些实例或者变量是否要在堆中进行分配，如果开启了逃逸分析，即可将这些变量直接在栈上进行分配，而非堆上进行分配。这些变量的指针可以被全局所引用，或者其其它线程所引用。</p>
 <p><a href="https://www.jianshu.com/p/20bd2e9b1f03" target="_blank" rel="noopener">参考逃逸分析</a></p>
+</blockquote>
+<blockquote>
 <p>注意:它是所有线程共享的，它的目的是存放对象实例。同时它也是GC所管理的主要区域，因此常被称为GC堆，又由于现在收集器常使用分代算法，Java堆中还可以细分为新生代和老年代，再细致点还有Eden(伊甸园)空间之类的不做深究。</p>
 <p>根据虚拟机规范，Java堆可以存在物理上不连续的内存空间，就像磁盘空间只要逻辑是连续的即可。它的内存大小可以设为固定大小，也可以扩展。</p>
 <p>当前主流的虚拟机如HotPot都能按扩展实现(通过设置 -Xmx和-Xms)，如果堆中没有内存内存完成实例分配，而且堆无法扩展将报OOM错误(OutOfMemoryError)</p>
@@ -125,43 +121,39 @@ public class SynchronizedInteger {
 <p>是方法区的一部分，class文件除了有类的字段、接口、方法等描述信息之外，还有常量池用于存放编译期间生成的各种字面量和符号引用。</p>
 </blockquote>
 <p>在老版jdk，方法区也被称为永久代【因为没有强制要求方法区必须实现垃圾回收，HotSpot虚拟机以永久代来实现方法区，从而JVM的垃圾收集器可以像管理堆区一样管理这部分区域，从而不需要专门为这部分设计垃圾回收机制。不过自从JDK7之后，Hotspot虚拟机便将运行时常量池从永久代移除了。】</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">jdk1.7开始逐步去永久代。从String.interns()方法可以看出来
-String.interns()
-native方法:作用是如果字符串常量池已经包含一个等于这个String对象的字符串，则返回代表池中的这个字符串的String对象，在jdk1.6及以前常量池分配在永久代中。可通过 -XX:PermSize和-XX:MaxPermSize限制方法区大小。
-public class StringIntern {
-    //运行如下代码探究运行时常量池的位置
-    public static void main(String[] args) throws Throwable {
-        //用list保持着引用 防止full gc回收常量池
-        List<String> list = new ArrayList<String>();
-        int i = 0;
-        while(true){
-            list.add(String.valueOf(i++).intern());
-        }
-    }
-}
-//如果在jdk1.6环境下运行 同时限制方法区大小 将报OOM后面跟着PermGen space说明方法区OOM，即常量池在永久代
-//如果是jdk1.7或1.8环境下运行 同时限制堆的大小  将报heap space 即常量池在堆中
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java">jdk1<span class="token number">.7</span>开始逐步去永久代。从String<span class="token punctuation">.</span><span class="token function">interns</span><span class="token punctuation">(</span><span class="token punctuation">)</span>方法可以看出来
+String<span class="token punctuation">.</span><span class="token function">interns</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">native</span>方法<span class="token operator">:</span>作用是如果字符串常量池已经包含一个等于这个String对象的字符串，则返回代表池中的这个字符串的String对象，在jdk1<span class="token number">.6</span>及以前常量池分配在永久代中。可通过 <span class="token operator">-</span>XX<span class="token operator">:</span>PermSize和<span class="token operator">-</span>XX<span class="token operator">:</span>MaxPermSize限制方法区大小。
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StringIntern</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//运行如下代码探究运行时常量池的位置</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> Throwable <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//用list保持着引用 防止full gc回收常量池</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>String<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">intern</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//如果在jdk1.6环境下运行 同时限制方法区大小 将报OOM后面跟着PermGen space说明方法区OOM，即常量池在永久代</span>
+<span class="token comment" spellcheck="true">//如果是jdk1.7或1.8环境下运行 同时限制堆的大小  将报heap space 即常量池在堆中</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.cnblogs.com%2Fyingsong%2Fp%2F5896207.html" target="_blank" rel="noopener">idea设置相关内存大小设置</a></p>
 <p>这边不用全局的方式，设置main方法的vm参数。</p>
 <p>做相关设置，比如说这边设定堆大小。（-Xmx5m -Xms5m -XX:-UseGCOverheadLimit）</p>
-<pre class="line-numbers language-lang-css"><code class="language-lang-css">这边如果不设置UseGCOverheadLimit将报java.lang.OutOfMemoryError: GC overhead limit exceeded，
-这个错是因为GC占用了多余98%（默认值）的CPU时间却只回收了少于2%（默认值）的堆空间。目的是为了让应用终止，给开发者机会去诊断问题。一般是应用程序在有限的内存上创建了大量的临时对象或者弱引用对象，从而导致该异常。虽然加大内存可以暂时解决这个问题，但是还是强烈建议去优化代码，后者更加有效，也可通过UseGCOverheadLimit避免[不推荐，这里是因为测试用，并不能解决根本问题]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-css"><code class="language-css">这边如果不设置UseGCOverheadLimit将报java<span class="token number">.</span>lang<span class="token number">.</span><span class="token property">OutOfMemoryError</span><span class="token punctuation">:</span> GC overhead limit exceeded，
+这个错是因为GC占用了多余<span class="token number">98%</span>（默认值）的CPU时间却只回收了少于<span class="token number">2%</span>（默认值）的堆空间。目的是为了让应用终止，给开发者机会去诊断问题。一般是应用程序在有限的内存上创建了大量的临时对象或者弱引用对象，从而导致该异常。虽然加大内存可以暂时解决这个问题，但是还是强烈建议去优化代码，后者更加有效，也可通过UseGCOverheadLimit避免[不推荐，这里是因为测试用，并不能解决根本问题]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><strong>jdk8真正开始废弃永久代，而使用元空间(Metaspace)</strong></p>
 <blockquote>
 <p>java虚拟机对方法区比较宽松，除了跟堆一样可以不存在连续的内存空间，定义空间和可扩展空间，还可以选择不实现垃圾收集。</p>
 </blockquote>
 <h4 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h4><p>在HotSpot虚拟机中。对象在内存中存储的布局分为</p>
-<pre class="line-numbers language-lang-undefined"><code class="language-lang-undefined">1.对象头
+<pre class="line-numbers language-undefined"><code class="language-undefined">1.对象头
 2.实例数据
-3.对齐填充
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+3.对齐填充<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h5 id="对象头【markword】"><a href="#对象头【markword】" class="headerlink" title="对象头【markword】"></a>对象头【markword】</h5><p>在32位系统下，对象头8字节，64位则是16个字节【未开启压缩指针，开启后12字节】。</p>
-<pre class="line-numbers language-lang-undefined"><code class="language-lang-undefined">markword很像网络协议报文头，划分为多个区间，并且会根据对象的状态复用自己的存储空间。
+<pre class="line-numbers language-undefined"><code class="language-undefined">markword很像网络协议报文头，划分为多个区间，并且会根据对象的状态复用自己的存储空间。
 为什么这么做:省空间，对象需要存储的数据很多，32bit/64bit是不够的，它被设计成非固定的数据结构以便在极小的空间存储更多的信息，
-假设当前为32bit，在对象未被锁定情况下。25bit为存储对象的哈希码、4bit用于存储分代年龄，2bit用于存储锁标志位，1bit固定为0。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+假设当前为32bit，在对象未被锁定情况下。25bit为存储对象的哈希码、4bit用于存储分代年龄，2bit用于存储锁标志位，1bit固定为0。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>不同状态下存放数据</p>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/jvm/cunfangshuju.png" alt="image"></p>
 <p>这其中锁标识位需要特别关注下。<strong>锁标志位与是否为偏向锁对应到唯一的锁状态</strong>。</p>
@@ -170,22 +162,18 @@ public class StringIntern {
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/jvm/duixiangtou.jpg" alt="image"></p>
 <p>对象头.jpg</p>
 <p>HotSpot底层通过markOop实现Mark Word，具体实现位于<code>markOop.hpp</code>文件。</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">markOop中提供了大量方法用于查看当前对象头的状态，以及更新对象头的数据，为synchronized锁的实现提供了基础。[比如说我们知道synchronized锁的是对象而不是代码，而锁的状态保存在对象头中，进而实现锁住对象]。
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java">markOop中提供了大量方法用于查看当前对象头的状态，以及更新对象头的数据，为<span class="token keyword">synchronized</span>锁的实现提供了基础。<span class="token punctuation">[</span>比如说我们知道<span class="token keyword">synchronized</span>锁的是对象而不是代码，而锁的状态保存在对象头中，进而实现锁住对象<span class="token punctuation">]</span>。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>关于对象头和锁之间的转换，网上大神总结</p>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/jvm/zhongliangjisuo.png" alt="image"></p>
 <p>偏向锁轻量级锁重量级锁.png</p>
-<h5 id="实例数据"><a href="#实例数据" class="headerlink" title="实例数据"></a>实例数据</h5><pre class="line-numbers language-lang-cpp"><code class="language-lang-cpp">存放对象程序中各种类型的字段类型，不管是从父类中继承下来的还是在子类中定义的。
-分配策略:相同宽度的字段总是放在一起，比如double和long
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="实例数据"><a href="#实例数据" class="headerlink" title="实例数据"></a>实例数据</h5><pre class="line-numbers language-cpp"><code class="language-cpp">存放对象程序中各种类型的字段类型，不管是从父类中继承下来的还是在子类中定义的。
+分配策略<span class="token operator">:</span>相同宽度的字段总是放在一起，比如<span class="token keyword">double</span>和<span class="token keyword">long</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h5 id="对齐填充"><a href="#对齐填充" class="headerlink" title="对齐填充"></a>对齐填充</h5><p>这部分没有特殊的含义，仅仅起到占位符的作用满足JVM要求。</p>
-<pre class="line-numbers language-lang-undefined"><code class="language-lang-undefined">由于HotSpot规定对象的大小必须是8的整数倍，对象头刚好是整数倍，如果实例数据不是的话，就需要占位符对齐填充。
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-undefined"><code class="language-undefined">由于HotSpot规定对象的大小必须是8的整数倍，对象头刚好是整数倍，如果实例数据不是的话，就需要占位符对齐填充。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="对象的访问定位"><a href="#对象的访问定位" class="headerlink" title="对象的访问定位"></a>对象的访问定位</h4><p>java程序需要通过引用(ref)数据来操作堆上面的对象，那么如何通过引用定位、访问到对象的具体位置。</p>
-<pre class="line-numbers language-lang-undefined"><code class="language-lang-undefined">对象的访问方式由虚拟机决定，java虚拟机提供两种主流的方式
+<pre class="line-numbers language-undefined"><code class="language-undefined">对象的访问方式由虚拟机决定，java虚拟机提供两种主流的方式
 1.句柄访问对象
-2.直接指针访问对象。(Sun HotSpot使用这种方式)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+2.直接指针访问对象。(Sun HotSpot使用这种方式)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>参考<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fblog.csdn.net%2Fu011080472%2Farticle%2Fdetails%2F51321769" target="_blank" rel="noopener">Java对象访问定位</a></p>
 <h5 id="句柄访问"><a href="#句柄访问" class="headerlink" title="句柄访问"></a>句柄访问</h5><blockquote>
 <p>简单来说就是java堆划出一块内存作为句柄池,引用中存储对象的句柄地址,句柄中包含对象实例数据、类型数据的地址信息。</p>
@@ -198,38 +186,36 @@ public class StringIntern {
 </blockquote>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/jvm/fangshi1.jpg" alt="image"></p>
 <p>访问方式1.jpg</p>
-<h2 id="内存溢出"><a href="#内存溢出" class="headerlink" title="内存溢出"></a>内存溢出</h2><pre class="line-numbers language-lang-css"><code class="language-lang-css">两种内存溢出异常[注意内存溢出是error级别的]
-1.StackOverFlowError:当请求的栈深度大于虚拟机所允许的最大深度
-2.OutOfMemoryError:虚拟机在扩展栈时无法申请到足够的内存空间[一般都能设置扩大]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="内存溢出"><a href="#内存溢出" class="headerlink" title="内存溢出"></a>内存溢出</h2><pre class="line-numbers language-css"><code class="language-css">两种内存溢出异常[注意内存溢出是error级别的]
+<span class="token number">1.</span><span class="token property">StackOverFlowError</span><span class="token punctuation">:</span>当请求的栈深度大于虚拟机所允许的最大深度
+<span class="token number">2.</span><span class="token property">OutOfMemoryError</span><span class="token punctuation">:</span>虚拟机在扩展栈时无法申请到足够的内存空间[一般都能设置扩大]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>java -verbose:class -version 可以查看刚开始加载的类，可以发现这两个类并不是异常出现的时候才去加载，而是jvm启动的时候就已经加载。这么做的原因是在vm启动过程中我们把类加载起来，并创建几个没有堆栈的对象缓存起来，只需要设置下不同的提示信息即可，当需要抛出特定类型的OutOfMemoryError异常的时候，就直接拿出缓存里的这几个对象就可以了。</p>
 <p>比如说OutOfMemoryError对象，jvm预留出4个对象【固定常量】，这就为什么最多出现4次有堆栈的OutOfMemoryError异常及大部分情况下都将看到没有堆栈的OutOfMemoryError对象的原因。</p>
 <p><a href="https://links.jianshu.com/go?to=http%3A%2F%2Flovestblog.cn%2Fblog%2F2016%2F08%2F29%2Foom%2F" target="_blank" rel="noopener">参考OutOfMemoryError解读</a></p>
 <p>两个基本的例子</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class MemErrorTest {
-    public static void main(String[] args) {
-        try {
-            List<Object> list = new ArrayList<Object>();
-            for(;;) {
-                list.add(new Object()); //创建对象速度可能高于jvm回收速度
-            }
-        } catch (OutOfMemoryError e) {
-            e.printStackTrace();
-        }
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MemErrorTest</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            List<span class="token operator">&lt;</span>Object<span class="token operator">></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>Object<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span><span class="token punctuation">;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//创建对象速度可能高于jvm回收速度</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">OutOfMemoryError</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        try {
-            hi();//递归造成StackOverflowError 这边因为每运行一个方法将创建一个栈帧，栈帧创建太多无法继续申请到内存扩展
-        } catch (StackOverflowError e) {
-            e.printStackTrace();
-        }
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token function">hi</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//递归造成StackOverflowError 这边因为每运行一个方法将创建一个栈帧，栈帧创建太多无法继续申请到内存扩展</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">StackOverflowError</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-    }
+    <span class="token punctuation">}</span>
 
-    public static void hi() {
-        hi();
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">hi</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">hi</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/jvm/lizi1.png" alt="image"></p>
 <h2 id="4-GC简介"><a href="#4-GC简介" class="headerlink" title="4.GC简介"></a>4.GC简介</h2><blockquote>
 <p>GC(Garbage Collection)：即垃圾回收器，诞生于1960年MIT的Lisp语言，主要是用来回收，释放垃圾占用的空间。</p>
@@ -251,46 +237,40 @@ public class StringIntern {
 <p>java内存模型中分为五大区域已经有所了解。我们知道<code>程序计数器</code>、<code>虚拟机栈</code>、<code>本地方法栈</code>，由线程而生，随线程而灭，其中栈中的栈帧随着方法的进入顺序的执行的入栈和出栈的操作，一个栈帧需要分配多少内存取决于具体的虚拟机实现并且在编译期间即确定下来【忽略JIT编译器做的优化，基本当成编译期间可知】，当方法或线程执行完毕后，内存就随着回收，因此无需关心。</p>
 <p>而<code>Java堆</code>、<code>方法区</code>则不一样。方法区存放着类加载信息，但是一个接口中多个实现类需要的内存可能不太一样，一个方法中多个分支需要的内存也可能不一样【只有在运行期间才可知道这个方法创建了哪些对象没需要多少内存】，这部分内存的分配和回收都是动态的，gc关注的也正是这部分的内存。</p>
 </blockquote>
-<pre class="line-numbers language-lang-css"><code class="language-lang-css">Java堆是GC回收的“重点区域”。堆中基本存放着所有对象实例，gc进行回收前，第一件事就是确认哪些对象存活，哪些死去[即不可能再被引用]
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="堆的回收区域"><a href="#堆的回收区域" class="headerlink" title="堆的回收区域"></a>堆的回收区域</h2><pre class="line-numbers language-lang-css"><code class="language-lang-css">为了高效的回收，jvm将堆分为三个区域
-1.新生代（Young Generation）NewSize和MaxNewSize分别可以控制年轻代的初始大小和最大的大小
-2.老年代（Old Generation）
-3.永久代（Permanent Generation）【1.8以后采用元空间，就不在堆中了】
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-css"><code class="language-css">Java堆是GC回收的“重点区域”。堆中基本存放着所有对象实例，gc进行回收前，第一件事就是确认哪些对象存活，哪些死去[即不可能再被引用]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="堆的回收区域"><a href="#堆的回收区域" class="headerlink" title="堆的回收区域"></a>堆的回收区域</h2><pre class="line-numbers language-css"><code class="language-css">为了高效的回收，jvm将堆分为三个区域
+<span class="token number">1.</span>新生代（Young Generation）NewSize和MaxNewSize分别可以控制年轻代的初始大小和最大的大小
+<span class="token number">2.</span>老年代（Old Generation）
+<span class="token number">3.</span>永久代（Permanent Generation）【<span class="token number">1.8</span>以后采用元空间，就不在堆中了】<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.zhihu.com%2Fquestion%2F53613423%2Fanswer%2F135743258" target="_blank" rel="noopener">GC为什么要分代-R大的回答</a></p>
 <p><a href="https://links.jianshu.com/go?to=http%3A%2F%2Flovestblog.cn%2Fblog%2F2016%2F10%2F29%2Fmetaspace%2F" target="_blank" rel="noopener">关于元空间</a></p>
-<h2 id="判断对象是否存活算法"><a href="#判断对象是否存活算法" class="headerlink" title="判断对象是否存活算法"></a>判断对象是否存活算法</h2><pre class="line-numbers language-lang-bash"><code class="language-lang-bash">1.引用计数算法
+<h2 id="判断对象是否存活算法"><a href="#判断对象是否存活算法" class="headerlink" title="判断对象是否存活算法"></a>判断对象是否存活算法</h2><pre class="line-numbers language-bash"><code class="language-bash">1.引用计数算法
 早期判断对象是否存活大多都是以这种算法，这种算法判断很简单，简单来说就是给对象添加一个引用计数器，每当对象被引用一次就加1，引用失效时就减1。当为0的时候就判断对象不会再被引用。
 优点:实现简单效率高，被广泛使用与如python何游戏脚本语言上。
 缺点:难以解决循环引用的问题，就是假如两个对象互相引用已经不会再被其它其它引用，导致一直不会为0就无法进行回收。
 
 2.可达性分析算法
-目前主流的商用语言[如java、c#]采用的是可达性分析算法判断对象是否存活。这个算法有效解决了循环利用的弊端。
-它的基本思路是通过一个称为“GC Roots”的对象为起始点，搜索所经过的路径称为引用链，当一个对象到GC Roots没有任何引用跟它连接则证明对象是不可用的。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+目前主流的商用语言<span class="token punctuation">[</span>如java、c<span class="token comment" spellcheck="true">#]采用的是可达性分析算法判断对象是否存活。这个算法有效解决了循环利用的弊端。</span>
+它的基本思路是通过一个称为“GC Roots”的对象为起始点，搜索所经过的路径称为引用链，当一个对象到GC Roots没有任何引用跟它连接则证明对象是不可用的。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/jvm/gc.png" alt="image"></p>
 <p>gc.png</p>
 <p>可作为GC Roots的对象有四种</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">①虚拟机栈(栈桢中的本地变量表)中的引用的对象，就是平时所指的java对象，存放在堆中。
-②方法区中的类静态属性引用的对象，一般指被static修饰引用的对象，加载类的时候就加载到内存中。
-③方法区中的常量引用的对象,
-④本地方法栈中JNI（native方法)引用的对象
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java">①虚拟机栈<span class="token punctuation">(</span>栈桢中的本地变量表<span class="token punctuation">)</span>中的引用的对象，就是平时所指的java对象，存放在堆中。
+②方法区中的类静态属性引用的对象，一般指被<span class="token keyword">static</span>修饰引用的对象，加载类的时候就加载到内存中。
+③方法区中的常量引用的对象<span class="token punctuation">,</span>
+④本地方法栈中JNI（<span class="token keyword">native</span>方法<span class="token punctuation">)</span>引用的对象<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>即使可达性算法中不可达的对象，也不是一定要马上被回收，还有可能被抢救一下。网上例子很多，基本上和深入理解JVM一书讲的一样<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fblog.csdn.net%2Flwang_IT%2Farticle%2Fdetails%2F78650168" target="_blank" rel="noopener">对象的生存还是死亡</a></p>
-<pre class="line-numbers language-lang-css"><code class="language-lang-css">要真正宣告对象死亡需经过两个过程。
-1.可达性分析后没有发现引用链
-2.查看对象是否有finalize方法，如果有重写且在方法内完成自救[比如再建立引用]，还是可以抢救一下，注意这边一个类的finalize只执行一次，这就会出现一样的代码第一次自救成功第二次失败的情况。[如果类重写finalize且还没调用过，会将这个对象放到一个叫做F-Queue的序列里，这边finalize不承诺一定会执行，这么做是因为如果里面死循环的话可能会时F-Queue队列处于等待，严重会导致内存崩溃，这是我们不希望看到的。]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-css"><code class="language-css">要真正宣告对象死亡需经过两个过程。
+<span class="token number">1.</span>可达性分析后没有发现引用链
+<span class="token number">2.</span>查看对象是否有finalize方法，如果有重写且在方法内完成自救[比如再建立引用]，还是可以抢救一下，注意这边一个类的finalize只执行一次，这就会出现一样的代码第一次自救成功第二次失败的情况。[如果类重写finalize且还没调用过，会将这个对象放到一个叫做F-Queue的序列里，这边finalize不承诺一定会执行，这么做是因为如果里面死循环的话可能会时F-Queue队列处于等待，严重会导致内存崩溃，这是我们不希望看到的。]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.cnblogs.com%2Fonlinemf%2Fp%2F7044953.html" target="_blank" rel="noopener">HotSpot虚拟机如何实现可达性算法</a></p>
 <h2 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h2><blockquote>
 <p>jvm中，可达性分析算法帮我们解决了哪些对象可以回收的问题，垃圾收集算法则关心怎么回收。</p>
 </blockquote>
-<h3 id="三大垃圾收集算法"><a href="#三大垃圾收集算法" class="headerlink" title="三大垃圾收集算法"></a>三大垃圾收集算法</h3><pre class="line-numbers language-lang-go"><code class="language-lang-go">1.标记/清除算法【最基础】
-2.复制算法
-3.标记/整理算法
-jvm采用`分代收集算法`对不同区域采用不同的回收算法。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="三大垃圾收集算法"><a href="#三大垃圾收集算法" class="headerlink" title="三大垃圾收集算法"></a>三大垃圾收集算法</h3><pre class="line-numbers language-go"><code class="language-go"><span class="token number">1</span><span class="token punctuation">.</span>标记<span class="token operator">/</span>清除算法【最基础】
+<span class="token number">2</span><span class="token punctuation">.</span>复制算法
+<span class="token number">3</span><span class="token punctuation">.</span>标记<span class="token operator">/</span>整理算法
+jvm采用<span class="token string">`分代收集算法`</span>对不同区域采用不同的回收算法。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.cnblogs.com%2Ffangfuhai%2Fp%2F7203468.html%3Futm_source%3Ditdadao%26utm_medium%3Dreferral" target="_blank" rel="noopener">参考GC算法深度解析</a></p>
 <p><strong>新生代采用复制算法</strong></p>
 <p>新生代中因为对象都是”朝生夕死的”，【深入理解JVM虚拟机上说98%的对象,不知道是不是这么多，总之就是存活率很低】，适用于复制算法【复制算法比较适合用于存活率低的内存区域】。它优化了标记/清除算法的效率和内存碎片问题，且JVM不以5:5分配内存【由于存活率低，不需要复制保留那么大的区域造成空间上的浪费，因此不需要按1:1【原有区域:保留空间】划分内存区域，而是将内存分为一块Eden空间和From Survivor、To Survivor【保留空间】，三者默认比例为8:1:1，优先使用Eden区，若Eden区满，则将对象复制到第二块内存区上。但是不能保证每次回收都只有不多于10%的对象存货，所以Survivor区不够的话，则会依赖老年代年存进行分配】。</p>
@@ -313,33 +293,29 @@ jvm采用`分代收集算法`对不同区域采用不同的回收算法。
 <p>safepoint不能太少，否则GC等待的时间会很久</p>
 <p>safepoint不能太多，否则将增加运行GC的负担</p>
 <p>安全点主要存放的位置</p>
-<pre class="line-numbers language-lang-undefined"><code class="language-lang-undefined">1:循环的末尾 
+<pre class="line-numbers language-undefined"><code class="language-undefined">1:循环的末尾 
 2:方法临返回前/调用方法的call指令后 
-3:可能抛异常的位置
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+3:可能抛异常的位置<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>参考:<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fblog.csdn.net%2FITer_ZC%2Farticle%2Fdetails%2F41847887" target="_blank" rel="noopener">关于安全点safepoint</a></p>
-<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><pre class="line-numbers language-lang-undefined"><code class="language-lang-undefined">如果说垃圾回收算法是内存回收的方法论，那么垃圾收集器就是具体实现。jvm会结合针对不同的场景及用户的配置使用不同的收集器。
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><pre class="line-numbers language-undefined"><code class="language-undefined">如果说垃圾回收算法是内存回收的方法论，那么垃圾收集器就是具体实现。jvm会结合针对不同的场景及用户的配置使用不同的收集器。
 年轻代收集器
 Serial、ParNew、Parallel Scavenge
 老年代收集器
 Serial Old、Parallel Old、CMS收集器
 特殊收集器
-G1收集器[新型，不在年轻、老年代范畴内]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+G1收集器[新型，不在年轻、老年代范畴内]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/jvm/shoujiqi.png" alt="image"></p>
 <p>收集器，连线代表可结合使用</p>
 <h3 id="新生代收集器"><a href="#新生代收集器" class="headerlink" title="新生代收集器"></a>新生代收集器</h3><h3 id="Serial"><a href="#Serial" class="headerlink" title="Serial"></a>Serial</h3><p>最基本、发展最久的收集器，在jdk3以前是gc收集器的唯一选择，Serial是单线程收集器，Serial收集器只能使用一条线程进行收集工作，在收集的时候必须得停掉其它线程，等待收集工作完成其它线程才可以继续工作。</p>
-<pre class="line-numbers language-lang-css"><code class="language-lang-css">虽然Serial看起来很坑，需停掉别的线程以完成自己的gc工作，但是也不是完全没用的，比如说Serial在运行在Client模式下优于其它收集器[简单高效,不过一般都是用Server模式，64bit的jvm甚至没Client模式]
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-css"><code class="language-css">虽然Serial看起来很坑，需停掉别的线程以完成自己的gc工作，但是也不是完全没用的，比如说Serial在运行在Client模式下优于其它收集器[简单高效,不过一般都是用Server模式，<span class="token number">64</span>bit的jvm甚至没Client模式]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.cnblogs.com%2Fwxw7blog%2Fp%2F7221756.html" target="_blank" rel="noopener">JVM的Client模式与Server模式</a></p>
 <p>优点:对于Client模式下的jvm来说是个好的选择。适用于单核CPU【现在基本都是多核了】<br>缺点:收集时要暂停其它线程，有点浪费资源，多核下显得。</p>
 <h3 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h3><p>可以认为是Serial的升级版，因为它支持多线程[GC线程]，而且收集算法、Stop The World、回收策略和Serial一样，就是可以有多个GC线程并发运行，它是HotSpot第一个真正意义实现并发的收集器。默认开启线程数和当前cpu数量相同【几核就是几个，超线程cpu的话就不清楚了 - -】，如果cpu核数很多不想用那么多，可以通过<em>-XX:ParallelGCThreads</em>来控制垃圾收集线程的数量。</p>
-<pre class="line-numbers language-lang-objectivec"><code class="language-lang-objectivec">优点:
-1.支持多线程，多核CPU下可以充分的利用CPU资源
-2.运行在Server模式下新生代首选的收集器【重点是因为新生代的这几个收集器只有它和Serial可以配合CMS收集器一起使用】
+<pre class="line-numbers language-objectivec"><code class="language-objectivec">优点<span class="token punctuation">:</span>
+<span class="token number">1</span><span class="token punctuation">.</span>支持多线程，多核CPU下可以充分的利用CPU资源
+<span class="token number">2</span><span class="token punctuation">.</span>运行在Server模式下新生代首选的收集器【重点是因为新生代的这几个收集器只有它和Serial可以配合CMS收集器一起使用】
 
-缺点: 在单核下表现不会比Serial好，由于在单核能利用多核的优势，在线程收集过程中可能会出现频繁上下文切换，导致额外的开销。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+缺点<span class="token punctuation">:</span> 在单核下表现不会比Serial好，由于在单核能利用多核的优势，在线程收集过程中可能会出现频繁上下文切换，导致额外的开销。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="Parallel-Scavenge"><a href="#Parallel-Scavenge" class="headerlink" title="Parallel Scavenge"></a>Parallel Scavenge</h3><p>采用复制算法的收集器，和ParNew一样支持多线程。</p>
 <p>但是该收集器重点关心的是吞吐量【吞吐量 = 代码运行时间 / (代码运行时间 + 垃圾收集时间) 如果代码运行100min垃圾收集1min，则为99%】</p>
 <p>对于用户界面，适合使用GC停顿时间短,不然因为卡顿导致交互界面卡顿将很影响用户体验。</p>
@@ -358,15 +334,13 @@ G1收集器[新型，不在年轻、老年代范畴内]
 <p>Parallel Old的出现结合Parallel Scavenge，真正的形成“吞吐量优先”的收集器组合。</p>
 </blockquote>
 <h3 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h3><p>CMS收集器(Concurrent Mark Sweep)是以一种获取最短回收停顿时间为目标的收集器。【重视响应，可以带来好的用户体验，被sun称为并发低停顿收集器】</p>
-<pre class="line-numbers language-lang-css"><code class="language-lang-css">启用CMS：-XX:+UseConcMarkSweepGC
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-css"><code class="language-css">启用CMS：<span class="token property">-XX</span><span class="token punctuation">:</span>+UseConcMarkSweepGC<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>正如其名，CMS采用的是”标记-清除”(Mark Sweep)算法，而且是支持并发(Concurrent)的</p>
 <p>它的运作分为4个阶段</p>
-<pre class="line-numbers language-lang-css"><code class="language-lang-css">1.初始标记:标记一下GC Roots能直接关联到的对象，速度很快
-2.并发标记:GC Roots Tarcing过程，即可达性分析
-3.重新标记:为了修正因并发标记期间用户程序运作而产生变动的那一部分对象的标记记录，会有些许停顿，时间上一般 初始标记 < 重新标记 < 并发标记
-4.并发清除
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-css"><code class="language-css"><span class="token number">1.</span>初始标记<span class="token punctuation">:</span>标记一下GC Roots能直接关联到的对象，速度很快
+<span class="token number">2.</span>并发标记<span class="token punctuation">:</span>GC Roots Tarcing过程，即可达性分析
+<span class="token number">3.</span>重新标记<span class="token punctuation">:</span>为了修正因并发标记期间用户程序运作而产生变动的那一部分对象的标记记录，会有些许停顿，时间上一般 初始标记 &lt; 重新标记 &lt; 并发标记
+<span class="token number">4.</span>并发清除<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>以上初始标记和重新标记需要stw(停掉其它运行java线程)</p>
 <p>之所以说CMS的用户体验好，是因为CMS收集器的内存回收工作是可以和用户线程一起并发执行。</p>
 <p>总体上CMS是款优秀的收集器，但是它也有些缺点。</p>
@@ -375,18 +349,16 @@ G1收集器[新型，不在年轻、老年代范畴内]
 <p>2.cms无法处理浮动垃圾，可能导致Concurrent Mode Failure（并发模式故障）而触发full GC</p>
 <p>3.由于cms是采用”标记-清除“算法,因此就会存在垃圾碎片的问题，为了解决这个问题cms提供了 <strong>-XX:+UseCMSCompactAtFullCollection</strong>选项，这个选项相当于一个开关【默认开启】，用于CMS顶不住要进行full GC时开启内存碎片合并，内存整理的过程是无法并发的，且开启这个选项会影响性能(比如停顿时间变长)</p>
 </blockquote>
-<pre class="line-numbers language-lang-undefined"><code class="language-lang-undefined">浮动垃圾:由于cms支持运行的时候用户线程也在运行，程序运行的时候会产生新的垃圾，这里产生的垃圾就是浮动垃圾，cms无法当次处理，得等下次才可以。
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-undefined"><code class="language-undefined">浮动垃圾:由于cms支持运行的时候用户线程也在运行，程序运行的时候会产生新的垃圾，这里产生的垃圾就是浮动垃圾，cms无法当次处理，得等下次才可以。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h3><p>G1(garbage first:尽可能多收垃圾，避免full gc)收集器是当前最为前沿的收集器之一(1.7以后才开始有)，同cms一样也是关注降低延迟，是用于替代cms功能更为强大的新型收集器，因为它解决了cms产生空间碎片等一系列缺陷。</p>
 <blockquote>
 <p>摘自甲骨文:适用于 Java HotSpot VM 的低暂停、服务器风格的分代式垃圾回收器。G1 GC 使用并发和并行阶段实现其目标暂停时间，并保持良好的吞吐量。当 G1 GC 确定有必要进行垃圾回收时，它会先收集存活数据最少的区域（垃圾优先)</p>
 <p>g1的特别之处在于它强化了分区，弱化了分代的概念，是区域化、增量式的收集器，它不属于新生代也不属于老年代收集器。</p>
 <p>用到的算法为标记-清理、复制算法</p>
 </blockquote>
-<pre class="line-numbers language-lang-css"><code class="language-lang-css">jdk1.7,1.8的都是默认关闭的，更高版本的还不知道
-开启选项 -XX:+UseG1GC 
-比如在tomcat的catania.sh启动参数加上
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-css"><code class="language-css">jdk<span class="token number">1.7</span>,<span class="token number">1.8</span>的都是默认关闭的，更高版本的还不知道
+开启选项 <span class="token property">-XX</span><span class="token punctuation">:</span>+UseG<span class="token number">1</span>GC 
+比如在tomcat的catania<span class="token number">.</span>sh启动参数加上<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>g1是区域化的，它将java堆内存划分为若干个大小相同的区域【region】，jvm可以设置每个region的大小(1-32m,大小得看堆内存大小，必须是2的幂),它会根据当前的堆内存分配合理的region大小。</p>
 <blockquote>
 <p><a href="https://links.jianshu.com/go?to=http%3A%2F%2Fhg.openjdk.java.net%2Fjdk7%2Fjdk7%2Fhotspot%2Ffile%2F9b0ca45cd756%2Fsrc%2Fshare%2Fvm%2Fgc_implementation%2Fg1%2FheapRegion.cpp" target="_blank" rel="noopener">jdk7中计算region的源码</a>,这边博主看了下也看不怎么懂，也翻了下openjdk8的看了下关于region的处理似乎不太一样。。</p>
@@ -395,10 +367,9 @@ G1收集器[新型，不在年轻、老年代范畴内]
 <p>g1将一组或多组区域中存活对象以增量并行的方式复制到不同区域进行压缩，从而减少堆碎片，目标是尽可能多回收堆空间【垃圾优先】，且尽可能不超出暂停目标以达到低延迟的目的。</p>
 <p>g1提供三种垃圾回收模式 young gc、mixed gc 和 full gc,不像其它的收集器，根据区域而不是分代，新生代老年代的对象它都能回收。</p>
 <p>几个重要的默认值，更多的查看官方文档<a href="https://links.jianshu.com/go?to=http%3A%2F%2Fwww.oracle.com%2Ftechnetwork%2Fcn%2Farticles%2Fjava%2Fg1gc-1984535-zhs.html" target="_blank" rel="noopener">oracle官方g1中文文档</a></p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">g1是自适应的回收器，提供了若干个默认值，无需修改就可高效运作
+<pre class="line-numbers language-shell"><code class="language-shell">g1是自适应的回收器，提供了若干个默认值，无需修改就可高效运作
 -XX:G1HeapRegionSize=n  设置g1 region大小，不设置的话自己会根据堆大小算，目标是根据最小堆内存划分2048个区域
--XX:MaxGCPauseMillis=200 最大停顿时间 默认200毫秒
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+-XX:MaxGCPauseMillis=200 最大停顿时间 默认200毫秒<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h2 id="Minor-GC、Major-GC、FULL-GC、mixed-gc"><a href="#Minor-GC、Major-GC、FULL-GC、mixed-gc" class="headerlink" title="Minor GC、Major GC、FULL GC、mixed gc"></a>Minor GC、Major GC、FULL GC、mixed gc</h2><h3 id="Minor-GC"><a href="#Minor-GC" class="headerlink" title="Minor GC"></a>Minor GC</h3><blockquote>
 <p>在年轻代<code>Young space</code>(包括Eden区和Survivor区)中的垃圾回收称之为 Minor GC,Minor GC只会清理年轻代.</p>
 </blockquote>
@@ -416,27 +387,26 @@ G1收集器[新型，不在年轻、老年代范畴内]
 <h2 id="查看GC日志"><a href="#查看GC日志" class="headerlink" title="查看GC日志"></a>查看GC日志</h2><h4 id="简单日志查看"><a href="#简单日志查看" class="headerlink" title="简单日志查看"></a>简单日志查看</h4><p>要看得懂并理解GC，需要看懂GC日志。</p>
 <p>这边我在idea上试了个小例子，需要在idea配置参数(-XX:+PrintGCDetails)。</p>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/jvm/GCrizhi.png" alt="image"></p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class GCtest {
-    public static void main(String[] args) {
-        for(int i = 0; i < 10000; i++) {
-            List<String> list = new ArrayList<>();
-            list.add("aaaaaaaaaaaaa");
-        }
-        System.gc();
-    }
-}
-[GC (System.gc()) [PSYoungGen: 3998K->688K(38400K)] 3998K->696K(125952K), 0.0016551 secs[本次回收时间]] [Times: user=0.01 sys=0.00, real=0.00 secs] 
-[Full GC (System.gc()) [PSYoungGen: 688K->0K(38400K)] [ParOldGen: 8K->603K(87552K)] 696K->603K(125952K), [Metaspace: 3210K->3210K(1056768K)], 0.0121034 secs] [Times: user=0.01 sys=0.00, real=0.01 secs] 
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GCtest</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10000</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            List<span class="token operator">&lt;</span>String<span class="token operator">></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"aaaaaaaaaaaaa"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        System<span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">[</span><span class="token function">GC</span> <span class="token punctuation">(</span>System<span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>PSYoungGen<span class="token operator">:</span> 3998K<span class="token operator">-</span><span class="token operator">></span><span class="token function">688K</span><span class="token punctuation">(</span>38400K<span class="token punctuation">)</span><span class="token punctuation">]</span> 3998K<span class="token operator">-</span><span class="token operator">></span><span class="token function">696K</span><span class="token punctuation">(</span>125952K<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0.0016551</span> secs<span class="token punctuation">[</span>本次回收时间<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>Times<span class="token operator">:</span> user<span class="token operator">=</span><span class="token number">0.01</span> sys<span class="token operator">=</span><span class="token number">0.00</span><span class="token punctuation">,</span> real<span class="token operator">=</span><span class="token number">0.00</span> secs<span class="token punctuation">]</span> 
+<span class="token punctuation">[</span>Full <span class="token function">GC</span> <span class="token punctuation">(</span>System<span class="token punctuation">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">[</span>PSYoungGen<span class="token operator">:</span> 688K<span class="token operator">-</span><span class="token operator">></span><span class="token function">0K</span><span class="token punctuation">(</span>38400K<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>ParOldGen<span class="token operator">:</span> 8K<span class="token operator">-</span><span class="token operator">></span><span class="token function">603K</span><span class="token punctuation">(</span>87552K<span class="token punctuation">)</span><span class="token punctuation">]</span> 696K<span class="token operator">-</span><span class="token operator">></span><span class="token function">603K</span><span class="token punctuation">(</span>125952K<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>Metaspace<span class="token operator">:</span> 3210K<span class="token operator">-</span><span class="token operator">></span><span class="token function">3210K</span><span class="token punctuation">(</span>1056768K<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">0.0121034</span> secs<span class="token punctuation">]</span> <span class="token punctuation">[</span>Times<span class="token operator">:</span> user<span class="token operator">=</span><span class="token number">0.01</span> sys<span class="token operator">=</span><span class="token number">0.00</span><span class="token punctuation">,</span> real<span class="token operator">=</span><span class="token number">0.01</span> secs<span class="token punctuation">]</span> 
 Heap
- PSYoungGen[年轻代]      total 38400K, used 333K [0x0000000795580000, 0x0000000798000000, 0x00000007c0000000)
-  eden space 33280K, 1% used [0x0000000795580000,0x00000007955d34a8,0x0000000797600000)
-  from space 5120K, 0% used [0x0000000797600000,0x0000000797600000,0x0000000797b00000)
-  to   space 5120K, 0% used [0x0000000797b00000,0x0000000797b00000,0x0000000798000000)
- ParOldGen[老年代]       total 87552K, used 603K [0x0000000740000000, 0x0000000745580000, 0x0000000795580000)
-  object space 87552K, 0% used [0x0000000740000000,0x0000000740096fe8,0x0000000745580000)
- Metaspace[元空间]      used 3217K, capacity 4496K, committed 4864K, reserved 1056768K
-  class space    used 352K, capacity 388K, committed 512K, reserved 1048576K
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ PSYoungGen<span class="token punctuation">[</span>年轻代<span class="token punctuation">]</span>      total 38400K<span class="token punctuation">,</span> used 333K <span class="token punctuation">[</span><span class="token number">0x0000000795580000</span><span class="token punctuation">,</span> <span class="token number">0x0000000798000000</span><span class="token punctuation">,</span> <span class="token number">0x00000007c0000000</span><span class="token punctuation">)</span>
+  eden space 33280K<span class="token punctuation">,</span> <span class="token number">1</span><span class="token operator">%</span> used <span class="token punctuation">[</span><span class="token number">0x0000000795580000</span><span class="token punctuation">,</span><span class="token number">0x00000007955d34a8</span><span class="token punctuation">,</span><span class="token number">0x0000000797600000</span><span class="token punctuation">)</span>
+  from space 5120K<span class="token punctuation">,</span> <span class="token number">0</span><span class="token operator">%</span> used <span class="token punctuation">[</span><span class="token number">0x0000000797600000</span><span class="token punctuation">,</span><span class="token number">0x0000000797600000</span><span class="token punctuation">,</span><span class="token number">0x0000000797b00000</span><span class="token punctuation">)</span>
+  to   space 5120K<span class="token punctuation">,</span> <span class="token number">0</span><span class="token operator">%</span> used <span class="token punctuation">[</span><span class="token number">0x0000000797b00000</span><span class="token punctuation">,</span><span class="token number">0x0000000797b00000</span><span class="token punctuation">,</span><span class="token number">0x0000000798000000</span><span class="token punctuation">)</span>
+ ParOldGen<span class="token punctuation">[</span>老年代<span class="token punctuation">]</span>       total 87552K<span class="token punctuation">,</span> used 603K <span class="token punctuation">[</span><span class="token number">0x0000000740000000</span><span class="token punctuation">,</span> <span class="token number">0x0000000745580000</span><span class="token punctuation">,</span> <span class="token number">0x0000000795580000</span><span class="token punctuation">)</span>
+  object space 87552K<span class="token punctuation">,</span> <span class="token number">0</span><span class="token operator">%</span> used <span class="token punctuation">[</span><span class="token number">0x0000000740000000</span><span class="token punctuation">,</span><span class="token number">0x0000000740096fe8</span><span class="token punctuation">,</span><span class="token number">0x0000000745580000</span><span class="token punctuation">)</span>
+ Metaspace<span class="token punctuation">[</span>元空间<span class="token punctuation">]</span>      used 3217K<span class="token punctuation">,</span> capacity 4496K<span class="token punctuation">,</span> committed 4864K<span class="token punctuation">,</span> reserved 1056768K
+  <span class="token keyword">class</span> <span class="token class-name">space</span>    used 352K<span class="token punctuation">,</span> capacity 388K<span class="token punctuation">,</span> committed 512K<span class="token punctuation">,</span> reserved 1048576K<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="8-2-离线工具查看"><a href="#8-2-离线工具查看" class="headerlink" title="8.2 离线工具查看"></a>8.2 离线工具查看</h4><p>比如sun的<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fjava.net%2Fprojects%2Fgchisto" target="_blank" rel="noopener">gchisto</a>，<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fchewiebug%2FGCViewer" target="_blank" rel="noopener">gcviewer</a>离线分析工具，做个笔记先了解下还没用过，可视化好像很好用的样子。</p>
 <h3 id="自带的jconsole工具、jstat命令"><a href="#自带的jconsole工具、jstat命令" class="headerlink" title="自带的jconsole工具、jstat命令"></a>自带的jconsole工具、jstat命令</h3><p>终端输入jconsole就会出现jdk自带的gui监控工具</p>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/jvm/jconsole.jpg" alt="image"></p>
@@ -448,35 +418,33 @@ Heap
 <p>比如jstat -gcutil pid查看对应java进程gc情况</p>
 <p><img src="https://raw.githubusercontent.com/MajorTee/markdp/master/jvm/jstat.jpg" alt="image"></p>
 <p>jstat</p>
-<pre class="line-numbers language-lang-css"><code class="language-lang-css">s0: 新生代survivor space0简称 就是准备复制的那块 单位为%
-s1:指新生代s1已使用百分比，为0的话说明没有存活对象到这边
-e:新生代eden(伊甸园)区域(%)
-o:老年代(%)
-ygc:新生代  次数
-ygct:minor gc耗时
-fgct:full gc耗时(秒)
-GCT: ygct+fgct 耗时
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-css"><code class="language-css"><span class="token property">s0</span><span class="token punctuation">:</span> 新生代survivor space<span class="token number">0</span>简称 就是准备复制的那块 单位为<span class="token number">%</span>
+<span class="token property">s1</span><span class="token punctuation">:</span>指新生代s<span class="token number">1</span>已使用百分比，为<span class="token number">0</span>的话说明没有存活对象到这边
+<span class="token property">e</span><span class="token punctuation">:</span>新生代<span class="token function">eden</span><span class="token punctuation">(</span>伊甸园<span class="token punctuation">)</span>区域<span class="token punctuation">(</span><span class="token number">%</span><span class="token punctuation">)</span>
+<span class="token property">o</span><span class="token punctuation">:</span>老年代<span class="token punctuation">(</span><span class="token number">%</span><span class="token punctuation">)</span>
+<span class="token property">ygc</span><span class="token punctuation">:</span>新生代  次数
+<span class="token property">ygct</span><span class="token punctuation">:</span>minor gc耗时
+<span class="token property">fgct</span><span class="token punctuation">:</span>full gc耗时<span class="token punctuation">(</span>秒<span class="token punctuation">)</span>
+<span class="token property">GCT</span><span class="token punctuation">:</span> ygct+fgct 耗时<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="几个疑问"><a href="#几个疑问" class="headerlink" title="几个疑问"></a>几个疑问</h2><h3 id="GC是怎么判断对象是被标记的"><a href="#GC是怎么判断对象是被标记的" class="headerlink" title="GC是怎么判断对象是被标记的"></a>GC是怎么判断对象是被标记的</h3><p>通过枚举根节点的方式，通过jvm提供的一种oopMap的数据结构，简单来说就是不要再通过去遍历内存里的东西，而是通过OOPMap的数据结构去记录该记录的信息,比如说它可以不用去遍历整个栈，而是扫描栈上面引用的信息并记录下来。</p>
 <p>总结:通过OOPMap把栈上代表引用的位置全部记录下来，避免全栈扫描，加快枚举根节点的速度，除此之外还有一个极为重要的作用，可以帮HotSpot实现准确式GC【这边的准确关键就是类型，可以根据给定位置的某块数据知道它的准确类型，HotSpot是通过oopMap外部记录下这些信息，存成映射表一样的东西】。</p>
 <h3 id="什么时候触发GC"><a href="#什么时候触发GC" class="headerlink" title="什么时候触发GC"></a>什么时候触发GC</h3><p>简单来说，触发的条件就是GC算法区域满了或将满了。</p>
-<pre class="line-numbers language-lang-css"><code class="language-lang-css">minor GC(young GC):当年轻代中eden区分配满的时候触发[值得一提的是因为young GC后部分存活的对象会已到老年代(比如对象熬过15轮)，所以过后old gen的占用量通常会变高]
+<pre class="line-numbers language-css"><code class="language-css">minor <span class="token function">GC</span><span class="token punctuation">(</span>young GC<span class="token punctuation">)</span><span class="token punctuation">:</span>当年轻代中eden区分配满的时候触发[值得一提的是因为young GC后部分存活的对象会已到老年代<span class="token punctuation">(</span>比如对象熬过<span class="token number">15</span>轮<span class="token punctuation">)</span>，所以过后old gen的占用量通常会变高]
 
-full GC:
-①手动调用System.gc()方法 [增加了full GC频率，不建议使用而是让jvm自己管理内存，可以设置-XX:+ DisableExplicitGC来禁止RMI调用System.gc]
-②发现perm gen（如果存在永久代的话)需分配空间但已经没有足够空间
+full <span class="token property">GC</span><span class="token punctuation">:</span>
+①手动调用System<span class="token number">.</span><span class="token function">gc</span><span class="token punctuation">(</span><span class="token punctuation">)</span>方法 [增加了full GC频率，不建议使用而是让jvm自己管理内存，可以设置<span class="token property">-XX</span><span class="token punctuation">:</span>+ DisableExplicitGC来禁止RMI调用System<span class="token number">.</span>gc]
+②发现perm gen（如果存在永久代的话<span class="token punctuation">)</span>需分配空间但已经没有足够空间
 ③老年代空间不足，比如说新生代的大对象大数组晋升到老年代就可能导致老年代空间不足。
 ④CMS GC时出现Promotion Faield[pf]
 ⑤统计得到的Minor GC晋升到旧生代的平均大小大于老年代的剩余空间。
 这个比较难理解，这是HotSpot为了避免由于新生代晋升到老年代导致老年代空间不足而触发的FUll GC。
-比如程序第一次触发Minor GC后，有5m的对象晋升到老年代，姑且现在平均算5m，那么下次Minor GC发生时，先判断现在老年代剩余空间大小是否超过5m，如果小于5m，则HotSpot则会触发full GC(这点挺智能的)
-Promotion Faield:minor GC时 survivor space放不下[满了或对象太大]，对象只能放到老年代，而老年代也放不下会导致这个错误。
-Concurrent Model Failure:cms时特有的错误，因为cms时垃圾清理和用户线程可以是并发执行的，如果在清理的过程中
+比如程序第一次触发Minor GC后，有<span class="token number">5</span>m的对象晋升到老年代，姑且现在平均算<span class="token number">5</span>m，那么下次Minor GC发生时，先判断现在老年代剩余空间大小是否超过<span class="token number">5</span>m，如果小于<span class="token number">5</span>m，则HotSpot则会触发full <span class="token function">GC</span><span class="token punctuation">(</span>这点挺智能的<span class="token punctuation">)</span>
+Promotion <span class="token property">Faield</span><span class="token punctuation">:</span>minor GC时 survivor space放不下[满了或对象太大]，对象只能放到老年代，而老年代也放不下会导致这个错误。
+Concurrent Model <span class="token property">Failure</span><span class="token punctuation">:</span>cms时特有的错误，因为cms时垃圾清理和用户线程可以是并发执行的，如果在清理的过程中
 可能原因：
-1 cms触发太晚，可以把XX:CMSInitiatingOccupancyFraction调小[比如-XX:CMSInitiatingOccupancyFraction=70 是指设定CMS在对内存占用率达到70%的时候开始GC(因为CMS会有浮动垃圾,所以一般都较早启动GC)]
-2 垃圾产生速度大于清理速度，可能是晋升阈值设置过小，Survivor空间小导致跑到老年代，eden区太小，存在大对象、数组对象等情况
-3.空间碎片过多，可以开启空间碎片整理并合理设置周期时间
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token number">1</span> cms触发太晚，可以把<span class="token property">XX</span><span class="token punctuation">:</span>CMSInitiatingOccupancyFraction调小[比如<span class="token property">-XX</span><span class="token punctuation">:</span>CMSInitiatingOccupancyFraction=<span class="token number">70</span> 是指设定CMS在对内存占用率达到<span class="token number">70%</span>的时候开始<span class="token function">GC</span><span class="token punctuation">(</span>因为CMS会有浮动垃圾,所以一般都较早启动GC<span class="token punctuation">)</span>]
+<span class="token number">2</span> 垃圾产生速度大于清理速度，可能是晋升阈值设置过小，Survivor空间小导致跑到老年代，eden区太小，存在大对象、数组对象等情况
+<span class="token number">3.</span>空间碎片过多，可以开启空间碎片整理并合理设置周期时间<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>full gc导致了concurrent mode failure，而不是因为concurrent mode failure错误导致触发full gc，真正触发full gc的原因可能是ygc时发生的promotion failure。</p>
 </blockquote>
@@ -497,15 +465,14 @@ Concurrent Model Failure:cms时特有的错误，因为cms时垃圾清理和用�
 <h3 id="各个版本的JVM使用的垃圾收集器是怎么样的"><a href="#各个版本的JVM使用的垃圾收集器是怎么样的" class="headerlink" title="各个版本的JVM使用的垃圾收集器是怎么样的"></a>各个版本的JVM使用的垃圾收集器是怎么样的</h3><p>准确来说，垃圾收集器的使用跟当前jvm也有很大的关系，比如说g1是jdk7以后的版本才开始出现。</p>
 <p>并不是所有的垃圾收集器都是默认开启的，有些得通过设置相应的开关参数才会使用。比如说cms，需设置(XX:+UseConcMarkSweepGC)</p>
 <p>这边有几个实用的命令，比如说server模式下</p>
-<pre class="line-numbers language-lang-shell"><code class="language-lang-shell">#UnlockExperimentalVMOptions UnlockDiagnosticVMOptions解锁获取jvm参数，PrintFlagsFinal用于输出xx相关参数，以Benchmark类测试，这边会有很多结果 大都看不懂- - 在这边查(usexxxxxxgc会看到jvm不同收集器的开关情况)
+<pre class="line-numbers language-shell"><code class="language-shell">#UnlockExperimentalVMOptions UnlockDiagnosticVMOptions解锁获取jvm参数，PrintFlagsFinal用于输出xx相关参数，以Benchmark类测试，这边会有很多结果 大都看不懂- - 在这边查(usexxxxxxgc会看到jvm不同收集器的开关情况)
 java -server -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+PrintFlagsFinal Benchmark
 
 #后面跟| grep ":"获取已赋值的参数[加:代表被赋值过]
 java -server -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+PrintFlagsFinal Benchmark| grep ":"
 
 #获得用户自定义的设置或者jvm设置的详细的xx参数和值
-java -server -XX:+PrintCommandLineFlags Benchmark
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+java -server -XX:+PrintCommandLineFlags Benchmark<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>!<img src="https://raw.githubusercontent.com/MajorTee/markdp/master/jvm/UseParallelGC.jpg" alt="image"></p>
 <p>本人用的jdk8，这边UseParallelGC为true，参考深入理解jvm那本书说这个是Parallel Scavenge+Serial old搭配组合的开关，但是网上又说8默认是Parallel Scavenge+Parallel Old,我还是信书的吧 - -。</p>
 <p>更多相关参数<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fupload-images.jianshu.io%2Fupload_images%2F4914401-4503c1ac0196db78.png" target="_blank" rel="noopener">来源</a></p>

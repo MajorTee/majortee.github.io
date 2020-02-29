@@ -8,6 +8,7 @@
 <h2 id="2-作用范围"><a href="#2-作用范围" class="headerlink" title="2.作用范围"></a>2.作用范围</h2><p>整个web应用。</p>
 <h2 id="3-作用"><a href="#3-作用" class="headerlink" title="3.作用"></a>3.作用</h2><p>由于一个web应用中的所有Servlet共享同一个ServletContext对象：因此Servlet对象之间可以通过ServletContext来是实现通讯。ServletContext对象通常也被称为context域对象。</p>
 <a id="more"></a>
+
 <h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
 <li>多个Servlet通过ServletContext对象实现数据共享。<ul>
 <li>获取web应用的初始化参数(getInitParameter)。</li>
@@ -36,13 +37,20 @@
 <h2 id="2-作用范围-3"><a href="#2-作用范围-3" class="headerlink" title="2.作用范围"></a>2.作用范围</h2><p>  整个JSP页面，是四大域中最小的一个。</p>
 <h2 id="3-作用-2"><a href="#3-作用-2" class="headerlink" title="3.作用"></a>3.作用</h2><p>  pageContext对象封装了8大隐式对象，通过它可以获得其它的8个对象。</p>
 <ul>
-<li>getException()返回Exception。</li>
-<li>getPage()返回Page。</li>
-<li>getRequest()返回request。</li>
-<li>getResponse()返回response。</li>
-<li>getServletConfig()返回config。</li>
-<li>getServletContext()返回application。</li>
-<li>getSession()返回session。</li>
+<li><p>getException()返回Exception。</p>
+</li>
+<li><p>getPage()返回Page。</p>
+</li>
+<li><p>getRequest()返回request。</p>
+</li>
+<li><p>getResponse()返回response。</p>
+</li>
+<li><p>getServletConfig()返回config。</p>
+</li>
+<li><p>getServletContext()返回application。</p>
+</li>
+<li><p>getSession()返回session。</p>
+</li>
 <li><p>getOut()返回out。</p>
 <p>另外，通过pageContext还能获取其所有域中的数据。</p>
 </li>
