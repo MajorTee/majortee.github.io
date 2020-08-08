@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>git完整步骤 · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="Git 相关笔记，方便查询拉取和提交
+现在本地初始化一个厂库：git init
+
+配置好远程url地址：git remote add origin git@XX.XXX.XXX.XX:test/pytest.git
+
+直接拉代码：git pull origin branch
+
+查看代码修改状态：gi"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>git完整步骤</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2020-08-08</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2020/08/08/git%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4/#comments">评论</a></span></p><p class="post-abstract"><h1 id="Git-相关笔记，方便查询"><a href="#Git-相关笔记，方便查询" class="headerlink" title="Git 相关笔记，方便查询"></a>Git 相关笔记，方便查询</h1><h2 id="拉取和提交"><a href="#拉取和提交" class="headerlink" title="拉取和提交"></a>拉取和提交</h2><ol>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><li><p>现在本地初始化一个厂库：git init</p>
+</li>
+<li><p>配置好远程url地址：git remote add origin <a href="mailto:git@XX.XXX.XXX.XX">git@XX.XXX.XXX.XX</a>:test/pytest.git</p>
+</li>
+<li><p>直接拉代码：git pull origin branch</p>
+</li>
+<li><p>查看代码修改状态：git status</p>
+</li>
+<li><p>创建一个你要上传的分支（会同时切换到该分支）：git checkout -b branch</p>
+</li>
+<li><p>先提交到本地分支：git add .</p>
+</li>
+<li><p>提交说明：git commit -m “修改代码说明”</p>
+</li>
+<li><p>再推送到远程分支：git push -u origin branch</p>
+</li>
+</ol>
+<a id="more"></a>
+
+<h2 id="fatal-refusing-to-merge-unrelated-histories"><a href="#fatal-refusing-to-merge-unrelated-histories" class="headerlink" title="fatal: refusing to merge unrelated histories"></a>fatal: refusing to merge unrelated histories</h2><h3 id="强制合并"><a href="#强制合并" class="headerlink" title="强制合并"></a>强制合并</h3><pre class="line-numbers language-shell"><code class="language-shell">git pull origin master --allow-unrelated-histories<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="git-中-gitignore文件不生效"><a href="#git-中-gitignore文件不生效" class="headerlink" title="git 中.gitignore文件不生效"></a>git 中.gitignore文件不生效</h2><pre class="line-numbers language-shell"><code class="language-shell">git rm -r --cached .
+git add .
+git commit -m 'update .gitignore'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2020/08/08/git完整步骤/%20HeeC' target="_blank" rel="noopener"Blog%20git完整步骤" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2020/07/06/mysql%E4%BD%BF%E7%94%A8%E8%A7%84%E8%8C%83%E5%88%86%E4%BA%AB/" title="mysql使用规范分享">下一篇: mysql使用规范分享&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
+var disqus_identifier = '2020/08/08/git完整步骤/';
+var disqus_title = 'git完整步骤';
+var disqus_url = 'http://yoursite.com/2020/08/08/git完整步骤/';
+(function () {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

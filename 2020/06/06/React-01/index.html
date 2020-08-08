@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>React-01 · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="React-01特点：1、声明式的设计
+2、高效，采用虚拟DOM来实现DOM的渲染，最大限度的减少DOM的操作。
+3、灵活，跟其他库灵活搭配使用。
+4、JSX，俗称JS里面写HTML，JavaScript语法的扩展。
+5、组件化，模块化。代码容易复用。
+6、单向数据流。没有实现数据的双向绑定。数据-"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>React-01</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2020-06-06</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2020/06/06/React-01/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/React/" title="React" class="a-tag">React</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="React-01"><a href="#React-01" class="headerlink" title="React-01"></a>React-01</h1><h2 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h2><p>1、声明式的设计</p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><p>2、高效，采用虚拟DOM来实现DOM的渲染，最大限度的减少DOM的操作。</p>
+<p>3、灵活，跟其他库灵活搭配使用。</p>
+<p>4、JSX，俗称JS里面写HTML，JavaScript语法的扩展。</p>
+<p>5、组件化，模块化。代码容易复用。</p>
+<p>6、单向数据流。没有实现数据的双向绑定。数据-》视图-》事件-》数据</p>
+<a id="more"></a>
+
+<h2 id="React元素渲染"><a href="#React元素渲染" class="headerlink" title="React元素渲染"></a>React元素渲染</h2><p>注意：JSX元素对象，或者组件对象，必须只有1个根元素（根节点）</p>
+<p>如：let h1 = </p><h1>helloworld</h1><h1>错误示例</h1>;<p></p>
+<h3 id="函数式组件渲染"><a href="#函数式组件渲染" class="headerlink" title="函数式组件渲染"></a>函数式组件渲染</h3><pre class="line-numbers language-react"><code class="language-react">function Clock(props){
+    return (
+        <div>
+            <h1>现在的时间是{props.date.toLocaleTimeString()} </h1>
+            <h2>这是函数式组件开发</h2>
+        </div>
+    )
+}
+function run(){
+    ReactDOM.render(
+        <Clock date={new Date()} />,
+        document.querySelector('#root')
+    )
+}
+setInterval(run,1000)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>注意 props、date={new Date()} 和 props.date.toLocaleTimeString() 的使用</p>
+</blockquote>
+<h2 id="React-Jsx"><a href="#React-Jsx" class="headerlink" title="React Jsx"></a>React Jsx</h2><p>优点：</p>
+<p>1、JSX执行更快，编译为JavaScript代码时进行优化</p>
+<p>2、类型更安全，编译过程如果出错就不能编译，及时发现错误</p>
+<p>3、JSX编写模板更加简单快速。</p>
+<p>注意：</p>
+<p>1、JSX必须要有根节点。</p>
+<p>2、正常的普通HTML元素要小写。如果是大写，默认认为是组件。</p>
+<h3 id="JSX表达式"><a href="#JSX表达式" class="headerlink" title="JSX表达式"></a>JSX表达式</h3><p>1、由HTML元素构成</p>
+<p>2、中间如果需要插入变量用{}</p>
+<p>3、{}中间可以使用表达式，对应多个表达式使用多个{}，可以嵌套</p>
+<p>4、{}中间表达式中可以使用JSX对象</p>
+<p>5、属性和html内容一样都是用{}来插入内容</p>
+<p>注意：HTML的样式类名要写className，因为class在js当中是关键词</p>
+<pre class="line-numbers language-react"><code class="language-react">let element5 = (
+    <div className={color}>
+        <img src={logo} />
+        红色的背景颜色
+    </div>
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="JSX-style-样式"><a href="#JSX-style-样式" class="headerlink" title="JSX_style 样式"></a>JSX_style 样式</h2><pre class="line-numbers language-react"><code class="language-react">let exampleStyle = {
+    background:"skyblue",
+    borderBottom:"4px solid red",
+    'background-image':"url(https://www.baidu.com/img/pc_1c6e30772d5e4103103bd460913332f9.png)"
+}
+
+let element = (
+    <div>
+        <h1 style={exampleStyle}>helloworld</h1>
+    </div>
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>1、Class或style中，不可以存在多个class属性</p>
+<blockquote>
+<p>错误表示：<div classname="abc">  </div></p>
+</blockquote>
+<p>2、style样式中，如果存在多个单词的属性组合，第二个单词开始，首字母大写。或者用引号引起来，否则会报错。</p>
+<pre class="line-numbers language-react"><code class="language-react">let exampleStyle = {
+    background:"skyblue",
+    borderBottom:"4px solid red",{/* 注意 */}
+    'background-image':"url(https://www.baidu.com/img/pc_1c6e30772d5e4103103bd460913332f9.png)" 
+}     <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>3、多个类共存的操作</p>
+<pre class="line-numbers language-react"><code class="language-react">let element2 = (
+    <div>
+        <h1 className={"abc "+classStr}>helloworld</h1>//可以的
+    </div>
+)
+//不加join(" ")会变成className=“abc2,redBg2”
+//['abc2','redBg2'].join(" ")变为className=“abc2 redBg2”从而有效对两个元素渲染
+let classStr2 = ['abc2','redBg2'].join(" ")
+let element3 = (
+    <div>
+        {/* 这里写注释 */}
+        <h1 className={classStr2}
+            style={exampleStyle}>helloworld</h1>
+    </div>
+)     <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>4、注释</p>
+<p>必须在括号的表达式内书写，否则报错：{/* 这里写注释 */}</p>
+<h2 id="React组件"><a href="#React组件" class="headerlink" title="React组件"></a>React组件</h2><p>函数式组件与类组件的区别和使用，函数式比较简单，一般用于静态没有交互事件内容的组件页面。类组件，一般又称为动态组件，那么一般会有交互或者数据修改的操作。</p>
+<blockquote>
+<p>函数式组件与类组件的使用方式都是ReactDOM.<strong>render</strong>(,)</p>
+</blockquote>
+<p>1、函数式组件(通过return函数渲染)</p>
+<pre class="line-numbers language-react"><code class="language-react">//函数式组件,首字母大写 
+function Childcom(props){
+    console.log(props)
+    let title = <h2>我是副标题</h2>
+    let weather = props.weather
+    //条件判断
+    let isGo = weather=='下雨' ?"不出门":"出门"
+    return (
+        <div>
+            <h1>函数式组件helloworld</h1>
+            {title}
+            <div>
+                是否出门？
+                <span>{isGo}</span>
+            </div>
+        </div>
+    )
+}     <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2、类组件（通过render()渲染）</p>
+<pre class="line-numbers language-react"><code class="language-react">//类组件定义
+class HelloWorld extends React.Component{
+    render(){
+        console.log(this)
+        return (
+            <div>
+                <h1>类组件定义HELLOWORLD</h1>
+                <h1>hello:{this.props.name}</h1>
+                <Childcom />
+            </div>
+        )
+    }
+}     
+ReactDOM.render(
+   <Childcom weather="出太阳" />,
+   document.querySelector('#root')  
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>3、复合组件：组件中又有其他的组件，复合组件中既可以有类组件又可以有函数组件。</p>
+<pre class="line-numbers language-react"><code class="language-react">class HelloWorld extends React.Component{
+    render(){
+        console.log(this)
+        //返回的都是JSX对象
+        return (
+            <div>
+                <h1>类组件定义HELLOWORLD</h1>
+                <h1>hello:{this.props.name}</h1>
+                <Childcom weather={this.props.weather} />
+            </div>
+        )
+    }
+}
+ReactDOM.render(    
+    <HelloWorld name="老陈" weather="下雨" />,
+    document.querySelector('#root')
+)                         <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="React-State"><a href="#React-State" class="headerlink" title="React State"></a>React State</h2><pre class="line-numbers language-react"><code class="language-react">// 示例1
+class Clock extends React.Component{
+    constructor(props){
+        super(props)
+        //状态（数据）--》view
+        //构造函数初始化数据，将需要改变的数据初始化到state中
+        this.state = {
+            time:new Date().toLocaleTimeString()
+        }
+        //console.log(this.state.time)
+    }
+
+    render(){
+        //console.log("这是渲染函数")
+        //this.state.time = new Date().toLocaleTimeString();
+        return (
+            <div>
+                <h1>当前时间：{this.state.time}</h1>
+            </div>
+        )
+    }
+
+    //生命周期函数,组件渲染完成时的函数
+    componentDidMount(){
+        setInterval(()=>{
+            console.log(this.state.time)
+            //this.state.time = new Date().toLocaleTimeString(); //错误的方式
+            //切勿直接修改state数据，直接state重新渲染内容，需要使用setState
+            //通过this.setState修改完数据后，并不会立即修改DOM里面的内容,react会在，
+            //这个函数内容所有设置状态改变后，统一对比虚拟DOM对象，然后在统一修改，提升性能。
+            //小程序也是也是借鉴REACT状态管理操作
+            this.setState({
+                time:new Date().toLocaleTimeString()
+            })
+
+        },1000)
+    }
+
+}
+
+ReactDOM.render(
+    <Clock />,
+    document.querySelector('#root')
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-react"><code class="language-react">// 示例2
+class Tab extends React.Component{
+    constructor(props){
+        super(props)
+
+        //设置状态、数据
+        this.state = {
+            c1:'content active',
+            c2:"content"
+        }
+// 需要绑定，否则undefined
+        this.clickEvent = this.clickEvent.bind(this)
+    }
+
+    clickEvent(e){
+        console.log('clickEvent')
+        console.log(e.target.dataset.index)
+        let index = e.target.dataset.index;
+        console.log(this)
+        if(index=='1'){
+            this.setState({
+                c1:'content active'
+
+            })
+            this.setState({
+                c2:"content"
+            })
+        }else{
+            this.setState({
+                c1:'content',
+                c2:"content active"
+            })
+        }
+    }
+
+    render(){
+        return (
+            <div>
+                <button data-index="1" onClick={this.clickEvent}>内容一</button>
+                <button data-index="2" onClick={this.clickEvent}>内容二</button>
+                <div className={this.state.c1}>
+                    <h1>内容1</h1>
+                </div>
+                <div className={this.state.c2}>
+                    <h1>内容2</h1>
+                </div>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(
+    <Tab />,
+    document.querySelector('#root')
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2020/06/06/React-01/%20HeeC' target="_blank" rel="noopener"Blog%20React-01" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2020/06/06/React-02/" title="React-02"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: React-02</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2020/02/16/hexo-Typography-%E6%9C%AC%E5%9C%B0%E6%90%9C%E7%B4%A2/" title="Hexo-Typography-本地搜索+mathjax">下一篇: Hexo-Typography-本地搜索+mathjax&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
+var disqus_identifier = '2020/06/06/React-01/';
+var disqus_title = 'React-01';
+var disqus_url = 'http://yoursite.com/2020/06/06/React-01/';
+(function () {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

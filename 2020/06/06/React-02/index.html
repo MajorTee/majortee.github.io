@@ -1,0 +1,370 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>React-02 · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="React-02Props
+父传递给子组件数据，单向流动，不能子传递给父。
+
+props的传值，可以是任意的类型。
+
+Props可以设置默认值
+HelloMessage.defaultProps = { name:”老陈”，msg：“helloworld” }
+
+
+注意：props可以传递函数，pr"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>React-02</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2020-06-06</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2020/06/06/React-02/#comments">评论</a></span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a href="/categories/编程语言/" title="编程语言" class="a-tag">编程语言</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a href="/tags/React/" title="React" class="a-tag">React</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="React-02"><a href="#React-02" class="headerlink" title="React-02"></a>React-02</h1><h2 id="Props"><a href="#Props" class="headerlink" title="Props"></a>Props</h2><ol>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><li><p>父传递给子组件数据，单向流动，不能子传递给父。</p>
+</li>
+<li><p>props的传值，可以是任意的类型。</p>
+</li>
+<li><p>Props可以设置默认值</p>
+<p>HelloMessage.defaultProps = { name:”老陈”，msg：“helloworld” }</p>
+</li>
+</ol>
+<p>注意：props可以传递函数，props可以传递父元素的函数，就可以去修改父元素的state,从而达到传递数据给父元素。</p>
+<a id="more"></a>
+
+<p>父传子数据传递案例 </p>
+<pre class="line-numbers language-react"><code class="language-react">class ParentCom extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            isActive:true
+        }
+        this.changeShow = this.changeShow.bind(this)
+    }
+
+    render(){
+        return (
+            <div>
+                <button onClick={this.changeShow}>控制子元素显示</button>
+                <ChildCom isActive={this.state.isActive} />
+            </div>
+        )
+    }
+
+    changeShow(){
+        this.setState({
+            isActive:!this.state.isActive
+        })
+    }
+}
+
+class ChildCom extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        let strClass = null;
+        if(this.props.isActive){
+            strClass = ' active'
+        }else{
+            strClass = ""
+        }
+        strClass = this.props.isActive?" active":"";
+
+        return (
+            <div className={"content"+strClass}>
+                <h1>我是子元素</h1>
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(
+    <ParentCom />,
+    document.querySelector("#root")
+)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="React数据传递：子传父"><a href="#React数据传递：子传父" class="headerlink" title="React数据传递：子传父"></a>React数据传递：子传父</h2><p>调用父元素的函数从而操作父元素的数据，从而实现数据从子元素传递至父元素</p>
+<pre class="line-numbers language-react"><code class="language-react">//子传父
+class ParentCom extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            childData:null
+        }
+    }
+
+    render(){
+       return (
+           <div>
+                <h1>子元素传递给父元素的数据：{this.state.childData}</h1>
+               <ChildCom setChildData={this.setChildData} />
+           </div>
+       ) 
+    }
+
+    setChildData=(data)=>{
+        this.setState({
+            childData:data
+        })
+    }
+}
+
+class ChildCom extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            msg:"helloworld"
+        }
+    }
+    render(){
+        return (
+            <div>
+                <button onClick={this.sendData}>传递helloworld给父元素</button>
+                <button onClick={()=>{this.props.setChildData('直接调用props的函数')}}>传递helloworld给父元素</button>
+
+            </div>
+        )
+    }
+    sendData=()=>{
+        //console.log(this.state.msg)
+        //将子元素传递给到父元素，实际就是调用父元素传递进来的父元素函数
+        this.props.setChildData(this.state.msg)
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="REACT-事件"><a href="#REACT-事件" class="headerlink" title="REACT 事件"></a>REACT 事件</h1><h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><p>1、react事件，绑定事件的命名，驼峰命名法。</p>
+<p>2、{},应传入1个函数，而不是字符串，与原生区别</p>
+<p><code>&lt;button onClick={this.sendData}&gt;传递helloworld给父元素&lt;/button&gt;</code></p>
+<p>事件对象：React返回的事件对象是代理的原生的事件对象，如果想要查看事件对象的具体值，必须之间输出事件对象的属性。</p>
+<h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><p>原生阻止默认行为时，可以直接返回return false；</p>
+<p>React中，阻止默认必须e.preventDefault();</p>
+<pre class="line-numbers language-react"><code class="language-react">class ParentCom extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+
+        return (
+            <div >
+                <form action="http://www.baidu.com">
+                    <div className="child" >
+                        <h1>helloworld</h1>
+                        <button onClick={this.parentEvent}>提交</button>
+                    </div>
+
+                </form>
+
+                {/* 使用ES6箭头函数传递多个参数 */}
+                //this.parentEvent1('msg:helloworld')不可以直接传字符串，使用匿名函数
+                <button  onClick={(e)=>{this.parentEvent1('msg:helloworld',e)}}>提交</button>
+                {/* //不使用ES6箭头函数传递多个参数的方式 */}
+                <button  onClick={function(e){this.parentEvent1('不使用es6,msg:helloworld',e)}.bind(this)}>提交</button>
+
+            </div>
+        )
+    }
+    parentEvent=(e)=>{
+        console.log(e.preventDefault)
+        e.preventDefault()
+        //return false;
+    }
+    parentEvent1 = (msg,e)=>{
+        console.log(msg)
+        console.log(e)
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="React事件传参数"><a href="#React事件传参数" class="headerlink" title="React事件传参数"></a>React事件传参数</h3><pre class="line-numbers language-react"><code class="language-react">{/* 使用ES6箭头函数传递多个参数 */}
+<button onClick={(e)=>{this.parentEvent1('msg:helloworld',e)}}>提交</button>
+{/* //不使用ES6箭头函数传递多个参数的方式 */}
+<button onClick={function(e){this.parentEvent1('不使用es6,msg:helloworld',e)}.bind(this)}>提交</button>             
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="React-条件渲染"><a href="#React-条件渲染" class="headerlink" title="React 条件渲染"></a>React 条件渲染</h2><p>React中条件渲染即和JavaScript中，条件运算，如if…else…三元运算符等。</p>
+<p>1、直接通过条件运算返回要渲染的JSX对象</p>
+<p>2、通过条件运算得出jsx对象，在将JSX对象渲染到模板中。</p>
+<h3 id="案例1"><a href="#案例1" class="headerlink" title="案例1"></a>案例1</h3><pre class="line-numbers language-react"><code class="language-react">function UserGreet(props){
+    return (<h1>欢迎登陆</h1>)
+}
+function UserLogin(props){
+    return (<h1>请先登录</h1>)
+}
+
+class ParentCom extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            isLogin:true
+        }
+    }
+    render(){
+        if(this.state.isLogin){
+            return (<UserGreet></UserGreet>)
+        }else{
+            return (<UserLogin></UserLogin>)
+        }
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="案例2"><a href="#案例2" class="headerlink" title="案例2"></a>案例2</h3><pre class="line-numbers language-react"><code class="language-react">class ParentCom extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            isLogin:false
+        }
+    }
+    render(){
+        let element = null;
+        if(this.state.isLogin){
+            element = <UserGreet></UserGreet>;
+        }else{
+            element = (<UserLogin></UserLogin>);
+        }
+        return (
+            <div>
+                <h1>这是头部</h1>
+                {element}
+                <h1>这是三元运算符的操作</h1>
+                {this.state.isLogin?<UserGreet></UserGreet>:<UserLogin></UserLogin>}
+                <h1>这是尾部</h1>
+            </div>
+        )
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="列表渲染"><a href="#列表渲染" class="headerlink" title="列表渲染"></a>列表渲染</h2><ol>
+<li><p>将列表内容拼装成<strong>数组</strong>放置到模板中。将数据拼装成数组的JSX对象。</p>
+</li>
+<li><p>使用数组的map方法，对每一项数据按照JSX的形式进行加工，最终得到1个每一项都是JSX对象的数组，在将数组渲染到模板中。</p>
+</li>
+<li><p>Key值需要放置到每一项中。</p>
+</li>
+</ol>
+<h3 id="简单案例"><a href="#简单案例" class="headerlink" title="简单案例"></a>简单案例</h3><pre class="line-numbers language-react"><code class="language-react">class Welcome extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            list:[
+                {
+                    title:"第一节 React事件",
+                    content:"事件内容"
+                },
+                {
+                    title:"第二节 React数据传递",
+                    content:"数据传递内容",
+                },
+                {
+                    title:"第三节 条件渲染",
+                    content:"条件渲染内容",
+                }
+            ]
+        }
+    }
+    render(){
+        let listArr = [];
+        for(let i=0;i<this.state.list.length;i++){
+            let item = (
+                <li>
+                    <h3>{this.state.list[i].title}</h3>
+                    <p>{this.state.list[i].content}</p>
+                </li>
+            )
+            listArr.push(item)
+        }
+        return (
+            <div>
+                <h1>
+                    今天课程内容
+                </h1>
+                <ul>
+                    {listArr}
+                    <li>
+                        <h3>这是标题</h3>
+                        <p>内容</p>
+                    </li>
+                </ul>
+            </div>
+        )
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="复杂案例"><a href="#复杂案例" class="headerlink" title="复杂案例"></a>复杂案例</h3><pre class="line-numbers language-react"><code class="language-react">function ListItem(props){
+    return (
+        <li>
+            <h3>{props.index+1}:listItem:{props.data.title}</h3>
+            <p>{props.data.content}</p>
+        </li>
+    )
+}
+class ListItem2 extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        return (
+            <li onClick={(event)=>{this.clickEvent(
+                    this.props.index,
+                    this.props.data.title,
+                    event
+                )}}>
+                <h3>{this.props.index+1}:listItem:{this.props.data.title}</h3>  
+                <p>{this.props.data.content}</p>
+            </li>
+        )
+    }
+    clickEvent=(index,title,event)=>{
+        alert((index+1)+"-"+title)
+    }
+}
+class Welcome extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            list:[
+                {
+                    title:"第一节 React事件",
+                    content:"事件内容"
+                },
+                {
+                    title:"第二节 React数据传递",
+                    content:"数据传递内容",
+                },
+                {
+                    title:"第三节 条件渲染",
+                    content:"条件渲染内容",
+                }
+            ]
+        }
+    }
+    render(){
+        let listArr = this.state.list.map((item,index)=>{
+            return (
+                <ListItem2 key={index} data={item} index={index}></ListItem2>
+            )
+        })
+        return (
+            <div>
+                <h1>
+                    今天课程内容
+                </h1>
+                <ul>
+                    {listArr}
+                    <li>
+                        <h3>这是标题</h3>
+                        <p>内容</p>
+                    </li>
+                </ul>
+                <h1>复杂没有用组件完成列表</h1>
+                <ul>
+                    {
+                        this.state.list.map((item,index)=>{
+                            return (
+                                <li key={index} onClick={(event)=>
+                                    {this.clickFn(index,item.title,event)}}>
+                                    <h3>{index+1}-复杂-{item.title}</h3>
+                                    <p>{item.content}</p>
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
+            </div>
+        )
+    }
+    clickFn=(index,title,event)=>{
+        alert((index+1)+"-clickFn-"+title)
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="React制作疫情地图"><a href="#React制作疫情地图" class="headerlink" title="React制作疫情地图"></a>React制作疫情地图</h2></p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2020/06/06/React-02/%20HeeC' target="_blank" rel="noopener"Blog%20React-02" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2020/07/06/mysql%E4%BD%BF%E7%94%A8%E8%A7%84%E8%8C%83%E5%88%86%E4%BA%AB/" title="mysql使用规范分享"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: mysql使用规范分享</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2020/06/06/React-01/" title="React-01">下一篇: React-01&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
+var disqus_identifier = '2020/06/06/React-02/';
+var disqus_title = 'React-02';
+var disqus_url = 'http://yoursite.com/2020/06/06/React-02/';
+(function () {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>

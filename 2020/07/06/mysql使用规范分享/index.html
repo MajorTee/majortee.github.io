@@ -1,0 +1,348 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Hee"><title>mysql使用规范分享 · HeeC'Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end --><meta name="description" content="mysql使用规范分享最近涉及数据库相关操作较多，公司现有规范也不是太全面，就根据网上各路大神的相关规范，整理了一些自用的规范用法，万望指正。
+数据库环境
+dev: 开发环境，开发可读写，可修改表结构。开发人员可以修改表结构，可以随意修改其中的数据但是需要保证不影响其他开发同事。
+test: 测试环"><meta name="keywords" content="text"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div id="stage" class="container"><div class="row"><div id="side-bar" class="col-sm-3 col-xs-12 side-container invisible"><div class="vertical-text site-title"><h3 tabindex="-1" class="site-title-small"><a href="/" class="a-title">HeeC</a></h3><h1 tabindex="-1" class="site-title-large"><a href="/" class="a-title">笔记记录</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div id="site-nav" class="site-title-links"><section><a href="#">站内搜索</a><div id="site_search"><span style="&lt;%- wrapStyle %&gt;" class="local-search local-search-google local-search-plugin"><input id="local-search-input" type="search" style="&lt;%- inputStyle %&gt;" class="local-search-input-cls"><div id="local-search-result" class="local-search-result-cls"></div></span></div></section><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li class="soc"><a href="https://github.com/MajorTee" target="_blank" rel="noopener noreferrer"><i class="fa fa-github">&nbsp;</i></a><a href="http://yoursite.com/atom.xml" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss">&nbsp;</i></a></li><div class="visible-lg"><br class="site-nav-footer-br"><br class="site-nav-footer-br"></div></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div id="main-container" class="col-sm-9 col-xs-12 main-container invisible"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>mysql使用规范分享</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2020-07-06</span><span class="meta-item"><i class="fa fa-comment-o"></i><span>&nbsp;</span><a href="/2020/07/06/mysql%E4%BD%BF%E7%94%A8%E8%A7%84%E8%8C%83%E5%88%86%E4%BA%AB/#comments">评论</a></span></p><p class="post-abstract"><h1 id="mysql使用规范分享"><a href="#mysql使用规范分享" class="headerlink" title="mysql使用规范分享"></a>mysql使用规范分享</h1><p>最近涉及数据库相关操作较多，公司现有规范也不是太全面，就根据网上各路大神的相关规范，整理了一些自用的规范用法，万望指正。</p>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><h2 id="数据库环境"><a href="#数据库环境" class="headerlink" title="数据库环境"></a>数据库环境</h2><ul>
+<li>dev: 开发环境，开发可读写，可修改表结构。开发人员可以修改表结构，可以随意修改其中的数据但是需要保证不影响其他开发同事。</li>
+<li>test: 测试环境，开发可读写，开发人员可以通过工具修改表结构。</li>
+<li>online: 线上环境，开发人员不允许直接在线上环境进行数据库操作，如果需要操作必须找DBA进行操作并进行相应记录，禁止进行压力测试。</li>
+</ul>
+<p>重点的问题，各个环境的mysql服务器对应的用户权限，一定要做到权限划分明确，有辨识度，能具体区分业务场景等。</p>
+<a id="more"></a>
+
+<h2 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h2><ol>
+<li><p>基本命名规则</p>
+<ul>
+<li><p>使用有意义的英文词汇，词汇中间以下划线分隔。（不要用拼音）</p>
+</li>
+<li><p>只能使用英文字母，数字，下划线，并以英文字母开头。</p>
+</li>
+<li><p>库、表、字段全部采用小写，不要使用驼峰式命名。</p>
+</li>
+<li><p>避免用ORACLE、MySQL的保留字，如desc，关键字如index。</p>
+</li>
+<li><p>命名禁止超过32个字符，须见名之意，建议使用名词不是动词</p>
+</li>
+<li><p>数据库，数据表一律使用前缀</p>
+</li>
+<li><pre><code>-   临时库、表名必须以tmp为前缀，并以日期为后缀
+-   备份库、表必须以bak为前缀，并以日期为后缀</code></pre></li>
+</ul>
+</li>
+</ol>
+<h3 id="为什么库、表、字段全部采用小写？"><a href="#为什么库、表、字段全部采用小写？" class="headerlink" title="为什么库、表、字段全部采用小写？"></a>为什么库、表、字段全部采用小写？</h3><p>在 MySQL 中，数据库和表对就于那些目录下的目录和文件。因而，操作系统的敏感性决定数据库和表命名的大小写敏感。</p>
+<ul>
+<li>Windows下是不区分大小写的。</li>
+<li>Linux下大小写规则</li>
+<li>数据库名与表名是严格区分大小写的；</li>
+<li>表的别名是严格区分大小写的；</li>
+<li>列名与列的别名在所有的情况下均是忽略大小写的；</li>
+<li>变量名也是严格区分大小写的；<br>如果已经设置了驼峰式的命名如何解决？需要在MySQL的配置文件my.ini中增加 lower_case_table_names = 1即可。</li>
+</ul>
+<ol start="2">
+<li><p>表命名<br>同一个模块的表尽可能使用相同的前缀，表名称尽可能表达含义。所有日志表均以 <code>log_</code> 开头</p>
+</li>
+<li><p>字段命名</p>
+</li>
+</ol>
+<ul>
+<li>表达其实际含义的英文单词或简写。布尔意义的字段以<code>is_</code>作为前缀，后接动词过去分词。</li>
+<li>各表之间相同意义的字段应同名。各表之间相同意义的字段，以去掉模块前缀的表名<code>_</code>字段名命名。</li>
+<li>外键字段用表名<code>_</code>字段名表示其关联关系。</li>
+<li>表的主键一般都约定成为id，自增类型，是别的表的外键均使用<code>xxx_id</code>的方式来表明。</li>
+</ul>
+<ol start="4">
+<li>索引命名</li>
+</ol>
+<ul>
+<li>非唯一索引必须按照“idx_字段名称_字段名称[_字段名]”进行命名</li>
+<li>唯一索引必须按照“uniq_字段名称_字段名称[_字段名]”进行命名</li>
+</ul>
+<ol start="5">
+<li>约束命名</li>
+</ol>
+<ul>
+<li>主键约束：pk_表名称。</li>
+<li>唯一约束：uk_表名称_字段名。（应用中需要同时有唯一性检查逻辑。）</li>
+</ul>
+<h3 id="表设计规范"><a href="#表设计规范" class="headerlink" title="表设计规范"></a>表设计规范</h3><ol>
+<li>表引擎取决于实际应用场景；日志及报表类表建议用myisam，与交易，审核，金额相关的表建议用innodb引擎。如无说明，建表时一律采用innodb引擎</li>
+<li>默认使用utf8mb4字符集，数据库排序规则使用utf8mb4_general_ci，（由于数据库定义使用了默认，数据表可以不再定义，但为保险起见，建议都写上</li>
+</ol>
+<h3 id="为什么字符集不选择utf8，排序规则不使用utf8-general-ci？"><a href="#为什么字符集不选择utf8，排序规则不使用utf8-general-ci？" class="headerlink" title="为什么字符集不选择utf8，排序规则不使用utf8_general_ci？"></a>为什么字符集不选择utf8，排序规则不使用utf8_general_ci？</h3><p>采用utf8编码的MySQL无法保存占位是4个字节的Emoji表情。为了使后端的项目，全面支持客户端输入的Emoji表情，升级编码为utf8mb4是最佳解决方案。对于JDBC连接串设置了characterEncoding为utf8或者做了上述配置仍旧无法正常插入emoji数据的情况，需要在代码中指定连接的字符集为utf8mb4。</p>
+<ol start="3">
+<li>所有表、字段均应用 comment 列属性来描述此表、字段所代表的真正含义，如枚举值则建议将该字段中使用的内容都定义出来。</li>
+<li>如无说明，表中的第一个id字段一定是主键且为自动增长，禁止在非事务内作为上下文作为条件进行数据传递。禁止使用varchar类型作为主键语句设计。</li>
+<li>如无说明，表必须包含create_time和modify_time字段，即表必须包含记录创建时间和修改时间的字段</li>
+<li>如无说明，表必须包含is_del，用来标示数据是否被删除，原则上数据库数据不允许物理删除。</li>
+<li>用尽量少的存储空间来存数一个字段的数据</li>
+</ol>
+<ul>
+<li>能用int的就不用char或者varchar</li>
+<li>能用tinyint的就不用int</li>
+<li>使用UNSIGNED存储非负数值。</li>
+<li>不建议使用ENUM、SET类型，使用TINYINT来代替</li>
+<li>使用短数据类型，比如取值范围为0-80时，使用TINYINT UNSIGNED</li>
+<li>存储精确浮点数必须使用DECIMAL替代FLOAT和DOUBLE</li>
+<li>时间字段，除特殊情况一律采用int来记录unix_timestamp<ul>
+<li>存储年使用YEAR类型。</li>
+<li>存储日期使用DATE类型。</li>
+<li>存储时间（精确到秒）建议使用TIMESTAMP类型，因为TIMESTAMP使用4字节，DATETIME使用8个字节。</li>
+</ul>
+</li>
+<li>建议使用INT UNSIGNED存储IPV4。</li>
+<li>尽可能不使用TEXT、BLOB类型</li>
+<li>禁止在数据库中使用VARBINARY、BLOB存储图片、文件等。建议使用其他方式存储（TFS/SFS），MySQL只保存指针信息。</li>
+<li>单条记录大小禁止超过8k（列长度(中文)_3(UTF8)+列长度(英文)_1）</li>
+</ul>
+<h3 id="datetime与timestamp有什么不同？"><a href="#datetime与timestamp有什么不同？" class="headerlink" title="datetime与timestamp有什么不同？"></a>datetime与timestamp有什么不同？</h3><p>相同点：<br>    TIMESTAMP列的显示格式与DATETIME列相同。显示宽度固定在19字符，并且格式为YYYY-MM-DD HH:MM:SS。<br>不同点：</p>
+<ul>
+<li>TIMESTAMP<ul>
+<li>4个字节储存，时间范围：1970-01-01 08:00:01 ~ 2038-01-19 11:14:07</li>
+<li>值以UTC格式保存，涉及时区转化 ，存储时对当前的时区进行转换，检索时再转换回当前的时区。</li>
+<li>datetime</li>
+<li>8个字节储存，时间范围：1000-01-01 00:00:00 ~ 9999-12-31 23:59:59</li>
+<li>实际格式储存，与时区无关</li>
+</ul>
+</li>
+</ul>
+<p>如何使用TIMESTAMP的自动赋值属性？</p>
+<ul>
+<li>将当前时间作为ts的默认值：ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP。</li>
+<li>当行更新时，更新ts的值：ts TIMESTAMP DEFAULT 0 ON UPDATE CURRENT_TIMESTAMP。</li>
+<li>可以将1和2结合起来：ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP。</li>
+</ul>
+<h2 id="如何使用INT-UNSIGNED存储ip？"><a href="#如何使用INT-UNSIGNED存储ip？" class="headerlink" title="如何使用INT UNSIGNED存储ip？"></a>如何使用INT UNSIGNED存储ip？</h2><p>使用INT UNSIGNED而不是char(15)来存储ipv4地址，通过MySQL函数inet_ntoa和inet_aton来进行转化。Ipv6地址目前没有转化函数，需要使用DECIMAL或者两个bigINT来存储。</p>
+<ol start="8">
+<li>如无备注，所有字段都设置NOT NULL，并设置默认值；</li>
+<li>禁止在数据库中存储明文密码</li>
+<li>如无备注，所有的布尔值字段，如is_hot、is_deleted，都必须设置一个默认值，并设为0；</li>
+<li>如无备注，排序字段order_id在程序中默认使用降序排列；</li>
+<li>整形定义中不添加长度，比如使用INT，而不是INT[4]</li>
+</ol>
+<h3 id="INT-M-，M值代表什么含义？"><a href="#INT-M-，M值代表什么含义？" class="headerlink" title="INT[M]，M值代表什么含义？"></a>INT[M]，M值代表什么含义？</h3><p>注意数值类型括号后面的数字只是表示宽度而跟存储范围没有关系。很多人他们认为INT(4)和INT(10)其取值范围分别是 (-9999到9999)和(-9999999999到9999999999)，这种理解是错误的。其实对整型中的 M值与 ZEROFILL 属性结合使用时可以实现列值等宽。不管INT[M]中M值是多少，其取值范围还是 (-2147483648到2147483647 有符号时)，(0到4294967295无符号时)。</p>
+<p>显示宽度并不限制可以在列内保存的值的范围，也不限制超过列的指定宽度的值的显示。当结合可选扩展属性ZEROFILL使用时默认补充的空格用零代替。例如：对于声明为INT(5) ZEROFILL的列，值4检索为00004。请注意如果在整数列保存超过显示宽度的一个值，当MySQL为复杂联接生成临时表时会遇到问题，因为在这些情况下MySQL相信数据适合原列宽度，如果为一个数值列指定ZEROFILL, MySQL自动为该列添加UNSIGNED属性。</p>
+<ol start="13">
+<li>使用VARBINARY存储大小写敏感的变长字符串</li>
+</ol>
+<h3 id="什么时候用CHAR，什么时候用VARCHAR？"><a href="#什么时候用CHAR，什么时候用VARCHAR？" class="headerlink" title="什么时候用CHAR，什么时候用VARCHAR？"></a>什么时候用CHAR，什么时候用VARCHAR？</h3><p>CHAR和VARCHAR类型类似，但它们保存和检索的方式不同。它们的最大长度和是否尾部空格被保留等方面也不同。CHAR和VARCHAR类型声明的长度表示你想要保存的最大字符数。例如，CHAR(30)可以占用30个字符。</p>
+<ul>
+<li>CHAR列的长度固定为创建表时声明的长度。长度可以为从0到255的任何值。当保存CHAR值时，在它们的右边填充空格以达到指定的长度。当检索到CHAR值时，尾部的空格被删除掉。在存储或检索过程中不进行大小写转换。</li>
+<li>VARCHAR列中的值为可变长字符串。长度可以指定为0到65,535之间的值。(VARCHAR的最大有效长度由最大行大小和使用的字符集确定。整体最大长度是65,532字节）。</li>
+<li>同CHAR对比，VARCHAR值保存时只保存需要的字符数，另加一个字节来记录长度(如果列声明的长度超过255，则使用两个字节)。VARCHAR值保存时不进行填充。当值保存和检索时尾部的空格仍保留，符合标准SQL。</li>
+<li>char适合存储用户密码的MD5哈希值，它的长度总是一样的。对于经常改变的值，char也好于varchar,因为固定长度的行不容易产生碎片，对于很短的列，char的效率也高于varchar。char(1)字符串对于单字节字符集只会占用一个字节，但是varchar(1)则会占用2个字节，因为1个字节用来存储长度信息。</li>
+</ul>
+<h3 id="索引设计规范"><a href="#索引设计规范" class="headerlink" title="索引设计规范"></a>索引设计规范</h3><p>MySQL的查询速度依赖良好的索引设计，因此索引对于高性能至关重要。合理的索引会加快查询速度（包括UPDATE和DELETE的速度，MySQL会将包含该行的page加载到内存中，然后进行UPDATE或者DELETE操作），不合理的索引会降低速度。MySQL索引查找类似于新华字典的拼音和部首查找，当拼音和部首索引不存在时，只能通过一页一页的翻页来查找。当MySQL查询不能使用索引时，MySQL会进行全表扫描，会消耗大量的IO。索引的用途：去重、加速定位、避免排序、覆盖索引。</p>
+<h3 id="什么是覆盖索引？"><a href="#什么是覆盖索引？" class="headerlink" title="什么是覆盖索引？"></a>什么是覆盖索引？</h3><p>InnoDB存储引擎中，secondary index（非主键索引）中没有直接存储行地址，存储主键值。如果用户需要查询secondary index中所不包含的数据列时，需要先通过secondary index查找到主键值，然后再通过主键查询到其他数据列，因此需要查询两次。覆盖索引的概念就是查询可以通过在一个索引中完成，覆盖索引效率会比较高，主键查询是天然的覆盖索引。合理的创建索引以及合理的使用查询语句，当使用到覆盖索引时可以获得性能提升。比如SELECT email,uid FROM user_email WHERE uid=xx，如果uid不是主键，适当时候可以将索引添加为index(uid,email)，以获得性能提升。</p>
+<h3 id="索引的基本规范"><a href="#索引的基本规范" class="headerlink" title="索引的基本规范"></a>索引的基本规范</h3><ol>
+<li>索引数量控制，单张表中索引数量不超过5个，单个索引中的字段数不超过5个。</li>
+</ol>
+<ul>
+<li>综合评估数据密度和分布</li>
+<li>考虑查询和更新比例</li>
+</ul>
+<h3 id="为什么一张表中不能存在过多的索引？"><a href="#为什么一张表中不能存在过多的索引？" class="headerlink" title="为什么一张表中不能存在过多的索引？"></a>为什么一张表中不能存在过多的索引？</h3><p>InnoDB的secondary index使用b+tree来存储，因此在UPDATE、DELETE、INSERT的时候需要对b+tree进行调整，过多的索引会减慢更新的速度。</p>
+<ol start="2">
+<li>对字符串使用前缀索引，前缀索引长度不超过8个字符，建议优先考虑前缀索引，必要时可添加伪列并建立索引。</li>
+</ol>
+<ul>
+<li><p>不要索引blob/text等字段,不要索引大型字段,这样做会让索引占用太多的存储空间</p>
+<h4 id="什么是前缀索引？"><a href="#什么是前缀索引？" class="headerlink" title="什么是前缀索引？"></a>什么是前缀索引？</h4><p>前缀索引说白了就是对文本的前几个字符（具体是几个字符在建立索引时指定）建立索引，这样建立起来的索引更小，所以查询更快。 前缀索引能有效减小索引文件的大小，提高索引的速度。但是前缀索引也有它的坏处：MySQL 不能在 ORDER BY 或 GROUP BY 中使用前缀索引，也不能把它们用作覆盖索引(Covering Index)。<br>建立前缀索引的语法：ALTER TABLE table_name ADD KEY(column_name(prefix_length));</p>
+</li>
+</ul>
+<ol start="3">
+<li>主键准则</li>
+</ol>
+<ul>
+<li>表必须有主键</li>
+<li>不使用更新频繁的列</li>
+<li>尽量不选择字符串列</li>
+<li>不使用UUID MD5 HASH</li>
+<li>默认使用非空的唯一键</li>
+<li>建议选择自增或发号器</li>
+</ul>
+<ol start="4">
+<li>重要的SQL必须被索引，核心SQL优先考虑覆盖索索引</li>
+</ol>
+<ul>
+<li>UPDATE、DELETE语句的WHERE条件列</li>
+<li>ORDER BY、GROUP BY、DISTINCT的字段</li>
+<li>多表JOIN的字段</li>
+</ul>
+<ol start="5">
+<li>区分度最大的字段放在前面</li>
+</ol>
+<ul>
+<li>选择筛选性更优的字段放在最前面，比如单号、userid等，type，status等筛选性一般不建议放在最前面</li>
+<li>索引根据左前缀原则，当建立一个联合索引(a,b,c)，则查询条件里面只有包含(a)或(a,b)或(a,b,c)的时候才能走索引,(a,c)作为条件的时候只能使用到a列索引,所以这个时候要确定a的返回列一定不能太多，不然语句设计就不合理,(b,c)则不能走索引</li>
+<li>合理创建联合索引（避免冗余），(a,b,c) 相当于 (a) 、(a,b) 、(a,b,c)</li>
+</ul>
+<ol start="6">
+<li>索引禁忌</li>
+</ol>
+<ul>
+<li>不在低基数列上建立索引，例如“性别”</li>
+<li>不在索引列进行数学运算和函数运算</li>
+<li>不要索引常用的小型表</li>
+</ul>
+<ol start="7">
+<li>尽量不使用外键</li>
+</ol>
+<ul>
+<li>外键用来保护参照完整性，可在业务端实现</li>
+<li>对父表和子表的操作会相互影响，降低可用性</li>
+<li>INNODB本身对online DDL的限制</li>
+</ul>
+<p><strong>MYSQL 中索引的限制</strong></p>
+<ul>
+<li>MYISAM 存储引擎索引长度的总和不能超过 1000 字节</li>
+<li>BLOB 和 TEXT 类型的列只能创建前缀索引</li>
+<li>MYSQL 目前不支持函数索引</li>
+<li>使用不等于 (!= 或者 &lt;&gt;) 的时候, MYSQL 无法使用索引。</li>
+<li>过滤字段使用函数运算 (如 abs (column)) 后, MYSQL无法使用索引。</li>
+<li>join语句中join条件字段类型不一致的时候MYSQL无法使用索引</li>
+<li>使用 LIKE 操作的时候如果条件以通配符开始 (如 ‘%abc…’)时, MYSQL无法使用索引。</li>
+<li>使用非等值查询的时候, MYSQL 无法使用 Hash 索引。</li>
+</ul>
+<h3 id="语句设计规范"><a href="#语句设计规范" class="headerlink" title="语句设计规范"></a>语句设计规范</h3><ol>
+<li>使用预编译语句</li>
+</ol>
+<ul>
+<li>只传参数，比传递SQL语句更高效</li>
+<li>一次解析，多次使用</li>
+<li>降低SQL注入概率</li>
+</ul>
+<ol start="2">
+<li>避免隐式转换</li>
+</ol>
+<ul>
+<li>会导致索引失效</li>
+</ul>
+<ol start="3">
+<li>充分利用前缀索引</li>
+</ol>
+<ul>
+<li>必须是最左前缀</li>
+<li>不可能同时用到两个范围条件</li>
+<li>不使用%前导的查询，如like “%ab”</li>
+</ul>
+<ol start="4">
+<li>不使用负向查询，如not in/like</li>
+</ol>
+<ul>
+<li>无法使用索引，导致全表扫描</li>
+<li>全表扫描导致buffer pool利用率降低</li>
+</ul>
+<ol start="5">
+<li>避免使用存储过程、触发器、UDF、events等</li>
+</ol>
+<ul>
+<li>让数据库做最擅长的事</li>
+<li>降低业务耦合度，为sacle out、sharding留有余地</li>
+<li>避开BUG</li>
+</ul>
+<ol start="6">
+<li>避免使用大表的JOIN</li>
+</ol>
+<ul>
+<li>MySQL最擅长的是单表的主键/二级索引查询</li>
+<li>JOIN消耗较多内存，产生临时表</li>
+</ul>
+<ol start="7">
+<li>避免在数据库中进行数学运算</li>
+</ol>
+<ul>
+<li>MySQL不擅长数学运算和逻辑判断</li>
+<li>无法使用索引</li>
+</ul>
+<ol start="8">
+<li>减少与数据库的交互次数</li>
+</ol>
+<ul>
+<li>INSERT … ON DUPLICATE KEY UPDATE</li>
+<li>REPLACE INTO、INSERT IGNORE 、INSERT INTO VALUES(),(),()</li>
+<li>UPDATE … WHERE ID IN(10,20,50,…)</li>
+</ul>
+<p>合理的使用分页</p>
+<ul>
+<li>限制分页展示的页数</li>
+<li>只能点击上一页、下一页</li>
+<li>采用延迟关联</li>
+</ul>
+<h3 id="如何正确的使用分页？"><a href="#如何正确的使用分页？" class="headerlink" title="如何正确的使用分页？"></a>如何正确的使用分页？</h3><p>假如有类似下面分页语句：SELECT * FROM table ORDER BY id LIMIT 10000, 10<br>由于MySQL里对LIMIT OFFSET的处理方式是取出OFFSET+LIMIT的所有数据，然后去掉OFFSET，返回底部的LIMIT。所以，在OFFSET数值较大时，MySQL的查询性能会非常低。可以使用id &gt; n 的方式进行解决：<br>使用id &gt; n 的方式有局限性，对于id不连续的问题，可以通过翻页的时候同时传入最后一个id方式来解决。</p>
+<p><a href="http://example.com/page.php?last=100" target="_blank" rel="noopener">http://example.com/page.php?last=100</a></p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">select * from table where id<100 order by id desc limit 10<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>//上一页<br><a href="http://example.com/page.php?first=110" target="_blank" rel="noopener">http://example.com/page.php?first=110</a><br>select * from table where id&gt;110 order by id desc limit 10<br>这种方式比较大的缺点是，如果在浏览中有插入/删除操作，翻页不会更新，而总页数可能仍然是根据新的count(*) 来计算，最终可能会产生某些记录访问不到。为了修补这个问题，可以继续引入当前页码以及在上次翻页以后是否有插入/删除等影响总记录数的操作并进行缓存<br>select * from table where id &gt;= (select id from table order by id limit #offset#, 1)</p>
+<ol>
+<li>拒绝大SQL，拆分成小SQL</li>
+</ol>
+<ul>
+<li>充分利用QUERY CACHE</li>
+<li>充分利用多核CPU</li>
+</ul>
+<ol>
+<li>使用in代替or，in的值不超过1000个</li>
+<li>禁止使用order by rand()</li>
+<li>使用EXPLAIN诊断，避免生成临时表<br>EXPLAIN语句（在MySQL客户端中执行）可以获得MySQL如何执行SELECT语句的信息。通过对SELECT语句执行EXPLAIN，可以知晓MySQL执行该SELECT语句时是否使用了索引、全表扫描、临时表、排序等信息。尽量避免MySQL进行全表扫描、使用临时表、排序等。详见官方文档。</li>
+<li>用union all而不是union</li>
+</ol>
+<h3 id="union-all与-union有什么区别？"><a href="#union-all与-union有什么区别？" class="headerlink" title="union all与 union有什么区别？"></a>union all与 union有什么区别？</h3><p>union和union all关键字都是将两个结果集合并为一个，但这两者从使用和效率上来说都有所不同。<br>union在进行表链接后会筛选掉重复的记录，所以在表链接后会对所产生的结果集进行排序运算，删除重复的记录再返回结果。如：</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">select * from test_union1
+union select * from test_union2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>这个SQL在运行时先取出两个表的结果，再用排序空间进行排序删除重复的记录，最后返回结果集，如果表数据量大的话可能会导致用磁盘进行排序。<br>而union all只是简单的将两个结果合并后就返回。这样，如果返回的两个结果集中有重复的数据，那么返回的结果集就会包含重复的数据了。<br>从效率上说，union all要比union快很多，所以，如果可以确认合并的两个结果集中不包含重复的数据的话，那么就使用union all，如下：<br>select * from test_union1 union all select * from test_union2</p>
+<ol>
+<li>程序应有捕获SQL异常的处理机制</li>
+<li>禁止单条SQL语句同时更新多个表</li>
+<li>不使用select * ，SELECT语句只获取需要的字段</li>
+</ol>
+<ul>
+<li>消耗CPU和IO、消耗网络带宽</li>
+<li>无法使用覆盖索引</li>
+<li>减少表结构变更带来的影响</li>
+<li>因为大，select/join 可能生成临时表</li>
+</ul>
+<ol>
+<li>UPDATE、DELETE语句不使用LIMIT</li>
+<li>INSERT语句必须显式的指明字段名称，不使用INSERT INTO table()</li>
+<li>INSERT语句使用batch提交（INSERT INTO table VALUES(),(),()……），values的个数不超过500</li>
+<li>统计表中记录数时使用COUNT(*)，而不是COUNT(primary_key)和COUNT(1) 备注：仅针对Myisam</li>
+<li>数据更新建议使用二级索引先查询出主键，再根据主键进行数据更新</li>
+<li>禁止使用跨库查询</li>
+<li>禁止使用子查询，建议将子查询转换成关联查询</li>
+<li>针对varchar类型字段的程序处理，请验证用户输入，不要超出其预设的长度；</li>
+</ol>
+<h3 id="分表规范"><a href="#分表规范" class="headerlink" title="分表规范"></a>分表规范</h3><p>单表一到两年内数据量超过500w或数据容量超过10G考虑分表，需提前考虑历史数据迁移或应用自行删除历史数据，采用等量均衡分表或根据业务规则分表均可。要分表的数据表必须与DBA商量分表策略</p>
+<ul>
+<li>用HASH进行散表，表名后缀使用十进制数，下标从0开始</li>
+<li>按日期时间分表需符合YYYY[MM][dd][HH]格式</li>
+<li>采用合适的分库分表策略。例如千库十表、十库百表等</li>
+<li>禁止使用分区表，分区表对分区键有严格要，分区表在表变大后执行DDL、SHARDING、单表恢复等都变得更加困难。</li>
+<li>拆分大字段和访问频率低的字段，分离冷热数据</li>
+</ul>
+<h3 id="行为规范"><a href="#行为规范" class="headerlink" title="行为规范"></a>行为规范</h3><ul>
+<li>批量导入、导出数据必须提前通知DBA协助观察</li>
+<li>禁止在线上从库执行后台管理和统计类查询</li>
+<li>禁止有super权限的应用程序账号存在</li>
+<li>产品出现非数据库导致的故障时及时通知DBA协助排查</li>
+<li>推广活动或上线新功能必须提前通知DBA进行流量评估</li>
+<li>数据库数据丢失，及时联系DBA进行恢复</li>
+<li>对单表的多次alter操作必须合并为一次操作</li>
+<li>不在MySQL数据库中存放业务逻辑</li>
+<li>重大项目的数据库方案选型和设计必须提前通知DBA参与</li>
+<li>对特别重要的库表，提前与DBA沟通确定维护和备份优先级</li>
+<li>不在业务高峰期批量更新、查询数据库其他规范</li>
+<li>提交线上建表改表需求，必须详细注明所有相关SQL语句</li>
+</ul>
+<h3 id="其他规范"><a href="#其他规范" class="headerlink" title="其他规范"></a>其他规范</h3><p>日志类数据不建议存储在MySQL上，优先考虑<a href="http://hbase/" target="_blank" rel="noopener">Hbase</a>或OceanBase，如需要存储请找DBA评估使用压缩表存储。</p>
+</p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></span><span class="soc"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></span><span class="soc"><a href="http://twitter.com/home?status=http://yoursite.com/2020/07/06/mysql使用规范分享/%20HeeC' target="_blank" rel="noopener"Blog%20mysql使用规范分享" class="fa fa-twitter"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2020/08/08/git%E5%AE%8C%E6%95%B4%E6%AD%A5%E9%AA%A4/" title="git完整步骤"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: git完整步骤</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2020/06/06/React-02/" title="React-02">下一篇: React-02&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div><a id="comments"></a><div id="disqus_thread"></div><script>var disqus_shortname = 'HeeC';
+var disqus_identifier = '2020/07/06/mysql使用规范分享/';
+var disqus_title = 'mysql使用规范分享';
+var disqus_url = 'http://yoursite.com/2020/07/06/mysql使用规范分享/';
+(function () {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//HeeC.disqus.com/count.js" async></script></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2020&nbsp;<a target="_blank" href="http://yoursite.com" rel="noopener noreferrer">Hee</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script><script src="/js/search.js"></script><script src="/js/cursor-effects.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body></html>
